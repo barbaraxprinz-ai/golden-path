@@ -886,5 +886,181 @@ window.GAME_DATA3 = {
    "joy": "Moments of grace come quietly – let them land.",
    "effect": "sign"
   }
+ ],
+ "moments": [
+  {
+   "title": "Racing Thoughts",
+   "mood": "Down",
+   "situation": "It is 3 a.m. Your thoughts run in circles and you can't sleep.",
+   "tool": "Put your hand on your heart. Breathe in for 4, out for 6. Write the thoughts on paper – they don't need to live in your head.",
+   "help": "Next morning, a friend sends you exactly the words you needed: 'It will be okay.'",
+   "effect": "walk2"
+  },
+  {
+   "title": "Fear Before a Big Step",
+   "mood": "Down",
+   "situation": "You have to give a talk tomorrow and fear grips your stomach.",
+   "tool": "Name the fear out loud. Then ask: what is the smallest brave step I can take?",
+   "help": "On the way, you see an advertisement: 'You've got this.' A sign just for you.",
+   "effect": "fly3"
+  },
+  {
+   "title": "A Friendship Breaks",
+   "mood": "Down",
+   "situation": "A close friend is hurt by something you said. Silence grows between you.",
+   "tool": "Speak from the heart: 'I am sorry. You matter to me.' Listen without defending.",
+   "help": "Weeks later you meet by 'chance' in a café – and you hug.",
+   "effect": "bring"
+  },
+  {
+   "title": "Feeling Alone",
+   "mood": "Down",
+   "situation": "Everyone seems busy. You feel invisible and alone.",
+   "tool": "Reach out first – one message, one call. Be kind to the lonely part of you.",
+   "help": "A stranger on the bus starts a warm conversation with you.",
+   "effect": "cardinal"
+  },
+  {
+   "title": "Stress at Work",
+   "mood": "Down",
+   "situation": "Deadlines pile up. Your chest feels tight.",
+   "tool": "Stop for one minute. Drink water. Do one thing at a time – just the next one.",
+   "help": "A colleague offers: 'Can I help you with that?'",
+   "effect": "giftStep"
+  },
+  {
+   "title": "Losing Your Way",
+   "mood": "Down",
+   "situation": "You don't know what you really want anymore.",
+   "tool": "Ask yourself: what made me happy as a child? Follow one tiny curiosity.",
+   "help": "A car in front of you has the plate '…777' – a smile and a feeling: keep going.",
+   "effect": "lucky"
+  },
+  {
+   "title": "Anger Rising",
+   "mood": "Down",
+   "situation": "Someone treats you unfairly and anger burns inside.",
+   "tool": "Feel it, don't feed it. Move your body, breathe, and later speak clearly and calmly.",
+   "help": "A wise word on a poster: 'Respond, don't react.'",
+   "effect": "detourLight"
+  },
+  {
+   "title": "Grief",
+   "mood": "Down",
+   "situation": "You miss someone who is no longer here.",
+   "tool": "Let the tears flow – they are love. Light a candle and talk to them.",
+   "help": "A white feather lands at your feet. You know: love stays.",
+   "effect": "allPearl"
+  },
+  {
+   "title": "Exam Nerves",
+   "mood": "Down",
+   "situation": "Your mind goes blank before an important test.",
+   "tool": "Ground yourself: feel your feet, name 5 things you see. Your knowledge is still there.",
+   "help": "Your teacher smiles at you – and suddenly you remember.",
+   "effect": "walk2"
+  },
+  {
+   "title": "Money Worries",
+   "mood": "Down",
+   "situation": "The bills are higher than your income this month.",
+   "tool": "Write down what you DO have. Ask for advice – there is no shame in it.",
+   "help": "An old friend calls with a job offer – just at the right time.",
+   "effect": "coin"
+  },
+  {
+   "title": "A Wave of Joy",
+   "mood": "Up",
+   "situation": "You passed! You did it! Your heart jumps.",
+   "tool": "Celebrate – and share your joy with someone who helped you.",
+   "help": "Everyone at the table cheers for you.",
+   "effect": "allForward"
+  },
+  {
+   "title": "Falling in Love with Life",
+   "mood": "Up",
+   "situation": "A perfect summer evening – music, friends, laughter.",
+   "tool": "Pause and say thank you. Store this moment in your heart for grey days.",
+   "help": "The sunset paints the sky in gold – a gift for everyone.",
+   "effect": "music"
+  },
+  {
+   "title": "A New Friend",
+   "mood": "Up",
+   "situation": "At a course you meet someone who feels like an old soul friend.",
+   "tool": "Say yes to the connection. Invite them for a walk.",
+   "help": "You discover you share the same birthday – synchronicity!",
+   "effect": "bring"
+  },
+  {
+   "title": "Overcoming Fear",
+   "mood": "Up",
+   "situation": "You did the thing you were afraid of – and survived!",
+   "tool": "Remember this feeling. It is proof: you are stronger than you think.",
+   "help": "A rainbow appears on your way home.",
+   "effect": "fly3"
+  },
+  {
+   "title": "Healing an Old Wound",
+   "mood": "Up",
+   "situation": "You finally forgive yourself for an old mistake.",
+   "tool": "Write a letter to your younger self – full of love.",
+   "help": "A song on the radio sings the exact words you wrote.",
+   "effect": "key"
+  },
+  {
+   "title": "Panic on the Road",
+   "mood": "Down",
+   "situation": "Your car breaks down at night on a lonely road. Your heart races.",
+   "tool": "Breathe slowly. Ask for help – inside and out.",
+   "help": "A friendly truck driver stops – 'an angel in a hoodie' – and helps you.",
+   "effect": "toGate"
+  },
+  {
+   "title": "Comparing Yourself",
+   "mood": "Down",
+   "situation": "Social media makes you feel you are not enough.",
+   "tool": "Close the app. Name three things you are proud of today.",
+   "help": "A child draws you a picture: 'For the best person.'",
+   "effect": "walk2"
+  },
+  {
+   "title": "Too Many Choices",
+   "mood": "Down",
+   "situation": "Two paths, both good – and you can't decide.",
+   "tool": "Imagine choosing one. Feel your body. Your heart already knows.",
+   "help": "You open a book at random – and read the answer.",
+   "effect": "lucky"
+  },
+  {
+   "title": "A Second Chance",
+   "mood": "Up",
+   "situation": "The door you thought was closed opens again.",
+   "tool": "Walk through it with gratitude and with what you have learned.",
+   "help": "The number 11:11 shines on your clock as you say yes.",
+   "effect": "fly3"
+  },
+  {
+   "title": "Burnout Whisper",
+   "mood": "Down",
+   "situation": "You feel empty and tired – your cup is empty.",
+   "tool": "Rest is not weakness. Say no to one thing and yes to yourself.",
+   "help": "A neighbour leaves flowers at your door – 'just because'.",
+   "effect": "rest"
+  }
+ ],
+ "askHelp": [
+  "Your heart whispers: trust. You already know the next step.",
+  "In the stillness you hear it: be gentle with yourself.",
+  "The quiet voice says: you are not alone – support is near, even if you can't see it.",
+  "Your heart says: slow down. Power grows in stillness.",
+  "A feeling of warmth: say yes to what makes you feel light.",
+  "Your inner voice: let go of what is not yours to carry.",
+  "Listen… the answer may come later – as a sign, a word, a song.",
+  "Your heart says: courage. One small step is enough.",
+  "In the silence you feel it: you are loved, just as you are.",
+  "The subtle voice: share what you feel with someone you trust.",
+  "Your heart smiles: look for the little happiness today.",
+  "Stillness answers: everything is connected – and so are you."
  ]
 };
