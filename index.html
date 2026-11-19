@@ -930,29 +930,41 @@ function emblem(kind,col){
 }
 
 /* ===================== ARCHETYPE FIGURES ===================== */
-function archSVG(id,size){const u="ar"+(++EID),G="#f2cf6b";
-  const halo=`<circle cx="60" cy="40" r="26" fill="url(#${u}h)"/>${[...Array(16)].map((_,i)=>{const a=i*Math.PI/8;return `<line x1="${60+30*Math.cos(a)}" y1="${40+30*Math.sin(a)}" x2="${60+(i%2?36:40)*Math.cos(a)}" y2="${40+(i%2?36:40)*Math.sin(a)}" stroke="${G}" stroke-opacity=".55" stroke-width="1"/>`}).join("")}`;
-  const defs=`<defs><radialGradient id="${u}h"><stop offset="0" stop-color="#fff1b0" stop-opacity=".55"/><stop offset="1" stop-color="#f2cf6b" stop-opacity="0"/></radialGradient>
-    <linearGradient id="${u}r" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2a3a7a"/><stop offset="1" stop-color="#0b1433"/></linearGradient>
-    <radialGradient id="${u}g"><stop offset="0" stop-color="#fff6d2"/><stop offset=".5" stop-color="${G}"/><stop offset="1" stop-color="${G}" stop-opacity="0"/></radialGradient></defs>`;
-  const robe=`<path d="M60 44 C50 44 47 52 45 60 L34 108 Q60 114 86 108 L75 60 C73 52 70 44 60 44Z" fill="url(#${u}r)" stroke="${G}" stroke-width="1.6"/><path d="M60 56 V108" stroke="${G}" stroke-opacity=".35"/>`;
-  const head=`<circle cx="60" cy="36" r="8" fill="#0b1433" stroke="${G}" stroke-width="1.6"/>`;
-  const ground=`<ellipse cx="60" cy="110" rx="34" ry="4" fill="${G}" opacity=".25"/>`;
+const ARCH_LOOK={seeker:{robe:["#6a4ab8","#1e1450"],glow:"#c9b0ff",bg:"#5a3a9a"},healer:{robe:["#d9708a","#3a1830"],glow:"#ffc8d8",bg:"#9a3a5a"},
+ creator:{robe:["#e8902e","#4a2008"],glow:"#ffd88a",bg:"#a8601a"},guide:{robe:["#2bb3b1","#0a2a3a"],glow:"#a8fff0",bg:"#1a7a80"}};
+function archSVG(id,size){const u="ar"+(++EID),L=ARCH_LOOK[id]||ARCH_LOOK.seeker,G="#f2cf6b";
+  const defs=`<defs><radialGradient id="${u}h"><stop offset="0" stop-color="${L.glow}" stop-opacity=".75"/><stop offset="1" stop-color="${L.glow}" stop-opacity="0"/></radialGradient>
+    <linearGradient id="${u}r" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${L.robe[0]}"/><stop offset="1" stop-color="${L.robe[1]}"/></linearGradient>
+    <radialGradient id="${u}g"><stop offset="0" stop-color="#fffbe8"/><stop offset=".45" stop-color="${L.glow}"/><stop offset="1" stop-color="${L.glow}" stop-opacity="0"/></radialGradient></defs>`;
+  const halo=`<circle cx="60" cy="52" r="46" fill="url(#${u}h)"/>`;
+  const ground=`<ellipse cx="60" cy="110" rx="36" ry="4" fill="${L.glow}" opacity=".3"/>`;
   let fig="";
-  if(id==="seeker")fig=`<path d="M60 22 C46 22 44 36 46 50 C50 44 70 44 74 50 C76 36 74 22 60 22Z" fill="url(#${u}r)" stroke="${G}" stroke-width="1.6"/>${robe}<circle cx="60" cy="38" r="5.5" fill="#0b1433"/>
-    <path d="M73 62 L86 72" stroke="${G}" stroke-width="2" stroke-linecap="round"/><line x1="86" y1="72" x2="86" y2="76" stroke="${G}"/><circle cx="86" cy="84" r="14" fill="url(#${u}g)"/><rect x="81" y="76" width="10" height="13" rx="2" fill="#fff1b0" stroke="${G}"/>
-    <path d="M30 104 q6 -4 12 0 M80 104 q6 -4 12 0" stroke="${G}" stroke-opacity=".5" fill="none"/>`;
-  if(id==="healer")fig=`${robe}${head}<path d="M47 62 Q52 72 60 72 Q68 72 73 62" stroke="${G}" stroke-width="2" fill="none" stroke-linecap="round"/>
-    <circle cx="60" cy="68" r="16" fill="url(#${u}g)"/><path transform="translate(51,60) scale(.75)" d="${HEART}" fill="#e05a5a" stroke="#fff1b0" stroke-width=".8"/>
-    ${[0,1,2,3,4].map(i=>`<circle cx="${44+i*8}" cy="${92-(i%2)*4}" r="1.6" fill="#fff1b0" opacity=".7"/>`).join("")}`;
-  if(id==="creator")fig=`${robe}${head}<path d="M72 56 Q82 44 86 24" stroke="${G}" stroke-width="2.2" fill="none" stroke-linecap="round"/>
-    <circle cx="87" cy="20" r="12" fill="url(#${u}g)"/><path d="M87 10 L89 18 L97 20 L89 22 L87 30 L85 22 L77 20 L85 18Z" fill="#fff6d2"/>
-    <path d="M48 62 Q38 72 42 84" stroke="${G}" stroke-width="2" fill="none" stroke-linecap="round"/>
-    <path d="M30 50 q8 -10 16 -2 q8 8 16 -4" stroke="${G}" stroke-opacity=".6" fill="none"/>${[0,1,2].map(i=>`<circle cx="${28+i*7}" cy="${66+i*9}" r="2" fill="${["#e05a5a","#2bb3b1","#e8c13a"][i]}"/>`).join("")}`;
-  if(id==="guide")fig=`${robe}${head}<line x1="38" y1="22" x2="38" y2="110" stroke="${G}" stroke-width="2.4" stroke-linecap="round"/>
-    <circle cx="38" cy="16" r="12" fill="url(#${u}g)"/><path d="M38 6 L40 14 L48 16 L40 18 L38 26 L36 18 L28 16 L36 14Z" fill="#fff6d2"/>
-    <path d="M47 62 L39 66" stroke="${G}" stroke-width="2" stroke-linecap="round"/><path d="M73 62 Q84 64 90 58" stroke="${G}" stroke-width="2" fill="none" stroke-linecap="round"/>
-    <path d="M70 108 q10 -6 20 -2 q8 3 16 -2" stroke="${G}" stroke-opacity=".5" fill="none" stroke-dasharray="2 4"/>`;
+  if(id==="seeker")fig=`<path d="M14 112 Q40 100 60 104 T112 92" stroke="${G}" stroke-width="1.4" fill="none" stroke-dasharray="3 4" opacity=".7"/>
+    <path d="M56 24 C40 24 38 40 41 54 L30 108 Q55 114 78 106 L70 56 C74 40 70 24 56 24Z" fill="url(#${u}r)" stroke="${G}" stroke-width="1.6"/>
+    <ellipse cx="56" cy="40" rx="7" ry="8" fill="#0b0820"/><circle cx="58" cy="40" r="1.4" fill="${L.glow}"/>
+    <path d="M68 62 L90 70" stroke="${G}" stroke-width="2.2" stroke-linecap="round"/><line x1="90" y1="70" x2="90" y2="76" stroke="${G}"/>
+    <circle cx="90" cy="84" r="17" fill="url(#${u}g)"/><path d="M85 77 h10 l-1 13 h-8z" fill="#fff1b0" stroke="${G}"/><path d="M84 77 h12" stroke="${G}" stroke-width="2"/>`;
+  if(id==="healer")fig=`${[30,40,50].map((r,i)=>`<circle cx="60" cy="66" r="${r}" fill="none" stroke="${L.glow}" stroke-opacity="${.5-i*.14}" stroke-width="1.2"/>`).join("")}
+    <path d="M60 46 C52 46 49 52 48 60 L40 108 Q60 113 80 108 L72 60 C71 52 68 46 60 46Z" fill="url(#${u}r)" stroke="${G}" stroke-width="1.6"/>
+    <path d="M49 58 Q36 52 22 40 M71 58 Q84 52 98 40" stroke="${G}" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+    <circle cx="21" cy="39" r="3" fill="${L.glow}"/><circle cx="99" cy="39" r="3" fill="${L.glow}"/>
+    <circle cx="60" cy="36" r="8.5" fill="#2a0f1e" stroke="${G}" stroke-width="1.6"/>
+    <circle cx="60" cy="70" r="15" fill="url(#${u}g)"/><path transform="translate(50,62) scale(.85)" d="${HEART}" fill="#e83a5a" stroke="#fff1b0" stroke-width=".8"/>
+    <path d="M36 98 q4 -8 8 0 M76 98 q4 -8 8 0" stroke="#7ad08a" stroke-width="1.6" fill="none"/>`;
+  if(id==="creator")fig=`<path d="M60 48 C50 48 48 56 46 64 Q38 90 26 106 Q60 116 94 106 Q82 90 74 64 C72 56 70 48 60 48Z" fill="url(#${u}r)" stroke="${G}" stroke-width="1.6"/>
+    <path d="M50 58 Q40 40 32 20 M70 58 Q80 40 88 20" stroke="${G}" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+    <circle cx="60" cy="38" r="8.5" fill="#2a1404" stroke="${G}" stroke-width="1.6"/>
+    ${[[30,16,9],[90,16,9],[60,12,6]].map(([x,y,r])=>`<circle cx="${x}" cy="${y}" r="${r+6}" fill="url(#${u}g)"/><path d="M${x} ${y-r} L${x+2} ${y-2} L${x+r} ${y} L${x+2} ${y+2} L${x} ${y+r} L${x-2} ${y+2} L${x-r} ${y} L${x-2} ${y-2}Z" fill="#fff6d2"/>`).join("")}
+    ${[["#e05a5a",22,70],["#2bb3b1",98,66],["#e8c13a",18,88],["#7d4fb3",102,86],["#2f8f5b",30,52],["#e2702a",90,48]].map(([c,x,y])=>`<circle cx="${x}" cy="${y}" r="3" fill="${c}"/>`).join("")}
+    <path d="M40 96 q10 -10 20 0 q10 10 20 0" stroke="${G}" stroke-opacity=".6" fill="none"/>`;
+  if(id==="guide")fig=`<path d="M60 26 C46 26 42 44 40 60 L28 110 Q60 116 92 110 L80 60 C78 44 74 26 60 26Z" fill="url(#${u}r)" stroke="${G}" stroke-width="1.6" opacity=".55"/>
+    <path d="M60 40 C51 40 49 48 48 56 L42 110 Q60 114 78 110 L72 56 C71 48 69 40 60 40Z" fill="url(#${u}r)" stroke="${G}" stroke-width="1.6"/>
+    <path d="M50 30 L60 16 L70 30Z" fill="url(#${u}r)" stroke="${G}" stroke-width="1.4"/>
+    <circle cx="60" cy="31" r="8" fill="#062028" stroke="${G}" stroke-width="1.6"/>
+    <line x1="90" y1="14" x2="90" y2="112" stroke="${G}" stroke-width="2.8" stroke-linecap="round"/>
+    <circle cx="90" cy="12" r="15" fill="url(#${u}g)"/><path d="M90 1 L92 10 L101 12 L92 14 L90 23 L88 14 L79 12 L88 10Z" fill="#fff6d2"/>
+    <path d="M72 58 L89 62" stroke="${G}" stroke-width="2.2" stroke-linecap="round"/><path d="M48 58 Q36 66 30 60" stroke="${G}" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+    ${[0,1,2,3].map(i=>`<circle cx="${18+i*9}" cy="${100-i*7}" r="1.8" fill="${L.glow}"/>`).join("")}`;
   return `<svg viewBox="0 0 120 120" width="${size||120}" height="${size||120}" style="display:block;margin:4px auto">${defs}${halo}${ground}${fig}</svg>`}
 
 /* ===================== BOARD ===================== */
@@ -1171,7 +1183,7 @@ function renderHome(){
   $("#dieSel").innerHTML=[["classic","Classic die: 1–6"],["wisdom","Wisdom die: ✕ pause · −1 step back · 1 · 2 · 3 · 4"]].map(([v,t])=>`<option value="${v}" ${setup.die===v?"selected":""}>${t}</option>`).join("");
   $("#dieSel").onchange=e=>setup.die=e.target.value;
   $("#pathSel").value=setup.baby?"80":"40";$("#pathSel").onchange=e=>setup.baby=e.target.value==="80";
-  $("#archLib").innerHTML=D.archetypes.map(a=>`<div class="mcard arch"><div class="in" style="${themeStyle("gold")}"><div class="k">Archetype</div><h4>${esc(a.name)}</h4>${archSVG(a.id,140)}<div class="t"><i>${esc(a.essence)}</i></div><div class="p" style="font-size:.85rem">${esc(a.ability)}</div></div></div>`).join("");
+  $("#archLib").innerHTML=D.archetypes.map(a=>`<div class="mcard arch"><div class="in" style="background:radial-gradient(circle at 50% 30%,${(ARCH_LOOK[a.id]||{}).bg||"#3a3a7a"} 0,#16255a 45%,#0b1433 75%,#070c22 100%);--tx:#fbf3dc;--ac:#f2cf6b"><div class="k">Archetype</div><h4>${esc(a.name)}</h4>${archSVG(a.id,140)}<div class="t"><i>${esc(a.essence)}</i></div><div class="p" style="font-size:.85rem">${esc(a.ability)}</div></div></div>`).join("");
   const sv=loadS();$("#resumeBtn").style.display=sv&&sv.players&&!sv.over?"inline-block":"none";
 }
 $("#addP").onclick=()=>{const used=setup.players.map(p=>p.color);setup.players.push({name:"",color:PCOLS.find(c=>!used.includes(c))||PCOLS[0],arch:D.archetypes[setup.players.length%4].id,el:["air","fire","earth","water"][setup.players.length%4]});renderHome()};
