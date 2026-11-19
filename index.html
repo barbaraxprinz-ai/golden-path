@@ -122,6 +122,8 @@ label.l{font-weight:700;font-size:.82rem;color:var(--muted);display:block;margin
 .vals span{font-family:var(--serif);font-size:.95rem;font-weight:600;color:#1a1405;background:linear-gradient(135deg,#f6d77e,#c9952e);border-radius:99px;padding:1px 9px}
 .vals span.off{background:transparent;color:#f6edd680;border:1px solid #f2cf6b44}
 .vals.big{justify-content:center}
+.songline{font-family:var(--serif);font-style:italic;font-size:1.02rem;color:#f6d77e;margin-top:10px;opacity:.9;line-height:1.35}
+.lyrics{white-space:pre-line;font-family:var(--serif);font-style:italic;font-size:1.25rem;line-height:1.45;color:#fff3cf}
 .reward{font-size:.82rem;color:var(--ac,#d9b85f);margin-top:6px;font-weight:700}
 /* card library */
 .chips{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0 14px}
@@ -316,7 +318,9 @@ footer{color:#cfc4a6!important}
       <label class="btn gold" style="display:inline-block;margin:6px 0">+ Add audio files<input type="file" id="songFile" accept="audio/*" multiple style="display:none"></label>
       <label class="l">…or paste a link (direct .mp3 link from your own server, or a Suno song page)</label>
       <div style="display:flex;gap:6px"><input id="songUrl" placeholder="https://…"><button class="btn small" id="songUrlAdd">Add</button></div>
+      <p class="hint">Tip: mark your song “Let the Game Begin” with <b>☆ Theme</b> – it then plays when the journey begins and when someone reaches the Golden Heart.</p>
       <div id="songList" style="margin-top:10px"></div>
+      <div id="lyricsBox" style="margin-top:14px"></div>
     </div>
     <div class="panel">
       <h3 style="font-size:1.5rem">Player</h3>
@@ -2275,7 +2279,27 @@ footer{color:#cfc4a6!important}
    "ref": "Matthew 28:20",
    "affirmation": "I am accompanied always."
   }
- ]
+ ],
+ "song": {
+  "title": "Let the Game Begin",
+  "author": "Barbara Prinz",
+  "chorus": "Let the game begin, one step, one light,\nI’m listening within as I walk through the night,\nno rush, just presence, I’m ready to see,\nguided by love, I become all of me.",
+  "moments": {
+   "start": "Let the game begin, one step, one light, / I’m listening within as I walk through the night.",
+   "gate": "Every new question, every invisible door, / leads me to places I’ve not been before.",
+   "silence": "In rivers of silence and oceans of grace, / I gather my pieces and soften my pace.",
+   "choice": "One step at a time, one breath, one choice, / I balance my heart and I follow that voice.",
+   "cards": "Cards on the table, truth in my hand, / nothing is certain, not all has been planned.",
+   "trust": "Soft tone whispering: trust what you can’t see, / the unknown is here to set you free.",
+   "gratitude": "I breathe in the wonder, release all control, / let gratitude anchor the rise in my soul.",
+   "slow": "I’m drawn to the center, I feel and I know, / the only way forward is gently and slow.",
+   "role": "Life is a stage and I’m choosing my role, / softly I enter, awakening my soul.",
+   "parts": "One part the dreamer, one part the guide, / one part an observer, so quiet inside.",
+   "emerald": "Through emerald hallways my heartbeat slows, / I let go of stories that nobody knows.",
+   "heart": "I trust my journey, surrendered and free, / one conscious step into all I can be.",
+   "end": "One step, one breath, one heart, it sings, / smiling, I whisper, “Let the game begin.”"
+  }
+ }
 };
 </script>
 <script>/*
@@ -2714,12 +2738,14 @@ async function songsLoad(){Music.db=await idb();if(!Music.db){renderSongs();retu
 function songPut(rec){if(!Music.db)return;try{Music.db.transaction("s","readwrite").objectStore("s").put(rec)}catch(e){}}
 function songDel(id){if(!Music.db)return;try{Music.db.transaction("s","readwrite").objectStore("s").delete(id)}catch(e){}}
 function isAudioUrl(u){return /\.(mp3|m4a|wav|ogg|aac|flac)(\?|$)/i.test(u)}
-function renderSongs(){
+function renderLyrics(){const b=$("#lyricsBox");if(!b||!SONG)return;b.innerHTML=`<h3 style="font-size:1.3rem">♪ ${esc(SONG.title)}</h3><div class="hint">Words: ${esc(SONG.author)}</div><div class="lyrics" style="font-size:1.05rem;margin-top:6px">${esc(SONG.chorus)}</div>`}
+function renderSongs(){try{renderLyrics()}catch(e){}
   const L=$("#songList");
   if(!Music.songs.length){L.innerHTML='<p class="hint">No songs yet. Your songs such as “In Stillness”, “Golden Path” or “Ocean of Light” could live here.</p>';return}
   L.innerHTML=Music.songs.map((s,i)=>`<div class="song ${i===Music.idx?"on":""}"><span>${s.link?"↗":"♪"}</span><span class="n">${esc(s.name)}</span>
-    ${s.link?`<a class="minibtn" href="${esc(s.url)}" target="_blank" rel="noopener">Open</a>`:`<button class="minibtn" data-p="${i}">▶</button>`}<button class="minibtn" data-d="${i}">✕</button></div>`).join("");
+    ${!s.link?`<button class="minibtn" data-t="${i}" title="Theme song">${s.theme?"★ Theme":"☆ Theme"}</button>`:""}${s.link?`<a class="minibtn" href="${esc(s.url)}" target="_blank" rel="noopener">Open</a>`:`<button class="minibtn" data-p="${i}">▶</button>`}<button class="minibtn" data-d="${i}">✕</button></div>`).join("");
   L.querySelectorAll("[data-p]").forEach(b=>b.onclick=()=>musicPlay(+b.dataset.p));
+  L.querySelectorAll("[data-t]").forEach(b=>b.onclick=()=>{const k=+b.dataset.t;Music.songs.forEach((x,j)=>{x.theme=(j===k)?!x.theme:false;const rec={...x};delete rec.src;songPut(rec)});renderSongs();toast(Music.songs[k].theme?"★ Theme song: it plays when the game begins and in the Golden Heart.":"Theme song removed")});
   L.querySelectorAll("[data-d]").forEach(b=>b.onclick=()=>{const s=Music.songs[+b.dataset.d];songDel(s.id);Music.songs.splice(+b.dataset.d,1);if(Music.idx===+b.dataset.d){Music.audio.pause();Music.idx=-1}renderSongs()});
 }
 const playable=()=>Music.songs.map((s,i)=>i).filter(i=>!Music.songs[i].link);
@@ -2956,7 +2982,10 @@ $("#startBtn").onclick=()=>{
      players:setup.players.map((p,i)=>({name:p.name.trim()||["Seeker of Light","Morning Star","Silver Moon","River Song","Golden Leaf","Quiet Flame"][i],color:p.color,arch:p.arch,el:p.el||"air",
        pos:0,energy:3,pearls:0,gems:[],keys:[],animals:[],tokens:0,choices:[],insight:"",rerolls:p.arch==="creator"?3:0,skip:false,done:false}))};
   log("The journey begins: “"+setObj().name+"”.");save();go("play");
-  setTimeout(()=>openCard({th:"gold",deck:"Welcome",title:"Are you on your path?",emb:emblem("heart"),text:"Take one breath together. Let the youngest traveller hold the die first – or simply begin with "+esc(cur().name)+".",acts:[["Let us begin",closeCard]]}),300);
+  setTimeout(()=>openCard({th:"gold",deck:"G.A.M.E 2020 · The Golden Path",title:"Let the game begin",emb:emblem("heart"),
+    html:SONG?`<div class="lyrics">${esc(SONG.chorus)}</div><div class="hint" style="margin-top:6px;color:#cfc4a6!important">♪ “${esc(SONG.title)}” – words by ${esc(SONG.author)}</div>`:"",
+    text:"Take one breath together. Then "+esc(cur().name)+" holds the die first.",
+    acts:(themeSong()>=0?[["♪ Play my song & begin",()=>{playTheme();closeCard()}]]:[]).concat([["Let the game begin ✦",closeCard,themeSong()>=0?"ghost":"gold"]])}),300);
 };
 $("#resumeBtn").onclick=()=>{S=loadS();S.busy=false;go("play")};
 $("#newGame").onclick=()=>openCard({deck:"New journey",title:"Begin again?",text:"The current journey will end. Your journal will be cleared.",acts:[["Yes, start fresh",()=>{closeCard();try{localStorage.removeItem(KEY)}catch(e){}S=null;go("home")}],["Keep walking",closeCard,"ghost"]]});
@@ -2992,7 +3021,7 @@ function renderPlay(){
       if(!S.helpedThisTurn.ask&&(p.heartRest||0)<=0)add("♡ Listen to your heart",askHelp,"ghost small");
       if(travellers.length&&!S.helpedThisTurn.join)add("🤝 Walk together",()=>pick("With whom do you walk this turn? Your roll moves you both.",travellers,i=>{S.helpedThisTurn.join=1;sfx("together");p.partner=i;p.tokens++;S.players[i].tokens++;chime("pearl");log(p.name+" and "+S.players[i].name+" walk together.");refresh()}),"ghost small");
       if(travellers.length&&!S.helpedThisTurn.insp)add("✦ Inspire / give an answer",()=>pick("Whom do you inspire with a word or an answer?",travellers,i=>{S.helpedThisTurn.insp=1;S.players[i].pearls++;p.tokens++;chime("pearl");log(p.name+" inspires "+S.players[i].name+" (+1 pearl · +1 Knowledge Token).");toast("✦ Share your words now – then roll.");refresh()}),"ghost small");
-      add("☾ Silence – pause a round",()=>{sfx("silence");energy(p,2);p.skip=true;log(p.name+" chooses silence and pauses a round (Loop).");openCard({th:"loops",deck:"Silence",title:"A round in stillness",emb:emblem("sym","☾"),text:"You step into the loop of silence. Breathe, listen, let your soul catch up.",reward:"Next turn: +1 pearl",acts:[["I rest in silence",done()]]})},"ghost small");
+      add("☾ Silence – pause a round",()=>{sfx("silence");energy(p,2);p.skip=true;log(p.name+" chooses silence and pauses a round (Loop).");openCard({th:"loops",deck:"Silence",title:"A round in stillness",emb:emblem("sym","☾"),text:"You step into the loop of silence. Breathe, listen, let your soul catch up.",html:songLine("silence"),reward:"Next turn: +1 pearl",acts:[["I rest in silence",done()]]})},"ghost small");
     }
     if(p.arch==="healer"&&p.pearls>0&&!S.helpedThisTurn.healer&&travellers.length)add("Gift a pearl",()=>pick("Who receives your pearl?",travellers,i=>{p.pearls--;S.players[i].pearls++;p.tokens++;S.helpedThisTurn.healer=1;log(p.name+" gifts a pearl to "+S.players[i].name+" (+1 Knowledge Token).");refresh()}),"ghost small");
     if(p.arch==="guide"&&!S.helpedThisTurn.guide&&travellers.length)add("Guide someone +1",()=>pick("Whom do you guide one field forward?",travellers,i=>{S.helpedThisTurn.guide=1;const q=S.players[i];q.pos=Math.min(N,q.pos+1);p.tokens++;log(p.name+" guides "+q.name+" one field forward (+1 Knowledge Token).");refresh()}),"ghost small");
@@ -3027,7 +3056,7 @@ function done(fn){return()=>{closeCard();if(fn)fn();nextTurn()}}
 function resolve(pos){
   const p=cur(),c=setObj().map[pos-1];DOTCTX=pos;
   if(c==="G"){const gi=GATE_POS.indexOf(pos),g=D.gates[gi],has=p.gems.includes(gi);chime("gate");momentMusic();
-    openCard({th:{gem:g.color},deck:"Gate "+(gi+1)+" of 13",title:g.gem+" Gate",sub:g.quality,emb:emblem("gate",g.color),text:g.line,prompt:g.question,html:`<p style="font-size:.92rem;color:#e9d9ae">“${esc(g.affirmation)}”</p>`,
+    openCard({th:{gem:g.color},deck:"Gate "+(gi+1)+" of 13",title:g.gem+" Gate",sub:g.quality,emb:emblem("gate",g.color),text:g.line,prompt:g.question,html:`<p style="font-size:.92rem;color:#e9d9ae">“${esc(g.affirmation)}”</p>`+songLine("gate"),
       reward:has?"You already carry "+g.quality+": +1 pearl":"You reach the value of "+g.quality+" · "+g.gem,acts:[["I walk through the gate",done(()=>{if(has)p.pearls++;else p.gems.push(gi);log(p.name+" reaches "+g.quality+" at the "+g.gem+" Gate.")})]]});return}
   if(c==="R"){momentMusic();openCard({th:"pearls",deck:"Stillness",title:"Field of Stillness",emb:emblem("pearl"),text:"In stillness the path becomes visible. Everyone closes their eyes and breathes together.",timer:30,reward:"Everyone +1 pearl",
       acts:[["We kept the silence",done(()=>{S.players.forEach(q=>{q.pearls++;energy(q,1)});chime("pearl");log("Shared stillness – everyone +1 pearl · +1 energy.")})]]});return}
@@ -3052,7 +3081,7 @@ function drawDeck(deck){
   const p=cur();let swapped=false;
   const show=idx=>{const card=DK[deck].cards[idx];const swap=p.arch==="seeker"&&!swapped&&!p.swapUsed?[["Seeker: draw another card (once per game)",()=>{swapped=true;p.swapUsed=true;show(draw(deck))},"ghost"]]:[];
     const base={th:deck==="colors"?{col:card.hex}:deck,deck:DK[deck].name,title:esc(card.title)};
-    if(deck==="choice"){openCard({...base,emb:emblem("sym","⇄"),text:esc(card.text),reward:"+1 pearl for a decision from the heart",
+    if(deck==="choice"){openCard({...base,emb:emblem("sym","⇄"),text:esc(card.text),html:songLine("choice"),reward:"+1 pearl for a decision from the heart",
       acts:[["A · "+esc(card.a),done(()=>{p.pearls++;p.choices.push(card.title+": "+card.a);log(p.name+" chooses: “"+card.a+"”");chime("pearl")}),"opt"],
             ["B · "+esc(card.b),done(()=>{p.pearls++;p.choices.push(card.title+": "+card.b);log(p.name+" chooses: “"+card.b+"”");chime("pearl")}),"opt"],
             ["↺ I need time – take the loop",()=>{closeCard();takeLoop()},"ghost"]].concat(swap)});return}
@@ -3080,7 +3109,7 @@ function drawDeck(deck){
         prompt:up?"When did you feel like this? Share it!":"When did you go through something similar – and what helped you?",reward:moveText(card.effect),
         acts:[["There is always support ✦",()=>{closeCard();log(p.name+" walks through a moment of life: “"+card.title+"”.");energy(p,up?1:-1);applyMove(card.effect)}]].concat(swap)});return}
     if(deck==="bridge"||deck==="treasures"){openCard({...base,sub:deck==="bridge"?"Here & There":"A treasure for you",emb:emblem("sym",deck==="bridge"?"☽":"✦"),text:esc(card.text),prompt:esc(card.prompt),reward:moveText(card.effect),acts:[[deck==="bridge"?"I feel the connection ✦":"I take the treasure ✦",()=>{closeCard();log(p.name+" – "+card.title+".");applyMove(card.effect)}]].concat(swap)});return}
-    if(deck==="shine"){openCard({...base,sub:"Shine-ON",emb:emblem("sym","☀"),text:esc(card.text),prompt:esc(card.prompt),reward:"Gratitude Circle · everyone +1 pearl",acts:[["We shared our gratitude ✓",done(()=>{S.players.forEach(q=>q.pearls++);chime("heart");log("Shine-ON “"+card.title+"” – a circle of gratitude.")})]].concat(swap)});return}
+    if(deck==="shine"){openCard({...base,sub:"Shine-ON",emb:emblem("sym","☀"),text:esc(card.text),html:songLine("gratitude"),prompt:esc(card.prompt),reward:"Gratitude Circle · everyone +1 pearl",acts:[["We shared our gratitude ✓",done(()=>{S.players.forEach(q=>q.pearls++);chime("heart");log("Shine-ON “"+card.title+"” – a circle of gratitude.")})]].concat(swap)});return}
     if(deck==="together"){openCard({...base,sub:"for the whole circle",emb:emblem("sym","∞"),text:esc(card.text),reward:effectText(card.effect),acts:[["Done together ✓",()=>{closeCard();applyEffect(card)}]].concat(swap)});return}
     // insight / pearls
     openCard({...base,emb:deck==="pearls"?emblem("pearl"):emblem("sym","✧"),text:esc(card.text),prompt:card.prompt?esc(card.prompt):"",reward:"+1 pearl",
@@ -3145,7 +3174,7 @@ function askHelp(){
   const p=cur();S.helpedThisTurn.ask=1;p.heartRest=3;sfx("silence");
   const ans=(D3.askHelp||["Trust."])[Math.random()*(D3.askHelp||[1]).length|0];
   openCard({sfx:"none",th:"bridge",deck:"Stillness · the inner voice",title:"Listen to your heart",emb:emblem("heart"),
-    text:"Close your eyes. Breathe slowly. Place your hand on your heart and ask your question silently. In stillness is power and strength.",timer:20,timerLabel:"Start 20 seconds of stillness",
+    text:"Close your eyes. Breathe slowly. Place your hand on your heart and ask your question silently. In stillness is power and strength.",html:songLine("slow"),timer:20,timerLabel:"Start 20 seconds of stillness",
     acts:[["I listened ✦",()=>{closeCard();log(p.name+" listens to the heart.");energy(p,1);
       openCard({th:"bridge",deck:"Your inner voice",title:"What your heart says",emb:emblem("sym","♡"),text:esc(ans),prompt:"What did you feel or hear in the stillness? Share it if you like.",reward:"+1 pearl of trust",
         acts:[["Thank you, heart",()=>{closeCard();p.pearls++;chime("pearl");refresh()}]]})}],
@@ -3154,12 +3183,16 @@ function askHelp(){
 function numSVG(n,pl){return `<svg class="emb" viewBox="0 0 120 120"><circle cx="60" cy="60" r="52" fill="none" stroke="#f2cf6b" stroke-width="1.5"/><circle cx="60" cy="60" r="44" fill="#f2cf6b14" stroke="#f2cf6b55"/>
   ${[...Array(12)].map((_,i)=>`<line x1="${60+46*Math.cos(i*Math.PI/6)}" y1="${60+46*Math.sin(i*Math.PI/6)}" x2="${60+52*Math.cos(i*Math.PI/6)}" y2="${60+52*Math.sin(i*Math.PI/6)}" stroke="#f2cf6b88"/>`).join("")}
   <text x="60" y="${n>9?76:80}" text-anchor="middle" font-size="${n>9?44:56}" font-weight="700" fill="#f6d77e" font-family="Golden Serif,Georgia,serif">${n}</text><text x="60" y="100" text-anchor="middle" font-size="10" letter-spacing="2" fill="#f2cf6bcc" font-family="Golden Serif,Georgia,serif">${(pl||"").toUpperCase()}</text></svg>`}
+const SONG=D3.song||null;
+function songLine(k){return SONG&&SONG.moments[k]?`<div class="songline">♪ ${esc(SONG.moments[k])}</div>`:""}
+function themeSong(){const i=Music.songs.findIndex(x=>x.theme&&!x.link);return i}
+function playTheme(){const i=themeSong();if(i>=0&&$("#mMoments").checked){musicPlay(i);return true}return false}
 function showHeld(after){const p=cur(),c=DK.held.cards[draw("held")];S.heldCount=(S.heldCount||0)+1;
   openCard({sfx:"silence",th:"held",deck:"In between · a reminder for "+esc(p.name),title:"You are "+esc(c.theme.toLowerCase()),emb:emblem("sym","✝"),
     html:`<p style="font-family:var(--serif);font-style:italic;font-size:1.35rem;line-height:1.35;color:#fff3cf;margin:4px 0">“${esc(c.word)}”</p><div style="font-family:var(--caps);font-size:.72rem;letter-spacing:.16em;color:var(--ac)">${esc(c.ref)}</div><div class="prompt" style="margin-top:12px">${esc(c.affirmation)}</div>`,reward:"+1 energy",acts:[["Amen · I feel it",()=>{closeCard();energy(p,1);log(p.name+" is reminded: you are "+c.theme.toLowerCase()+".");after()}]]})}
 function showSign(){sfx("sign");
   const p=cur(),card=DK.signs.cards[draw("signs")];
-  openCard({th:"sign",deck:"A surprise for "+esc(p.name),title:esc(card.title),sub:"Signs from the Universe",emb:emblem("sym",/^\d|^Number/.test(card.title)?"✶":"✧"),text:esc(card.text),prompt:card.prompt?esc(card.prompt):"",reward:moveText(card.effect),
+  openCard({th:"sign",deck:"A surprise for "+esc(p.name),title:esc(card.title),sub:"Signs from the Universe",emb:emblem("sym",/^\d|^Number/.test(card.title)?"✶":"✧"),text:esc(card.text),html:songLine("trust"),prompt:card.prompt?esc(card.prompt):"",reward:moveText(card.effect),
     acts:[["Thank you for the sign ✦",()=>{closeCard();log("A sign for "+p.name+": "+card.title+".");applyMove(card.effect)}]]});
 }
 function planetText(e){return {guideOther:"Guide a teammate one step forward · +1 Knowledge Token",helpDecide:"Help a teammate decide · +1 Knowledge Token",marsEnergy:"Share energy: a teammate +1 pearl, you move 1 more step",shuffle:"All decks are shuffled · +1 pearl",shareStory:"Share a life experience · +1 pearl",givePearl:"Share a pearl with a teammate · +1 Knowledge Token",breatheAll:"Everyone breathes together · everyone +1 pearl",rollTwice:"Stay independent: roll again right now",neptune:"Invite a teammate: you both +1 pearl",passion:"Talk for one minute about your passion · +1 pearl"}[e]||"+1 pearl"}
@@ -3194,8 +3227,8 @@ function applyEffect(card){
   chime("pearl");nextTurn();
 }
 function goldenGate(i){
-  const q=S.players[i],g=D.goldenGate;q.pos=N+1;drawBoard();chime("heart");momentMusic();
-  openCard({th:"gold",deck:"Gate 13",title:esc(g.title),sub:esc(q.name),emb:emblem("heart"),text:esc(g.line),prompt:esc(g.question),input:"My greatest insight on this journey…",
+  const q=S.players[i],g=D.goldenGate;q.pos=N+1;drawBoard();chime("heart");if(!playTheme())momentMusic();
+  openCard({th:"gold",deck:"Gate 13",title:esc(g.title),sub:esc(q.name),emb:emblem("heart"),text:esc(g.line),prompt:esc(g.question),html:songLine("heart"),input:"My greatest insight on this journey…",
     reward:"You become a companion of light: from now on you send light to the others.",
     acts:[["Enter the Golden Heart",()=>{const v=($("#cardInput")||{}).value||"";q.insight=v.trim();q.done=true;q.pearls++;log(q.name+" enters the Golden Heart."+(q.insight?" Insight: “"+q.insight+"”":""));closeCard();nextTurn()}]]});
 }
@@ -3213,13 +3246,13 @@ function nextTurn(){DOTCTX=null;
   const nx=cur();if(!nx.done)toast((nx.energy!=null&&nx.energy<=1)?"⚡ "+nx.name+", your battery is low – a pause, a breath or a song will help.":"✦ "+encourage(nx));
 }
 function finale(){
-  const L=light();chime("heart");
+  const L=light();chime("heart");playTheme();
   const together=[...new Set(S.players.flatMap(values))];
   const html=`<div style="margin:8px 0 4px;font-family:var(--caps);letter-spacing:.14em;font-size:.75rem;color:var(--ac)">Values reached together</div><div class="vals big">${ALLVALUES.map(v=>`<span class="${together.includes(v)?"":"off"}">${esc(v)}</span>`).join("")}</div>`+S.players.map(q=>`<div style="text-align:left;margin:8px 0;padding:10px;border:1px solid #d9b85f55;border-radius:12px">
     <b style="color:#fff6dc">${esc(q.name)}</b> <span style="color:#d9b85f;font-size:.85rem">· ${q.pearls} pearls · ${q.gems.length} gems · ${q.keys.length} key${q.keys.length===1?"":"s"} · ${q.tokens} token${q.tokens===1?"":"s"}</span>
     <div class="vals">${values(q).map(v=>`<span>${esc(v)}</span>`).join("")}</div>${q.animals.length?`<div style="font-size:.82rem;color:#cdbb92">Companions: ${q.animals.map(esc).join(", ")}</div>`:""}
     ${q.insight?`<div style="font-family:var(--serif);font-style:italic;font-size:1.1rem;margin-top:4px">“${esc(q.insight)}”</div>`:""}</div>`).join("");
-  openCard({th:"gold",deck:"The journey is complete",title:"The Golden Heart shines",sub:"Shared light: "+L,emb:emblem("heart"),text:"Life does not happen against us – it invites us forward. Everything is connected, and no one walked alone. Thank you for sharing the path with joy.",html,
+  openCard({th:"gold",deck:"The journey is complete",title:"The Golden Heart shines",sub:"Shared light: "+L,emb:emblem("heart"),html2:"",text:(SONG?`<span class="lyrics" style="font-size:1.15rem">${esc(SONG.moments.end)}</span><br><br>`:"")+"Life does not happen against us – it invites us forward. Everything is connected, and no one walked alone. Thank you for sharing the path with joy.",html,
     acts:[["Close",closeCard,"ghost"],["Begin a new journey",()=>{closeCard();try{localStorage.removeItem(KEY)}catch(e){}S=null;go("home")}]]});
 }
 

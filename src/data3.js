@@ -1464,5 +1464,25 @@ window.GAME_DATA3 = {
    "ref": "Matthew 28:20",
    "affirmation": "I am accompanied always."
   }
- ]
+ ],
+ "song": {
+  "title": "Let the Game Begin",
+  "author": "Barbara Prinz",
+  "chorus": "Let the game begin, one step, one light,\nI’m listening within as I walk through the night,\nno rush, just presence, I’m ready to see,\nguided by love, I become all of me.",
+  "moments": {
+   "start": "Let the game begin, one step, one light, / I’m listening within as I walk through the night.",
+   "gate": "Every new question, every invisible door, / leads me to places I’ve not been before.",
+   "silence": "In rivers of silence and oceans of grace, / I gather my pieces and soften my pace.",
+   "choice": "One step at a time, one breath, one choice, / I balance my heart and I follow that voice.",
+   "cards": "Cards on the table, truth in my hand, / nothing is certain, not all has been planned.",
+   "trust": "Soft tone whispering: trust what you can’t see, / the unknown is here to set you free.",
+   "gratitude": "I breathe in the wonder, release all control, / let gratitude anchor the rise in my soul.",
+   "slow": "I’m drawn to the center, I feel and I know, / the only way forward is gently and slow.",
+   "role": "Life is a stage and I’m choosing my role, / softly I enter, awakening my soul.",
+   "parts": "One part the dreamer, one part the guide, / one part an observer, so quiet inside.",
+   "emerald": "Through emerald hallways my heartbeat slows, / I let go of stories that nobody knows.",
+   "heart": "I trust my journey, surrendered and free, / one conscious step into all I can be.",
+   "end": "One step, one breath, one heart, it sings, / smiling, I whisper, “Let the game begin.”"
+  }
+ }
 };
