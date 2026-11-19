@@ -267,7 +267,7 @@ footer{color:#cfc4a6!important}
 <section class="view" id="v-play">
   <div class="game">
     <div>
-      <div class="boardwrap"><div class="movebadge" id="moveBadge"></div><button class="zoombtn" id="zoomBtn">⌕ Zoom</button><button class="zoombtn" id="nightBtn" style="top:52px">☾ Night sky</button><svg id="board" viewBox="0 0 800 800" aria-label="Game board"></svg></div>
+      <div class="boardwrap"><div class="movebadge" id="moveBadge"></div><button class="zoombtn" id="zoomBtn">⌕ Zoom</button><button class="zoombtn" id="nightBtn" style="top:52px">☾ Night sky</button><button class="zoombtn" id="sfxBtn" style="top:92px">🔊 Sound</button><svg id="board" viewBox="0 0 800 800" aria-label="Game board"></svg></div>
       <div class="legend" id="legend"></div>
     </div>
     <div>
@@ -328,7 +328,7 @@ footer{color:#cfc4a6!important}
       </div>
       <label class="l">Volume</label><input type="range" id="mVol" min="0" max="1" step="0.05" value="0.6" style="padding:0">
       <label class="toggle"><input type="checkbox" id="mMoments" checked> Play a song during Stillness, Golden Steps &amp; the Golden Gate</label>
-      <label class="toggle"><input type="checkbox" id="mChimes" checked> Soft chimes for gates and pearls</label>
+      <label class="toggle"><input type="checkbox" id="mChimes" checked> Sound effects (dice, steps, cards, gates, the Golden Heart)</label>
       <label class="toggle"><input type="checkbox" id="mShuffle"> Shuffle</label>
     </div>
   </div>
@@ -1829,8 +1829,36 @@ function sparkle(kind){
   for(let i=0;i<n;i++){const d=document.createElement("i");d.className="spark";const a=Math.random()*Math.PI*2,r=80+Math.random()*(kind==="heart"?260:160);
     d.style.cssText=`left:50%;top:45%;background:${cols[i%cols.length]};--dx:${Math.cos(a)*r}px;--dy:${Math.sin(a)*r}px;animation-delay:${Math.random()*.15}s;width:${4+Math.random()*7}px;height:${4+Math.random()*7}px`;
     document.body.appendChild(d);setTimeout(()=>d.remove(),1600)}}
+/* ---------- Sound effects (synthesized, no files) ---------- */
+let SFX_ON=true;try{SFX_ON=localStorage.getItem("gp-sfx")!=="0"}catch(e){}
+function ac(){try{AC=AC||new (window.AudioContext||window.webkitAudioContext)();if(AC.state==="suspended")AC.resume();return AC}catch(e){return null}}
+function tone(f,t0,dur,type="sine",vol=.1,slide){const a=ac();if(!a)return;const o=a.createOscillator(),g=a.createGain();o.type=type;const t=a.currentTime+t0;
+  o.frequency.setValueAtTime(f,t);if(slide)o.frequency.exponentialRampToValueAtTime(slide,t+dur);
+  g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(vol,t+.01);g.gain.exponentialRampToValueAtTime(.0001,t+dur);o.connect(g).connect(a.destination);o.start(t);o.stop(t+dur+.05)}
+function noise(t0,dur,vol=.08,freq=2000,q=1){const a=ac();if(!a)return;const n=a.sampleRate*dur,buf=a.createBuffer(1,n,a.sampleRate),d=buf.getChannelData(0);for(let i=0;i<n;i++)d[i]=Math.random()*2-1;
+  const s=a.createBufferSource(),f=a.createBiquadFilter(),g=a.createGain();s.buffer=buf;f.type="bandpass";f.frequency.value=freq;f.Q.value=q;const t=a.currentTime+t0;
+  g.gain.setValueAtTime(vol,t);g.gain.exponentialRampToValueAtTime(.0001,t+dur);s.connect(f).connect(g).connect(a.destination);s.start(t);s.stop(t+dur)}
+function sfx(kind){
+  if(!SFX_ON||!$("#mChimes").checked)return;
+  try{switch(kind){
+    case "dice":for(let i=0;i<7;i++)noise(i*.06,.05,.12,1800+Math.random()*1800,3);noise(.46,.09,.14,900,2);break;
+    case "step":tone(520+Math.random()*60,0,.12,"triangle",.07);noise(0,.05,.04,3000,4);break;
+    case "card":noise(0,.28,.07,1200,.7);tone(660,.05,.25,"sine",.04,990);break;
+    case "pearl":tone(1318.5,0,.5,"sine",.07);tone(1760,.08,.6,"sine",.05);break;
+    case "gate":[523.25,659.25,783.99,1046.5].forEach((f,i)=>tone(f,i*.11,1.5,"sine",.09));break;
+    case "heart":[392,523.25,659.25,783.99,1046.5,1318.5].forEach((f,i)=>tone(f,i*.13,2,"sine",.08));tone(196,0,2.5,"triangle",.05);break;
+    case "wings":noise(0,.35,.1,700,.6);noise(.18,.35,.08,900,.6);tone(880,.1,.5,"sine",.04,1320);break;
+    case "sign":[1567.98,2093,2637].forEach((f,i)=>tone(f,i*.07,.7,"sine",.05));break;
+    case "fly":tone(440,0,.5,"sine",.06,1320);noise(0,.4,.05,2500,.8);break;
+    case "back":tone(660,0,.35,"triangle",.06,440);break;
+    case "silence":tone(261.63,0,3,"sine",.06);tone(392,0,3,"sine",.03);break;
+    case "tap":tone(1046.5,0,.06,"triangle",.03);break;
+    case "together":tone(523.25,0,.6,"sine",.06);tone(659.25,.12,.6,"sine",.06);break;
+  }}catch(e){}
+}
 function chime(kind){
   try{sparkle(kind)}catch(e){}
+  sfx(kind==="gate"?"gate":kind==="heart"?"heart":"pearl");return;
   if(!$("#mChimes").checked)return;
   try{AC=AC||new (window.AudioContext||window.webkitAudioContext)();
     const notes=kind==="gate"?[523.25,659.25,783.99,1046.5]:kind==="heart"?[392,523.25,659.25,783.99,1046.5,1318.5]:[880,1318.5];
@@ -2021,7 +2049,7 @@ let timerId=null;
 let DOTCTX=null;
 function dotHTML(n){const d=(D2.dots||[])[n-1];if(!d)return"";
   return `<div class="dot"><div class="dt">✦ Step ${n} · ${esc(d.title)}</div><div class="dq">${esc(d.question)}</div></div>`}
-function openCard(o){
+function openCard(o){sfx(o.sfx||"card");
   let dotBlock="";if(DOTCTX&&!o.noDot){dotBlock=dotHTML(DOTCTX);DOTCTX=null}
   const t=$("#tin");const tm=theme(o.th);t.setAttribute("style",themeStyle(o.th));t.className="tin"+(tm.light?" light":"")+(tm.rb?" rb":"");
   t.innerHTML=`<div class="deck">${esc(o.deck||"")}</div><h2>${o.title}</h2>${o.sub?`<div class="sub">${o.sub}</div>`:""}
@@ -2082,6 +2110,9 @@ $("#startBtn").onclick=()=>{
 $("#resumeBtn").onclick=()=>{S=loadS();S.busy=false;go("play")};
 $("#newGame").onclick=()=>openCard({deck:"New journey",title:"Begin again?",text:"The current journey will end. Your journal will be cleared.",acts:[["Yes, start fresh",()=>{closeCard();try{localStorage.removeItem(KEY)}catch(e){}S=null;go("home")}],["Keep walking",closeCard,"ghost"]]});
 $("#musicQuick").onclick=()=>go("music");
+function syncSfx(){$("#sfxBtn").textContent=SFX_ON?"🔊 Sound":"🔇 Sound off";$("#sfxBtn").classList.toggle("on",!SFX_ON)}
+$("#sfxBtn").onclick=()=>{SFX_ON=!SFX_ON;try{localStorage.setItem("gp-sfx",SFX_ON?"1":"0")}catch(e){};syncSfx();if(SFX_ON)sfx("pearl")};syncSfx();
+document.addEventListener("click",e=>{if(e.target.closest(".chips button,nav.tabs button,.sw"))sfx("tap")});
 function syncNight(){$("#nightBtn").classList.toggle("on",NIGHT);$("#nightBtn").textContent=NIGHT?"☀ Daylight":"☾ Night sky";$(".boardwrap").classList.toggle("night",NIGHT)}
 $("#nightBtn").onclick=()=>{NIGHT=!NIGHT;try{localStorage.setItem("gp-night2",NIGHT?"1":"0")}catch(e){};syncNight();drawBoard()};syncNight();
 $("#zoomBtn").onclick=()=>{ZOOM=!ZOOM;$("#zoomBtn").classList.toggle("on",ZOOM);$("#zoomBtn").textContent=ZOOM?"⌕ Whole board":"⌕ Zoom";drawBoard()};
@@ -2107,9 +2138,9 @@ function renderPlay(){
   } else {
     add(S.rolled?"Walking…":"Roll the die",roll,"gold",!!S.rolled);
     if(!S.rolled&&!S.busy){
-      if(travellers.length&&!S.helpedThisTurn.join)add("🤝 Walk together",()=>pick("With whom do you walk this turn? Your roll moves you both.",travellers,i=>{S.helpedThisTurn.join=1;p.partner=i;p.tokens++;S.players[i].tokens++;chime("pearl");log(p.name+" and "+S.players[i].name+" walk together.");refresh()}),"ghost small");
+      if(travellers.length&&!S.helpedThisTurn.join)add("🤝 Walk together",()=>pick("With whom do you walk this turn? Your roll moves you both.",travellers,i=>{S.helpedThisTurn.join=1;sfx("together");p.partner=i;p.tokens++;S.players[i].tokens++;chime("pearl");log(p.name+" and "+S.players[i].name+" walk together.");refresh()}),"ghost small");
       if(travellers.length&&!S.helpedThisTurn.insp)add("✦ Inspire / give an answer",()=>pick("Whom do you inspire with a word or an answer?",travellers,i=>{S.helpedThisTurn.insp=1;S.players[i].pearls++;p.tokens++;chime("pearl");log(p.name+" inspires "+S.players[i].name+" (+1 pearl · +1 Knowledge Token).");toast("✦ Share your words now – then roll.");refresh()}),"ghost small");
-      add("☾ Silence – pause a round",()=>{p.skip=true;log(p.name+" chooses silence and pauses a round (Loop).");openCard({th:"loops",deck:"Silence",title:"A round in stillness",emb:emblem("sym","☾"),text:"You step into the loop of silence. Breathe, listen, let your soul catch up.",reward:"Next turn: +1 pearl",acts:[["I rest in silence",done()]]})},"ghost small");
+      add("☾ Silence – pause a round",()=>{sfx("silence");p.skip=true;log(p.name+" chooses silence and pauses a round (Loop).");openCard({th:"loops",deck:"Silence",title:"A round in stillness",emb:emblem("sym","☾"),text:"You step into the loop of silence. Breathe, listen, let your soul catch up.",reward:"Next turn: +1 pearl",acts:[["I rest in silence",done()]]})},"ghost small");
     }
     if(p.arch==="healer"&&p.pearls>0&&!S.helpedThisTurn.healer&&travellers.length)add("Gift a pearl",()=>pick("Who receives your pearl?",travellers,i=>{p.pearls--;S.players[i].pearls++;p.tokens++;S.helpedThisTurn.healer=1;log(p.name+" gifts a pearl to "+S.players[i].name+" (+1 Knowledge Token).");refresh()}),"ghost small");
     if(p.arch==="guide"&&!S.helpedThisTurn.guide&&travellers.length)add("Guide someone +1",()=>pick("Whom do you guide one field forward?",travellers,i=>{S.helpedThisTurn.guide=1;const q=S.players[i];q.pos=Math.min(N,q.pos+1);p.tokens++;log(p.name+" guides "+q.name+" one field forward (+1 Knowledge Token).");refresh()}),"ghost small");
@@ -2126,7 +2157,7 @@ function refresh(){save();renderPlay()}
 const WFACES=["X",-1,1,2,3,4];
 function roll(){
   const p=cur(),wis=S.die!=="classic",v=wis?WFACES[Math.random()*6|0]:1+(Math.random()*6|0);S.rolled=v;S.busy=true;
-  const d=$("#die");d.classList.remove("roll");void d.offsetWidth;d.classList.add("roll");
+  sfx("dice");const d=$("#die");d.classList.remove("roll");void d.offsetWidth;d.classList.add("roll");
   let n=0;const sp=setInterval(()=>{d.innerHTML=dieSVG(wis?WFACES[Math.random()*6|0]:1+(Math.random()*6|0));if(++n>7){clearInterval(sp);d.innerHTML=dieSVG(v);
     if(v==="X"){S.busy=false;log(p.name+" rolls ✕ – a pause to relax and breathe.");momentMusic();openCard({th:"pearls",deck:"Wisdom die · ✕",title:"Take a break",emb:emblem("pearl"),text:"Relax and breathe for a moment. Nothing to do, nowhere to rush. Your path waits for you.",timer:20,reward:"+1 pearl for the pause",acts:[["I breathed and rested",done(()=>{p.pearls++})]]});return}
     if(v===-1){S.busy=false;S.trail={from:Math.max(0,p.pos-1),to:p.pos,color:p.color,who:S.turn};p.pos=Math.max(0,p.pos-1);drawBoard();log(p.name+" rolls −1 – one step back to deepen wisdom.");
@@ -2136,7 +2167,7 @@ function roll(){
   renderPlay();
 }
 function walk(v){const p=cur();if(p.double&&typeof v==="number"&&v>0){p.double=false;v*=2;toast("✦ Your wings double this roll: "+v+" fields!")}let left=v;S.trail={from:p.pos,to:p.pos,color:p.color,who:S.turn};
-  const t=setInterval(()=>{if(left<=0||p.pos>N){clearInterval(t);S.busy=false;land();return}p.pos++;left--;S.trail.to=p.pos;drawBoard()},280)}
+  const t=setInterval(()=>{if(left<=0||p.pos>N){clearInterval(t);S.busy=false;land();return}p.pos++;left--;S.trail.to=p.pos;sfx("step");drawBoard()},280)}
 function land(){const p=cur();
   if(p.partner!=null){const q=S.players[p.partner];p.partner=null;if(q&&!q.done&&typeof S.rolled==="number"&&S.rolled>0){q.pos=Math.min(N,q.pos+S.rolled);log(q.name+" walks along "+S.rolled+" fields.");drawBoard()}}log(p.name+" rolls "+(S.rolled)+" → "+(p.pos>N?"the Golden Gate":"field "+p.pos)+".");
   if(p.pos>N){goldenGate(S.turn);return}resolve(p.pos)}
@@ -2179,7 +2210,7 @@ function drawDeck(deck){
     if(deck==="prayers"){momentMusic();openCard({...base,emb:emblem("heart"),text:`<span style="font-family:var(--serif);font-size:1.3rem;font-style:italic">${esc(card.text)}</span>`,prompt:esc(card.how),reward:"+2 shared light",
       acts:[["Amen · So be it",done(()=>{S.bonus+=2;log("A prayer is spoken: “"+card.title+"”.");chime("heart")})]].concat(swap)});return}
     if(deck==="planets"){openCard({...base,th:"planet",sub:esc(card.sub||""),emb:emblem("planet",card.title),text:esc(card.text),reward:planetText(card.effect),acts:[["Bring back the wisdom ✓",()=>{closeCard();applyPlanet(card)}]].concat(swap)});return}
-    if(deck==="wings"){const mn=card.effect==="minute";openCard({...base,sub:esc(card.sub||""),emb:emblem("sym","〰"),text:esc(card.text),prompt:card.prompt?esc(card.prompt):"",timer:mn?60:0,timerLabel:"Start the 1-minute hourglass",reward:moveText(card.effect),acts:[[mn?"Wings flapped ✓":"Spread my wings ✦",()=>{closeCard();log(p.name+" draws Flap of Wings: “"+card.title+"”.");applyMove(card.effect)}]].concat(swap)});return}
+    if(deck==="wings"){const mn=card.effect==="minute";openCard({sfx:"wings",...base,sub:esc(card.sub||""),emb:emblem("sym","〰"),text:esc(card.text),prompt:card.prompt?esc(card.prompt):"",timer:mn?60:0,timerLabel:"Start the 1-minute hourglass",reward:moveText(card.effect),acts:[[mn?"Wings flapped ✓":"Spread my wings ✦",()=>{closeCard();log(p.name+" draws Flap of Wings: “"+card.title+"”.");applyMove(card.effect)}]].concat(swap)});return}
     if(deck==="bridge"||deck==="treasures"){openCard({...base,sub:deck==="bridge"?"Here & There":"A treasure for you",emb:emblem("sym",deck==="bridge"?"☽":"✦"),text:esc(card.text),prompt:esc(card.prompt),reward:moveText(card.effect),acts:[[deck==="bridge"?"I feel the connection ✦":"I take the treasure ✦",()=>{closeCard();log(p.name+" – "+card.title+".");applyMove(card.effect)}]].concat(swap)});return}
     if(deck==="shine"){openCard({...base,sub:"Shine-ON",emb:emblem("sym","☀"),text:esc(card.text),prompt:esc(card.prompt),reward:"Gratitude Circle · everyone +1 pearl",acts:[["We shared our gratitude ✓",done(()=>{S.players.forEach(q=>q.pearls++);chime("heart");log("Shine-ON “"+card.title+"” – a circle of gratitude.")})]].concat(swap)});return}
     if(deck==="together"){openCard({...base,sub:"for the whole circle",emb:emblem("sym","∞"),text:esc(card.text),reward:effectText(card.effect),acts:[["Done together ✓",()=>{closeCard();applyEffect(card)}]].concat(swap)});return}
@@ -2190,7 +2221,7 @@ function drawDeck(deck){
   show(draw(deck));
 }
 function moveText(e){return {fly3:"Fly 3 fields forward",walk2:"Walk 2 fields forward",toGate:"Fly to the next gate",lucky:"Choose your lucky number: walk 1 to 6 fields",bring:"A companion behind you joins you on your field · +1 Knowledge Token",meet:"Fly to a companion ahead of you – walk together",again:"Roll the die once more",rest:"Stay and rest · +2 pearls",insight:"Draw an Insight Card",energy:"Healing energy: everyone +1 pearl",allForward:"Everyone on the path moves 1 field forward",detour:"Step back 2 fields and gain 2 pearls of wisdom",detourLight:"Step back 1 field and gain 2 pearls",double:"Your next roll counts double",giftStep:"Give 2 steps to a companion · +1 Knowledge Token",key:"Receive a Core Key",music:"Play a song – everyone +1 pearl",cardinal:"You and a companion +1 pearl",coin:"+2 pearls",allPearl:"Everyone +1 pearl",pullUp:"Everyone behind you moves 1 field forward · +1 Knowledge Token",swap:"Swap places with a companion if you both agree · +1 Knowledge Token each",minute:"+1 pearl · +1 shared light"}[e]||"+1 pearl"}
-function moveTo(q,np){const i=S.players.indexOf(q);np=Math.max(0,Math.min(N+1,np));if(np===q.pos)return;S.trail={from:Math.min(q.pos,np),to:Math.max(q.pos,np),color:q.color,who:i};q.pos=np;if(np>N&&i!==S.turn){q.pos=N}drawBoard()}
+function moveTo(q,np){const i=S.players.indexOf(q);np=Math.max(0,Math.min(N+1,np));if(np===q.pos)return;sfx(np>q.pos?"fly":"back");S.trail={from:Math.min(q.pos,np),to:Math.max(q.pos,np),color:q.color,who:i};q.pos=np;if(np>N&&i!==S.turn){q.pos=N}drawBoard()}
 function applyMove(e){
   const p=cur(),me=S.turn,trav=S.players.map((q,i)=>i).filter(i=>i!==me&&!S.players[i].done);
   const fin=()=>{chime("pearl");if(p.pos>N&&!p.done){goldenGate(me);return}nextTurn()};
@@ -2220,7 +2251,7 @@ function applyMove(e){
     default:p.pearls++;S.bonus++;return fin();
   }
 }
-function showSign(){
+function showSign(){sfx("sign");
   const p=cur(),card=DK.signs.cards[draw("signs")];
   openCard({th:"sign",deck:"A surprise for "+esc(p.name),title:esc(card.title),sub:"Signs from the Universe",emb:emblem("sym",/^\d|^Number/.test(card.title)?"✶":"✧"),text:esc(card.text),prompt:card.prompt?esc(card.prompt):"",reward:moveText(card.effect),
     acts:[["Thank you for the sign ✦",()=>{closeCard();log("A sign for "+p.name+": "+card.title+".");applyMove(card.effect)}]]});
