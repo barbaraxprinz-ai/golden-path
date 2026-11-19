@@ -142,7 +142,7 @@ label.l{font-weight:700;font-size:.82rem;color:var(--muted);display:block;margin
 .toggle input{width:auto}
 .rules h3{font-size:1.5rem;margin:18px 0 4px}
 .rules p,.rules li{line-height:1.6}
-.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}@media (max-width:760px){.two{grid-template-columns:1fr}}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}.two>*{min-width:0}.song{flex-wrap:wrap}.song .n{white-space:normal}@media (max-width:760px){.two{grid-template-columns:1fr}}
 .spark{position:fixed;border-radius:50%;z-index:90;pointer-events:none;animation:spark 1.4s cubic-bezier(.2,.7,.3,1) forwards;box-shadow:0 0 8px currentColor}
 @keyframes spark{0%{transform:translate(-50%,-50%) scale(.4);opacity:1}100%{transform:translate(calc(-50% + var(--dx)),calc(-50% + var(--dy))) scale(1);opacity:0}}
 .toast{position:fixed;left:50%;bottom:18px;transform:translateX(-50%) translateY(140px);background:linear-gradient(135deg,#2a2116,#1b1712);border:1px solid #d9b85f88;font-family:var(--serif);font-size:1.15rem;font-style:italic;text-align:center;color:#fff3cf;padding:10px 16px;border-radius:12px;font-size:.9rem;transition:transform .35s;z-index:80;max-width:92vw}
@@ -590,23 +590,24 @@ function chime(kind){
       o.connect(g).connect(AC.destination);o.start(t);o.stop(t+1.7)});
   }catch(e){}
 }
-const Music={songs:[],idx:-1,audio:new Audio(),db:null};
+const BUILTIN=[{id:"builtin-1",name:"Life is a game… Play with Love ♥",src:"music/life-is-a-game.mp3",builtin:true,theme:true}];
+const Music={songs:BUILTIN.slice(),idx:-1,audio:new Audio(),db:null};
 Music.audio.volume=.6;
 Music.audio.onended=()=>musicNext();
 function idb(){return new Promise((res)=>{try{const r=indexedDB.open("gp-songs",1);r.onupgradeneeded=()=>r.result.createObjectStore("s",{keyPath:"id"});r.onsuccess=()=>res(r.result);r.onerror=()=>res(null)}catch(e){res(null)}})}
 async function songsLoad(){Music.db=await idb();if(!Music.db){renderSongs();return}
-  try{const tx=Music.db.transaction("s","readonly").objectStore("s").getAll();tx.onsuccess=()=>{Music.songs=tx.result.map(s=>({...s,src:s.blob?URL.createObjectURL(s.blob):s.url}));renderSongs()}}catch(e){renderSongs()}}
+  try{const tx=Music.db.transaction("s","readonly").objectStore("s").getAll();tx.onsuccess=()=>{const own=tx.result.map(s=>({...s,src:s.blob?URL.createObjectURL(s.blob):s.url}));if(own.some(x=>x.theme))BUILTIN.forEach(b=>b.theme=false);Music.songs=BUILTIN.concat(own);renderSongs()}}catch(e){renderSongs()}}
 function songPut(rec){if(!Music.db)return;try{Music.db.transaction("s","readwrite").objectStore("s").put(rec)}catch(e){}}
 function songDel(id){if(!Music.db)return;try{Music.db.transaction("s","readwrite").objectStore("s").delete(id)}catch(e){}}
 function isAudioUrl(u){return /\.(mp3|m4a|wav|ogg|aac|flac)(\?|$)/i.test(u)}
 function renderLyrics(){const b=$("#lyricsBox");if(!b||!SONG)return;b.innerHTML=`<h3 style="font-size:1.3rem">♪ ${esc(SONG.title)}</h3><div class="hint">Words: ${esc(SONG.author)}</div><div class="lyrics" style="font-size:1.05rem;margin-top:6px">${esc(SONG.chorus)}</div>`}
 function renderSongs(){try{renderLyrics()}catch(e){}
   const L=$("#songList");
-  if(!Music.songs.length){L.innerHTML='<p class="hint">No songs yet. Your songs such as “In Stillness”, “Golden Path” or “Ocean of Light” could live here.</p>';return}
-  L.innerHTML=Music.songs.map((s,i)=>`<div class="song ${i===Music.idx?"on":""}"><span>${s.link?"↗":"♪"}</span><span class="n">${esc(s.name)}</span>
-    ${!s.link?`<button class="minibtn" data-t="${i}" title="Theme song">${s.theme?"★ Theme":"☆ Theme"}</button>`:""}${s.link?`<a class="minibtn" href="${esc(s.url)}" target="_blank" rel="noopener">Open</a>`:`<button class="minibtn" data-p="${i}">▶</button>`}<button class="minibtn" data-d="${i}">✕</button></div>`).join("");
+  if(false){L.innerHTML='<p class="hint">No songs yet. Your songs such as “In Stillness”, “Golden Path” or “Ocean of Light” could live here.</p>';return}
+  L.innerHTML=Music.songs.map((s,i)=>`<div class="song ${i===Music.idx?"on":""}"><span>${s.link?"↗":"♪"}</span><span class="n">${esc(s.name)}${s.builtin?' <span class="hint">· by Barbara</span>':""}</span>
+    ${!s.link?`<button class="minibtn" data-t="${i}" title="Theme song">${s.theme?"★ Theme":"☆ Theme"}</button>`:""}${s.link?`<a class="minibtn" href="${esc(s.url)}" target="_blank" rel="noopener">Open</a>`:`<button class="minibtn" data-p="${i}">▶</button>`}${s.builtin?"":`<button class="minibtn" data-d="${i}">✕</button>`}</div>`).join("");
   L.querySelectorAll("[data-p]").forEach(b=>b.onclick=()=>musicPlay(+b.dataset.p));
-  L.querySelectorAll("[data-t]").forEach(b=>b.onclick=()=>{const k=+b.dataset.t;Music.songs.forEach((x,j)=>{x.theme=(j===k)?!x.theme:false;const rec={...x};delete rec.src;songPut(rec)});renderSongs();toast(Music.songs[k].theme?"★ Theme song: it plays when the game begins and in the Golden Heart.":"Theme song removed")});
+  L.querySelectorAll("[data-t]").forEach(b=>b.onclick=()=>{const k=+b.dataset.t;Music.songs.forEach((x,j)=>{x.theme=(j===k)?!x.theme:false;if(!x.builtin){const rec={...x};delete rec.src;songPut(rec)}});renderSongs();toast(Music.songs[k].theme?"★ Theme song: it plays when the game begins and in the Golden Heart.":"Theme song removed")});
   L.querySelectorAll("[data-d]").forEach(b=>b.onclick=()=>{const s=Music.songs[+b.dataset.d];songDel(s.id);Music.songs.splice(+b.dataset.d,1);if(Music.idx===+b.dataset.d){Music.audio.pause();Music.idx=-1}renderSongs()});
 }
 const playable=()=>Music.songs.map((s,i)=>i).filter(i=>!Music.songs[i].link);
