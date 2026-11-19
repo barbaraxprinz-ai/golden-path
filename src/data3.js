@@ -1690,5 +1690,39 @@ window.GAME_DATA3 = {
   "Your dreams are the whispers of your soul – listen closely.",
   "You are a creator of your own destiny – don’t be afraid to dream.",
   "Step out of your comfort zone – that’s where the dreams live."
- ]
+ ],
+ "song3": {
+  "title": "We’re on a Golden Path",
+  "credit": "© 2026 Barb&Heart&Soul&Medium",
+  "chorus": "We’re on a golden path\nwith a golden heart,\nChildren of one Sun,\nLight from the start.",
+  "moments": {
+   "silence": [
+    "A whisper in the silence rising from within: “Be still and listen, child.”"
+   ],
+   "slow": [
+    "“Be still and listen, child.”"
+   ],
+   "trust": [
+    "A golden thread inside my chest / pulling gently through the night, / saying, “You were never separate, / you are made of light.”"
+   ],
+   "companion": [
+    "Consciousness is connection, / a soft return to One, / not a wall between our hearts / but a bridge into the Sun."
+   ],
+   "prayer": [
+    "Prayer is communication / with the highest Source of all, / not begging at a closed door / but answering a call."
+   ],
+   "radiate": [
+    "God is light within our being, / radiating out from everyone."
+   ],
+   "gate": [
+    "Rays of love, no distinction, / every soul, every one, / we are children of the same / everlasting Sun."
+   ],
+   "heart": [
+    "We are constantly connected, / we’re never really gone, / we forgot, but we remember / we’ve been golden all along."
+   ],
+   "end": [
+    "Coming back, coming back, / to our deepest heart connection. / Golden thread, golden path, / love in every direction."
+   ]
+  }
+ }
 };
