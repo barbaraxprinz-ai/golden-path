@@ -1128,5 +1128,181 @@ window.GAME_DATA3 = {
    "title": "Gratitude",
    "text": "Name one small thing that gave you energy today."
   }
+ ],
+ "numbers2": [
+  {
+   "n": 0,
+   "planet": "Pluto",
+   "keywords": "Transformation · depth · rebirth",
+   "text": "Zero is the source and the great transformation. What ends makes space for something new to be born.",
+   "prompt": "What in your life is ready to transform?",
+   "effect": "detour"
+  },
+  {
+   "n": 1,
+   "planet": "Sun",
+   "keywords": "Energy · healing power · empowering others",
+   "text": "One is the sun: pure energy and healing power. Your light can empower others.",
+   "prompt": "Whom can you empower with your light today?",
+   "effect": "giftStep"
+  },
+  {
+   "n": 2,
+   "planet": "Moon",
+   "keywords": "Emotions · mother · foresight · balance",
+   "text": "Two is the moon: emotions, the connection to the mother, foresight. Balance in life is important.",
+   "prompt": "Where do you need more balance right now?",
+   "effect": "rest"
+  },
+  {
+   "n": 3,
+   "planet": "Mars",
+   "keywords": "Powerful force · bringing forward",
+   "text": "Three is Mars: an absolute powerful force that brings you forward. Sometimes it is too powerful – then one step back is given.",
+   "prompt": "Where do you need power – and where gentleness?",
+   "effect": "mars3"
+  },
+  {
+   "n": 4,
+   "planet": "Mercury",
+   "keywords": "Ideas · bringing ideas into the world",
+   "text": "Four is Mercury: ideas! Bring your ideas into the world.",
+   "prompt": "Which idea wants to come into the world through you?",
+   "effect": "lucky"
+  },
+  {
+   "n": 5,
+   "planet": "Faith",
+   "keywords": "Belief system · mind · luck",
+   "text": "Five is faith: your belief system, your mind – and luck.",
+   "prompt": "What do you truly believe about yourself?",
+   "effect": "again"
+  },
+  {
+   "n": 6,
+   "planet": "Venus",
+   "keywords": "Love · friendship · care · grace",
+   "text": "Six is Venus: love, friendship, care, grace and connection.",
+   "prompt": "Who is a true friend on your path?",
+   "effect": "bring"
+  },
+  {
+   "n": 7,
+   "planet": "Saturn",
+   "keywords": "Cause & effect · step by step · grounding",
+   "text": "Seven is Saturn: cause and effect. Stay strong and move forward step by step. You can help ground others.",
+   "prompt": "Whom can you help to feel grounded?",
+   "effect": "pullUp"
+  },
+  {
+   "n": 8,
+   "planet": "Uranus",
+   "keywords": "Family · rebellion · sudden change",
+   "text": "Eight is Uranus: family, the rebel – changes from one moment to the next are possible.",
+   "prompt": "Which change surprised you – and became a gift?",
+   "effect": "swap"
+  },
+  {
+   "n": 9,
+   "planet": "Jupiter",
+   "keywords": "Communication · companionship · voice",
+   "text": "Nine is Jupiter: communication, companionship, your voice.",
+   "prompt": "What do you want to say with your voice?",
+   "effect": "allPearl"
+  },
+  {
+   "n": 10,
+   "planet": "Medium",
+   "keywords": "Bridge between here and there · antenna",
+   "text": "Ten is the medium: a bridge between here and there, an antenna for subtle messages.",
+   "prompt": "What message have you received lately?",
+   "effect": "bridgeCard"
+  }
+ ],
+ "radiate": [
+  {
+   "title": "Be Content",
+   "quality": "Contentment",
+   "text": "Your light shines brightest when you are at peace with what is. Contentment is quiet joy.",
+   "prompt": "What are you content with right now – just as it is?",
+   "affirmation": "I have enough. I am enough."
+  },
+  {
+   "title": "Be Steady",
+   "quality": "Steadiness",
+   "text": "Like the sun rising every morning, your light grows through steady, loving steps.",
+   "prompt": "Where can you stay steady, even when life moves fast?",
+   "affirmation": "Step by step, I shine."
+  },
+  {
+   "title": "Be Honest",
+   "quality": "Honesty",
+   "text": "Truth makes your light clear. When words, thoughts and actions are one, you radiate.",
+   "prompt": "Where can you be a little more honest – with yourself or others?",
+   "affirmation": "My truth is my light."
+  },
+  {
+   "title": "Be Loving",
+   "quality": "Love",
+   "text": "Love is the highest frequency. Every loving thought makes your light grow.",
+   "prompt": "Whom can you send love to right now – including yourself?",
+   "affirmation": "Love flows through me."
+  },
+  {
+   "title": "Be Caring",
+   "quality": "Care",
+   "text": "Caring for others and for yourself fills your light from inside.",
+   "prompt": "How can you care for someone – or for yourself – today?",
+   "affirmation": "I care, and I am cared for."
+  },
+  {
+   "title": "Reflect",
+   "quality": "Reflection",
+   "text": "Reflection turns every step into wisdom. Look back with love, look forward with trust.",
+   "prompt": "What has this journey shown you so far?",
+   "affirmation": "I reflect, I learn, I shine."
+  },
+  {
+   "title": "Be Grateful",
+   "quality": "Gratitude",
+   "text": "Gratitude lifts your energy instantly – like opening a window to the sun.",
+   "prompt": "Name three things you are grateful for in this moment.",
+   "affirmation": "Thank you, life."
+  },
+  {
+   "title": "Be Present",
+   "quality": "Presence",
+   "text": "Your light shines in the now. Be fully here – with this breath, these people.",
+   "prompt": "What do you notice right now with all your senses?",
+   "affirmation": "I am here. I am light."
+  },
+  {
+   "title": "Be Kind",
+   "quality": "Kindness",
+   "text": "A kind word is light you give away – and it returns doubled.",
+   "prompt": "What kind word can you give someone at this table?",
+   "affirmation": "Kindness is my nature."
+  },
+  {
+   "title": "Be Joyful",
+   "quality": "Joy",
+   "text": "Joy is your soul dancing. Let it shine through your eyes and your smile.",
+   "prompt": "What makes your heart dance?",
+   "affirmation": "Joy radiates from me."
+  },
+  {
+   "title": "Be Forgiving",
+   "quality": "Forgiveness",
+   "text": "Forgiveness frees your light from heavy clouds.",
+   "prompt": "What or whom are you ready to forgive – maybe yourself?",
+   "affirmation": "I let go and shine free."
+  },
+  {
+   "title": "Be Yourself",
+   "quality": "Authenticity",
+   "text": "Your own light is unique. No one can shine like you.",
+   "prompt": "When do you feel most like yourself?",
+   "affirmation": "I shine as who I am."
+  }
  ]
 };
