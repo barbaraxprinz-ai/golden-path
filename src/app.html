@@ -681,8 +681,8 @@ function emblem(kind,col){
 }
 
 /* ===================== ARCHETYPE FIGURES ===================== */
-const ARCH_LOOK={seeker:{robe:["#6a4ab8","#1e1450"],glow:"#c9b0ff",bg:"#5a3a9a"},healer:{robe:["#c9952e","#4a3008"],glow:"#fff1b0",bg:"#a8822a"},
- creator:{robe:["#e8902e","#4a2008"],glow:"#ffd88a",bg:"#a8601a"},guide:{robe:["#2bb3b1","#0a2a3a"],glow:"#a8fff0",bg:"#1a7a80"}};
+const ARCH_LOOK={seeker:{robe:["#6a4ab8","#1e1450"],glow:"#c9b0ff",bg:"#5a3a9a"},healer:{robe:["#2fa66a","#0a3a24"],glow:"#9cf0c0",bg:"#1f7a4a"},
+ creator:{robe:["#e8902e","#4a2008"],glow:"#ffd88a",bg:"#a8601a"},guide:{robe:["#3a6ad8","#0a1a4a"],glow:"#b8d8ff",bg:"#2a4a9a"}};
 function archSVG(id,size){const u="ar"+(++EID),L=ARCH_LOOK[id]||ARCH_LOOK.seeker,G="#f2cf6b";
   const defs=`<defs><radialGradient id="${u}h"><stop offset="0" stop-color="${L.glow}" stop-opacity=".75"/><stop offset="1" stop-color="${L.glow}" stop-opacity="0"/></radialGradient>
     <linearGradient id="${u}r" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${L.robe[0]}"/><stop offset="1" stop-color="${L.robe[1]}"/></linearGradient>
@@ -700,9 +700,14 @@ function archSVG(id,size){const u="ar"+(++EID),L=ARCH_LOOK[id]||ARCH_LOOK.seeker
     <path d="M49 58 Q36 52 22 40 M71 58 Q84 52 98 40" stroke="${G}" stroke-width="2.4" fill="none" stroke-linecap="round"/>
     <circle cx="21" cy="39" r="3" fill="${L.glow}"/><circle cx="99" cy="39" r="3" fill="${L.glow}"/>
     <path d="M48 54 Q30 80 24 110 Q60 116 96 110 Q90 80 72 54" fill="none" stroke="#fff1b0" stroke-width="1.2" opacity=".6"/>
-    <circle cx="60" cy="36" r="8.5" fill="#3a2a08" stroke="#fff1b0" stroke-width="1.6"/>
-    ${[...Array(12)].map((_,i)=>{const a=i*Math.PI/6;return `<line x1="${60+15*Math.cos(a)}" y1="${70+15*Math.sin(a)}" x2="${60+24*Math.cos(a)}" y2="${70+24*Math.sin(a)}" stroke="#fff1b0" stroke-width="1.6" stroke-linecap="round"/>`}).join("")}
-    <circle cx="60" cy="70" r="18" fill="url(#${u}g)"/><path transform="translate(48,60) scale(1)" d="${HEART}" fill="#fff4c4" stroke="#b8781a" stroke-width="1.4"/><path transform="translate(52,63) scale(.66)" d="${HEART}" fill="#ffd45a"/>`;
+    <circle cx="60" cy="36" r="8.5" fill="#06261a" stroke="${G}" stroke-width="1.6"/>
+    ${[...Array(12)].map((_,i)=>{const a=i*Math.PI/6;return `<line x1="${60+16*Math.cos(a)}" y1="${70+16*Math.sin(a)}" x2="${60+25*Math.cos(a)}" y2="${70+25*Math.sin(a)}" stroke="#c8ffe0" stroke-width="1.6" stroke-linecap="round"/>`}).join("")}
+    <circle cx="60" cy="70" r="18" fill="url(#${u}g)"/>
+    <defs><linearGradient id="${u}e" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#b8ffd8"/><stop offset=".45" stop-color="#1fc87a"/><stop offset="1" stop-color="#065a34"/></linearGradient></defs>
+    <path transform="translate(47,59) scale(1.08)" d="${HEART}" fill="url(#${u}e)" stroke="${G}" stroke-width="1.2"/>
+    <path d="M60 64 L53 66 L49 70 M60 64 L67 66 L71 70 M60 64 V82 M53 66 L60 82 L67 66" stroke="#e8fff2" stroke-opacity=".55" stroke-width=".9" fill="none"/>
+    <circle cx="55" cy="66" r="1.6" fill="#fff"/>
+    ${[[24,108],[34,110],[86,110],[96,108]].map(([x,y],i)=>`<path d="M${x} ${y} Q${x-1} ${y-10} ${x+(i%2?4:-4)} ${y-16} M${x} ${y-6} q-6 -2 -8 -7 M${x} ${y-9} q6 -2 7 -8" stroke="#5fd08a" stroke-width="1.6" fill="none" stroke-linecap="round"/><ellipse cx="${x-7}" cy="${y-13}" rx="2.5" ry="1.5" fill="#7ae0a0"/><ellipse cx="${x+7}" cy="${y-17}" rx="2.5" ry="1.5" fill="#7ae0a0"/>`).join("")}`;
   if(id==="creator")fig=`<path d="M60 48 C50 48 48 56 46 64 Q38 90 26 106 Q60 116 94 106 Q82 90 74 64 C72 56 70 48 60 48Z" fill="url(#${u}r)" stroke="${G}" stroke-width="1.6"/>
     <path d="M50 58 Q40 40 32 20 M70 58 Q80 40 88 20" stroke="${G}" stroke-width="2.4" fill="none" stroke-linecap="round"/>
     <circle cx="60" cy="38" r="8.5" fill="#2a1404" stroke="${G}" stroke-width="1.6"/>
