@@ -931,7 +931,7 @@ function emblem(kind,col){
 
 /* ===================== ARCHETYPE FIGURES ===================== */
 const ARCH_LOOK={seeker:{robe:["#6a4ab8","#1e1450"],glow:"#c9b0ff",bg:"#5a3a9a"},healer:{robe:["#2fa66a","#0a3a24"],glow:"#9cf0c0",bg:"#1f7a4a"},
- creator:{robe:["#e8902e","#4a2008"],glow:"#ffd88a",bg:"#a8601a"},guide:{robe:["#3a6ad8","#0a1a4a"],glow:"#b8d8ff",bg:"#2a4a9a"}};
+ creator:{robe:["#e8902e","#4a2008"],glow:"#ffd88a",bg:"#a8601a"},guide:{robe:["#36c8d8","#0a2a40"],glow:"#b8f6ff",bg:"#1a7a90"}};
 function archSVG(id,size){const u="ar"+(++EID),L=ARCH_LOOK[id]||ARCH_LOOK.seeker,G="#f2cf6b";
   const defs=`<defs><radialGradient id="${u}h"><stop offset="0" stop-color="${L.glow}" stop-opacity=".75"/><stop offset="1" stop-color="${L.glow}" stop-opacity="0"/></radialGradient>
     <linearGradient id="${u}r" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${L.robe[0]}"/><stop offset="1" stop-color="${L.robe[1]}"/></linearGradient>
