@@ -356,6 +356,8 @@ footer{color:#cfc4a6!important}
     <h3>Moments of Life &amp; the inner voice</h3>
     <p>Life has ups and downs: racing thoughts, fear, friendship struggles, stress, grief – and waves of joy. <b>Moments of Life</b> cards show how to transform them, and the support that appeared: an angel in the right moment, a sign, a word from a stranger, an advertisement, a car plate, a synchronicity. There is always support, even if we can't see it.</p>
     <p>Now and then you can pause with <b>♡ Listen to your heart</b>: close your eyes, breathe, ask silently and hear the subtle inner voice. In stillness is power and strength.</p>
+    <h3>Held &amp; Guided</h3>
+    <p>In between the steps, a short <b>Word of Light</b> may appear – an old, simple Bible word to remind us: we are guided, held, supported, embraced, never alone.</p>
     <h3>Clear Communication</h3>
     <p>On <b>Clear Communication</b> fields two travellers practise together: What is said? What is heard? What does the other person need in this moment? Is it clear and obvious? Repeat what you heard, listen with your heart, ask before you assume, try an I-message – and discover how much connection clear words create.</p>
     <h3>Radiate Your Light</h3>
@@ -406,6 +408,7 @@ const D3=window.GAME_DATA3||{};
 if(D3.prayers&&DK.prayers)DK.prayers.cards=DK.prayers.cards.concat(D3.prayers);
 if(D3.bridge)DK.bridge={name:"Bridge of Light · Here & There",color:"#8fa8ff",cards:D3.bridge};
 if(D3.treasures)DK.treasures={name:"Treasures of the Path",color:"#f2cf6b",cards:D3.treasures};
+if(D3.held)DK.held={name:"Held & Guided · Words of Light",color:"#f6e3a8",cards:D3.held};
 if(D3.communication)DK.comm={name:"Clear Communication",color:"#7fc8f0",cards:D3.communication};
 if(D3.radiate)DK.radiate={name:"Radiate Your Light",color:"#fff1b0",cards:D3.radiate};
 if(D3.numbers2)DK.numwis={name:"Number Wisdom",color:"#e6c463",cards:D3.numbers2};
@@ -740,6 +743,7 @@ const TH={
  core:{bg:"radial-gradient(circle at 50% 22%,#b08a2a 0,#16255a 38%,#0b1433 72%,#070c22 100%)",tx:"#fbf3dc",ac:"#f2cf6b"},
  bridge:{bg:"radial-gradient(circle at 50% 22%,#6a5aa8 0,#1e2560 38%,#0b1433 72%,#070c22 100%)",tx:"#fbf3dc",ac:"#d9c8ff"},
  treasures:{bg:"radial-gradient(circle at 50% 22%,#b8862a 0,#3a2c18 30%,#0b1433 70%,#070c22 100%)",tx:"#fbf3dc",ac:"#f2cf6b"},
+ held:{bg:"radial-gradient(circle at 50% 20%,#f6e3a866 0,#3a3a7a 34%,#0b1433 70%,#070c22 100%)",tx:"#fbf3dc",ac:"#f6e3a8"},
  comm:{bg:"radial-gradient(circle at 50% 24%,#2f6a9a 0,#1a2a5a 38%,#0b1433 72%,#070c22 100%)",tx:"#fbf3dc",ac:"#a8dcff"},
  radiate:{bg:"radial-gradient(circle at 50% 34%,#c9952eaa 0,#6a4a1a66 22%,#1a2350 50%,#0b1433 74%,#070c22 100%)",tx:"#fbf3dc",ac:"#fff1b0"},
  numwis:{bg:"radial-gradient(circle at 50% 22%,#7a6020 0,#1e2a5a 38%,#0b1433 72%,#070c22 100%)",tx:"#fbf3dc",ac:"#f6d77e"},
@@ -1021,6 +1025,9 @@ function askHelp(){
 function numSVG(n,pl){return `<svg class="emb" viewBox="0 0 120 120"><circle cx="60" cy="60" r="52" fill="none" stroke="#f2cf6b" stroke-width="1.5"/><circle cx="60" cy="60" r="44" fill="#f2cf6b14" stroke="#f2cf6b55"/>
   ${[...Array(12)].map((_,i)=>`<line x1="${60+46*Math.cos(i*Math.PI/6)}" y1="${60+46*Math.sin(i*Math.PI/6)}" x2="${60+52*Math.cos(i*Math.PI/6)}" y2="${60+52*Math.sin(i*Math.PI/6)}" stroke="#f2cf6b88"/>`).join("")}
   <text x="60" y="${n>9?76:80}" text-anchor="middle" font-size="${n>9?44:56}" font-weight="700" fill="#f6d77e" font-family="Golden Serif,Georgia,serif">${n}</text><text x="60" y="100" text-anchor="middle" font-size="10" letter-spacing="2" fill="#f2cf6bcc" font-family="Golden Serif,Georgia,serif">${(pl||"").toUpperCase()}</text></svg>`}
+function showHeld(after){const p=cur(),c=DK.held.cards[draw("held")];S.heldCount=(S.heldCount||0)+1;
+  openCard({sfx:"silence",th:"held",deck:"In between · a reminder for "+esc(p.name),title:"You are "+esc(c.theme.toLowerCase()),emb:emblem("sym","✝"),
+    html:`<p style="font-family:var(--serif);font-style:italic;font-size:1.35rem;line-height:1.35;color:#fff3cf;margin:4px 0">“${esc(c.word)}”</p><div style="font-family:var(--caps);font-size:.72rem;letter-spacing:.16em;color:var(--ac)">${esc(c.ref)}</div><div class="prompt" style="margin-top:12px">${esc(c.affirmation)}</div>`,reward:"+1 energy",acts:[["Amen · I feel it",()=>{closeCard();energy(p,1);log(p.name+" is reminded: you are "+c.theme.toLowerCase()+".");after()}]]})}
 function showSign(){sfx("sign");
   const p=cur(),card=DK.signs.cards[draw("signs")];
   openCard({th:"sign",deck:"A surprise for "+esc(p.name),title:esc(card.title),sub:"Signs from the Universe",emb:emblem("sym",/^\d|^Number/.test(card.title)?"✶":"✧"),text:esc(card.text),prompt:card.prompt?esc(card.prompt):"",reward:moveText(card.effect),
@@ -1070,6 +1077,8 @@ function pick(title,idxs,cb){
 function nextTurn(){DOTCTX=null;
   if(S&&!S.over&&!S._sign&&DK.signs&&!cur().done&&!S.players.every(q=>q.done)&&Math.random()<0.3){S._sign=true;S.rolled=0;S.busy=true;refresh();chime("gate");setTimeout(()=>{S.busy=false;(DK.chests&&Math.random()<.4)?openChest(DK.chests.cards[draw("chests")]):showSign()},350);return}
   if(S)S._sign=false;
+  if(S&&!S.over&&!S._held&&DK.held&&!S.players.every(q=>q.done)&&Math.random()<0.18){S._held=true;S.busy=true;refresh();setTimeout(()=>{S.busy=false;showHeld(()=>nextTurn())},300);return}
+  if(S)S._held=false;
   if(S.players.every(q=>q.done)){S.over=true;S.rolled=0;refresh();setTimeout(finale,500);return}
   S.rolled=0;S.helpedThisTurn={};S.turn=(S.turn+1)%S.players.length;{const n=cur();if(n.heartRest>0)n.heartRest--}refresh();
   const nx=cur();if(!nx.done)toast((nx.energy!=null&&nx.energy<=1)?"⚡ "+nx.name+", your battery is low – a pause, a breath or a song will help.":"✦ "+encourage(nx));
@@ -1089,7 +1098,7 @@ function finale(){
 let libSel="gates";
 function mini(k,title,t,p,emb,th){const tm=theme(th);return `<div class="mcard"><div class="in ${tm.light?"light":""} ${tm.rb?"rb":""}" style="${themeStyle(th)}"><div class="k">${k}</div><h4>${title}</h4>${emb.replace('class="emb"','')}<div class="t">${t}</div>${p?`<div class="p">${p}</div>`:""}</div></div>`}
 function renderCards(){
-  const chips=[["dots","40 Questions"],["gates","13 Gates"],["core","Core Keys"],["shine"],["gratitude"],["planets"],["wings"],["signs"],["comm"],["radiate"],["numwis"],["recharge"],["moments"],["chests"],["bridge"],["treasures"],["choice"],["insight"],["pearls"],["animals"],["colors"],["prayers"],["together"],["steps"],["loops"]];
+  const chips=[["dots","40 Questions"],["gates","13 Gates"],["core","Core Keys"],["shine"],["gratitude"],["planets"],["wings"],["signs"],["held"],["comm"],["radiate"],["numwis"],["recharge"],["moments"],["chests"],["bridge"],["treasures"],["choice"],["insight"],["pearls"],["animals"],["colors"],["prayers"],["together"],["steps"],["loops"]];
   const chipsOk=chips.filter(([k])=>k==="gates"||k==="core"||(k==="dots"?D2.dots:DK[k]));
   $("#deckChips").innerHTML=chipsOk.map(([k,n])=>`<button class="${k===libSel?"on":""}" data-k="${k}">${n||(DK[k]?DK[k].name:k)} ${k!=="gates"&&k!=="core"&&k!=="dots"?"<span style='opacity:.6'>"+DK[k].cards.length+"</span>":""}</button>`).join("");
   $("#deckChips").querySelectorAll("button").forEach(b=>b.onclick=()=>{libSel=b.dataset.k;renderCards()});
@@ -1105,6 +1114,7 @@ function renderCards(){
     if(libSel==="prayers")return mini(d.name,esc(c.title),"<i style='font-family:var(--serif);font-size:.95rem'>"+esc(c.text)+"</i>",esc(c.how),emblem("heart"),"prayers");
     if(libSel==="together")return mini(d.name,esc(c.title),esc(c.text),effectText(c.effect),emblem("sym","∞"),"together");
     const sym={bridge:"☽",treasures:"✦",insight:"✧",animals:c.title[0],steps:"▲",loops:"↺",shine:"☀",gratitude:"♡",wings:"〰",signs:"✧"}[libSel];
+    if(libSel==="held")return mini("You are "+esc(c.theme.toLowerCase()),"<span style='font-size:.95rem;font-style:italic'>“"+esc(c.word)+"”</span>",esc(c.ref),esc(c.affirmation),emblem("sym","✝"),"held");
     if(libSel==="comm")return mini(d.name,esc(c.title),esc(c.exercise),esc(c.question),emblem("sym","❝"),"comm");
     if(libSel==="radiate")return mini(d.name,esc(c.title),esc(c.text)+"<br><i>"+esc(c.prompt)+"</i>","“"+esc(c.affirmation)+"”",emblem("sym","☼"),"radiate");
     if(libSel==="numwis")return mini(d.name,esc(c.n+" · "+c.planet),"<b>"+esc(c.keywords)+"</b><br>"+esc(c.text),esc(c.prompt),numSVG(c.n,c.planet),"numwis");

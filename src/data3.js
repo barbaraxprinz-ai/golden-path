@@ -1366,5 +1366,103 @@ window.GAME_DATA3 = {
    "exercise": "Practise saying a clear, kind 'No, thank you' – with a smile.",
    "question": "Can a clear no also be loving?"
   }
+ ],
+ "held": [
+  {
+   "theme": "Guided",
+   "word": "Thy word is a lamp unto my feet, and a light unto my path.",
+   "ref": "Psalm 119:105",
+   "affirmation": "My path is lit, step by step."
+  },
+  {
+   "theme": "Held",
+   "word": "The eternal God is thy refuge, and underneath are the everlasting arms.",
+   "ref": "Deuteronomy 33:27",
+   "affirmation": "I am held."
+  },
+  {
+   "theme": "Protected",
+   "word": "He shall give his angels charge over thee, to keep thee in all thy ways.",
+   "ref": "Psalm 91:11",
+   "affirmation": "Angels walk with me."
+  },
+  {
+   "theme": "Never alone",
+   "word": "I will never leave thee, nor forsake thee.",
+   "ref": "Hebrews 13:5",
+   "affirmation": "I am never alone."
+  },
+  {
+   "theme": "Without fear",
+   "word": "Fear thou not; for I am with thee.",
+   "ref": "Isaiah 41:10",
+   "affirmation": "I let go of fear."
+  },
+  {
+   "theme": "Calm",
+   "word": "Be still, and know that I am God.",
+   "ref": "Psalm 46:10",
+   "affirmation": "In stillness I know."
+  },
+  {
+   "theme": "Cared for",
+   "word": "The Lord is my shepherd; I shall not want.",
+   "ref": "Psalm 23:1",
+   "affirmation": "I have all I need."
+  },
+  {
+   "theme": "Directed",
+   "word": "In all thy ways acknowledge him, and he shall direct thy paths.",
+   "ref": "Proverbs 3:6",
+   "affirmation": "My paths are directed."
+  },
+  {
+   "theme": "Rested",
+   "word": "Come unto me, all ye that labour and are heavy laden, and I will give you rest.",
+   "ref": "Matthew 11:28",
+   "affirmation": "I may rest."
+  },
+  {
+   "theme": "Answered",
+   "word": "Ask, and it shall be given you; seek, and ye shall find.",
+   "ref": "Matthew 7:7",
+   "affirmation": "I ask, I seek, I find."
+  },
+  {
+   "theme": "Shining",
+   "word": "Ye are the light of the world.",
+   "ref": "Matthew 5:14",
+   "affirmation": "I am light."
+  },
+  {
+   "theme": "Comforted",
+   "word": "Weeping may endure for a night, but joy cometh in the morning.",
+   "ref": "Psalm 30:5",
+   "affirmation": "Joy comes in the morning."
+  },
+  {
+   "theme": "Strengthened",
+   "word": "I can do all things through Christ which strengtheneth me.",
+   "ref": "Philippians 4:13",
+   "affirmation": "I am strengthened."
+  },
+  {
+   "theme": "At peace",
+   "word": "Peace I leave with you, my peace I give unto you.",
+   "ref": "John 14:27",
+   "affirmation": "Peace is given to me."
+  },
+  {
+   "theme": "Embraced",
+   "word": "Love never fails.",
+   "ref": "1 Corinthians 13:8",
+   "affirmation": "I am embraced by love."
+  },
+  {
+   "theme": "Accompanied",
+   "word": "Lo, I am with you alway, even unto the end of the world.",
+   "ref": "Matthew 28:20",
+   "affirmation": "I am accompanied always."
+  }
  ]
 };
