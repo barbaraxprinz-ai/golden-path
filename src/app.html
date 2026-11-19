@@ -681,7 +681,7 @@ function emblem(kind,col){
 }
 
 /* ===================== ARCHETYPE FIGURES ===================== */
-const ARCH_LOOK={seeker:{robe:["#6a4ab8","#1e1450"],glow:"#c9b0ff",bg:"#5a3a9a"},healer:{robe:["#d9708a","#3a1830"],glow:"#ffc8d8",bg:"#9a3a5a"},
+const ARCH_LOOK={seeker:{robe:["#6a4ab8","#1e1450"],glow:"#c9b0ff",bg:"#5a3a9a"},healer:{robe:["#c9952e","#4a3008"],glow:"#fff1b0",bg:"#a8822a"},
  creator:{robe:["#e8902e","#4a2008"],glow:"#ffd88a",bg:"#a8601a"},guide:{robe:["#2bb3b1","#0a2a3a"],glow:"#a8fff0",bg:"#1a7a80"}};
 function archSVG(id,size){const u="ar"+(++EID),L=ARCH_LOOK[id]||ARCH_LOOK.seeker,G="#f2cf6b";
   const defs=`<defs><radialGradient id="${u}h"><stop offset="0" stop-color="${L.glow}" stop-opacity=".75"/><stop offset="1" stop-color="${L.glow}" stop-opacity="0"/></radialGradient>
@@ -699,9 +699,10 @@ function archSVG(id,size){const u="ar"+(++EID),L=ARCH_LOOK[id]||ARCH_LOOK.seeker
     <path d="M60 46 C52 46 49 52 48 60 L40 108 Q60 113 80 108 L72 60 C71 52 68 46 60 46Z" fill="url(#${u}r)" stroke="${G}" stroke-width="1.6"/>
     <path d="M49 58 Q36 52 22 40 M71 58 Q84 52 98 40" stroke="${G}" stroke-width="2.4" fill="none" stroke-linecap="round"/>
     <circle cx="21" cy="39" r="3" fill="${L.glow}"/><circle cx="99" cy="39" r="3" fill="${L.glow}"/>
-    <circle cx="60" cy="36" r="8.5" fill="#2a0f1e" stroke="${G}" stroke-width="1.6"/>
-    <circle cx="60" cy="70" r="15" fill="url(#${u}g)"/><path transform="translate(50,62) scale(.85)" d="${HEART}" fill="#e83a5a" stroke="#fff1b0" stroke-width=".8"/>
-    <path d="M36 98 q4 -8 8 0 M76 98 q4 -8 8 0" stroke="#7ad08a" stroke-width="1.6" fill="none"/>`;
+    <path d="M48 54 Q30 80 24 110 Q60 116 96 110 Q90 80 72 54" fill="none" stroke="#fff1b0" stroke-width="1.2" opacity=".6"/>
+    <circle cx="60" cy="36" r="8.5" fill="#3a2a08" stroke="#fff1b0" stroke-width="1.6"/>
+    ${[...Array(12)].map((_,i)=>{const a=i*Math.PI/6;return `<line x1="${60+15*Math.cos(a)}" y1="${70+15*Math.sin(a)}" x2="${60+24*Math.cos(a)}" y2="${70+24*Math.sin(a)}" stroke="#fff1b0" stroke-width="1.6" stroke-linecap="round"/>`}).join("")}
+    <circle cx="60" cy="70" r="18" fill="url(#${u}g)"/><path transform="translate(48,60) scale(1)" d="${HEART}" fill="#fff4c4" stroke="#b8781a" stroke-width="1.4"/><path transform="translate(52,63) scale(.66)" d="${HEART}" fill="#ffd45a"/>`;
   if(id==="creator")fig=`<path d="M60 48 C50 48 48 56 46 64 Q38 90 26 106 Q60 116 94 106 Q82 90 74 64 C72 56 70 48 60 48Z" fill="url(#${u}r)" stroke="${G}" stroke-width="1.6"/>
     <path d="M50 58 Q40 40 32 20 M70 58 Q80 40 88 20" stroke="${G}" stroke-width="2.4" fill="none" stroke-linecap="round"/>
     <circle cx="60" cy="38" r="8.5" fill="#2a1404" stroke="${G}" stroke-width="1.6"/>
