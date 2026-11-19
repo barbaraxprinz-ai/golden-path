@@ -664,5 +664,227 @@ window.GAME_DATA3 = {
    "prompt": "What do you treasure about this circle?",
    "effect": "allPearl"
   }
+ ],
+ "chests": [
+  {
+   "title": "The Missed Bus",
+   "situation": "You run to the bus stop – and the bus drives away right in front of you.",
+   "good": "You breathe, look around and notice the sky turning pink.",
+   "others": [
+    "You complain to everyone that your day is ruined.",
+    "You blame yourself for being slow."
+   ],
+   "joy": "A missed bus gave you five quiet minutes and a beautiful sky.",
+   "effect": "walk2"
+  },
+  {
+   "title": "Rainy Saturday",
+   "situation": "You planned a picnic, but it is pouring with rain.",
+   "good": "You build a cozy blanket picnic at home with candles and music.",
+   "others": [
+    "You stay grumpy on the sofa all day.",
+    "You decide the weekend is wasted."
+   ],
+   "joy": "Joy is not in the weather – it is in how you shape the moment.",
+   "effect": "fly3"
+  },
+  {
+   "title": "The Ladybug",
+   "situation": "You are tired on a long walk and sit down on a stone.",
+   "good": "You notice a ladybug crawling on the stone beside you and smile.",
+   "others": [
+    "You only think about how far you still have to go.",
+    "You check your phone and miss everything around you."
+   ],
+   "joy": "Small wonders wait on every stone – if we look.",
+   "effect": "lucky"
+  },
+  {
+   "title": "After the Storm",
+   "situation": "A heavy storm has just passed. The streets are wet and grey.",
+   "good": "You look up – and there is a rainbow.",
+   "others": [
+    "You only see the puddles on your shoes.",
+    "You worry about the next storm."
+   ],
+   "joy": "After the rain comes the rainbow – every time.",
+   "effect": "toGate"
+  },
+  {
+   "title": "Morning Light",
+   "situation": "Your alarm rings. You feel heavy and want to stay in bed.",
+   "good": "You open the curtains and let the first sunbeams touch your face.",
+   "others": [
+    "You start the day by thinking about all your problems.",
+    "You scroll through bad news before getting up."
+   ],
+   "joy": "A new morning is a new beginning – welcome it with light.",
+   "effect": "walk2"
+  },
+  {
+   "title": "A Stranger's Smile",
+   "situation": "You feel lonely in a busy supermarket queue.",
+   "good": "You smile at the person next to you – and they smile back.",
+   "others": [
+    "You look down and wait for it to be over.",
+    "You get annoyed that the queue is so slow."
+   ],
+   "joy": "One smile can connect two hearts in a second.",
+   "effect": "bring"
+  },
+  {
+   "title": "The Helping Hand",
+   "situation": "Your car breaks down on the side of the road. You feel helpless.",
+   "good": "You accept the help of a stranger who stops – and thank them warmly.",
+   "others": [
+    "You refuse help because you don't want to be a burden.",
+    "You panic and think nobody ever helps anyone."
+   ],
+   "joy": "Help often comes when we dare to receive it.",
+   "effect": "allForward"
+  },
+  {
+   "title": "Broken Cup",
+   "situation": "Your favourite cup falls and breaks into pieces.",
+   "good": "You remember the lovely moments with it and plant a little flower in a piece.",
+   "others": [
+    "You get angry at yourself for the whole day.",
+    "You think 'everything always goes wrong for me'."
+   ],
+   "joy": "Even something broken can become a new beginning.",
+   "effect": "key"
+  },
+  {
+   "title": "The Lost Way",
+   "situation": "On holiday you take a wrong turn and get lost.",
+   "good": "You discover a hidden café and a friendly local who shows you the way.",
+   "others": [
+    "You argue with your travel companion.",
+    "You go back to the hotel and give up for the day."
+   ],
+   "joy": "Detours lead to the most beautiful discoveries.",
+   "effect": "detourLight"
+  },
+  {
+   "title": "Cancelled Plans",
+   "situation": "A friend cancels your meeting at the last minute.",
+   "good": "You use the free evening for a bath, a book and some self-love.",
+   "others": [
+    "You feel rejected and unimportant.",
+    "You send an angry message."
+   ],
+   "joy": "Free time is a gift you can give to yourself.",
+   "effect": "rest"
+  },
+  {
+   "title": "The Mistake at Work",
+   "situation": "You made a mistake and your boss noticed.",
+   "good": "You own it, fix it, and learn something new.",
+   "others": [
+    "You hide it and feel anxious for days.",
+    "You decide you are simply not good enough."
+   ],
+   "joy": "Every mistake is a teacher – and a pearl of wisdom.",
+   "effect": "coin"
+  },
+  {
+   "title": "Waiting Room",
+   "situation": "You have to wait one hour at the doctor's.",
+   "good": "You start a kind chat with an elderly lady who tells you her life story.",
+   "others": [
+    "You count every minute and get more and more annoyed.",
+    "You read sad news on your phone."
+   ],
+   "joy": "Every waiting room can become a meeting place.",
+   "effect": "cardinal"
+  },
+  {
+   "title": "The Grey Day",
+   "situation": "It is a grey November day and you feel low.",
+   "good": "You make a cup of tea, call a friend and light a candle.",
+   "others": [
+    "You stay in bed and think nothing will ever change.",
+    "You eat junk food and feel worse."
+   ],
+   "joy": "Little lights make grey days golden.",
+   "effect": "energy"
+  },
+  {
+   "title": "The Child's Question",
+   "situation": "A child asks you: 'Why is the sky blue?' You are in a hurry.",
+   "good": "You stop, kneel down and wonder about it together.",
+   "others": [
+    "You say 'not now' and walk on.",
+    "You give a quick answer without looking up."
+   ],
+   "joy": "Curiosity shared is joy doubled.",
+   "effect": "double"
+  },
+  {
+   "title": "A Song on the Radio",
+   "situation": "You are stuck in traffic and frustrated.",
+   "good": "Your favourite song comes on – you turn it up and sing along.",
+   "others": [
+    "You honk and get angry at the other drivers.",
+    "You tell yourself the whole day is a disaster."
+   ],
+   "joy": "Music can turn a traffic jam into a concert.",
+   "effect": "music"
+  },
+  {
+   "title": "The Old Friend",
+   "situation": "You see an old friend in the street you lost contact with.",
+   "good": "You walk up, hug them and say 'How wonderful to see you!'",
+   "others": [
+    "You pretend not to see them.",
+    "You feel guilty and cross the street."
+   ],
+   "joy": "It is never too late to reconnect.",
+   "effect": "bring"
+  },
+  {
+   "title": "The Garden",
+   "situation": "Your little plant seems to have died over the winter.",
+   "good": "You look closer and discover a tiny green bud.",
+   "others": [
+    "You throw it away immediately.",
+    "You decide you just can't grow anything."
+   ],
+   "joy": "Life always finds a way back – look closely.",
+   "effect": "walk2"
+  },
+  {
+   "title": "Feeling Not Good Enough",
+   "situation": "You compare yourself with someone who seems perfect.",
+   "good": "You remember three things you love about yourself.",
+   "others": [
+    "You decide you will never be like them.",
+    "You hide your talents so nobody can judge you."
+   ],
+   "joy": "You are unique – your path is your own.",
+   "effect": "fly3"
+  },
+  {
+   "title": "The Kind Neighbour",
+   "situation": "Your neighbour brings you soup when you are ill.",
+   "good": "You accept it with gratitude and later bring them flowers.",
+   "others": [
+    "You feel embarrassed and say you don't need it.",
+    "You wonder what they want in return."
+   ],
+   "joy": "Kindness grows when we receive and give it.",
+   "effect": "giftStep"
+  },
+  {
+   "title": "The Butterfly",
+   "situation": "You sit in the park, full of worries.",
+   "good": "A butterfly lands on your knee for a moment.",
+   "others": [
+    "You shoo it away and keep worrying.",
+    "You don't even notice it."
+   ],
+   "joy": "Moments of grace come quietly – let them land.",
+   "effect": "sign"
+  }
  ]
 };
