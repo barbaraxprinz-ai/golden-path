@@ -594,7 +594,9 @@ function chime(kind){
 const BUILTIN=[{id:"builtin-1",name:"Life is a game… Play with Love ♥",src:"music/life-is-a-game.mp3",builtin:true,theme:true,role:"start"},
  {id:"builtin-2",name:"The Golden Path of Hope and Love",src:"music/golden-path-of-hope-and-love.mp3",builtin:true,role:"heart"},
  {id:"builtin-3",name:"Riddles of Life – Make Dreams Come True",src:"music/riddles-of-life.mp3",builtin:true,role:"chest"},
- {id:"builtin-4",name:"Dare to Dream",src:"music/dare-to-dream.mp3",builtin:true,role:"dream"}];
+ {id:"builtin-4",name:"Dare to Dream",src:"music/dare-to-dream.mp3",builtin:true,role:"dream"},
+ {id:"builtin-5",name:"A Grateful Heart",src:"music/a-grateful-heart.mp3",builtin:true,role:"gratitude"},
+ {id:"builtin-6",name:"Connected Beyond",src:"music/connected-beyond.mp3",builtin:true,role:"bridge"}];
 function playRole(r){if(!$("#mMoments").checked)return false;const i=Music.songs.findIndex(x=>x.role===r);if(i<0)return false;if(Music.idx===i&&!Music.audio.paused)return true;musicPlay(i);return true}
 const Music={songs:BUILTIN.slice(),idx:-1,audio:new Audio(),db:null};
 Music.audio.volume=.6;
@@ -982,6 +984,8 @@ function drawDeck(deck){
         html:`<div class="dot"><div class="dt">✦ How to transform it</div><p>${esc(card.tool)}</p><div class="dt" style="margin-top:8px">✦ The support that appeared</div><div class="dq">${esc(card.help)}</div></div>`,
         prompt:up?"When did you feel like this? Share it!":"When did you go through something similar – and what helped you?",reward:moveText(card.effect),
         acts:[["There is always support ✦",()=>{closeCard();log(p.name+" walks through a moment of life: “"+card.title+"”.");energy(p,up?1:-1);applyMove(card.effect)}]].concat(swap)});return}
+    if(deck==="bridge")playRole("bridge");
+    if(deck==="gratitude"||deck==="shine")playRole("gratitude");
     if(deck==="bridge"||deck==="treasures"){openCard({...base,sub:deck==="bridge"?"Here & There":"A treasure for you",emb:emblem("sym",deck==="bridge"?"☽":"✦"),text:esc(card.text),prompt:esc(card.prompt),reward:moveText(card.effect),acts:[[deck==="bridge"?"I feel the connection ✦":"I take the treasure ✦",()=>{closeCard();log(p.name+" – "+card.title+".");applyMove(card.effect)}]].concat(swap)});return}
     if(deck==="shine"){openCard({...base,sub:"Shine-ON",emb:emblem("sym","☀"),text:esc(card.text),html:songLine("gratitude"),prompt:esc(card.prompt),reward:"Gratitude Circle · everyone +1 pearl",acts:[["We shared our gratitude ✓",done(()=>{S.players.forEach(q=>q.pearls++);chime("heart");log("Shine-ON “"+card.title+"” – a circle of gratitude.")})]].concat(swap)});return}
     if(deck==="together"){openCard({...base,sub:"for the whole circle",emb:emblem("sym","∞"),text:esc(card.text),reward:effectText(card.effect),acts:[["Done together ✓",()=>{closeCard();applyEffect(card)}]].concat(swap)});return}
