@@ -102,7 +102,6 @@ window.GAME_DATA = {
       name: "Power Animals",
       color: "#8a6d3b",
       cards: [
-        {title: "Dragon", text: "Guardian of the Golden Heart. Dragon protects what is precious and reminds you of the fire of your own life force.", prompt: "What treasure in you deserves protection?"},
         {title: "Eagle", text: "Eagle rises high and sees the whole landscape. From above, small worries shrink and the path becomes visible.", prompt: "How does your situation look from higher up?"},
         {title: "Owl", text: "Owl sees in the dark and hears what others miss. Wisdom often comes in the quiet hours.", prompt: "What truth can you see when you look more closely?"},
         {title: "Wolf", text: "Wolf is loyal to the pack and true to its own instinct. Belonging and freedom can live together.", prompt: "Who is your pack, and how do you stay true to yourself?"},
