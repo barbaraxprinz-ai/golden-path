@@ -1304,5 +1304,67 @@ window.GAME_DATA3 = {
    "prompt": "When do you feel most like yourself?",
    "affirmation": "I shine as who I am."
   }
+ ],
+ "communication": [
+  {
+   "title": "Said & Heard",
+   "exercise": "Say one sentence about your day to the person on your left. They repeat what they heard – in their own words.",
+   "question": "Was it the same? What got lost or added?"
+  },
+  {
+   "title": "What Do You Need?",
+   "exercise": "Ask the person on your right: 'What do you need right now?' Just listen. Don't fix, don't advise.",
+   "question": "How did it feel to be truly heard?"
+  },
+  {
+   "title": "The Clear Wish",
+   "exercise": "Say one wish to the circle – short, kind and clear. Begin with 'I would like …'",
+   "question": "Was it clear and obvious? What made it clear?"
+  },
+  {
+   "title": "Mirror the Feeling",
+   "exercise": "Someone shares a small worry. You answer only: 'It sounds like you feel …'",
+   "question": "Did you name the feeling correctly?"
+  },
+  {
+   "title": "Ten Words",
+   "exercise": "Explain what 'home' means to you in exactly ten words.",
+   "question": "Did the others understand you? What was hard?"
+  },
+  {
+   "title": "Ask Before You Assume",
+   "exercise": "Think of a moment someone misunderstood you. Tell it in two sentences.",
+   "question": "What one question would have prevented the misunderstanding?"
+  },
+  {
+   "title": "Kind & Honest",
+   "exercise": "Tell someone at the table one honest thing you appreciate – clearly and kindly.",
+   "question": "How does clear kindness feel to give and to receive?"
+  },
+  {
+   "title": "The Silent Message",
+   "exercise": "Say something to a companion only with your face and hands – no words. They guess.",
+   "question": "What did they hear without words?"
+  },
+  {
+   "title": "Listen With Your Heart",
+   "exercise": "Close your eyes. One person speaks for 30 seconds. Everyone else only listens.",
+   "question": "What did you hear between the words?"
+  },
+  {
+   "title": "I-Message",
+   "exercise": "Turn a complaint into an I-message: 'I feel … when … because … I need …'",
+   "question": "How does it change the way the message lands?"
+  },
+  {
+   "title": "Check In",
+   "exercise": "Ask your neighbour: 'Did I understand you right? You mean …?'",
+   "question": "Why is checking in a gift for both?"
+  },
+  {
+   "title": "Clear No, Warm Heart",
+   "exercise": "Practise saying a clear, kind 'No, thank you' – with a smile.",
+   "question": "Can a clear no also be loving?"
+  }
  ]
 };
