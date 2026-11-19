@@ -241,6 +241,7 @@ footer{color:#cfc4a6!important}
       <div class="lyrics" style="font-size:1.25rem;color:#f6d77e;margin:4px 0 6px" id="hymn"></div>
       <div class="tag">Are you on your path?</div><p style="font-family:var(--serif);font-size:1.15rem;color:#f6d77e">Walk the Golden Path of life toward the Golden Heart – and reach the values of the soul: Intuition · Creation · Passion · Motivation · Inspiration · Compassion · Connection …</p><div class="caps hint" style="margin:-4px 0 10px;letter-spacing:.3em">✦ Shuffle the dots ✦</div>
       <p>Walk the seven circuits of the labyrinth toward the Golden Heart. Every step is an experience, every experience a Pearl of Wisdom. Pass through twelve gemstone gates and the Golden Gate, pause on golden steps, take loops to rethink a choice, and help each other along the way.</p>
+      <p style="font-family:var(--caps);letter-spacing:.12em;color:#f6d77e;font-size:.95rem">MOVE on · LOVE → EVOL-VE · H·EAR·T · Tears? Ears! ♥</p>
       <p><b>You never walk alone.</b> Whatever step you take, you grow – and the others walk with you. Everything is connected: every pearl you gather lights the Golden Heart for everyone.</p>
       <p>No one wins against anyone. The journey is complete when everyone has arrived – together.</p>
     </div>
@@ -377,6 +378,12 @@ footer{color:#cfc4a6!important}
     <p>Every number carries a meaning: 0 Pluto – transformation · 1 Sun – energy, healing power, empowering others · 2 Moon – emotions, mother, foresight, balance · 3 Mars – a powerful force that brings you forward (sometimes one step back is given) · 4 Mercury – bring your ideas into the world · 5 Faith – belief, mind, luck · 6 Venus – love, friendship, care, grace · 7 Saturn – cause and effect, step by step, grounding others · 8 Uranus – family, rebellion, sudden change · 9 Jupiter – communication, companionship, voice · 10 Medium – bridge between here and there. After every roll the meaning of your number lights up – and on Number Wisdom fields you learn more.</p>
     <h3>Recharge Stations &amp; your energy battery</h3>
     <p>Every traveller has an energy battery ⚡. Sometimes we feel depleted or empty – then the little <b>Recharge Stations</b> help: breathe, walk, sing, dance, journal, create. Ask yourself: How do I charge my own battery in this moment? What do I need to re-charge or re-balance? Stillness and silence also fill the battery; hard moments of life use a little energy.</p>
+    <h3>Elevator · Lift Me Up</h3>
+    <p>Ten special Elevator cards stand for empowerment: someone believes in you, you remember your inner power – and you are lifted up, sometimes 5 or even 7 fields toward the light. Unique and special, just like you.</p>
+    <h3>Director's Chair</h3>
+    <p>You are the producer, director, author and actor in this film – the game of your lifelong journey. Whatever happens, you are co-creating together. Make the best out of every scene. Who do you want to be? What do you want to bring out into the world?</p>
+    <h3>Stepping Stones</h3>
+    <p>Sometimes the sunshine on the water hides the next stone. When you pause and look from another angle, new paths appear – left, ahead, right. It is encouraging to stop, pause and move forward in a new direction. Everything is possible.</p>
     <h3>Treasure Chests</h3>
     <p>Discover treasure chests on the path. Each one holds a little riddle from real life – a missed bus, a rainy day, a broken cup. Which choice brings more meaning? Find the little happiness – the ladybug on a stone, a helping hand, a rainbow after the rain – and the chest opens with a gift.</p>
     <h3>Bridge of Light &amp; Treasures</h3>
@@ -419,6 +426,8 @@ const D3=window.GAME_DATA3||{};
 if(D3.prayers&&DK.prayers)DK.prayers.cards=DK.prayers.cards.concat(D3.prayers);
 if(D3.bridge)DK.bridge={name:"Bridge of Light · Here & There",color:"#8fa8ff",cards:D3.bridge};
 if(D3.treasures)DK.treasures={name:"Treasures of the Path",color:"#f2cf6b",cards:D3.treasures};
+if(D3.elevator)DK.elevator={name:"Elevator · Lift Me Up",color:"#f6d77e",cards:D3.elevator};
+if(D3.film)DK.film={name:"Director's Chair · The Film of Your Life",color:"#d98a5a",cards:D3.film};
 if(D3.helping)DK.helping={name:"Helping Hands & Open Doors",color:"#8fd0a8",cards:D3.helping};
 if(D3.held)DK.held={name:"Held & Guided · Words of Light",color:"#f6e3a8",cards:D3.held};
 if(D3.communication)DK.comm={name:"Clear Communication",color:"#7fc8f0",cards:D3.communication};
@@ -465,7 +474,10 @@ const T={ // field types
  N:{deck:"numwis",name:"Number Wisdom",sym:"#"},
  O:{deck:"radiate",name:"Radiate Your Light",sym:"☼"},
  V:{deck:"comm",name:"Clear Communication",sym:"❝"},
- X:{deck:"helping",name:"Helping Hands",sym:"✋"}
+ X:{deck:"helping",name:"Helping Hands",sym:"✋"},
+ D:{deck:null,name:"Stepping Stones",sym:"◍"},
+ T:{deck:"film",name:"Director's Chair",sym:"🎬"},
+ "^":{deck:"elevator",name:"Elevator · Lift Me Up",sym:"⇧"}
 };
 Object.keys(T).forEach(k=>{if(T[k].deck&&!DK[T[k].deck])T[k].deck="pearls"});
 const ringCol=k=>k==="R"?"#cfd8de":k==="G"?"#fff":(DK[T[k].deck]&&DK[T[k].deck].color)||"#b08d3c";
@@ -485,6 +497,9 @@ const DESC={
  Y:"A moment of gratitude: share when you felt it. +1 pearl",
  J:"Jump & Learn: visit a planet and bring back its special power or wisdom.",
  K:"Bridge of Light: feel the connection between here and there – then move on.",
+ "^":"Elevator · Lift Me Up: empowerment! You are lifted several fields forward – unique and special.",
+ T:"Director's Chair: you are producer, director, author and actor of the film of your life. Who do you want to be?",
+ D:"Stepping stones in the water: the sunshine hides the next step. Pause, change your angle – and a new path appears. Everything is possible.",
  X:"Helping Hands & Open Doors: a mentor, a kind word, a song, a symbol, a door that opens – help is always near.",
  V:"Clear Communication: What is said? What is heard? What does the other person need right now? Is it clear and obvious?",
  O:"Radiate Your Light: how to shine your own light in every step – content, steady, honest, loving, caring, reflecting. Your light lifts everyone.",
@@ -507,16 +522,23 @@ const SETS=[
   seq:"CMQBUERPMBQMSUMBRCUQBSCMREQC"}
 ];
 const TURN_FIELDS=[...new Set((LB.turns||[]).map(t=>t.field))].filter(f=>f>=2&&f<=N-1&&!GATE_POS.includes(f));
+const MIX={
+ wisdom:"PPHWWJCTYSSQQUUEEDD^OVXK",
+ path:"CCITPPAMBSSQUEEDD^OVXFWK",
+ animals:"AAAFFCTPSSQQUEEDD^OVXWMB",
+ heart:"MMMBBRCTYSSQUUEED^NOVXKP"};
 function buildMap(set){
-  const m=[];let k=0;
-  for(let i=1;i<=N;i++){ if(GATE_POS.includes(i)) m.push("G"); else m.push(set.seq[k++]||"P"); }
-  TURN_FIELDS.forEach(f=>{ if(m[f-1]!=="G"&&m[f-1]!=="S") m[f-1]="L"; });
-  [5,15,24,32,8,11,21,29,35,2,18].forEach(f=>{if(m.filter(c=>c==="N").length<3&&!"GLSQUE".includes(m[f-1]))m[f-1]="N"});
-  [3,10,23,29,35,13,20,31,8,18,2,6,11,14,15,26,30,33,36,39,4,12,16,21,32].forEach(f=>{if(m.filter(c=>c==="X").length<3&&!"GLSQUENOV".includes(m[f-1]))m[f-1]="X"});
-  [16,25,33,6,20,30,3,13,1,8,18,29,32,35,38,40].forEach(f=>{if(m.filter(c=>c==="V").length<3&&!"GLSQUENO".includes(m[f-1]))m[f-1]="V"});
-  [7,22,31,12,26,36,4,17].forEach(f=>{if(m.filter(c=>c==="O").length<3&&!"GLSQUEN".includes(m[f-1]))m[f-1]="O"});
-  [9,19,27,34].forEach(f=>{if(m.filter(c=>c==="E").length<4&&!"GLSQUE".includes(m[f-1]))m[f-1]="E"});
-  return m;
+  const m=[];for(let i=1;i<=N;i++)m.push(GATE_POS.includes(i)?"G":"");
+  TURN_FIELDS.forEach(f=>{if(m[f-1]!=="G")m[f-1]="L"});
+  const free=m.map((c,i)=>c?null:i).filter(x=>x!==null);
+  let pool=(MIX[set.id]||set.seq).split("");
+  while(pool.length<free.length)pool.push("PICAHM"[pool.length%6]);
+  // seeded shuffle with no identical neighbours
+  let seed=[...set.id].reduce((a,c)=>a*31+c.charCodeAt(0),7)%2147483647||1;const rnd=()=>(seed=seed*16807%2147483647)/2147483647;
+  for(let t=0;t<200;t++){const q=pool.slice();for(let i=q.length-1;i>0;i--){const j=rnd()*(i+1)|0;[q[i],q[j]]=[q[j],q[i]]}
+    const tmp=m.slice();free.forEach((idx,k)=>tmp[idx]=q[k]);
+    if(tmp.every((c,i)=>i===0||c!==tmp[i-1]||c==="G")){return tmp}}
+  free.forEach((idx,k)=>m[idx]=pool[k]);return m;
 }
 SETS.forEach(s=>s.map=buildMap(s));
 
@@ -544,7 +566,7 @@ const ENCOURAGE=[
  "Joy is a way of walking.","What you share comes back as light.","Trust the path – it is walking with you.",
  "Each turn of the labyrinth brings you nearer to the heart.","You are exactly where your next lesson is.",
  "Someone in this circle is cheering for you.","Your golden heart already knows the way."];
-if(D3.vibes)ENCOURAGE.push(...D3.vibes);if(D3.dreams)ENCOURAGE.push(...D3.dreams);ENCOURAGE.push("God is with you – you never walk alone.");
+if(D3.vibes)ENCOURAGE.push(...D3.vibes);if(D3.dreams)ENCOURAGE.push(...D3.dreams);if(D3.wordmagic)ENCOURAGE.push(...D3.wordmagic.map(x=>x.w+" – "+x.t));ENCOURAGE.push("God is with you – you never walk alone.");
 function encourage(next){const others=S.players.filter(q=>q!==next);
   const pool=ENCOURAGE.slice();if(others.length){const o=others[Math.random()*others.length|0];pool.push(o.name+" walks with you, "+next.name+".","You and "+o.name+" share the same path.")}
   return pool[Math.random()*pool.length|0]}
@@ -707,6 +729,9 @@ function boardSVG(withTokens,X){X=X||"b";
       <path d="M${x-9} ${y+17}V${y}a9 9 0 0 1 18 0V${y+17}Z" fill="#fff" opacity=".88"/><text x="${x}" y="${y+14}" font-size="14" text-anchor="middle" font-weight="700" fill="#1b1712" font-family="Georgia,serif">${pos}</text></g>`;return}
     if(c==="S"){let s=`<g class="field" data-f="${pos}" filter="url(#${X}sh)">`;for(let k=0;k<3;k++)s+=`<ellipse cx="${x}" cy="${y+8-k*7}" rx="18" ry="8" fill="${k===2?"#e6c463":"#c9a44c"}" stroke="#8a6a22" stroke-width="1"/>`;
       h+=s+`<text x="${x}" y="${y-9}" font-size="14" text-anchor="middle" font-weight="700" fill="#3a2a0a" font-family="Georgia,serif">${pos}</text></g>`;return}
+    if(c==="D"){h+=`<g class="field" data-f="${pos}"><circle cx="${x}" cy="${y}" r="20" fill="#1f4a8a" stroke="#8fc0f0" stroke-width="2"/>
+      <ellipse cx="${x-7}" cy="${y+6}" rx="6" ry="3" fill="#c9b48a"/><ellipse cx="${x+3}" cy="${y-1}" rx="5.5" ry="2.7" fill="#c9b48a"/><ellipse cx="${x+10}" cy="${y-8}" rx="5" ry="2.4" fill="#f2cf6b" opacity=".6"/>
+      <text x="${x}" y="${y+18}" font-size="10" font-weight="700" text-anchor="middle" fill="#fff6d2" font-family="Georgia,serif">${pos}</text></g>`;return}
     if(c==="Q"){h+=`<g class="field" data-f="${pos}" filter="url(#${X}sh)"><circle cx="${x}" cy="${y}" r="22" fill="#f2cf6b" opacity=".25"><animate attributeName="r" values="19;25;19" dur="2.4s" repeatCount="indefinite"/></circle>
       <path d="M${x-16} ${y-2} Q${x-16} ${y-17} ${x} ${y-17} Q${x+16} ${y-17} ${x+16} ${y-2} Z" fill="#e6b04a" stroke="#5a3a10" stroke-width="1.6"/>
       <rect x="${x-16}" y="${y-3}" width="32" height="18" rx="3" fill="#c98a2e" stroke="#5a3a10" stroke-width="1.6"/>
@@ -768,6 +793,8 @@ const TH={
  core:{bg:"radial-gradient(circle at 50% 22%,#b08a2a 0,#16255a 38%,#0b1433 72%,#070c22 100%)",tx:"#fbf3dc",ac:"#f2cf6b"},
  bridge:{bg:"radial-gradient(circle at 50% 22%,#6a5aa8 0,#1e2560 38%,#0b1433 72%,#070c22 100%)",tx:"#fbf3dc",ac:"#d9c8ff"},
  treasures:{bg:"radial-gradient(circle at 50% 22%,#b8862a 0,#3a2c18 30%,#0b1433 70%,#070c22 100%)",tx:"#fbf3dc",ac:"#f2cf6b"},
+ elevator:{bg:"radial-gradient(circle at 50% 30%,#c9952e88 0,#2a2a5a 40%,#0b1433 72%,#070c22 100%)",tx:"#fbf3dc",ac:"#f6d77e"},
+ film:{bg:"radial-gradient(circle at 50% 22%,#9a4a3a 0,#3a2040 36%,#0b1433 70%,#070c22 100%)",tx:"#fbf3dc",ac:"#ffc8a8"},
  helping:{bg:"radial-gradient(circle at 50% 22%,#3a8a6a 0,#1e3a50 36%,#0b1433 70%,#070c22 100%)",tx:"#fbf3dc",ac:"#b8f0c8"},
  held:{bg:"radial-gradient(circle at 50% 20%,#f6e3a866 0,#3a3a7a 34%,#0b1433 70%,#070c22 100%)",tx:"#fbf3dc",ac:"#f6e3a8"},
  comm:{bg:"radial-gradient(circle at 50% 24%,#2f6a9a 0,#1a2a5a 38%,#0b1433 72%,#070c22 100%)",tx:"#fbf3dc",ac:"#a8dcff"},
@@ -906,7 +933,7 @@ function renderPlay(){
     <div class="vals">${values(q).map(v=>`<span>${esc(v)}</span>`).join("")}</div><div class="badges">${battery(q)}<span class="stat">◯ ${q.pearls}</span><span class="stat">✧ ${values(q).length}/19 values</span><span class="stat">✦ ${q.tokens}</span>${q.gems.map(g=>`<span class="gem" title="${esc(D.gates[g].gem)}" style="background:${D.gates[g].color}"></span>`).join("")}</div></div></div>`).join("");
   const L=light(),goal=Math.max(60,S.players.length*30);$("#goal").textContent=goal;$("#lightNum").textContent=L;$("#lightBar").style.width=Math.min(100,L/goal*100)+"%";
   $("#log").innerHTML=S.log.map(t=>`<div>${esc(t)}</div>`).join("");
-  $("#legend").innerHTML=Object.entries(T).map(([k,t])=>`<span><svg width="16" height="16"><circle cx="8" cy="8" r="6" fill="${k==="G"?"#7d4fb3":k==="S"?"#d9b85f":k==="Q"?"#c98a2e":k==="E"?"#6ad08a":k==="N"?"#e6c463":k==="O"?"#fff1b0":k==="V"?"#7fc8f0":k==="X"?"#8fd0a8":"#15120e"}" stroke="${k==="P"||k==="G"||k==="S"?"none":ringCol(k)}" stroke-width="2.6"/></svg>${t.name}</span>`).join("");
+  $("#legend").innerHTML=Object.entries(T).map(([k,t])=>`<span><svg width="16" height="16"><circle cx="8" cy="8" r="6" fill="${k==="G"?"#7d4fb3":k==="S"?"#d9b85f":k==="Q"?"#c98a2e":k==="E"?"#6ad08a":k==="N"?"#e6c463":k==="O"?"#fff1b0":k==="V"?"#7fc8f0":k==="X"?"#8fd0a8":k==="D"?"#1f4a8a":k==="T"?"#d98a5a":k==="^"?"#f6d77e":"#15120e"}" stroke="${k==="P"||k==="G"||k==="S"?"none":ringCol(k)}" stroke-width="2.6"/></svg>${t.name}</span>`).join("");
 }
 function refresh(){save();renderPlay()}
 const WFACES=["X",-1,1,2,3,4];
@@ -934,6 +961,7 @@ function resolve(pos){
       reward:has?"You already carry "+g.quality+": +1 pearl":"You reach the value of "+g.quality+" · "+g.gem,acts:[["I walk through the gate",done(()=>{if(has)p.pearls++;else p.gems.push(gi);log(p.name+" reaches "+g.quality+" at the "+g.gem+" Gate.")})]]});return}
   if(c==="R"){momentMusic();openCard({th:"pearls",deck:"Stillness",title:"Field of Stillness",emb:emblem("pearl"),text:"In stillness the path becomes visible. Everyone closes their eyes and breathes together.",timer:30,reward:"Everyone +1 pearl",
       acts:[["We kept the silence",done(()=>{S.players.forEach(q=>{q.pearls++;energy(q,1)});chime("pearl");log("Shared stillness – everyone +1 pearl · +1 energy.")})]]});return}
+  if(c==="D"){steppingStones();return}
   if(c==="L"){openCard({th:"loops",deck:"Crossing",title:"A turning point",sub:"Do you need time?",emb:emblem("sym","↺"),text:"Here the path turns. You may step into the Loop of Reflection: pause for one turn, rethink a decision, and receive a pearl.",
       acts:[["Take the loop",()=>{closeCard();takeLoop()}],["Continue on the path",done(),"ghost"]]});return}
   if(c==="S"){if(!playRole("dream"))momentMusic();const card=DK.steps.cards[draw("steps")];
@@ -966,6 +994,10 @@ function drawDeck(deck){
       acts:[["Amen · So be it",done(()=>{S.bonus+=2;log("A prayer is spoken: “"+card.title+"”.");chime("heart")})]].concat(swap)});return}
     if(deck==="planets"){openCard({...base,th:"planet",sub:esc(card.sub||""),emb:emblem("planet",card.title),text:esc(card.text),reward:planetText(card.effect),acts:[["Bring back the wisdom ✓",()=>{closeCard();applyPlanet(card)}]].concat(swap)});return}
     if(deck==="wings"){const mn=card.effect==="minute";openCard({sfx:"wings",...base,sub:esc(card.sub||""),emb:emblem("sym","〰"),text:esc(card.text),prompt:card.prompt?esc(card.prompt):"",timer:mn?60:0,timerLabel:"Start the 1-minute hourglass",reward:moveText(card.effect),acts:[[mn?"Wings flapped ✓":"Spread my wings ✦",()=>{closeCard();log(p.name+" draws Flap of Wings: “"+card.title+"”.");applyMove(card.effect)}]].concat(swap)});return}
+    if(deck==="elevator"){openCard({...base,th:"elevator",title:esc(card.title),sub:"Elevator "+card.n+" of 10 · Lift Me Up",emb:`<svg class="emb" viewBox="0 0 120 120"><rect x="30" y="14" width="60" height="92" rx="6" fill="#f2cf6b22" stroke="#f2cf6b" stroke-width="2"/><line x1="60" y1="14" x2="60" y2="106" stroke="#f2cf6b" stroke-width="1.5"/><path d="M60 36 l-14 16 h9 v22 h10 v-22 h9z" fill="#f6d77e"/><text x="60" y="98" text-anchor="middle" font-size="14" font-weight="700" fill="#f6d77e" font-family="Georgia,serif">${card.n}</text></svg>`,text:esc(card.text),prompt:"“"+esc(card.affirmation)+"”",reward:moveText(card.effect),
+      acts:[["Lift me up ⇧",()=>{closeCard();sfx("fly");energy(p,1);log(p.name+" takes the elevator: "+card.title+".");applyMove(card.effect)}]].concat(swap)});return}
+    if(deck==="film"){openCard({...base,th:"film",sub:"The Film of Your Life",emb:emblem("sym","🎬"),text:esc(card.text),prompt:esc(card.prompt),reward:moveText(card.effect),
+      acts:[["Action! ✦",()=>{closeCard();log(p.name+" in the director's chair: "+card.title+".");applyMove(card.effect)}]].concat(swap)});return}
     if(deck==="helping"){if(card.kind==="Helping Dreams")playRole("dream");openCard({...base,th:"helping",sub:esc(card.kind),emb:emblem("sym",{"Helping Hand":"✋","Helping Words":"❝","Helping Music":"♪","Helping Symbols":"✧","Helping Doors":"⌂","Helping Nature":"❀","Helping Challenges":"▲","Helping Dreams":"☾"}[card.kind]||"✦"),text:esc(card.text),prompt:esc(card.prompt),html:songLine("trust"),reward:moveText(card.effect),
       acts:[["Thank you for the help ✦",()=>{closeCard();log(p.name+" receives help: "+card.title+".");applyMove(card.effect)}]].concat(swap)});return}
     if(deck==="comm"){const nb=S.players.map((q,i)=>i).filter(i=>i!==S.turn);
@@ -995,7 +1027,7 @@ function drawDeck(deck){
   };
   show(draw(deck));
 }
-function moveText(e){return {fly3:"Fly 3 fields forward",walk2:"Walk 2 fields forward",toGate:"Fly to the next gate",lucky:"Choose your lucky number: walk 1 to 6 fields",bring:"A companion behind you joins you on your field · +1 Knowledge Token",meet:"Fly to a companion ahead of you – walk together",again:"Roll the die once more",rest:"Stay and rest · +2 pearls",insight:"Draw an Insight Card",energy:"Healing energy: everyone +1 pearl",allForward:"Everyone on the path moves 1 field forward",detour:"Step back 2 fields and gain 2 pearls of wisdom",detourLight:"Step back 1 field and gain 2 pearls",double:"Your next roll counts double",giftStep:"Give 2 steps to a companion · +1 Knowledge Token",key:"Receive a Core Key",music:"Play a song – everyone +1 pearl",cardinal:"You and a companion +1 pearl",coin:"+2 pearls",allPearl:"Everyone +1 pearl",pullUp:"Everyone behind you moves 1 field forward · +1 Knowledge Token",mars3:"Walk 3 fields – then 1 step back is given",bridgeCard:"Cross the Bridge of Light: draw a Bridge card",swap:"Swap places with a companion if you both agree · +1 Knowledge Token each",minute:"+1 pearl · +1 shared light"}[e]||"+1 pearl"}
+function moveText(e){return {fly3:"Fly 3 fields forward",walk2:"Walk 2 fields forward",toGate:"Fly to the next gate",lucky:"Choose your lucky number: walk 1 to 6 fields",bring:"A companion behind you joins you on your field · +1 Knowledge Token",meet:"Fly to a companion ahead of you – walk together",again:"Roll the die once more",rest:"Stay and rest · +2 pearls",insight:"Draw an Insight Card",energy:"Healing energy: everyone +1 pearl",allForward:"Everyone on the path moves 1 field forward",detour:"Step back 2 fields and gain 2 pearls of wisdom",detourLight:"Step back 1 field and gain 2 pearls",double:"Your next roll counts double",giftStep:"Give 2 steps to a companion · +1 Knowledge Token",key:"Receive a Core Key",music:"Play a song – everyone +1 pearl",cardinal:"You and a companion +1 pearl",coin:"+2 pearls",allPearl:"Everyone +1 pearl",pullUp:"Everyone behind you moves 1 field forward · +1 Knowledge Token",lift5:"The elevator lifts you 5 fields up!",lift7:"The elevator lifts you 7 fields toward the light!",liftAll:"You rise 3 fields – and lift everyone else 1 field",mars3:"Walk 3 fields – then 1 step back is given",bridgeCard:"Cross the Bridge of Light: draw a Bridge card",swap:"Swap places with a companion if you both agree · +1 Knowledge Token each",minute:"+1 pearl · +1 shared light"}[e]||"+1 pearl"}
 const EMAX=5;
 function energy(q,dv){if(q.energy==null)q.energy=3;q.energy=Math.max(0,Math.min(EMAX,q.energy+dv))}
 function battery(q){const e=q.energy==null?3:q.energy;const col=e<=1?"#e0604a":e<=2?"#e6b04a":"#6ad08a";
@@ -1023,6 +1055,9 @@ function applyMove(e){
     case "double":p.double=true;p.pearls++;return fin();
     case "giftStep":if(!trav.length){p.pearls++;return fin()}return pick("Who receives 2 of your steps?",trav,i=>{moveTo(S.players[i],S.players[i].pos+2);p.tokens++;log(p.name+" gives 2 steps to "+S.players[i].name+".");fin()});
     case "key":return giveKey(p);
+    case "lift5":moveTo(p,p.pos+5);return fin();
+    case "lift7":moveTo(p,p.pos+7);return fin();
+    case "liftAll":moveTo(p,p.pos+3);S.players.forEach(q=>{if(q!==p&&!q.done&&q.pos<N)q.pos=Math.min(N,q.pos+1)});drawBoard();p.tokens++;return fin();
     case "mars3":moveTo(p,p.pos+3);setTimeout(()=>{moveTo(p,p.pos-1);toast("✦ Mars: 3 forward – and 1 step back is given.");fin()},700);return;
     case "bridgeCard":return DK.bridge?drawDeck("bridge"):fin();
     case "swap":{if(!trav.length){p.pearls++;return fin()}return pick("Swap places with (if you both agree):",trav,i=>{const q=S.players[i],a=p.pos;p.pos=q.pos;q.pos=a;S.trail=null;drawBoard();p.tokens++;q.tokens++;log(p.name+" and "+q.name+" swap places – a bridge appears.");fin()})}
@@ -1077,6 +1112,24 @@ function playTheme(){const i=themeSong();if(i>=0&&$("#mMoments").checked){musicP
 function showHeld(after){const p=cur(),c=DK.held.cards[draw("held")];S.heldCount=(S.heldCount||0)+1;
   openCard({sfx:"silence",th:"held",deck:"In between · a reminder for "+esc(p.name),title:"You are "+esc(c.theme.toLowerCase()),emb:emblem("sym","✝"),
     html:`<p style="font-family:var(--serif);font-style:italic;font-size:1.35rem;line-height:1.35;color:#fff3cf;margin:4px 0">“${esc(c.word)}”</p><div style="font-family:var(--caps);font-size:.72rem;letter-spacing:.16em;color:var(--ac)">${esc(c.ref)}</div><div class="prompt" style="margin-top:12px">${esc(c.affirmation)}</div>`,reward:"+1 energy",acts:[["Amen · I feel it",()=>{closeCard();energy(p,1);log(p.name+" is reminded: you are "+c.theme.toLowerCase()+".");after()}]]})}
+function stonesSVG(reveal){return `<svg class="emb" viewBox="0 0 120 120" style="width:150px;height:110px"><defs><linearGradient id="wat${reveal?1:0}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2a5a9a"/><stop offset="1" stop-color="#0f2a5a"/></linearGradient><radialGradient id="sun${reveal?1:0}"><stop offset="0" stop-color="#fff6d2"/><stop offset=".5" stop-color="#f2cf6b" stop-opacity=".7"/><stop offset="1" stop-color="#f2cf6b" stop-opacity="0"/></radialGradient></defs>
+  <rect x="4" y="20" width="112" height="90" rx="14" fill="url(#wat${reveal?1:0})"/>
+  ${[0,1,2,3].map(i=>`<path d="M${10+i*28} ${40+i*10} q8 -4 16 0" stroke="#8fc0f0" stroke-opacity=".5" fill="none"/>`).join("")}
+  <ellipse cx="30" cy="96" rx="13" ry="6" fill="#c9b48a" stroke="#5a4a2a"/><ellipse cx="54" cy="80" rx="12" ry="5.5" fill="#c9b48a" stroke="#5a4a2a"/>
+  ${reveal?`<ellipse cx="36" cy="58" rx="11" ry="5" fill="#e6c463" stroke="#8a6a22"/><ellipse cx="78" cy="62" rx="11" ry="5" fill="#e6c463" stroke="#8a6a22"/><ellipse cx="96" cy="44" rx="10" ry="4.5" fill="#e6c463" stroke="#8a6a22"/>`:`<circle cx="74" cy="56" r="34" fill="url(#sun0)"/>`}
+  <circle cx="98" cy="22" r="10" fill="#fff1b0"/></svg>`}
+function steppingStones(){
+  const p=cur();sfx("wings");
+  openCard({sfx:"none",th:"loops",deck:"Stepping Stones in the Water",title:"The sunshine hides the next step",emb:stonesSVG(false),
+    text:"You stand on a stone in the river. The water sparkles so brightly that you cannot see the next stone.",
+    prompt:"Do you rush on – or do you pause and look from another angle?",
+    acts:[["Pause & look from another angle ✦",()=>{closeCard();sfx("silence");
+        const outs=shuffle([["walk2","A stone appears just ahead – walk 2 fields."],["fly3","A whole row of stones shines up – fly 3 fields!"],["toGate","A hidden path leads straight to the next gate."],["lucky","Many stones appear – choose how far you go (1–6)."],["bring","A stone big enough for two – a companion joins you."],["insight","A new direction opens – draw an Insight Card."]]).slice(0,3);
+        openCard({sfx:"none",th:"loops",deck:"A new angle",title:"Now you see new paths",emb:stonesSVG(true),text:"From another angle, three golden stones appear. Which one is calling you?",prompt:"Everything is possible.",
+          acts:outs.map((o,k)=>[["◐ The stone on the left","◉ The stone ahead","◑ The stone on the right"][k],()=>{closeCard();p.pearls++;energy(p,1);log(p.name+" pauses, changes the angle and finds a new path.");
+            openCard({th:"loops",deck:"Stepping Stones",title:"A new direction",emb:stonesSVG(true),text:esc(o[1]),reward:"+1 pearl · +1 energy for pausing",acts:[["Step onto it ✦",()=>{closeCard();applyMove(o[0])}]]})},"opt"])})}],
+      ["Step on without looking",()=>{closeCard();moveTo(p,p.pos+1);log(p.name+" steps on – one stone forward.");nextTurn()},"ghost"]]});
+}
 function showSign(){sfx("sign");
   const p=cur(),card=DK.signs.cards[draw("signs")];
   openCard({th:"sign",deck:"A surprise for "+esc(p.name),title:esc(card.title),sub:"Signs from the Universe",emb:emblem("sym",/^\d|^Number/.test(card.title)?"✶":"✧"),text:esc(card.text),html:songLine("trust"),prompt:card.prompt?esc(card.prompt):"",reward:moveText(card.effect),
@@ -1124,7 +1177,7 @@ function pick(title,idxs,cb){
   openCard({deck:"Choose",title:esc(title),emb:emblem("heart"),acts:idxs.map(i=>[`<span style="display:inline-block;width:12px;height:12px;border-radius:50%;background:${S.players[i].color};margin-right:8px"></span>`+esc(S.players[i].name),()=>{closeCard();cb(i)},"opt"]).concat([["Cancel",closeCard,"ghost"]])});
 }
 function nextTurn(){DOTCTX=null;
-  if(S&&!S.over&&!S._sign&&DK.signs&&!cur().done&&!S.players.every(q=>q.done)&&Math.random()<0.3){S._sign=true;S.rolled=0;S.busy=true;refresh();chime("gate");setTimeout(()=>{S.busy=false;(DK.chests&&Math.random()<.35)?openChest(DK.chests.cards[draw("chests")]):(DK.helping&&Math.random()<.4)?drawDeck("helping"):showSign()},350);return}
+  if(S&&!S.over&&!S._sign&&DK.signs&&!cur().done&&!S.players.every(q=>q.done)&&Math.random()<0.3){S._sign=true;S.rolled=0;S.busy=true;refresh();chime("gate");setTimeout(()=>{S.busy=false;(DK.chests&&Math.random()<.35)?openChest(DK.chests.cards[draw("chests")]):(DK.helping&&Math.random()<.4)?drawDeck("helping"):(DK.elevator&&Math.random()<.25)?drawDeck("elevator"):showSign()},350);return}
   if(S)S._sign=false;
   if(S&&!S.over&&!S._held&&DK.held&&!S.players.every(q=>q.done)&&Math.random()<0.18){S._held=true;S.busy=true;refresh();setTimeout(()=>{S.busy=false;showHeld(()=>nextTurn())},300);return}
   if(S)S._held=false;
@@ -1147,7 +1200,7 @@ function finale(){
 let libSel="gates";
 function mini(k,title,t,p,emb,th){const tm=theme(th);return `<div class="mcard"><div class="in ${tm.light?"light":""} ${tm.rb?"rb":""}" style="${themeStyle(th)}"><div class="k">${k}</div><h4>${title}</h4>${emb.replace('class="emb"','')}<div class="t">${t}</div>${p?`<div class="p">${p}</div>`:""}</div></div>`}
 function renderCards(){
-  const chips=[["dots","40 Questions"],["gates","13 Gates"],["core","Core Keys"],["shine"],["gratitude"],["planets"],["wings"],["signs"],["helping"],["held"],["comm"],["radiate"],["numwis"],["recharge"],["moments"],["chests"],["bridge"],["treasures"],["choice"],["insight"],["pearls"],["animals"],["colors"],["prayers"],["together"],["steps"],["loops"]];
+  const chips=[["dots","40 Questions"],["gates","13 Gates"],["core","Core Keys"],["shine"],["gratitude"],["planets"],["wings"],["signs"],["elevator"],["film"],["helping"],["held"],["comm"],["radiate"],["numwis"],["recharge"],["moments"],["chests"],["bridge"],["treasures"],["choice"],["insight"],["pearls"],["animals"],["colors"],["prayers"],["together"],["steps"],["loops"]];
   const chipsOk=chips.filter(([k])=>k==="gates"||k==="core"||(k==="dots"?D2.dots:DK[k]));
   $("#deckChips").innerHTML=chipsOk.map(([k,n])=>`<button class="${k===libSel?"on":""}" data-k="${k}">${n||(DK[k]?DK[k].name:k)} ${k!=="gates"&&k!=="core"&&k!=="dots"?"<span style='opacity:.6'>"+DK[k].cards.length+"</span>":""}</button>`).join("");
   $("#deckChips").querySelectorAll("button").forEach(b=>b.onclick=()=>{libSel=b.dataset.k;renderCards()});
@@ -1163,6 +1216,8 @@ function renderCards(){
     if(libSel==="prayers")return mini(d.name,esc(c.title),"<i style='font-family:var(--serif);font-size:.95rem'>"+esc(c.text)+"</i>",esc(c.how),emblem("heart"),"prayers");
     if(libSel==="together")return mini(d.name,esc(c.title),esc(c.text),effectText(c.effect),emblem("sym","∞"),"together");
     const sym={bridge:"☽",treasures:"✦",insight:"✧",animals:c.title[0],steps:"▲",loops:"↺",shine:"☀",gratitude:"♡",wings:"〰",signs:"✧"}[libSel];
+    if(libSel==="elevator")return mini("Elevator "+c.n+" of 10",esc(c.title),esc(c.text),"“"+esc(c.affirmation)+"”",emblem("sym","⇧"),"elevator");
+    if(libSel==="film")return mini(d.name,esc(c.title),esc(c.text),esc(c.prompt),emblem("sym","🎬"),"film");
     if(libSel==="helping")return mini(esc(c.kind),esc(c.title),esc(c.text),esc(c.prompt),emblem("sym","✋"),"helping");
     if(libSel==="held")return mini("You are "+esc(c.theme.toLowerCase()),"<span style='font-size:.95rem;font-style:italic'>“"+esc(c.word)+"”</span>",esc(c.ref),esc(c.affirmation),emblem("sym","✝"),"held");
     if(libSel==="comm")return mini(d.name,esc(c.title),esc(c.exercise),esc(c.question),emblem("sym","❝"),"comm");

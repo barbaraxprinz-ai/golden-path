@@ -1724,5 +1724,173 @@ window.GAME_DATA3 = {
     "Coming back, coming back, / to our deepest heart connection. / Golden thread, golden path, / love in every direction."
    ]
   }
- }
+ },
+ "film": [
+  {
+   "title": "You Are the Director",
+   "text": "You are the producer, director, author and actor of this film – the game of your lifelong journey.",
+   "prompt": "Who do you want to be in the next scene?",
+   "effect": "walk2"
+  },
+  {
+   "title": "The Most Important Part",
+   "text": "Make the best out of every single scene – you can be the most important part of this amazing story.",
+   "prompt": "Which scene of your life are you proud of?",
+   "effect": "fly3"
+  },
+  {
+   "title": "Co-Creating",
+   "text": "Whatever happens, you are co-creating together with life and the people around you.",
+   "prompt": "Who is co-creating your story with you right now?",
+   "effect": "bring"
+  },
+  {
+   "title": "Your Message",
+   "text": "Every story carries a message into the world.",
+   "prompt": "What do you want to bring out into the world?",
+   "effect": "toGate"
+  },
+  {
+   "title": "Feel Your Life",
+   "text": "Different emotions, different feelings – live them through. Then decide what they mean to you.",
+   "prompt": "Is this feeling uplifting? Is it helping you to get better?",
+   "effect": "rest"
+  },
+  {
+   "title": "Heal Your Wounds",
+   "text": "Heal your wounds by taking care of yourself. It is your responsibility – and your choice.",
+   "prompt": "What is one loving thing you can do for yourself today?",
+   "effect": "energy"
+  },
+  {
+   "title": "Back on Your Path",
+   "text": "It is always possible to step back onto your path – your unique way in life.",
+   "prompt": "Where would you love to return to your path?",
+   "effect": "walk2"
+  },
+  {
+   "title": "Mind–Heart Connection",
+   "text": "When mind and heart work together, your steps become clear and strong.",
+   "prompt": "What does your mind say – and what does your heart say?",
+   "effect": "lucky"
+  },
+  {
+   "title": "More Than Time",
+   "text": "Time isn't the only thing that matters. The most you can make of your life are the connections you build.",
+   "prompt": "Which connection do you want to nourish?",
+   "effect": "allPearl"
+  },
+  {
+   "title": "Orchestrated Moments",
+   "text": "Many moments are orchestrated, many steps are your own actions – together they write your story.",
+   "prompt": "Which 'coincidence' changed your life?",
+   "effect": "cardinal"
+  },
+  {
+   "title": "Grow Your Power",
+   "text": "Use your human life to grow, to learn, to build your own power.",
+   "prompt": "What have you learned this year that made you stronger?",
+   "effect": "key"
+  },
+  {
+   "title": "A Unique Conversation",
+   "text": "No one else can have the conversation you are having right now. Your life makes it unique.",
+   "prompt": "What can you say today that only you can say?",
+   "effect": "giftStep"
+  }
+ ],
+ "wordmagic": [
+  {
+   "w": "LOVE → EVOL-VE",
+   "t": "Read LOVE backwards: EVOL… love makes us evolve."
+  },
+  {
+   "w": "H · EAR · T",
+   "t": "Inside the HEART is an EAR. Listen to your heart."
+  },
+  {
+   "w": "Tears? Ears! ♥ Heart",
+   "t": "Tears and ears live inside the heart – every feeling wants to be heard."
+  },
+  {
+   "w": "MOVE on",
+   "t": "Move on – one step, one light, one breath."
+  },
+  {
+   "w": "Meditation",
+   "t": "Meditation is the path inward – where the next step becomes clear."
+  }
+ ],
+ "elevator": [
+  {
+   "n": 1,
+   "title": "Lift Me Up",
+   "text": "Someone believes in you – and you feel yourself rising.",
+   "affirmation": "I allow myself to be lifted.",
+   "effect": "lift5"
+  },
+  {
+   "n": 2,
+   "title": "You Are Unique",
+   "text": "No one has ever walked your path before. That makes you special.",
+   "affirmation": "I am unique and special.",
+   "effect": "fly3"
+  },
+  {
+   "n": 3,
+   "title": "Rise Above",
+   "text": "Look at your worries from above – they become small, and your path becomes clear.",
+   "affirmation": "I rise above.",
+   "effect": "toGate"
+  },
+  {
+   "n": 4,
+   "title": "Your Inner Power",
+   "text": "Empowerment is remembering the power that was always inside you.",
+   "affirmation": "I am powerful.",
+   "effect": "lift5"
+  },
+  {
+   "n": 5,
+   "title": "Wings of Courage",
+   "text": "Courage lifts you to the next level of your life.",
+   "affirmation": "I dare to fly.",
+   "effect": "fly3"
+  },
+  {
+   "n": 6,
+   "title": "Lifted by Love",
+   "text": "Love is the strongest elevator – it carries you higher than anything else.",
+   "affirmation": "Love lifts me.",
+   "effect": "lift5"
+  },
+  {
+   "n": 7,
+   "title": "Golden Moment",
+   "text": "This is your moment. Shine – and lift others with you.",
+   "affirmation": "I shine and lift others.",
+   "effect": "liftAll"
+  },
+  {
+   "n": 8,
+   "title": "Next Level",
+   "text": "You have grown. The doors to the next level open now.",
+   "affirmation": "I am ready for the next level.",
+   "effect": "toGate"
+  },
+  {
+   "n": 9,
+   "title": "Believe in Yourself",
+   "text": "When you believe in yourself, the whole universe lifts you up.",
+   "affirmation": "I believe in me.",
+   "effect": "lift5"
+  },
+  {
+   "n": 10,
+   "title": "Elevator to the Light",
+   "text": "The doors open – golden light everywhere. You are lifted toward the heart.",
+   "affirmation": "I am lifted into the light.",
+   "effect": "lift7"
+  }
+ ]
 };
