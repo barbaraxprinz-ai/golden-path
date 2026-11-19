@@ -4,16 +4,15 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Game 2020 · The Golden Path</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Cinzel:wght@500;700&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
+/*FONTS*/
 :root{
   --gold:#b08d3c;--gold2:#d9b85f;--gold3:#f3e3b0;--ink:#1b1712;--night:#15120e;--paper:#fbf7ee;
   --muted:#7a6f5c;--line:#e8dcc0;--teal:#2bb3b1;
-  --serif:"Cormorant Garamond",Georgia,serif;--caps:"Cinzel","Cormorant Garamond",serif;
+  --serif:"Golden Serif",Georgia,serif;--caps:"Golden Serif",Georgia,serif;
 }
 *{box-sizing:border-box}
-html,body{margin:0;background:var(--paper);color:var(--ink);font-family:"Nunito Sans",system-ui,sans-serif;font-size:16px;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--paper);color:var(--ink);font-family:"Golden Sans",system-ui,sans-serif;font-size:16px;-webkit-tap-highlight-color:transparent}
 body{background:radial-gradient(1200px 600px at 50% -200px,#fff8e2 0,var(--paper) 60%) fixed}
 h1,h2,h3,h4{font-family:var(--serif);font-weight:700;margin:0}
 button{font:inherit;cursor:pointer}
@@ -58,6 +57,7 @@ label.l{font-weight:700;font-size:.82rem;color:var(--muted);display:block;margin
 @media (max-width:920px){.game{grid-template-columns:1fr}}
 .zoombtn{position:absolute;right:12px;top:12px;border:1px solid var(--line);background:#fffdf8ee;border-radius:99px;padding:7px 12px;font-weight:700;font-size:.85rem;color:var(--ink);box-shadow:0 4px 12px -6px #6b532066;z-index:2}
 .zoombtn.on{background:var(--ink);color:#fff}
+.boardwrap.night{background:radial-gradient(circle,#18264f,#0a1027);border-color:#2a3a6a}
 .movebadge{position:absolute;left:12px;top:12px;background:#fffdf8ee;border:1px solid var(--line);border-radius:99px;padding:6px 12px;font-size:.88rem;font-weight:700;display:none;z-index:2}
 .movebadge.on{display:block}
 #board{transition:none}
@@ -133,7 +133,9 @@ label.l{font-weight:700;font-size:.82rem;color:var(--muted);display:block;margin
 .rules h3{font-size:1.5rem;margin:18px 0 4px}
 .rules p,.rules li{line-height:1.6}
 .two{display:grid;grid-template-columns:1fr 1fr;gap:12px}@media (max-width:760px){.two{grid-template-columns:1fr}}
-.toast{position:fixed;left:50%;bottom:18px;transform:translateX(-50%) translateY(120px);background:var(--ink);color:#fff;padding:10px 16px;border-radius:12px;font-size:.9rem;transition:transform .35s;z-index:80;max-width:92vw}
+.spark{position:fixed;border-radius:50%;z-index:90;pointer-events:none;animation:spark 1.4s cubic-bezier(.2,.7,.3,1) forwards;box-shadow:0 0 8px currentColor}
+@keyframes spark{0%{transform:translate(-50%,-50%) scale(.4);opacity:1}100%{transform:translate(calc(-50% + var(--dx)),calc(-50% + var(--dy))) scale(1);opacity:0}}
+.toast{position:fixed;left:50%;bottom:18px;transform:translateX(-50%) translateY(140px);background:linear-gradient(135deg,#2a2116,#1b1712);border:1px solid #d9b85f88;font-family:var(--serif);font-size:1.15rem;font-style:italic;text-align:center;color:#fff3cf;padding:10px 16px;border-radius:12px;font-size:.9rem;transition:transform .35s;z-index:80;max-width:92vw}
 .toast.on{transform:translateX(-50%)}
 @media (max-width:600px){
   html,body{font-size:17.5px}
@@ -178,9 +180,10 @@ label.l{font-weight:700;font-size:.82rem;color:var(--muted);display:block;margin
     <div>
       <div class="caps hint">God Allows you More Experiences</div>
       <h1>The Golden Path</h1>
-      <div class="tag">Are you on your path?</div>
+      <div class="tag">Are you on your path?</div><div class="caps hint" style="margin:-4px 0 10px;letter-spacing:.3em">✦ Shuffle the dots ✦</div>
       <p>Walk the seven circuits of the labyrinth toward the Golden Heart. Every step is an experience, every experience a Pearl of Wisdom. Pass through twelve gemstone gates and the Golden Gate, pause on golden steps, take loops to rethink a choice, and help each other along the way.</p>
-      <p><b>No one wins against anyone.</b> The journey ends when everyone has arrived.</p>
+      <p><b>You never walk alone.</b> Whatever step you take, you grow – and the others walk with you. Everything is connected: every pearl you gather lights the Golden Heart for everyone.</p>
+      <p>No one wins against anyone. The journey is complete when everyone has arrived – together.</p>
     </div>
     <div class="thumb"><svg id="thumb" viewBox="0 0 800 800" style="width:100%;display:block"></svg></div>
   </div>
@@ -202,7 +205,7 @@ label.l{font-weight:700;font-size:.82rem;color:var(--muted);display:block;margin
 <section class="view" id="v-play">
   <div class="game">
     <div>
-      <div class="boardwrap"><div class="movebadge" id="moveBadge"></div><button class="zoombtn" id="zoomBtn">⌕ Zoom</button><svg id="board" viewBox="0 0 800 800" aria-label="Game board"></svg></div>
+      <div class="boardwrap"><div class="movebadge" id="moveBadge"></div><button class="zoombtn" id="zoomBtn">⌕ Zoom</button><button class="zoombtn" id="nightBtn" style="top:52px">☾ Night sky</button><svg id="board" viewBox="0 0 800 800" aria-label="Game board"></svg></div>
       <div class="legend" id="legend"></div>
     </div>
     <div>
@@ -275,7 +278,7 @@ label.l{font-weight:700;font-size:.82rem;color:var(--muted);display:block;margin
     <h2 style="font-size:2.2rem">How to play</h2>
     <p><i>Every step can become a Pearl of Wisdom. The question behind each move: What does this step show me about my own path?</i></p>
     <h3>Goal</h3>
-    <p>Reach the Golden Heart in the centre – together. There are no winners. All pearls, gems, keys and tokens feed one shared Light. When the last traveller arrives, the journey is complete.</p>
+    <p>Celebrate life and reach the Golden Heart in the centre – together. Every step, even a detour, is growth. You are never alone: your fellow players are your companions on the path, and help is always near. There are no winners. All pearls, gems, keys and tokens feed one shared Light. When the last traveller arrives, the journey is complete.</p>
     <h3>A turn</h3>
     <ol><li>Roll the die and walk along the path (fields 1 → 40, then through the Golden Gate into the Heart).</li>
     <li>The field you land on tells you what happens. Read the card aloud, answer, share, decide.</li>
@@ -369,7 +372,23 @@ function toast(t){const e=$("#toast");e.textContent=t;e.classList.add("on");clea
 
 /* ===================== AUDIO ===================== */
 let AC=null;
+const ENCOURAGE=[
+ "Every step counts – even the small ones.","You are growing with every move.","You are not alone on this path.",
+ "Detours are part of the journey.","Your light makes the whole circle brighter.","Help is always closer than you think.",
+ "Everything is connected – including you.","Life is inviting you forward.","Breathe. Smile. Walk on.",
+ "Joy is a way of walking.","What you share comes back as light.","Trust the path – it is walking with you.",
+ "Each turn of the labyrinth brings you nearer to the heart.","You are exactly where your next lesson is.",
+ "Someone in this circle is cheering for you.","Your golden heart already knows the way."];
+function encourage(next){const others=S.players.filter(q=>q!==next);
+  const pool=ENCOURAGE.slice();if(others.length){const o=others[Math.random()*others.length|0];pool.push(o.name+" walks with you, "+next.name+".","You and "+o.name+" share the same path.")}
+  return pool[Math.random()*pool.length|0]}
+function sparkle(kind){
+  const n=kind==="heart"?42:kind==="gate"?26:12,cols=kind==="pearl"?["#fff","#f3e3b0","#e2c46f"]:["#e2c46f","#fff1c2","#c0263a","#e2702a","#e8c13a","#2f8f5b","#2bb3b1","#2849a8","#7d4fb3"];
+  for(let i=0;i<n;i++){const d=document.createElement("i");d.className="spark";const a=Math.random()*Math.PI*2,r=80+Math.random()*(kind==="heart"?260:160);
+    d.style.cssText=`left:50%;top:45%;background:${cols[i%cols.length]};--dx:${Math.cos(a)*r}px;--dy:${Math.sin(a)*r}px;animation-delay:${Math.random()*.15}s;width:${4+Math.random()*7}px;height:${4+Math.random()*7}px`;
+    document.body.appendChild(d);setTimeout(()=>d.remove(),1600)}}
 function chime(kind){
+  try{sparkle(kind)}catch(e){}
   if(!$("#mChimes").checked)return;
   try{AC=AC||new (window.AudioContext||window.webkitAudioContext)();
     const notes=kind==="gate"?[523.25,659.25,783.99,1046.5]:kind==="heart"?[392,523.25,659.25,783.99,1046.5,1318.5]:[880,1318.5];
@@ -437,6 +456,13 @@ function pathMeasure(){if(PATHMEAS)return PATHMEAS;
   const sv=document.createElementNS("http://www.w3.org/2000/svg","svg");sv.setAttribute("style","position:absolute;width:0;height:0;overflow:hidden");document.body.appendChild(sv);const el=document.createElementNS("http://www.w3.org/2000/svg","path");el.setAttribute("d",LB.pathD);sv.appendChild(el);const Ltot=el.getTotalLength();
   const near=f=>{let best=0,bd=1e9;for(let s=0;s<=Ltot;s+=2){const q=el.getPointAtLength(s),d=(q.x-f.x)**2+(q.y-f.y)**2;if(d<bd){bd=d;best=s}}return best};
   const s1=near(LB.fields[0]),s40=near(LB.fields[N-1]);PATHMEAS={el,Ltot,s1,step:(s40-s1)/(N-1)};return PATHMEAS}
+let RAINBOW_CACHE=null;
+const RB7=["#7d4fb3","#2849a8","#2bb3b1","#2f8f5b","#e8c13a","#e2702a","#c0263a"];
+function rainbowBands(){if(RAINBOW_CACHE)return RAINBOW_CACHE;const M=pathMeasure(),C=LB.center;let out="",cur=null,pts=[];
+  const flush=()=>{if(pts.length>1)out+=`<polyline points="${pts.map(p=>p.x.toFixed(1)+","+p.y.toFixed(1)).join(" ")}" stroke="${RB7[cur]}"/>`};
+  for(let s=0;s<=M.Ltot;s+=6){const q=M.el.getPointAtLength(s);const d=Math.hypot(q.x-C.x,q.y-C.y);const k=Math.max(0,Math.min(6,Math.floor((d-C.r-12)/40)));
+    if(k!==cur){if(pts.length)pts.push({x:q.x,y:q.y});flush();cur=k;pts=[]}pts.push({x:q.x,y:q.y})}
+  flush();RAINBOW_CACHE=out;return out}
 function pathBetween(a,b){const M=pathMeasure();const S_=q=>q<=0?0:q>N?M.Ltot:M.s1+(q-1)*M.step;
   const sa=S_(a),sb=S_(b),pts=[];const n=Math.max(2,Math.ceil((sb-sa)/8));for(let i=0;i<=n;i++){const q=M.el.getPointAtLength(sa+(sb-sa)*i/n);pts.push({x:q.x,y:q.y})}return pts}
 function boardSVG(withTokens,X){X=X||"b";
@@ -444,11 +470,16 @@ function boardSVG(withTokens,X){X=X||"b";
    <radialGradient id="${X}hg" cx="50%" cy="35%"><stop offset="0" stop-color="#fff6d2"/><stop offset=".55" stop-color="#e6c463"/><stop offset="1" stop-color="#9c7a2c"/></radialGradient>
    <radialGradient id="${X}glow"><stop offset="0" stop-color="#ffe9a8" stop-opacity=".9"/><stop offset="1" stop-color="#ffe9a8" stop-opacity="0"/></radialGradient>
    <linearGradient id="${X}wg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#d8bb6c"/><stop offset=".5" stop-color="#b4954a"/><stop offset="1" stop-color="#d4b562"/></linearGradient>
+   <radialGradient id="${X}sky" cx="50%" cy="50%"><stop offset="0" stop-color="#1d2f5e"/><stop offset=".7" stop-color="#101a3a"/><stop offset="1" stop-color="#0a1027"/></radialGradient>
+   <radialGradient id="${X}rh" cx="45%" cy="30%"><stop offset="0" stop-color="#ffd27a"/><stop offset=".35" stop-color="#f0603c"/><stop offset=".8" stop-color="#c0263a"/><stop offset="1" stop-color="#7d1224"/></radialGradient>
    <filter id="${X}sh" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="2" stdDeviation="2" flood-opacity=".35"/></filter></defs>`;
   const C=LB.center;
+  if(NIGHT){h+=`<circle cx="400" cy="400" r="398" fill="url(#${X}sky)"/>`+STARS}
   (LB.rays||[]).forEach((r,i)=>{h+=`<line x1="${r.x1}" y1="${r.y1}" x2="${r.x2}" y2="${r.y2}" stroke="#e7d5a4" stroke-width="1" stroke-dasharray="2 5"/>`;
-    const g=D.gates[i];if(g)h+=`<g transform="translate(${r.x2},${r.y2}) scale(.42)">${gemSVG(g.color)}</g>`});
+    const g=D.gates[i];if(g){const a=Math.atan2(r.y2-C.y,r.x2-C.x),mx=C.x+Math.cos(a)*386,my=C.y+Math.sin(a)*386;
+      h+=`<g><circle cx="${mx}" cy="${my}" r="13" fill="${NIGHT?"#0f1733":"#fffaf0"}" stroke="url(#${X}wg)" stroke-width="2.5"/><g transform="translate(${mx},${my+1}) scale(.42)">${gemSVG(g.color)}</g></g>`}});
   h+=`<circle cx="${C.x}" cy="${C.y}" r="${C.r*1.6}" fill="url(#${X}glow)"/>`;
+  if(withTokens||X==="t"){h+=`<g fill="none" stroke-width="27" stroke-linecap="round" stroke-linejoin="round" opacity="${NIGHT?.42:.2}">${rainbowBands()}</g>`}
   h+=`<path d="${LB.wallsD}" fill="none" stroke="#8f7130" stroke-opacity=".25" stroke-width="13" stroke-linecap="round" stroke-linejoin="round" transform="translate(0,1.5)"/>`;
   h+=`<path d="${LB.wallsD}" fill="none" stroke="url(#${X}wg)" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/>`;
   h+=`<path d="${LB.wallsD}" fill="none" stroke="#fbeec4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity=".75"/>`;
@@ -472,20 +503,31 @@ function boardSVG(withTokens,X){X=X||"b";
     h+=`<g class="field" data-f="${pos}"><circle cx="${x}" cy="${y}" r="20.5" fill="#fffaf0" stroke="#d9b85f" stroke-width="1"/><circle cx="${x}" cy="${y}" r="18" fill="#15120e" stroke="${c==="P"?"#15120e":ringCol(c)}" stroke-width="${c==="P"?0:4}"/>
       <text x="${x}" y="${y+6}" font-size="17" font-weight="700" text-anchor="middle" fill="#ecd185" font-family="Georgia,serif">${pos}</text></g>`});
   // golden gate + heart
-  h+=`<g class="field" data-f="41"><circle cx="${C.x}" cy="${C.y}" r="${C.r}" fill="#fff8e6" stroke="#d9b85f" stroke-width="2"/>
-    <path transform="translate(${C.x-C.r*.62},${C.y-C.r*.6}) scale(${C.r*1.24/24})" d="${HEART}" fill="url(#${X}hg)" stroke="#8a6a22" stroke-width=".4"/></g>`;
-  const E=LB.entrance;h+=`<text x="${E.x}" y="${E.y+30}" font-size="15" text-anchor="middle" font-family="Cinzel,serif" letter-spacing="4" fill="#1b1712">START</text>`;
+  let rays="";for(let i=0;i<24;i++){const a=i*Math.PI/12,r1=C.r*.62,r2=C.r*(i%2?.82:.95);rays+=`<line x1="${C.x+r1*Math.cos(a)}" y1="${C.y+r1*Math.sin(a)}" x2="${C.x+r2*Math.cos(a)}" y2="${C.y+r2*Math.sin(a)}"/>`}
+  h+=`<g class="field" data-f="41"><circle cx="${C.x}" cy="${C.y}" r="${C.r}" fill="${NIGHT?"#1a2347":"#fff8e6"}" stroke="url(#${X}wg)" stroke-width="3"/>
+    <circle cx="${C.x}" cy="${C.y}" r="${C.r*.9}" fill="url(#${X}glow)"><animate attributeName="r" values="${C.r*.8};${C.r*.98};${C.r*.8}" dur="3s" repeatCount="indefinite"/></circle>
+    <g stroke="#e6c463" stroke-width="2" stroke-linecap="round" opacity=".85">${rays}<animateTransform attributeName="transform" type="rotate" from="0 ${C.x} ${C.y}" to="360 ${C.x} ${C.y}" dur="60s" repeatCount="indefinite"/></g>
+    <path transform="translate(${C.x-C.r*.5},${C.y-C.r*.46}) scale(${C.r*1.0/24})" d="${HEART}" fill="url(#${X}rh)" stroke="#e6c463" stroke-width=".7"/>
+    <ellipse cx="${C.x-C.r*.2}" cy="${C.y-C.r*.18}" rx="${C.r*.1}" ry="${C.r*.06}" fill="#fff" opacity=".55" transform="rotate(-30 ${C.x-C.r*.2} ${C.y-C.r*.18})"/></g>`;
+  const E=LB.entrance;h+=`<text x="${E.x}" y="${E.y+30}" font-size="15" text-anchor="middle" font-family="Golden Serif,Georgia,serif" letter-spacing="4" fill="${NIGHT?"#e6c463":"#1b1712"}">START</text>`;
+  if(withTokens&&S&&S.players.length){
+    const pp=S.players.map(p=>p.pos<=0?LB.entrance:p.pos>N?{x:C.x,y:C.y}:LB.fields[p.pos-1]);
+    pp.forEach((a,i)=>{const p=S.players[i];
+      h+=`<path d="M${a.x} ${a.y} Q ${(a.x+C.x)/2+(a.y-C.y)*.18} ${(a.y+C.y)/2-(a.x-C.x)*.18} ${C.x} ${C.y}" fill="none" stroke="${p.color}" stroke-width="1.6" opacity=".35" stroke-dasharray="1 6" stroke-linecap="round"><animate attributeName="stroke-dashoffset" from="14" to="0" dur="2.2s" repeatCount="indefinite"/></path>`;
+      const b=pp[(i+1)%pp.length];if(pp.length>1&&!(pp.length===2&&i===1))h+=`<path d="M${a.x} ${a.y} Q ${C.x} ${C.y} ${b.x} ${b.y}" fill="none" stroke="#e2c46f" stroke-width="1.2" opacity=".35"/>`;});
+  }
   if(withTokens&&S){
     const groups={};S.players.forEach((p,i)=>{(groups[p.pos]=groups[p.pos]||[]).push(i)});
     for(const pos in groups){const g=groups[pos];const P=+pos<=0?{x:E.x,y:E.y}:+pos>N?{x:C.x,y:C.y+C.r*.15}:LB.fields[+pos-1];
       g.forEach((pi,k)=>{const p=S.players[pi];const n=g.length;const R=n>1?(+pos>N?C.r*.62:17):0;const a=k/n*2*Math.PI-Math.PI/2;
         const tx=P.x+R*Math.cos(a),ty=P.y+R*Math.sin(a)-(+pos>0&&+pos<=N?4:0);
-        h+=`<g filter="url(#${X}sh)" style="pointer-events:none"><ellipse cx="${tx}" cy="${ty+13}" rx="11" ry="3.5" fill="#000" opacity=".18"/><circle cx="${tx}" cy="${ty}" r="14" fill="${p.color}" stroke="#fff" stroke-width="3.5"/><circle cx="${tx-4}" cy="${ty-5}" r="4" fill="#fff" opacity=".35"/><text x="${tx}" y="${ty+5}" font-size="14" font-weight="700" text-anchor="middle" fill="#fff" font-family="Nunito Sans,sans-serif">${esc((p.name||"?")[0].toUpperCase())}</text></g>`;
+        h+=`<g filter="url(#${X}sh)" style="pointer-events:none"><ellipse cx="${tx}" cy="${ty+13}" rx="11" ry="3.5" fill="#000" opacity=".18"/><circle cx="${tx}" cy="${ty}" r="14" fill="${p.color}" stroke="#fff" stroke-width="3.5"/><circle cx="${tx-4}" cy="${ty-5}" r="4" fill="#fff" opacity=".35"/><text x="${tx}" y="${ty+5}" font-size="14" font-weight="700" text-anchor="middle" fill="#fff" font-family="Golden Sans,sans-serif">${esc((p.name||"?")[0].toUpperCase())}</text></g>`;
         if(pi===S.turn&&!S.over)h+=`<circle cx="${tx}" cy="${ty}" r="16" fill="none" stroke="${p.color}" stroke-width="2"><animate attributeName="r" values="14;21;14" dur="1.8s" repeatCount="indefinite"/><animate attributeName="opacity" values="1;.2;1" dur="1.8s" repeatCount="indefinite"/></circle>`})}
   }
   return h;
 }
-let ZOOM=false;
+let ZOOM=false,NIGHT=false;try{NIGHT=localStorage.getItem("gp-night")==="1"}catch(e){}
+const STARS=(()=>{let s="",seed=7;const rnd=()=>(seed=(seed*16807)%2147483647)/2147483647;for(let i=0;i<140;i++){const a=rnd()*Math.PI*2,r=Math.sqrt(rnd())*396;s+=`<circle cx="${(400+r*Math.cos(a)).toFixed(1)}" cy="${(400+r*Math.sin(a)).toFixed(1)}" r="${(rnd()*1.4+.3).toFixed(2)}" fill="#fff" opacity="${(rnd()*.6+.3).toFixed(2)}"/>`}return s})();
 function focusPoint(){if(!S)return null;const p=cur();if(!p)return null;const q=p.pos;return q<=0?LB.entrance:q>N?LB.center:LB.fields[q-1]}
 function drawBoard(){const svg=$("#board");let vb=LB.viewBox;
   if(ZOOM&&S){const f=focusPoint(),W=400;const x=Math.max(0,Math.min(800-W,f.x-W/2)),y=Math.max(0,Math.min(800-W,f.y-W/2));vb=`${x.toFixed(0)} ${y.toFixed(0)} ${W} ${W}`}
@@ -575,6 +617,8 @@ $("#startBtn").onclick=()=>{
 $("#resumeBtn").onclick=()=>{S=loadS();S.busy=false;go("play")};
 $("#newGame").onclick=()=>openCard({deck:"New journey",title:"Begin again?",text:"The current journey will end. Your journal will be cleared.",acts:[["Yes, start fresh",()=>{closeCard();try{localStorage.removeItem(KEY)}catch(e){}S=null;go("home")}],["Keep walking",closeCard,"ghost"]]});
 $("#musicQuick").onclick=()=>go("music");
+function syncNight(){$("#nightBtn").classList.toggle("on",NIGHT);$("#nightBtn").textContent=NIGHT?"☀ Daylight":"☾ Night sky";$(".boardwrap").classList.toggle("night",NIGHT)}
+$("#nightBtn").onclick=()=>{NIGHT=!NIGHT;try{localStorage.setItem("gp-night",NIGHT?"1":"0")}catch(e){};syncNight();drawBoard()};syncNight();
 $("#zoomBtn").onclick=()=>{ZOOM=!ZOOM;$("#zoomBtn").classList.toggle("on",ZOOM);$("#zoomBtn").textContent=ZOOM?"⌕ Whole board":"⌕ Zoom";drawBoard()};
 
 /* ===================== PLAY ===================== */
@@ -693,6 +737,7 @@ function pick(title,idxs,cb){
 function nextTurn(){
   if(S.players.every(q=>q.done)){S.over=true;S.rolled=0;refresh();setTimeout(finale,500);return}
   S.rolled=0;S.helpedThisTurn={};S.turn=(S.turn+1)%S.players.length;refresh();
+  const nx=cur();if(!nx.done)toast("✦ "+encourage(nx));
 }
 function finale(){
   const L=light();chime("heart");
@@ -700,7 +745,7 @@ function finale(){
     <b style="color:#fff6dc">${esc(q.name)}</b> <span style="color:#d9b85f;font-size:.85rem">· ${q.pearls} pearls · ${q.gems.length} gems · ${q.keys.length} key${q.keys.length===1?"":"s"} · ${q.tokens} token${q.tokens===1?"":"s"}</span>
     ${q.animals.length?`<div style="font-size:.82rem;color:#cdbb92">Companions: ${q.animals.map(esc).join(", ")}</div>`:""}
     ${q.insight?`<div style="font-family:var(--serif);font-style:italic;font-size:1.1rem;margin-top:4px">“${esc(q.insight)}”</div>`:""}</div>`).join("");
-  openCard({th:"gold",deck:"The journey is complete",title:"The Golden Heart shines",sub:"Shared light: "+L,emb:emblem("heart"),text:"Life does not happen against us. It invites us forward. Thank you for walking together.",html,
+  openCard({th:"gold",deck:"The journey is complete",title:"The Golden Heart shines",sub:"Shared light: "+L,emb:emblem("heart"),text:"Life does not happen against us – it invites us forward. Everything is connected, and no one walked alone. Thank you for sharing the path with joy.",html,
     acts:[["Close",closeCard,"ghost"],["Begin a new journey",()=>{closeCard();try{localStorage.removeItem(KEY)}catch(e){}S=null;go("home")}]]});
 }
 
