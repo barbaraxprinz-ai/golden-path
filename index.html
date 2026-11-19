@@ -945,7 +945,13 @@ function archSVG(id,size){const u="ar"+(++EID),L=ARCH_LOOK[id]||ARCH_LOOK.seeker
   const aura=`<ellipse cx="60" cy="62" rx="58" ry="70" fill="url(#${u}au)"/>
     <g stroke="${G}" stroke-opacity=".22" fill="none">${[0,60,120,180,240,300].map(d=>`<circle cx="${60+14*Math.cos(d*Math.PI/180)}" cy="${34+14*Math.sin(d*Math.PI/180)}" r="14"/>`).join("")}<circle cx="60" cy="34" r="28"/></g>`;
   const halo=(cy=34)=>`<circle cx="60" cy="${cy}" r="17" fill="none" stroke="url(#${u}gold)" stroke-width="1.6"/>${[...Array(24)].map((_,i)=>{const a=i*Math.PI/12;return `<line x1="${60+19*Math.cos(a)}" y1="${cy+19*Math.sin(a)}" x2="${60+(i%2?23:27)*Math.cos(a)}" y2="${cy+(i%2?23:27)*Math.sin(a)}" stroke="${G}" stroke-opacity=".75" stroke-width="1" stroke-linecap="round"/>`}).join("")}`;
-  const face=(cy=36)=>{const x=60;return `
+  const face=(cy=36,hc,len=12)=>{const x=60;
+    const hl=hc?`<path d="M${x-7.6} ${cy-3} C${x-9.4} ${cy+4} ${x-9.6} ${cy+len*.7} ${x-8.6} ${cy+len} Q${x-6.4} ${cy+len-2} ${x-5.6} ${cy+len-6} Q${x-6.2} ${cy+3} ${x-6.4} ${cy-2}Z
+      M${x+7.6} ${cy-3} C${x+9.4} ${cy+4} ${x+9.6} ${cy+len*.7} ${x+8.6} ${cy+len} Q${x+6.4} ${cy+len-2} ${x+5.6} ${cy+len-6} Q${x+6.2} ${cy+3} ${x+6.4} ${cy-2}Z" fill="${hc}"/>
+      <path d="M${x-8.2} ${cy+2} Q${x-8.6} ${cy+len*.6} ${x-7.6} ${cy+len-1} M${x+8.2} ${cy+2} Q${x+8.6} ${cy+len*.6} ${x+7.6} ${cy+len-1}" stroke="#fff" stroke-opacity=".28" stroke-width=".6" fill="none" stroke-linecap="round"/>`:"";
+    const hf=hc?`<path d="M${x-8} ${cy-.6} C${x-8.8} ${cy-9.4} ${x-4.4} ${cy-12.4} ${x} ${cy-12} C${x+4.4} ${cy-12.4} ${x+8.8} ${cy-9.4} ${x+8} ${cy-.6} Q${x+7} ${cy-6.2} ${x+.5} ${cy-8.4} L${x} ${cy-9.6} L${x-.5} ${cy-8.4} Q${x-7} ${cy-6.2} ${x-8} ${cy-.6}Z" fill="${hc}"/>
+      <path d="M${x-5.6} ${cy-9.2} Q${x-3} ${cy-10.8} ${x-.8} ${cy-10.2} M${x+1.6} ${cy-10.4} Q${x+4} ${cy-10.6} ${x+6} ${cy-8.6}" stroke="#fff" stroke-opacity=".35" stroke-width=".6" fill="none" stroke-linecap="round"/>`:"";
+    return hl+`
     <defs><radialGradient id="${u}fc" cx="45%" cy="38%" r="65%"><stop offset="0" stop-color="#fff6e6"/><stop offset=".6" stop-color="#f6d6b0"/><stop offset="1" stop-color="#d8a676"/></radialGradient>
     <radialGradient id="${u}bl"><stop offset="0" stop-color="#f08a7a" stop-opacity=".45"/><stop offset="1" stop-color="#f08a7a" stop-opacity="0"/></radialGradient>
     <radialGradient id="${u}fg"><stop offset="0" stop-color="#fffbe8" stop-opacity=".55"/><stop offset="1" stop-color="#fffbe8" stop-opacity="0"/></radialGradient></defs>
@@ -961,7 +967,7 @@ function archSVG(id,size){const u="ar"+(++EID),L=ARCH_LOOK[id]||ARCH_LOOK.seeker
     <path d="M${x-2.7} ${cy+4.4} Q${x} ${cy+6.4} ${x+2.7} ${cy+4.4}" stroke="#a84a44" stroke-width=".35" fill="none" stroke-linecap="round"/>
     <path d="M${x-3.1} ${cy+4} q.3 .5 .6 .4 M${x+3.1} ${cy+4} q-.3 .5 -.6 .4" stroke="#c07a5a" stroke-width=".3" fill="none" stroke-linecap="round"/>
     <ellipse cx="${x-2.2}" cy="${cy-6.5}" rx="2.6" ry="1.2" fill="#fff" opacity=".35"/>
-    <path d="M${x} ${cy-7.6} l.9 1.2 l-.9 1.2 l-.9 -1.2Z" fill="${G}"/>`};
+    `+hf+`<path d="M${x} ${cy-7} l.8 1.1 l-.8 1.1 l-.8 -1.1Z" fill="${G}"/>`};
   const robe=`<path d="M53 46 Q60 49 67 46 L77 54 Q81 58 81 66 L87 140 Q60 147 33 140 L39 66 Q39 58 43 54Z" fill="url(#${u}r)" stroke="url(#${u}gold)" stroke-width="1.4"/>
     <path d="M53 46 Q60 49 67 46 L77 54 Q81 58 81 66 L87 140 Q60 147 33 140 L39 66 Q39 58 43 54Z" fill="url(#${u}rs)"/>
     <g stroke="#fff" stroke-opacity=".18" fill="none"><path d="M50 72 Q47 106 45 139"/><path d="M60 74 V143"/><path d="M70 72 Q73 106 75 139"/></g>
@@ -974,7 +980,7 @@ function archSVG(id,size){const u="ar"+(++EID),L=ARCH_LOOK[id]||ARCH_LOOK.seeker
   if(id==="seeker")fig=`${[[18,140],[30,132],[44,128],[100,122],[110,112]].map(([x,y])=>star(x,y,2.4,G)).join("")}
     ${halo(34)}${robe}
     <path d="M60 14 C42 14 39 30 40 46 Q42 56 46 58 L74 58 Q78 56 80 46 C81 30 78 14 60 14Z" fill="url(#${u}r)" stroke="url(#${u}gold)" stroke-width="1.4"/>
-    <path d="M46 56 Q46 26 60 24 Q74 26 74 56" fill="#1a0a3a"/>${face(38)}
+    <path d="M46 56 Q46 26 60 24 Q74 26 74 56" fill="#1a0a3a"/>${face(38,"#4a2a1a",13)}
     <path d="M46 56 Q46 26 60 24 Q74 26 74 56" fill="none" stroke="url(#${u}gold)" stroke-width="1.8"/>
     <path d="M57 15 a6 6 0 1 0 6 -0.5 a4.6 4.6 0 1 1 -6 0.5Z" fill="${G}"/>
     <path d="M76 58 Q86 66 88 82 L82 84 Q80 70 72 64Z" fill="url(#${u}r)" stroke="url(#${u}gold)" stroke-width="1.2"/>${hand(85,84)}
@@ -984,12 +990,11 @@ function archSVG(id,size){const u="ar"+(++EID),L=ARCH_LOOK[id]||ARCH_LOOK.seeker
     <circle cx="60" cy="84" r="3" fill="#d8c0ff" stroke="${G}"/>`;
   if(id==="healer")fig=`<path d="M43 52 Q18 96 20 142 Q60 152 100 142 Q102 96 77 52Z" fill="url(#${u}r)" opacity=".75" stroke="url(#${u}gold)" stroke-width="1.2"/>
     ${halo(32)}
-    <path d="M51 28 Q46 48 44 62 Q52 56 54 44 M69 28 Q74 48 76 62 Q68 56 66 44" fill="#7a5a2a" stroke="#c9a060" stroke-width=".6"/>
     ${robe}
     <path d="M44 56 Q30 50 22 36 L28 32 Q36 44 48 50Z" fill="url(#${u}r)" stroke="url(#${u}gold)" stroke-width="1.2"/>
     <path d="M76 56 Q90 50 98 36 L92 32 Q84 44 72 50Z" fill="url(#${u}r)" stroke="url(#${u}gold)" stroke-width="1.2"/>
     ${hand(24,33)}${hand(96,33)}<circle cx="22" cy="28" r="9" fill="url(#${u}g)"/><circle cx="98" cy="28" r="9" fill="url(#${u}g)"/>
-    ${face(34)}
+    ${face(34,"#c9973a",22)}
     ${[-50,-30,-10,10,30,50].map(d=>{const a=(d-90)*Math.PI/180;return `<ellipse cx="${60+10*Math.cos(a)}" cy="${30+10.5*Math.sin(a)}" rx="2.6" ry="1.3" transform="rotate(${d} ${60+10*Math.cos(a)} ${30+10.5*Math.sin(a)})" fill="#5fd08a" stroke="#1a6a3a" stroke-width=".4"/>`}).join("")}
     ${[...Array(16)].map((_,i)=>{const a=i*Math.PI/8;return `<line x1="${60+13*Math.cos(a)}" y1="${70+13*Math.sin(a)}" x2="${60+(i%2?19:24)*Math.cos(a)}" y2="${70+(i%2?19:24)*Math.sin(a)}" stroke="#d8ffe8" stroke-width="1.3" stroke-linecap="round"/>`}).join("")}
     <circle cx="60" cy="70" r="16" fill="url(#${u}g)"/>
@@ -1002,9 +1007,7 @@ function archSVG(id,size){const u="ar"+(++EID),L=ARCH_LOOK[id]||ARCH_LOOK.seeker
     ${robe}
     <path d="M44 58 Q36 40 46 20 L52 22 Q46 40 50 56Z" fill="url(#${u}r)" stroke="url(#${u}gold)" stroke-width="1.2"/>
     <path d="M76 58 Q84 40 74 20 L68 22 Q74 40 70 56Z" fill="url(#${u}r)" stroke="url(#${u}gold)" stroke-width="1.2"/>${hand(49,20)}${hand(71,20)}
-    <path d="M51 33 Q50 48 47 58 Q53 54 55 46 M69 33 Q70 48 73 58 Q67 54 65 46" fill="#8a4a1a" stroke="#c98a4a" stroke-width=".5"/>
-    <path d="M52 33 Q60 25 68 33 Q64 29 60 29 Q56 29 52 33Z" fill="#8a4a1a"/>
-    ${face(38)}
+    ${face(38,"#9a3e1a",18)}
     ${[...Array(9)].map((_,i)=>{const a=(-160+i*17.5)*Math.PI/180;return `<path d="M${60+9*Math.cos(a)} ${37+10*Math.sin(a)} L${60+15*Math.cos(a)} ${37+16*Math.sin(a)}" stroke="url(#${u}gold)" stroke-width="2.2" stroke-linecap="round"/>`}).join("")}
     <path d="M51 31 Q60 25 69 31" stroke="url(#${u}gold)" stroke-width="2" fill="none"/>
     ${[["#ff6a6a",22,60],["#4ad8c8",98,56],["#ffd23a",16,86],["#a87aff",104,82],["#5ad87a",26,110],["#ff9a3a",94,108],["#6ab0ff",34,40],["#ff7ac8",88,38]].map(([c,x,y])=>`<circle cx="${x}" cy="${y}" r="5" fill="${c}" opacity=".25"/>${star(x,y,3.4,c)}`).join("")}
@@ -1015,7 +1018,7 @@ function archSVG(id,size){const u="ar"+(++EID),L=ARCH_LOOK[id]||ARCH_LOOK.seeker
     <circle cx="96" cy="14" r="22" fill="url(#${u}g)"/>${star(96,14,11)}<circle cx="96" cy="14" r="3" fill="#fff"/>
     ${robe}
     <path d="M60 2 L80 50 Q60 58 40 50Z" fill="url(#${u}r)" stroke="url(#${u}gold)" stroke-width="1.4"/>
-    <path d="M47 50 Q49 28 60 22 Q71 28 73 50" fill="#062030"/>${face(36)}
+    <path d="M47 50 Q49 28 60 22 Q71 28 73 50" fill="#062030"/>${face(36,"#e2e6ea",13)}
     <path d="M53 42 Q54 58 60 64 Q66 58 67 42 Q63 46 60 46 Q57 46 53 42Z" fill="#eef6f8" stroke="#c8d8e0" stroke-width=".5"/>
     <path d="M47 50 Q49 28 60 22 Q71 28 73 50" fill="none" stroke="url(#${u}gold)" stroke-width="1.8"/>${star(60,10,3,G)}
     <path d="M77 56 Q90 62 94 72 L90 76 Q84 68 74 64Z" fill="url(#${u}r)" stroke="url(#${u}gold)" stroke-width="1.2"/>${hand(94,74)}
