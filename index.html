@@ -354,6 +354,8 @@ footer{color:#cfc4a6!important}
     <p>Roll a classic die 1–6 and move on. As a variation you can choose the wisdom die: ✕ = take a break and breathe · −1 = step back one stone and deepen your wisdom · 1–4 = walk forward.</p>
     <h3>Bridge of Light &amp; Treasures</h3>
     <p><b>Bridge of Light</b> cards let you playfully feel the connection between here and there – loved ones, guides, signs, inner knowing. <b>Treasures</b> are discoveries on your path: a golden key, a pearl, a compass, a lantern. Every card asks a reflection question – and moves you on.</p>
+    <h3>Walking together</h3>
+    <p>Before you roll you may <b>walk together</b> with a companion (your roll moves you both), <b>inspire</b> someone or give them an answer, or choose <b>silence</b> and pause a round in the loop. Life is the game – the Golden Path is life in steps, full of chances to learn, explore, create and connect. There is no winning and no first place: the growth of the soul is what counts.</p>
     <h3>Knowledge Tokens</h3>
     <p>Whenever you help another traveller – gift a pearl, walk someone forward, send light from the Heart – you receive a Knowledge Token.</p>
     <h3>Archetypes</h3><ul id="ruleArch"></ul>
@@ -2086,6 +2088,11 @@ function renderPlay(){
     add("Complete your loop",()=>{p.skip=false;p.pearls++;log(p.name+" completes the Loop of Reflection (+1 pearl).");openCard({th:"loops",deck:"Loop of Reflection",title:"Back on the path",emb:emblem("sym","↺"),text:"You took the time you needed. What became clearer?",reward:"+1 pearl",acts:[["Continue",()=>{closeCard();nextTurn()}]]})});
   } else {
     add(S.rolled?"Walking…":"Roll the die",roll,"gold",!!S.rolled);
+    if(!S.rolled&&!S.busy){
+      if(travellers.length&&!S.helpedThisTurn.join)add("🤝 Walk together",()=>pick("With whom do you walk this turn? Your roll moves you both.",travellers,i=>{S.helpedThisTurn.join=1;p.partner=i;p.tokens++;S.players[i].tokens++;chime("pearl");log(p.name+" and "+S.players[i].name+" walk together.");refresh()}),"ghost small");
+      if(travellers.length&&!S.helpedThisTurn.insp)add("✦ Inspire / give an answer",()=>pick("Whom do you inspire with a word or an answer?",travellers,i=>{S.helpedThisTurn.insp=1;S.players[i].pearls++;p.tokens++;chime("pearl");log(p.name+" inspires "+S.players[i].name+" (+1 pearl · +1 Knowledge Token).");toast("✦ Share your words now – then roll.");refresh()}),"ghost small");
+      add("☾ Silence – pause a round",()=>{p.skip=true;log(p.name+" chooses silence and pauses a round (Loop).");openCard({th:"loops",deck:"Silence",title:"A round in stillness",emb:emblem("sym","☾"),text:"You step into the loop of silence. Breathe, listen, let your soul catch up.",reward:"Next turn: +1 pearl",acts:[["I rest in silence",done()]]})},"ghost small");
+    }
     if(p.arch==="healer"&&p.pearls>0&&!S.helpedThisTurn.healer&&travellers.length)add("Gift a pearl",()=>pick("Who receives your pearl?",travellers,i=>{p.pearls--;S.players[i].pearls++;p.tokens++;S.helpedThisTurn.healer=1;log(p.name+" gifts a pearl to "+S.players[i].name+" (+1 Knowledge Token).");refresh()}),"ghost small");
     if(p.arch==="guide"&&!S.helpedThisTurn.guide&&travellers.length)add("Guide someone +1",()=>pick("Whom do you guide one field forward?",travellers,i=>{S.helpedThisTurn.guide=1;const q=S.players[i];q.pos=Math.min(N,q.pos+1);p.tokens++;log(p.name+" guides "+q.name+" one field forward (+1 Knowledge Token).");refresh()}),"ghost small");
   }
@@ -2112,7 +2119,8 @@ function roll(){
 }
 function walk(v){const p=cur();if(p.double&&typeof v==="number"&&v>0){p.double=false;v*=2;toast("✦ Your wings double this roll: "+v+" fields!")}let left=v;S.trail={from:p.pos,to:p.pos,color:p.color,who:S.turn};
   const t=setInterval(()=>{if(left<=0||p.pos>N){clearInterval(t);S.busy=false;land();return}p.pos++;left--;S.trail.to=p.pos;drawBoard()},280)}
-function land(){const p=cur();log(p.name+" rolls "+(S.rolled)+" → "+(p.pos>N?"the Golden Gate":"field "+p.pos)+".");
+function land(){const p=cur();
+  if(p.partner!=null){const q=S.players[p.partner];p.partner=null;if(q&&!q.done&&typeof S.rolled==="number"&&S.rolled>0){q.pos=Math.min(N,q.pos+S.rolled);log(q.name+" walks along "+S.rolled+" fields.");drawBoard()}}log(p.name+" rolls "+(S.rolled)+" → "+(p.pos>N?"the Golden Gate":"field "+p.pos)+".");
   if(p.pos>N){goldenGate(S.turn);return}resolve(p.pos)}
 function done(fn){return()=>{closeCard();if(fn)fn();nextTurn()}}
 function resolve(pos){
