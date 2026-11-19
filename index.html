@@ -823,7 +823,7 @@ const ENCOURAGE=[
  "Joy is a way of walking.","What you share comes back as light.","Trust the path – it is walking with you.",
  "Each turn of the labyrinth brings you nearer to the heart.","You are exactly where your next lesson is.",
  "Someone in this circle is cheering for you.","Your golden heart already knows the way."];
-if(D3.vibes)ENCOURAGE.push(...D3.vibes);if(D3.dreams)ENCOURAGE.push(...D3.dreams);if(D3.wordmagic)ENCOURAGE.push(...D3.wordmagic.map(x=>x.w+" – "+x.t));ENCOURAGE.push("God is with you – you never walk alone.");
+if(D3.vibes)ENCOURAGE.push(...D3.vibes);if(D3.dreams)ENCOURAGE.push(...D3.dreams);ENCOURAGE.push("God is with you – you never walk alone.");
 function encourage(next){const others=S.players.filter(q=>q!==next);
   const pool=ENCOURAGE.slice();if(others.length){const o=others[Math.random()*others.length|0];pool.push(o.name+" walks with you, "+next.name+".","You and "+o.name+" share the same path.")}
   return pool[Math.random()*pool.length|0]}
