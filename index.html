@@ -2982,7 +2982,8 @@ function chime(kind){
 }
 const BUILTIN=[{id:"builtin-1",name:"Life is a game… Play with Love ♥",src:"music/life-is-a-game.mp3",builtin:true,theme:true,role:"start"},
  {id:"builtin-2",name:"The Golden Path of Hope and Love",src:"music/golden-path-of-hope-and-love.mp3",builtin:true,role:"heart"},
- {id:"builtin-3",name:"Riddles of Life – Make Dreams Come True",src:"music/riddles-of-life.mp3",builtin:true,role:"chest"}];
+ {id:"builtin-3",name:"Riddles of Life – Make Dreams Come True",src:"music/riddles-of-life.mp3",builtin:true,role:"chest"},
+ {id:"builtin-4",name:"Dare to Dream",src:"music/dare-to-dream.mp3",builtin:true,role:"dream"}];
 function playRole(r){if(!$("#mMoments").checked)return false;const i=Music.songs.findIndex(x=>x.role===r);if(i<0)return false;if(Music.idx===i&&!Music.audio.paused)return true;musicPlay(i);return true}
 const Music={songs:BUILTIN.slice(),idx:-1,audio:new Audio(),db:null};
 Music.audio.volume=.6;
@@ -3322,7 +3323,7 @@ function resolve(pos){
       acts:[["We kept the silence",done(()=>{S.players.forEach(q=>{q.pearls++;energy(q,1)});chime("pearl");log("Shared stillness – everyone +1 pearl · +1 energy.")})]]});return}
   if(c==="L"){openCard({th:"loops",deck:"Crossing",title:"A turning point",sub:"Do you need time?",emb:emblem("sym","↺"),text:"Here the path turns. You may step into the Loop of Reflection: pause for one turn, rethink a decision, and receive a pearl.",
       acts:[["Take the loop",()=>{closeCard();takeLoop()}],["Continue on the path",done(),"ghost"]]});return}
-  if(c==="S"){momentMusic();const card=DK.steps.cards[draw("steps")];
+  if(c==="S"){if(!playRole("dream"))momentMusic();const card=DK.steps.cards[draw("steps")];
     openCard({th:"steps",deck:DK.steps.name,title:esc(card.title),emb:emblem("sym","▲"),text:esc(card.text),prompt:esc(card.prompt),reward:"Reward: +1 pearl and a Golden Value",
       acts:[["My heart has decided",()=>{closeCard();p.pearls++;giveKey(p)}]].concat(S.players.some((q,i)=>i!==S.turn&&!q.done)?[["Free Will: let someone step forward instead",()=>{closeCard();pick("Who steps forward instead of you?",S.players.map((q,i)=>i).filter(i=>i!==S.turn&&!S.players[i].done),i=>{const q=S.players[i];q.pos=Math.min(N,q.pos+1);p.tokens++;p.pearls++;chime("pearl");log(p.name+" uses Free Will: "+q.name+" steps forward (+1 Knowledge Token).");nextTurn()})},"opt"]]:[])});return}
   drawDeck(T[c].deck);
@@ -3352,7 +3353,7 @@ function drawDeck(deck){
       acts:[["Amen · So be it",done(()=>{S.bonus+=2;log("A prayer is spoken: “"+card.title+"”.");chime("heart")})]].concat(swap)});return}
     if(deck==="planets"){openCard({...base,th:"planet",sub:esc(card.sub||""),emb:emblem("planet",card.title),text:esc(card.text),reward:planetText(card.effect),acts:[["Bring back the wisdom ✓",()=>{closeCard();applyPlanet(card)}]].concat(swap)});return}
     if(deck==="wings"){const mn=card.effect==="minute";openCard({sfx:"wings",...base,sub:esc(card.sub||""),emb:emblem("sym","〰"),text:esc(card.text),prompt:card.prompt?esc(card.prompt):"",timer:mn?60:0,timerLabel:"Start the 1-minute hourglass",reward:moveText(card.effect),acts:[[mn?"Wings flapped ✓":"Spread my wings ✦",()=>{closeCard();log(p.name+" draws Flap of Wings: “"+card.title+"”.");applyMove(card.effect)}]].concat(swap)});return}
-    if(deck==="helping"){openCard({...base,th:"helping",sub:esc(card.kind),emb:emblem("sym",{"Helping Hand":"✋","Helping Words":"❝","Helping Music":"♪","Helping Symbols":"✧","Helping Doors":"⌂","Helping Nature":"❀","Helping Challenges":"▲","Helping Dreams":"☾"}[card.kind]||"✦"),text:esc(card.text),prompt:esc(card.prompt),html:songLine("trust"),reward:moveText(card.effect),
+    if(deck==="helping"){if(card.kind==="Helping Dreams")playRole("dream");openCard({...base,th:"helping",sub:esc(card.kind),emb:emblem("sym",{"Helping Hand":"✋","Helping Words":"❝","Helping Music":"♪","Helping Symbols":"✧","Helping Doors":"⌂","Helping Nature":"❀","Helping Challenges":"▲","Helping Dreams":"☾"}[card.kind]||"✦"),text:esc(card.text),prompt:esc(card.prompt),html:songLine("trust"),reward:moveText(card.effect),
       acts:[["Thank you for the help ✦",()=>{closeCard();log(p.name+" receives help: "+card.title+".");applyMove(card.effect)}]].concat(swap)});return}
     if(deck==="comm"){const nb=S.players.map((q,i)=>i).filter(i=>i!==S.turn);
       openCard({...base,th:"comm",sub:"What is said? · What is heard? · What is needed?",emb:emblem("sym","❝"),text:esc(card.exercise),prompt:esc(card.question),reward:"Both partners +1 Knowledge Token · +1 pearl",
