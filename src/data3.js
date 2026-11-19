@@ -1062,5 +1062,71 @@ window.GAME_DATA3 = {
   "The subtle voice: share what you feel with someone you trust.",
   "Your heart smiles: look for the little happiness today.",
   "Stillness answers: everything is connected – and so are you."
+ ],
+ "recharge": [
+  {
+   "title": "Breathe",
+   "text": "Three deep breaths. In through the nose, long out through the mouth."
+  },
+  {
+   "title": "Walk",
+   "text": "Stand up and walk around the table once – feel your feet."
+  },
+  {
+   "title": "Sing",
+   "text": "Sing one line of a song you love – loud or soft."
+  },
+  {
+   "title": "Dance",
+   "text": "Shake your body for ten seconds – arms, shoulders, hips!"
+  },
+  {
+   "title": "Journal",
+   "text": "Write one sentence: 'Right now I feel …'"
+  },
+  {
+   "title": "Stretch",
+   "text": "Reach your arms to the sky, then let them fall like rain."
+  },
+  {
+   "title": "Drink Water",
+   "text": "Take a sip of water and imagine it filling you with light."
+  },
+  {
+   "title": "Smile",
+   "text": "Smile for ten seconds – even if it feels silly. Notice what changes."
+  },
+  {
+   "title": "Create",
+   "text": "Draw a tiny symbol of how you feel on a piece of paper."
+  },
+  {
+   "title": "Sunlight",
+   "text": "Close your eyes and imagine warm sunlight on your face."
+  },
+  {
+   "title": "Hug",
+   "text": "Hug yourself – or someone who wants a hug."
+  },
+  {
+   "title": "Nature",
+   "text": "Think of your favourite place in nature. Be there for a moment."
+  },
+  {
+   "title": "Laugh",
+   "text": "Tell the funniest thing that happened to you this week."
+  },
+  {
+   "title": "Rest",
+   "text": "Close your eyes and do nothing for ten seconds. Nothing at all."
+  },
+  {
+   "title": "Music",
+   "text": "Hum a melody together with everyone at the table."
+  },
+  {
+   "title": "Gratitude",
+   "text": "Name one small thing that gave you energy today."
+  }
  ]
 };
