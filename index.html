@@ -247,6 +247,7 @@ footer{color:#cfc4a6!important}
       <div class="tag">Are you on your path?</div><p style="font-family:var(--serif);font-size:1.15rem;color:#f6d77e">Walk the Golden Path of life toward the Golden Heart – and reach the values of the soul: Intuition · Creation · Passion · Motivation · Inspiration · Compassion · Connection …</p><div class="caps hint" style="margin:-4px 0 10px;letter-spacing:.3em">✦ Shuffle the dots ✦</div>
       <p>Walk the seven circuits of the labyrinth toward the Golden Heart. Every step is an experience, every experience a Pearl of Wisdom. Pass through twelve gemstone gates and the Golden Gate, pause on golden steps, take loops to rethink a choice, and help each other along the way.</p>
       <p style="font-family:var(--caps);letter-spacing:.12em;color:#f6d77e;font-size:.95rem">MOVE on · LOVE → EVOL-VE · H·EAR·T · Tears? Ears! ♥</p>
+      <p><b>The True Path.</b> Deep down in our heart and soul we know the true way of living: connected, supporting and helping others, guiding and serving, becoming the best person possible – humble, kind and loving. Pure golden heart wisdom. A conscious way of living life.</p>
       <p><b>You never walk alone.</b> Whatever step you take, you grow – and the others walk with you. Everything is connected: every pearl you gather lights the Golden Heart for everyone.</p>
       <p>No one wins against anyone. The journey is complete when everyone has arrived – together.</p>
     </div>
@@ -353,6 +354,8 @@ footer{color:#cfc4a6!important}
     <h3>The Golden Values</h3>
     <p>The Golden Path is life in steps; its goal is the Golden Heart. On the way you reach the <b>19 Golden Values</b> – strengthening words ending in “-on”: the 12 gate qualities (Passion, Communication, Meditation, Regeneration, Compassion, Transformation, Intuition, Imagination, Inspiration, Innovation, Intention, Cooperation) and 7 values from the Golden Steps (Creation, Motivation, Connection, Devotion, Celebration, Illumination, Elevation). At the end you see which values the whole circle reached together.</p>
     <p class="lyrics" style="font-size:1.1rem">This game was never meant to be won. It was meant to be lived. The treasure was always within you.</p>
+    <h3>The True Path</h3>
+    <p>Deep down in our heart and soul we know the true way of living: connected, supporting and helping others, guiding and serving, becoming the best person possible – humble, kind and loving. Pure golden heart wisdom. A conscious way of living life.</p>
     <h3>Goal</h3>
     <p>Celebrate life and reach the Golden Heart in the centre – together. Every step, even a detour, is growth. You are never alone: your fellow players are your companions on the path, and help is always near. There are no winners. All pearls, gems, keys and tokens feed one shared Light. When the last traveller arrives, the journey is complete.</p>
     <h3>A turn</h3>
@@ -3749,7 +3752,7 @@ function finale(){
     <b style="color:#fff6dc">${esc(q.name)}</b> <span style="color:#d9b85f;font-size:.85rem">· ${q.pearls} pearls · ${q.gems.length} gems · ${q.keys.length} key${q.keys.length===1?"":"s"} · ${q.tokens} token${q.tokens===1?"":"s"}</span>
     <div class="vals">${values(q).map(v=>`<span>${esc(v)}</span>`).join("")}</div>${q.animals.length?`<div style="font-size:.82rem;color:#cdbb92">Companions: ${q.animals.map(esc).join(", ")}</div>`:""}
     ${q.insight?`<div style="font-family:var(--serif);font-style:italic;font-size:1.1rem;margin-top:4px">“${esc(q.insight)}”</div>`:""}</div>`).join("");
-  openCard({th:"gold",deck:"The journey is complete",title:"The Golden Heart shines",sub:"Shared light: "+L,emb:emblem("heart"),html2:"",text:(SONG?`<span class="lyrics" style="font-size:1.15rem">${esc(SONG.moments.end)}</span><br><br>`:"")+(SONG3?`<span class="lyrics" style="font-size:1.15rem">${esc(SONG3.chorus)}</span><br><br>`:"")+(SONG2?`<span class="lyrics" style="font-size:1.25rem;color:#f6d77e">Walk the path… unlock the heart.</span><br><br>`:"")+"Life does not happen against us – it invites us forward. Everything is connected, and no one walked alone. Thank you for sharing the path with joy.",html,
+  openCard({th:"gold",deck:"The journey is complete",title:"The Golden Heart shines",sub:"Shared light: "+L,emb:emblem("heart"),html2:"",text:(SONG?`<span class="lyrics" style="font-size:1.15rem">${esc(SONG.moments.end)}</span><br><br>`:"")+(SONG3?`<span class="lyrics" style="font-size:1.15rem">${esc(SONG3.chorus)}</span><br><br>`:"")+(SONG2?`<span class="lyrics" style="font-size:1.25rem;color:#f6d77e">Walk the path… unlock the heart.</span><br><br>`:"")+"<b>The True Path:</b> connected, helping, guiding, serving – humble, kind and loving. Pure golden heart wisdom.<br><br>Life does not happen against us – it invites us forward. Everything is connected, and no one walked alone. Thank you for sharing the path with joy.",html,
     acts:[["Close",closeCard,"ghost"],["Begin a new journey",()=>{closeCard();try{localStorage.removeItem(KEY)}catch(e){}S=null;go("home")}]]});
 }
 
