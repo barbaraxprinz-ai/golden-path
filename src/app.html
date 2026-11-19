@@ -461,7 +461,7 @@ const SETS=[
  {id:"animals",name:"Power Animal Journey",desc:"More power animals and colors – each traveller gathers a family of companions.",
   seq:"CAQFWCASFCBQPWCAMFRCAQSCWAFC"},
  {id:"heart",name:"Heart Circle",desc:"For groups & workshops: more togetherness, prayers and stillness.",
-  seq:"CMIBMCRPMBCMSIMBRCMIBSCMRIM"+"C"}
+  seq:"CMQBMCRPMBQMSIMBRCMQBSCMRIQC"}
 ];
 const TURN_FIELDS=[...new Set((LB.turns||[]).map(t=>t.field))].filter(f=>f>=2&&f<=N-1&&!GATE_POS.includes(f));
 function buildMap(set){
@@ -649,6 +649,11 @@ function boardSVG(withTokens,X){X=X||"b";
       <path d="M${x-9} ${y+17}V${y}a9 9 0 0 1 18 0V${y+17}Z" fill="#fff" opacity=".88"/><text x="${x}" y="${y+14}" font-size="14" text-anchor="middle" font-weight="700" fill="#1b1712" font-family="Georgia,serif">${pos}</text></g>`;return}
     if(c==="S"){let s=`<g class="field" data-f="${pos}" filter="url(#${X}sh)">`;for(let k=0;k<3;k++)s+=`<ellipse cx="${x}" cy="${y+8-k*7}" rx="18" ry="8" fill="${k===2?"#e6c463":"#c9a44c"}" stroke="#8a6a22" stroke-width="1"/>`;
       h+=s+`<text x="${x}" y="${y-9}" font-size="14" text-anchor="middle" font-weight="700" fill="#3a2a0a" font-family="Georgia,serif">${pos}</text></g>`;return}
+    if(c==="Q"){h+=`<g class="field" data-f="${pos}" filter="url(#${X}sh)"><circle cx="${x}" cy="${y}" r="22" fill="#f2cf6b" opacity=".25"><animate attributeName="r" values="19;25;19" dur="2.4s" repeatCount="indefinite"/></circle>
+      <path d="M${x-16} ${y-2} Q${x-16} ${y-17} ${x} ${y-17} Q${x+16} ${y-17} ${x+16} ${y-2} Z" fill="#e6b04a" stroke="#5a3a10" stroke-width="1.6"/>
+      <rect x="${x-16}" y="${y-3}" width="32" height="18" rx="3" fill="#c98a2e" stroke="#5a3a10" stroke-width="1.6"/>
+      <rect x="${x-3.5}" y="${y-5}" width="7" height="8" rx="1.5" fill="#3a2508"/>
+      <text x="${x}" y="${y+12}" font-size="11" font-weight="700" text-anchor="middle" fill="#fff6d2" font-family="Georgia,serif">${pos}</text></g>`;return}
     h+=`<g class="field" data-f="${pos}"><circle cx="${x}" cy="${y}" r="20.5" fill="#fffaf0" stroke="#d9b85f" stroke-width="1"/><circle cx="${x}" cy="${y}" r="18" fill="#15120e" stroke="${c==="P"?"#15120e":ringCol(c)}" stroke-width="${c==="P"?0:4}"/>
       <text x="${x}" y="${y+6}" font-size="17" font-weight="700" text-anchor="middle" fill="#ecd185" font-family="Georgia,serif">${pos}</text></g>`});
   // golden gate + heart
@@ -828,7 +833,7 @@ function renderPlay(){
     <div class="vals">${values(q).map(v=>`<span>${esc(v)}</span>`).join("")}</div><div class="badges"><span class="stat">◯ ${q.pearls}</span><span class="stat">✧ ${values(q).length}/19 values</span><span class="stat">✦ ${q.tokens}</span>${q.gems.map(g=>`<span class="gem" title="${esc(D.gates[g].gem)}" style="background:${D.gates[g].color}"></span>`).join("")}</div></div></div>`).join("");
   const L=light(),goal=Math.max(60,S.players.length*30);$("#goal").textContent=goal;$("#lightNum").textContent=L;$("#lightBar").style.width=Math.min(100,L/goal*100)+"%";
   $("#log").innerHTML=S.log.map(t=>`<div>${esc(t)}</div>`).join("");
-  $("#legend").innerHTML=Object.entries(T).map(([k,t])=>`<span><svg width="16" height="16"><circle cx="8" cy="8" r="6" fill="${k==="G"?"#7d4fb3":k==="S"?"#d9b85f":"#15120e"}" stroke="${k==="P"||k==="G"||k==="S"?"none":ringCol(k)}" stroke-width="2.6"/></svg>${t.name}</span>`).join("");
+  $("#legend").innerHTML=Object.entries(T).map(([k,t])=>`<span><svg width="16" height="16"><circle cx="8" cy="8" r="6" fill="${k==="G"?"#7d4fb3":k==="S"?"#d9b85f":k==="Q"?"#c98a2e":"#15120e"}" stroke="${k==="P"||k==="G"||k==="S"?"none":ringCol(k)}" stroke-width="2.6"/></svg>${t.name}</span>`).join("");
 }
 function refresh(){save();renderPlay()}
 const WFACES=["X",-1,1,2,3,4];
