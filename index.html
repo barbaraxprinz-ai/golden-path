@@ -1,0 +1,1166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Game 2020 · The Golden Path</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Cinzel:wght@500;700&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --gold:#b08d3c;--gold2:#d9b85f;--gold3:#f3e3b0;--ink:#1b1712;--night:#15120e;--paper:#fbf7ee;
+  --muted:#7a6f5c;--line:#e8dcc0;--teal:#2bb3b1;
+  --serif:"Cormorant Garamond",Georgia,serif;--caps:"Cinzel","Cormorant Garamond",serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--paper);color:var(--ink);font-family:"Nunito Sans",system-ui,sans-serif;font-size:16px;-webkit-tap-highlight-color:transparent}
+body{background:radial-gradient(1200px 600px at 50% -200px,#fff8e2 0,var(--paper) 60%) fixed}
+h1,h2,h3,h4{font-family:var(--serif);font-weight:700;margin:0}
+button{font:inherit;cursor:pointer}
+.caps{font-family:var(--caps);letter-spacing:.14em;text-transform:uppercase}
+header.top{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 16px;max-width:1240px;margin:0 auto}
+.brand{display:flex;align-items:center;gap:10px}
+.brand b{font-family:var(--caps);font-size:1.05rem;letter-spacing:.12em}
+.brand i{font-family:var(--serif);color:var(--gold);font-size:1rem}
+nav.tabs{display:flex;gap:4px;flex-wrap:wrap}
+nav.tabs button{border:none;background:transparent;padding:8px 12px;border-radius:999px;color:var(--muted);font-weight:700;font-size:.9rem}
+nav.tabs button.on{background:var(--ink);color:#fff}
+@media (max-width:700px){header.top{flex-direction:column;padding-bottom:4px}}
+main{max-width:1240px;margin:0 auto;padding:0 12px 60px}
+.view{display:none;animation:fade .35s ease}.view.on{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.panel{background:#fffdf8;border:1px solid var(--line);border-radius:18px;padding:16px;margin-bottom:12px;box-shadow:0 1px 0 #fff inset,0 8px 24px -18px #8a6a2244}
+.btn{border:none;background:var(--ink);color:#fff;border-radius:12px;padding:12px 18px;font-weight:700}
+.btn.gold{background:linear-gradient(135deg,#d8b55c,#a07c2e);color:#fff;box-shadow:0 6px 16px -8px #a07c2e}
+.btn.ghost{background:#fff;color:var(--ink);border:1px solid var(--line)}
+.btn.small{padding:8px 12px;font-size:.88rem;border-radius:10px}
+.btn:disabled{opacity:.4;cursor:default;box-shadow:none}
+input,select,textarea{font:inherit;padding:10px 11px;border:1px solid var(--line);border-radius:10px;background:#fff;width:100%;color:var(--ink)}
+label.l{font-weight:700;font-size:.82rem;color:var(--muted);display:block;margin:10px 0 4px}
+.hint{font-size:.85rem;color:var(--muted)}
+/* hero */
+.hero{display:grid;grid-template-columns:1.1fr 1fr;gap:18px;align-items:center;margin:6px 0 14px}
+@media (max-width:860px){.hero{grid-template-columns:1fr}}
+.hero h1{font-size:clamp(2.2rem,6vw,3.6rem);line-height:.95}
+.hero .tag{font-family:var(--serif);font-style:italic;color:var(--gold);font-size:1.5rem;margin:6px 0 10px}
+.hero p{line-height:1.55;color:#3c342a;margin:0 0 8px}
+.hero .thumb{background:#fff;border:1px solid var(--line);border-radius:22px;padding:8px}
+.prow{display:grid;grid-template-columns:auto 1fr 1fr auto;gap:8px;align-items:center;margin-bottom:8px}
+.swatches{display:flex;gap:4px}
+.sw{width:22px;height:22px;border-radius:50%;border:2px solid #fff;box-shadow:0 0 0 1px var(--line)}
+.sw.on{box-shadow:0 0 0 2px var(--ink)}
+.setcards{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px}
+.setcard{border:1px solid var(--line);border-radius:14px;padding:12px;background:#fff;text-align:left}
+.setcard.on{border-color:var(--gold);box-shadow:0 0 0 2px var(--gold3)}
+.setcard h4{font-size:1.25rem}
+/* game */
+.game{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:14px;align-items:start}
+@media (max-width:920px){.game{grid-template-columns:1fr}}
+.boardwrap{background:#fff;border:1px solid var(--line);border-radius:24px;padding:8px;position:relative;box-shadow:0 20px 50px -35px #6b5320}
+#board{width:100%;height:auto;display:block}
+#board .field{cursor:pointer;transition:transform .2s}
+.turn{display:flex;gap:14px;align-items:center}
+.die{width:70px;height:70px;flex:none;border-radius:16px;background:#fff;border:2px solid var(--ink);display:grid;place-items:center;box-shadow:0 4px 0 var(--ink)}
+.die.roll{animation:shake .5s}
+@keyframes shake{0%,100%{transform:rotate(0)}25%{transform:rotate(-14deg)}75%{transform:rotate(12deg)}}
+.cur-name{font-family:var(--serif);font-size:1.7rem;line-height:1}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.pl{display:flex;gap:10px;align-items:center;padding:8px;border-radius:12px}
+.pl.cur{background:linear-gradient(90deg,#f6ecd2,#fff0)}
+.pl .meta{font-size:.8rem;color:var(--muted)}
+.pawn{width:26px;height:26px;border-radius:50%;flex:none;box-shadow:0 0 0 2px #fff,0 0 0 3px var(--line)}
+.badges{display:flex;gap:3px;flex-wrap:wrap;margin-top:4px;align-items:center}
+.gem{width:11px;height:11px;transform:rotate(45deg);border-radius:2px;border:1px solid #0003;display:inline-block}
+.stat{font-size:.78rem;color:#4a3f30;background:#f7f0de;border-radius:99px;padding:1px 7px}
+.lightbar{height:12px;background:#f3ead4;border-radius:99px;overflow:hidden}
+.lightbar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#f2d47a,#b08d3c);transition:width .8s;box-shadow:0 0 12px #f2d47a}
+.log{max-height:200px;overflow:auto;font-size:.85rem;color:#4a3f30}
+.log div{padding:5px 0;border-bottom:1px dashed var(--line)}
+.legend{display:flex;flex-wrap:wrap;gap:6px 12px;font-size:.8rem;color:var(--muted);padding:8px 6px 2px}
+.legend span{display:flex;align-items:center;gap:5px}
+/* TAROT CARD */
+.modal{position:fixed;inset:0;background:radial-gradient(circle at 50% 40%,#2a2114cc,#0d0a06ee);display:none;align-items:center;justify-content:center;padding:14px;z-index:60}
+.modal.on{display:flex}
+.tcard{width:min(380px,100%);max-height:94vh;overflow:auto;border-radius:22px;padding:10px;background:linear-gradient(160deg,#e9cf86,#a8823a 40%,#f0d995 70%,#9a7731);animation:flip .5s ease;box-shadow:0 30px 70px -20px #000}
+@keyframes flip{from{transform:rotateY(80deg) scale(.9);opacity:0}to{transform:none;opacity:1}}
+.tin{background:radial-gradient(circle at 50% 30%,#2a2219,#120f0b 70%);border-radius:15px;padding:18px 18px 16px;color:#f4ead2;text-align:center;position:relative;border:1px solid #f3dc9a55;min-height:420px;display:flex;flex-direction:column}
+.tin:before{content:"";position:absolute;inset:7px;border:1px solid #d9b85f66;border-radius:11px;pointer-events:none}
+.tin .deck{font-family:var(--caps);font-size:.68rem;letter-spacing:.28em;color:var(--gold2)}
+.tin h2{font-size:2.05rem;line-height:1.02;margin:6px 0 2px;color:#fff6dc}
+.tin .sub{font-family:var(--serif);font-style:italic;color:var(--gold2);font-size:1.2rem}
+.tin .emb{width:118px;height:118px;margin:10px auto 8px;display:block}
+.tin p{line-height:1.5;margin:6px 0;font-size:1.02rem}
+.tin .prompt{background:#ffffff0f;border:1px solid #d9b85f40;border-radius:12px;padding:10px 12px;font-family:var(--serif);font-size:1.18rem;font-style:italic;color:#fff1cc;margin-top:8px}
+.tin .acts{display:flex;flex-direction:column;gap:8px;margin-top:auto;padding-top:14px}
+.tin .acts .btn{width:100%}
+.tin .btn.ghost{background:transparent;color:#f4ead2;border:1px solid #d9b85f77}
+.tin .btn.opt{background:#ffffff10;color:#fff6dc;border:1px solid #d9b85f99;text-align:left;font-weight:600}
+.tin textarea{background:#ffffff10;color:#fff;border-color:#d9b85f66;min-height:80px}
+.tin .row{display:flex;gap:8px}.tin .row .btn{flex:1}
+.reward{font-size:.82rem;color:var(--gold2);margin-top:6px}
+/* card library */
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0 14px}
+.chips button{border:1px solid var(--line);background:#fff;border-radius:99px;padding:7px 13px;font-size:.88rem;font-weight:700;color:#4a3f30}
+.chips button.on{background:var(--ink);border-color:var(--ink);color:#fff}
+.lib{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:14px}
+.mcard{aspect-ratio:63/88;border-radius:14px;padding:6px;background:linear-gradient(160deg,#e9cf86,#a8823a 45%,#f0d995 75%,#9a7731)}
+.mcard .in{height:100%;border-radius:10px;background:radial-gradient(circle at 50% 30%,#2a2219,#120f0b 75%);color:#f4ead2;padding:12px;display:flex;flex-direction:column;text-align:center;position:relative;overflow:hidden}
+.mcard .in:before{content:"";position:absolute;inset:5px;border:1px solid #d9b85f55;border-radius:7px;pointer-events:none}
+.mcard .k{font-family:var(--caps);font-size:.55rem;letter-spacing:.24em;color:var(--gold2)}
+.mcard h4{font-size:1.25rem;color:#fff6dc;margin:4px 0;line-height:1.05}
+.mcard .t{font-size:.76rem;line-height:1.35}
+.mcard .p{font-family:var(--serif);font-style:italic;color:#fff1cc;font-size:.92rem;margin-top:auto;line-height:1.2}
+.mcard svg{width:54px;height:54px;margin:4px auto}
+/* music */
+.song{display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:1px dashed var(--line)}
+.song .n{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.song.on .n{color:var(--gold);font-weight:700}
+.minibtn{border:1px solid var(--line);background:#fff;border-radius:9px;padding:5px 9px;font-size:.85rem}
+.toggle{display:flex;align-items:center;gap:8px;font-size:.9rem;margin:6px 0}
+.toggle input{width:auto}
+.rules h3{font-size:1.5rem;margin:18px 0 4px}
+.rules p,.rules li{line-height:1.6}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}@media (max-width:760px){.two{grid-template-columns:1fr}}
+.toast{position:fixed;left:50%;bottom:18px;transform:translateX(-50%) translateY(120px);background:var(--ink);color:#fff;padding:10px 16px;border-radius:12px;font-size:.9rem;transition:transform .35s;z-index:80;max-width:92vw}
+.toast.on{transform:translateX(-50%)}
+@media (max-width:600px){
+  html,body{font-size:17.5px}
+  .hint,.legend,.pl .meta,.log,.stat{font-size:.92rem}
+  .stat{font-size:.85rem}
+  .legend{font-size:.88rem;gap:8px 14px}
+  .tin p{font-size:1.1rem}.tin .prompt{font-size:1.28rem}.tin h2{font-size:2.2rem}
+  .tin .deck{font-size:.76rem}.reward{font-size:.92rem}
+  .mcard .t{font-size:.86rem}.mcard .p{font-size:1rem}.mcard .k{font-size:.62rem}
+  .lib{grid-template-columns:repeat(auto-fill,minmax(160px,1fr))}
+  nav.tabs button{font-size:.98rem;padding:9px 13px}
+  .cur-name{font-size:1.9rem}
+}
+@media print{
+  header.top,nav,.chips,.noprint{display:none!important}
+  body{background:#fff}
+  .view{display:none!important}#v-cards{display:block!important}
+  .lib{grid-template-columns:repeat(3,63mm);gap:4mm}
+  .mcard{width:63mm;height:88mm;break-inside:avoid;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="brand">
+    <svg width="34" height="34" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="none" stroke="#b08d3c" stroke-width="1"/><path d="M12 19s-6-3.9-7.6-7.5C3.3 9 4.8 6 7.6 6c1.8 0 3 1 4.4 2.7C13.4 7 14.6 6 16.4 6c2.8 0 4.3 3 3.2 5.5C18 15.1 12 19 12 19z" fill="#d9b85f"/></svg>
+    <div><b>GAME 2020</b><br><i>The Golden Path</i></div>
+  </div>
+  <nav class="tabs">
+    <button data-v="home" class="on">Begin</button>
+    <button data-v="play">Board</button>
+    <button data-v="cards">Cards</button>
+    <button data-v="music">Music</button>
+    <button data-v="rules">How to play</button>
+  </nav>
+</header>
+
+<main>
+<!-- HOME -->
+<section class="view on" id="v-home">
+  <div class="hero">
+    <div>
+      <div class="caps hint">God Allows you More Experiences</div>
+      <h1>The Golden Path</h1>
+      <div class="tag">Are you on your path?</div>
+      <p>Walk the seven circuits of the labyrinth toward the Golden Heart. Every step is an experience, every experience a Pearl of Wisdom. Pass through twelve gemstone gates and the Golden Gate, pause on golden steps, take loops to rethink a choice, and help each other along the way.</p>
+      <p><b>No one wins against anyone.</b> The journey ends when everyone has arrived.</p>
+    </div>
+    <div class="thumb"><svg id="thumb" viewBox="0 0 800 800" style="width:100%;display:block"></svg></div>
+  </div>
+  <div class="panel">
+    <h3 style="font-size:1.5rem">Choose your journey</h3>
+    <div class="setcards" id="setcards" style="margin-top:8px"></div>
+    <label class="l">Travellers (2–6 on one device)</label>
+    <div id="prows"></div>
+    <div class="actions">
+      <button class="btn ghost small" id="addP">+ Add traveller</button>
+      <button class="btn gold" id="startBtn">Begin the journey</button>
+      <button class="btn ghost" id="resumeBtn" style="display:none">Continue saved journey</button>
+    </div>
+  </div>
+  <div class="panel"><h3 style="font-size:1.5rem;margin-bottom:8px">Archetypes</h3><div class="lib" id="archLib" style="grid-template-columns:repeat(auto-fill,minmax(170px,1fr))"></div></div>
+</section>
+
+<!-- PLAY -->
+<section class="view" id="v-play">
+  <div class="game">
+    <div>
+      <div class="boardwrap"><svg id="board" viewBox="0 0 800 800" aria-label="Game board"></svg></div>
+      <div class="legend" id="legend"></div>
+    </div>
+    <div>
+      <div class="panel">
+        <div class="turn">
+          <div class="die" id="die"></div>
+          <div style="flex:1;min-width:0">
+            <div class="hint caps" style="font-size:.66rem">Now walking</div>
+            <div class="cur-name" id="curName">–</div>
+            <div class="hint" id="curHint"></div>
+          </div>
+        </div>
+        <div class="actions" id="actions"></div>
+      </div>
+      <div class="panel">
+        <div style="display:flex;justify-content:space-between;align-items:baseline"><h3 style="font-size:1.3rem">Light of the Golden Heart</h3><b id="lightNum">0</b></div>
+        <div class="lightbar" style="margin-top:6px"><i id="lightBar"></i></div>
+        <div class="hint" style="margin-top:5px">Shared by everyone. Pearl +1 · Gem +2 · Core Key +2 · Knowledge Token +3 · Prayer +2. Goal: <b id="goal">80</b></div>
+      </div>
+      <div class="panel" id="plist"></div>
+      <div class="panel"><h3 style="font-size:1.3rem;margin-bottom:4px">Journal</h3><div class="log" id="log"></div></div>
+      <div class="actions noprint"><button class="btn ghost small" id="newGame">New journey</button><button class="btn ghost small" id="musicQuick">♪ Music</button></div>
+    </div>
+  </div>
+</section>
+
+<!-- CARDS -->
+<section class="view" id="v-cards">
+  <div class="panel">
+    <div style="display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap">
+      <h2 style="font-size:2rem">The Cards</h2>
+      <button class="btn ghost small noprint" id="printBtn">Print this deck</button>
+    </div>
+    <p class="hint">Poker size 63 × 88 mm, three per row when printed – cut out and hold them in your hands.</p>
+    <div class="chips" id="deckChips"></div>
+    <div class="lib" id="cardGrid"></div>
+  </div>
+</section>
+
+<!-- MUSIC -->
+<section class="view" id="v-music">
+  <div class="two">
+    <div class="panel">
+      <h2 style="font-size:2rem">Your Songs</h2>
+      <p class="hint">Download your songs from Suno as MP3 and add them here. They stay saved in this browser.</p>
+      <label class="btn gold" style="display:inline-block;margin:6px 0">+ Add audio files<input type="file" id="songFile" accept="audio/*" multiple style="display:none"></label>
+      <label class="l">…or paste a link (direct .mp3 link from your own server, or a Suno song page)</label>
+      <div style="display:flex;gap:6px"><input id="songUrl" placeholder="https://…"><button class="btn small" id="songUrlAdd">Add</button></div>
+      <div id="songList" style="margin-top:10px"></div>
+    </div>
+    <div class="panel">
+      <h3 style="font-size:1.5rem">Player</h3>
+      <div class="hint" id="nowPlaying" style="margin:6px 0">Nothing playing</div>
+      <div class="actions" style="margin-top:4px">
+        <button class="btn gold small" id="mPlay">▶ Play</button>
+        <button class="btn ghost small" id="mNext">Next ⟩</button>
+        <button class="btn ghost small" id="mStop">■ Stop</button>
+      </div>
+      <label class="l">Volume</label><input type="range" id="mVol" min="0" max="1" step="0.05" value="0.6" style="padding:0">
+      <label class="toggle"><input type="checkbox" id="mMoments" checked> Play a song during Stillness, Golden Steps &amp; the Golden Gate</label>
+      <label class="toggle"><input type="checkbox" id="mChimes" checked> Soft chimes for gates and pearls</label>
+      <label class="toggle"><input type="checkbox" id="mShuffle"> Shuffle</label>
+    </div>
+  </div>
+</section>
+
+<!-- RULES -->
+<section class="view rules" id="v-rules">
+  <div class="panel">
+    <h2 style="font-size:2.2rem">How to play</h2>
+    <p><i>Every step can become a Pearl of Wisdom. The question behind each move: What does this step show me about my own path?</i></p>
+    <h3>Goal</h3>
+    <p>Reach the Golden Heart in the centre – together. There are no winners. All pearls, gems, keys and tokens feed one shared Light. When the last traveller arrives, the journey is complete.</p>
+    <h3>A turn</h3>
+    <ol><li>Roll the die and walk along the path (fields 1 → 40, then through the Golden Gate into the Heart).</li>
+    <li>The field you land on tells you what happens. Read the card aloud, answer, share, decide.</li>
+    <li>Receive your reward and pass the die to the left.</li></ol>
+    <h3>The fields</h3><ul id="ruleFields"></ul>
+    <h3>The 13 Gates</h3>
+    <p>Twelve gemstone gates stand along the path, each with a quality – Passion, Innovation, Inspiration, Intuition, Compassion… Land on one, answer its question and take the gemstone. Already have it? Take a pearl instead. The thirteenth gate is the <b>Golden Gate</b> before the Heart.</p>
+    <h3>Loops</h3>
+    <p>At the turning points of the labyrinth you may take a Loop of Reflection: you pause for one turn to rethink a decision, draw a Loop card and receive a pearl. Choice Cards also offer the loop – “I need time to feel this.”</p>
+    <h3>Golden Steps</h3>
+    <p>A golden step is a conscious time-out and a decision from the heart. It does not move you faster – it rewards you with a pearl and one of the seven Core Keys.</p>
+    <h3>Knowledge Tokens</h3>
+    <p>Whenever you help another traveller – gift a pearl, walk someone forward, send light from the Heart – you receive a Knowledge Token.</p>
+    <h3>Archetypes</h3><ul id="ruleArch"></ul>
+    <h3>Playing online</h3>
+    <p class="hint">This version is for 2–6 people around one device (or a shared screen in a video call). True online play on separate devices needs a small server component – planned for the next version.</p>
+  </div>
+</section>
+</main>
+
+<div class="modal" id="modal"><div class="tcard"><div class="tin" id="tin"></div></div></div>
+<div class="toast" id="toast"></div>
+
+<script>window.GAME_DATA = {
+  gates: [
+    {gem: "Ruby", quality: "Passion", color: "#c0263a", line: "The first fire is lit. What you love is not an accident; it is a compass pointing home.", question: "What makes your heart beat faster in a good way?", affirmation: "I honour the fire that moves me."},
+    {gem: "Carnelian", quality: "Innovation", color: "#e2702a", line: "New paths appear when you dare to step off the worn one. Your ideas are seeds of tomorrow.", question: "Where in your life is something new asking to be born?", affirmation: "I welcome fresh ideas with open hands."},
+    {gem: "Citrine", quality: "Inspiration", color: "#e8c13a", line: "Inspiration is the breath of spirit moving through you. Let the light in, and it will shine out.", question: "Who or what has breathed new life into you lately?", affirmation: "I am open to the light that inspires me."},
+    {gem: "Tiger's Eye", quality: "Intention", color: "#9a6a2a", line: "An arrow needs a target. A clear intention gathers your strength into one bright direction.", question: "What do you truly intend for this chapter of your life?", affirmation: "My intention is clear and my steps follow it."},
+    {gem: "Aventurine", quality: "Regeneration", color: "#2f8f5b", line: "Like a forest after rain, you can grow again. Rest is not weakness; it is how life renews itself.", question: "What helps you to recover and grow green again?", affirmation: "I allow myself to heal and begin anew."},
+    {gem: "Rose Quartz", quality: "Compassion", color: "#e79bb5", line: "Gentleness is a quiet power. Meet yourself and others with the softness you long for.", question: "Where could you be a little kinder to yourself today?", affirmation: "I hold myself and others with tenderness."},
+    {gem: "Turquoise", quality: "Cooperation", color: "#2bb3b1", line: "No one walks the labyrinth alone. Together we carry more light than any one of us could.", question: "Whose hand would you like to hold on your path?", affirmation: "I give and receive support with joy."},
+    {gem: "Lapis Lazuli", quality: "Communication", color: "#2849a8", line: "Words can build bridges or walls. Speak your truth kindly and listen with your whole heart.", question: "What truth is waiting to be spoken by you?", affirmation: "I speak honestly and listen deeply."},
+    {gem: "Amethyst", quality: "Intuition", color: "#7d4fb3", line: "A quiet inner voice already knows the way. The more you trust it, the clearer it becomes.", question: "When did your inner knowing guide you well?", affirmation: "I trust the wise voice within me."},
+    {gem: "Moonstone", quality: "Imagination", color: "#b9c3cf", line: "Everything that exists was first a dream. Dare to picture the life your soul is longing for.", question: "If nothing could stop you, what would you create?", affirmation: "I dream boldly and gently."},
+    {gem: "Obsidian", quality: "Transformation", color: "#24211f", line: "In the dark mirror we meet what we have avoided. What we face with love can change.", question: "What old pattern are you ready to release?", affirmation: "I let go of what no longer serves my path."},
+    {gem: "Rock Crystal", quality: "Meditation", color: "#e9eef2", line: "Clear as water, still as a mountain lake. In silence you remember who you really are.", question: "What do you hear when everything becomes still?", affirmation: "In stillness I find my clear centre."}
+  ],
+  goldenGate: {
+    title: "The Golden Gate",
+    line: "You have walked every turn of the path. Now the Golden Heart opens, and you see it was shining in you all along.",
+    question: "Which Pearl of Wisdom from this journey will you carry into your life?",
+    affirmation: "I am on my path. My golden heart lights the way for me and for others."
+  },
+  decks: {
+    choice: {
+      name: "Choice Cards",
+      color: "#c98a2b",
+      cards: [
+        {title: "The Fork in the Road", text: "Two paths open before you. One is familiar and safe, the other unknown but calling. Your heart beats a little faster.", a: "Take the familiar road and walk it with fresh eyes.", b: "Step onto the unknown path and trust your steps."},
+        {title: "A Friend in Need", text: "A friend asks for your help on a day you promised yourself rest. Both needs feel real.", a: "Help your friend and give from a full heart.", b: "Rest today and offer your help tomorrow, honestly."},
+        {title: "The Honest Word", text: "Someone asks your opinion about a plan you feel unsure about. They seem excited.", a: "Share your honest doubts gently and with care.", b: "Ask questions that help them find their own answer."},
+        {title: "The Open Door", text: "An opportunity arrives that would change your daily life completely. It feels exciting and a little frightening.", a: "Say yes and let life surprise you.", b: "Take time, sit in stillness, and decide later."},
+        {title: "The Old Box", text: "You find a box of old letters and keepsakes from a painful time. You could open it or let it go.", a: "Open it and thank the past for its lessons.", b: "Release it unopened, with a blessing."},
+        {title: "The Difficult Teacher", text: "A person who often challenges you invites you to work together on something important.", a: "Accept and see what this teacher can show you.", b: "Decline kindly and set a clear, loving boundary."},
+        {title: "The Gift", text: "You receive more than you need this month. Your heart wonders what to do with the overflow.", a: "Share it with someone who needs it now.", b: "Save it wisely so you can give steadily later."},
+        {title: "The Quiet Morning", text: "A free morning lies ahead. Part of you wants to create; part of you wants to be still.", a: "Create something with your hands and heart.", b: "Sit in silence and simply listen."},
+        {title: "The Misunderstanding", text: "Someone has misunderstood your words and feels hurt. You know your intention was kind.", a: "Reach out first and listen to their side.", b: "Give it a little time, then speak openly."},
+        {title: "The Calling", text: "A long-held dream knocks again. It would mean leaving something comfortable behind.", a: "Take one small, brave step toward the dream.", b: "Honour your present life and let the dream ripen."},
+        {title: "The Crowd", text: "Everyone around you agrees on something. Your inner voice quietly says something different.", a: "Speak up kindly for what you feel.", b: "Stay quiet now and explore your feeling more deeply."},
+        {title: "The Stranger", text: "A stranger on your path looks lost and tired. You are in a hurry.", a: "Stop, smile and offer your help.", b: "Send a silent blessing and ask someone nearby to help."},
+        {title: "The Mistake", text: "You realise you made a mistake that no one else has noticed yet.", a: "Name it openly and take responsibility.", b: "Correct it quietly and learn from it."},
+        {title: "Two Invitations", text: "Two invitations arrive for the same evening: a lively celebration and a quiet visit with an old friend.", a: "Join the celebration and share your joy.", b: "Visit your friend and deepen the bond."},
+        {title: "The Heavy Bag", text: "You have been carrying a worry for a long time. It is heavy, but it feels familiar.", a: "Share the worry with someone you trust.", b: "Write it down and give it to the fire or the wind."},
+        {title: "The Comparison", text: "You notice someone walking faster than you on their path. A small voice asks if you are behind.", a: "Celebrate their progress with an open heart.", b: "Turn inward and honour your own pace."},
+        {title: "The Promise", text: "You made a promise that no longer fits who you are becoming.", a: "Keep it with love and complete it well.", b: "Talk honestly and renew the promise together."},
+        {title: "The Inner Child", text: "A playful idea pops up in the middle of a serious day. It feels silly and joyful.", a: "Follow the play and let joy lead.", b: "Note the idea and give it time this evening."},
+        {title: "The Closed Chalice", text: "Someone offers you advice you did not ask for. Your vessel wants to close.", a: "Open your chalice and take what is useful.", b: "Thank them warmly and trust your own way."},
+        {title: "The Long Way", text: "There is a shortcut to your goal, but the long way passes through beautiful places.", a: "Take the shortcut and arrive with energy to spare.", b: "Take the long way and gather experiences."}
+      ]
+    },
+    insight: {
+      name: "Insight Cards",
+      color: "#6a5acd",
+      cards: [
+        {title: "Every Step Counts", text: "The labyrinth teaches that no step is wasted. Even turns that lead away from the centre bring you closer.", prompt: "Which detour in your life turned out to be a gift?"},
+        {title: "Self-Responsibility", text: "You are the author of your responses. Others may shape the weather, but you choose how you walk in it.", prompt: "Where can you take your power back today?"},
+        {title: "Heart and Mind", text: "The mind sees the map; the heart feels the way. When both walk together, the path becomes clear.", prompt: "What does your heart say that your mind has not heard?"},
+        {title: "Teachers Everywhere", text: "Every person you meet carries a lesson. Sometimes the most difficult ones teach the deepest wisdom.", prompt: "Which difficult person taught you something valuable?"},
+        {title: "Letting Go", text: "Open hands can receive. What you release with love makes room for something new to arrive.", prompt: "What are you holding that wants to be released?"},
+        {title: "Trust", text: "Trust is not knowing the whole road. It is taking the next step while the rest is still in mist.", prompt: "What is your next small step of trust?"},
+        {title: "Boundaries", text: "A loving no protects a loving yes. Boundaries keep your vessel whole so you can keep giving.", prompt: "Where would a kind boundary help you?"},
+        {title: "Passion Means Pass On", text: "What lights you up grows when you share it. Passion is a flame meant to be passed from hand to hand.", prompt: "What could you pass on to someone this week?"},
+        {title: "Sharing Means Caring", text: "When we share our stories, our burdens grow lighter and our joys grow larger.", prompt: "Which story of yours might help someone else?"},
+        {title: "The Open Chalice", text: "A closed cup cannot be filled. An open heart receives life's gifts, and also lets them overflow to others.", prompt: "Is your chalice open or closed right now?"},
+        {title: "Childlike Trust", text: "Children trust the world and play with wonder. That trust still lives in you, waiting to be invited back.", prompt: "What would your child-self want to do today?"},
+        {title: "Creative Power", text: "You are a creator. Your thoughts, words and actions shape the world around you, one moment at a time.", prompt: "What do you want to create with your next thoughts?"},
+        {title: "Connectedness", text: "Like threads in one great weave, every life touches every other. Your kindness travels farther than you know.", prompt: "How are you connected to the person next to you?"},
+        {title: "Courage", text: "Courage is not the absence of fear. It is the heart walking forward while fear walks alongside.", prompt: "Where is courage asking you to step forward?"},
+        {title: "Stillness", text: "In a noisy world, stillness is a sanctuary. The answers you seek often wait in the quiet between thoughts.", prompt: "When did you last enjoy true silence?"},
+        {title: "Sound and Frequency", text: "Everything vibrates. Your voice, your mood and your thoughts send out a tone that others can feel.", prompt: "What tone would you like to send out today?"},
+        {title: "Intuition", text: "Your body and heart often know before your mind does. A quiet yes or no can be felt inside.", prompt: "How does your intuition speak to you?"},
+        {title: "Love Overflows", text: "LOVE: Love Overflows Vessels and helps Evolve humanity. When your cup is full, love flows on by itself.", prompt: "What fills your cup until it overflows?"},
+        {title: "God Allows More Experiences", text: "GAME: life is a playfield. Every experience, light or heavy, offers a chance to grow and remember.", prompt: "Which recent experience is waiting to become a lesson?"},
+        {title: "The 20/20 Vision", text: "Twenty experiences and twenty lessons make forty steps. Clear sight comes from walking and reflecting.", prompt: "What do you see more clearly now than a year ago?"}
+      ]
+    },
+    pearls: {
+      name: "Pearls of Wisdom",
+      color: "#e8e2d4",
+      cards: [
+        {title: "The First Memory", text: "What is one of your earliest happy memories, and what does it still teach you today?"},
+        {title: "A Turning Point", text: "Share a moment when your life took an unexpected turn. What grew from it?"},
+        {title: "A Hidden Teacher", text: "Who taught you something important without meaning to? What was the lesson?"},
+        {title: "Brave Moment", text: "Tell of a time you were braver than you thought you could be."},
+        {title: "Letting Go", text: "What did you once let go of, and how did it make room for something new?"},
+        {title: "Kindness Received", text: "Remember a kindness from a stranger. How did it change your day or your life?"},
+        {title: "The Lost Path", text: "When did you feel lost? What helped you find your way again?"},
+        {title: "Childhood Dream", text: "What did you dream of becoming as a child? Which part of that dream still lives in you?"},
+        {title: "Inner Voice", text: "Tell of a time you followed your intuition. What happened?"},
+        {title: "A Healing", text: "Share an experience that helped you heal, in body, heart or spirit."},
+        {title: "The Gift of Failure", text: "What did a so-called failure teach you that success never could?"},
+        {title: "Place of Peace", text: "Describe a place where you feel completely at peace. What does it give you?"},
+        {title: "A Promise Kept", text: "Tell of a promise you kept, to yourself or someone else, and what it meant."},
+        {title: "Forgiveness", text: "Is there a moment when forgiving someone, or yourself, set you free?"},
+        {title: "Shared Joy", text: "Recall a moment of joy that became bigger because you shared it."},
+        {title: "Overflowing Heart", text: "When did your heart feel so full that love simply overflowed?"},
+        {title: "Unexpected Help", text: "Share a time when help came exactly when you needed it."},
+        {title: "Your Own Pace", text: "When did you stop comparing yourself and start walking at your own pace?"},
+        {title: "A Small Miracle", text: "Tell of a small miracle or meaningful coincidence in your life."},
+        {title: "Wisdom to Pass On", text: "If you could give one piece of your life wisdom to a younger person, what would it be?"}
+      ]
+    },
+    animals: {
+      name: "Power Animals",
+      color: "#8a6d3b",
+      cards: [
+        {title: "Dragon", text: "Guardian of the Golden Heart. Dragon protects what is precious and reminds you of the fire of your own life force.", prompt: "What treasure in you deserves protection?"},
+        {title: "Eagle", text: "Eagle rises high and sees the whole landscape. From above, small worries shrink and the path becomes visible.", prompt: "How does your situation look from higher up?"},
+        {title: "Owl", text: "Owl sees in the dark and hears what others miss. Wisdom often comes in the quiet hours.", prompt: "What truth can you see when you look more closely?"},
+        {title: "Wolf", text: "Wolf is loyal to the pack and true to its own instinct. Belonging and freedom can live together.", prompt: "Who is your pack, and how do you stay true to yourself?"},
+        {title: "Bear", text: "Bear knows when to act and when to rest in the cave. Strength grows in times of retreat.", prompt: "Where do you need a time of quiet rest?"},
+        {title: "Dolphin", text: "Dolphin plays in the waves and breathes with ease. Joy and lightness are wise teachers too.", prompt: "Where could you bring more play into your life?"},
+        {title: "Butterfly", text: "Butterfly trusts the dark cocoon before it learns to fly. Change takes time and patience.", prompt: "What transformation is unfolding in you right now?"},
+        {title: "Deer", text: "Deer walks gently and listens with care. Gentleness can open doors that force cannot.", prompt: "Where would gentleness be your strength today?"},
+        {title: "Turtle", text: "Turtle carries its home and walks slowly but surely. Every step arrives in its own time.", prompt: "What can you do slowly and with full presence?"},
+        {title: "Fox", text: "Fox is clever, playful and adaptable. There is often a creative way around an obstacle.", prompt: "What fresh solution have you not yet considered?"},
+        {title: "Hummingbird", text: "Hummingbird finds sweetness in every flower. Small joys can feed a big heart.", prompt: "What sweet moment can you notice today?"},
+        {title: "Lion", text: "Lion carries quiet courage and warm leadership. True strength protects and uplifts others.", prompt: "Where can you lead with a courageous heart?"},
+        {title: "Horse", text: "Horse carries freedom and the joy of movement. When you move with life, it carries you forward.", prompt: "What makes you feel free and alive?"},
+        {title: "Raven", text: "Raven flies between worlds and brings messages. Magic lives in signs and synchronicities.", prompt: "What sign has life been showing you lately?"},
+        {title: "Swan", text: "Swan glides with grace and reveals its true beauty in time. You are becoming who you already are.", prompt: "What beauty in you is ready to be seen?"},
+        {title: "Bee", text: "Bee works together with the hive and turns nectar into honey. Shared effort creates sweetness for all.", prompt: "What could you create together with others?"}
+      ]
+    },
+    colors: {
+      name: "Colors",
+      color: "#d97aa6",
+      cards: [
+        {title: "Red", hex: "#c0263a", text: "Red is the colour of life force, grounding and passion. It roots you in your body and the earth.", prompt: "Where do you need more strength and grounding?"},
+        {title: "Orange", hex: "#e2702a", text: "Orange carries creativity, joy and the courage to enjoy life. It warms the belly and the senses.", prompt: "What brings you joyful creativity?"},
+        {title: "Yellow", hex: "#e8c13a", text: "Yellow is the sun within: confidence, clarity and a bright mind. It helps you shine.", prompt: "Where can you let your light shine more?"},
+        {title: "Green", hex: "#2f8f5b", text: "Green is the colour of the heart, of growth and healing. It brings balance and renewal.", prompt: "What in your life is ready to grow?"},
+        {title: "Turquoise", hex: "#2bb3b1", text: "Turquoise connects heart and voice. It brings calm communication and a fresh, clear spirit.", prompt: "What would you like to express from the heart?"},
+        {title: "Blue", hex: "#2849a8", text: "Blue is peace, truth and trust. Like the sky and the sea, it gives depth and calm.", prompt: "Where can you find more peace today?"},
+        {title: "Indigo", hex: "#3b2f7a", text: "Indigo is the deep night sky of inner vision. It opens the eye that sees beyond the obvious.", prompt: "What does your inner eye see?"},
+        {title: "Violet", hex: "#7d4fb3", text: "Violet carries transformation and spiritual connection. It turns the heavy into the light.", prompt: "What would you like to transform?"},
+        {title: "Pink", hex: "#e79bb5", text: "Pink is tender love and compassion. It softens hard edges and comforts the heart.", prompt: "Who needs your tenderness, perhaps even you?"},
+        {title: "Gold", hex: "#d4a62a", text: "Gold is the colour of the golden heart, of wisdom and abundance. It reminds you of your inner treasure.", prompt: "What is golden in you?"},
+        {title: "White", hex: "#f7f5ef", text: "White holds all colours in one. It stands for purity, new beginnings and wholeness.", prompt: "What would you like to begin fresh?"},
+        {title: "Silver", hex: "#b9c3cf", text: "Silver is moonlight, reflection and intuition. It mirrors your feelings back to you gently.", prompt: "What is your reflection showing you?"}
+      ]
+    },
+    prayers: {
+      name: "Prayers & Blessings",
+      color: "#f0c75e",
+      cards: [
+        {title: "Blessing of the Path", text: "May every step I take be guided by love. May I walk with trust, and may my path bless others too.", how: "Speak it together, standing in a circle."},
+        {title: "Heart Opening", text: "Dear source of all life, open my heart like a flower in the morning sun. Let me give and receive with ease.", how: "Hand on heart, spoken softly."},
+        {title: "Gratitude", text: "Thank you for this breath, this moment, these people. I see the gifts around me and I am grateful.", how: "Each player says one thank you, then all speak it together."},
+        {title: "Letting Go", text: "What is heavy, I lay down. What is old, I release. I trust that life will fill my open hands.", how: "Silently, with open palms facing up."},
+        {title: "Blessing for Another", text: "May you be held. May you be well. May your heart find its way home.", how: "Look at the player on your left and speak it to them."},
+        {title: "Courage", text: "Give me the courage to take the next step, even when I cannot see the whole way.", how: "Spoken aloud by the active player, standing tall."},
+        {title: "Stillness", text: "In this silence I rest. In this silence I listen. In this silence I remember who I am.", how: "Silently, eyes closed, for three slow breaths."},
+        {title: "The Chalice", text: "Let my vessel be open and clear. Fill me with light, and let it overflow to all I meet.", how: "Hands cupped like a chalice, spoken together."},
+        {title: "Healing Light", text: "May healing light flow wherever it is needed: into bodies, hearts, homes and the whole earth.", how: "Hands held in a circle, spoken together."},
+        {title: "Inner Guidance", text: "Wise voice within me, angels, higher self or loving spirit: show me the way that is true for me.", how: "Silently, hand on your forehead, then on your heart."},
+        {title: "Blessing of the Earth", text: "Thank you, Earth, for carrying us. May we walk gently and leave a trail of kindness.", how: "Hands on the table or floor, spoken together."},
+        {title: "Golden Heart", text: "May the golden light in my heart grow brighter, and may it touch every heart in this circle.", how: "Hand on heart, everyone humming one tone afterward."}
+      ]
+    },
+    together: {
+      name: "Togetherness",
+      color: "#2bb3b1",
+      cards: [
+        {title: "Circle of Gratitude", text: "Everyone shares one thing they are grateful for about this moment.", effect: "allPearl"},
+        {title: "Shared Story", text: "Together, tell a short story where each player adds one sentence about a journey.", effect: "allPearl"},
+        {title: "The Gift", text: "Give one of your Pearls of Wisdom to the player who you feel needs it most.", effect: "give"},
+        {title: "Open Hands", text: "Choose a player and tell them one quality you admire in them. Then gift them a Pearl.", effect: "give"},
+        {title: "Walking Together", text: "Choose a fellow traveller. You both move two fields forward, side by side.", effect: "move2"},
+        {title: "Hand in Hand", text: "Hold hands with the player on your right and take a deep breath together. Both move two fields.", effect: "move2"},
+        {title: "No One Left Behind", text: "The player furthest from the centre receives help: everyone sends them a kind word.", effect: "helpLast"},
+        {title: "Lantern Bearer", text: "Light the way for the last traveller. Share a tip or encouragement that helped you.", effect: "helpLast"},
+        {title: "Reaching Down", text: "Offer your hand to a player behind you. They move up to the field just behind yours.", effect: "pullUp"},
+        {title: "Rope of Kindness", text: "Choose one player behind you and tell them why they matter. Pull them up toward you.", effect: "pullUp"},
+        {title: "Shared Light", text: "Everyone closes their eyes and imagines a golden light connecting all hearts in the circle.", effect: "light"},
+        {title: "One Tone", text: "Hum one long tone together until it sounds like a single voice. Feel the shared vibration.", effect: "light"},
+        {title: "Helping Hand", text: "Ask another player what they need right now, and help them with a word, a gesture or a card.", effect: "token"},
+        {title: "Listening Ear", text: "Invite another player to share a worry. Listen without advice, then thank them.", effect: "token"},
+        {title: "Mirror", text: "Choose a player and mirror their gestures slowly for thirty seconds. Then switch roles and smile.", effect: "allPearl"},
+        {title: "Sharing Means Caring", text: "Each player passes one card or token to their left, with a blessing.", effect: "give"}
+      ]
+    },
+    steps: {
+      name: "Golden Steps",
+      color: "#d4a62a",
+      cards: [
+        {title: "Pause", text: "Stop for a moment. You do not need to hurry. The path will wait for you.", prompt: "What do you notice when you stop?"},
+        {title: "Three Breaths", text: "Take three slow, deep breaths before your next move. Let your heart choose.", prompt: "What does your heart choose now?"},
+        {title: "Look Back", text: "Turn around and look at the path you have already walked. Honour how far you have come.", prompt: "What are you proud of on your journey?"},
+        {title: "Heart Decision", text: "Think of a decision you face in life. Place your hand on your heart and feel the answer.", prompt: "What does your heart want you to know?"},
+        {title: "Time Out", text: "Skip the rush. Sit for one minute in silence while the others wait with you.", prompt: "What came to you in the silence?"},
+        {title: "Golden Footprint", text: "Every conscious step leaves a golden trace. Make your next move slowly and with intention.", prompt: "What trace would you like to leave?"},
+        {title: "Rest Stop", text: "Even pilgrims rest under a tree. Allow yourself to receive instead of to do.", prompt: "What would truly nourish you today?"},
+        {title: "Clear Choice", text: "Before you choose, ask: is this from fear or from love?", prompt: "Which of your current choices comes from love?"},
+        {title: "Feet on the Ground", text: "Feel your feet on the floor. You are here, now, and that is enough.", prompt: "What helps you feel present?"},
+        {title: "Inner Compass", text: "Close your eyes and point to where you feel your centre. Trust what you feel.", prompt: "Where is your inner compass pointing?"},
+        {title: "A Gentle Yes", text: "Say yes to one thing in your life with your whole heart, not out of duty.", prompt: "What do you say yes to now?"},
+        {title: "A Loving No", text: "Say no to one thing that drains you, kindly and clearly.", prompt: "What could you lovingly decline?"}
+      ]
+    },
+    loops: {
+      name: "Loop of Reflection",
+      color: "#5b7fa3",
+      cards: [
+        {title: "Walk It Again", text: "You are circling back. Not as punishment, but as a chance to see the same place with new eyes."},
+        {title: "The Other Choice", text: "Imagine you had chosen differently. What might you have learned on that other path?"},
+        {title: "What Did You Feel?", text: "Remember the moment of your decision. Was it led by fear, habit or the heart?"},
+        {title: "The Hidden Lesson", text: "Every detour hides a pearl. Name one thing this loop is teaching you."},
+        {title: "Gentle with Yourself", text: "Detours are part of every pilgrimage. Speak to yourself as a loving friend would."},
+        {title: "Ask for Counsel", text: "Ask another player how they would have decided. Listen with an open chalice."},
+        {title: "The Spiral", text: "Life moves in spirals. We return to old places at a higher level each time."},
+        {title: "Untie the Knot", text: "Is there an old belief behind your choice? Name it, and see if it is still true."},
+        {title: "Fresh Intention", text: "Set a new intention for the rest of your journey. Say it aloud before moving on."},
+        {title: "Thank the Detour", text: "Thank this loop for slowing you down. What would you have missed by rushing?"}
+      ]
+    },
+    core: {
+      name: "Core Cards",
+      color: "#b8860b",
+      cards: [
+        {title: "The Still Lake", key: "Stillness", text: "Stillness is the ground of every true step. When the water is calm, it reflects the sky clearly.", affirmation: "I rest in the stillness within me."},
+        {title: "The Open Eye", key: "Awareness", text: "Awareness notices without judging. It sees thoughts, feelings and patterns as they are.", affirmation: "I see clearly and kindly."},
+        {title: "The Arrow", key: "Intention", text: "Intention gives direction to your energy. What you focus on with love begins to grow.", affirmation: "I choose my direction with a clear heart."},
+        {title: "The Lion's Heart", key: "Courage", text: "Courage walks forward with fear as a companion, trusting the heart more than the doubt.", affirmation: "I am brave enough to be myself."},
+        {title: "The Pearl", key: "Wisdom", text: "Wisdom is experience that has been digested by the heart. Every grain of sand can become a pearl.", affirmation: "I turn my experiences into wisdom."},
+        {title: "The Overflowing Chalice", key: "Love", text: "Love overflows vessels and helps evolve humanity. It grows the more it is given.", affirmation: "I am filled with love, and it flows through me."},
+        {title: "The Golden Heart", key: "Illumination", text: "Illumination is remembering the light you always were. Your golden heart shines for yourself and for all.", affirmation: "I am light, and I let it shine."}
+      ]
+    }
+  },
+  archetypes: [
+    {id: "seeker", name: "The Seeker", essence: "Curious and open, the Seeker asks the questions that lead deeper and trusts the path to answer.", ability: "Once per game, you may swap a card you have drawn for a new one from the same deck."},
+    {id: "healer", name: "The Healer", essence: "Gentle and caring, the Healer sees the wounds of others and offers comfort and light.", ability: "On your own turn, you may gift one of your Pearls of Wisdom to another player."},
+    {id: "creator", name: "The Creator", essence: "Imaginative and bold, the Creator shapes new possibilities from dreams and ideas.", ability: "You may re-roll the die up to three times per game."},
+    {id: "guide", name: "The Guide", essence: "Wise and steady, the Guide walks beside others and helps them find their next step.", ability: "Once per own turn, you may move another player one field forward."}
+  ]
+};
+</script>
+<script>/*
+ * board.js - geometry of a classic 7-circuit (Cretan) labyrinth as SVG.
+ *
+ * Model: 7 concentric circuits (ring 1 = outermost, ring 7 = innermost)
+ * around a central goal. The upper part of every ring is a plain circular
+ * arc; the bottom sector holds the classic "seed" - four corridor columns
+ * (L, E, F, R) whose cells are filled by the turns, exactly like the
+ * cross / L-shapes / dots seed of the Cretan labyrinth.
+ *
+ * Logical coordinates (s, v):
+ *   v : ring coordinate. v = k is the centreline of circuit k, v = k + 0.5 is
+ *       the wall between circuit k and k+1 (v = 0.5 outer wall, 7.5 centre wall)
+ *   s : arc-length along the ring, in corridor units, measured from the
+ *       bottom axis (s > 0 to the right). Columns: L=[-2,-1] E=[-1,0]
+ *       F=[0,1] R=[1,2].
+ *   r = RC + (7.5 - v) * D,  phi = s * D / r  (phi = 0 at the bottom)
+ *
+ * Path order: entrance -> 3 -> 2 -> 1 -> 4 -> 7 -> 6 -> 5 -> centre.
+ */
+(function () {
+  function buildLabyrinth() {
+    var CX = 400, CY = 400;
+    var D = 40;          // corridor pitch (centre to centre of adjacent circuits)
+    var RC = 88;         // radius of the centre wall
+    var STEP = 2.5;      // sampling step (svg units)
+
+    function R(v) { return RC + (7.5 - v) * D; }
+    function P(s, v) {
+      var r = R(v), ph = s * D / r;
+      return [CX + r * Math.sin(ph), CY + r * Math.cos(ph)];
+    }
+    function f1(n) { return Math.round(n * 10) / 10; }
+    function dist(a, b) { return Math.hypot(a[0] - b[0], a[1] - b[1]); }
+
+    // ---- chain builder: accumulates sampled points and an svg d-string ----
+    function Chain() {
+      this.pts = [];
+      this.d = '';
+      this.marks = {};
+    }
+    Chain.prototype._add = function (p, cmd) {
+      if (this.pts.length === 0) {
+        this.pts.push(p);
+        this.d += 'M' + f1(p[0]) + ' ' + f1(p[1]);
+        return;
+      }
+      var last = this.pts[this.pts.length - 1];
+      if (dist(last, p) < 1e-6) return;
+      this.pts.push(p);
+      if (cmd !== false) this.d += 'L' + f1(p[0]) + ' ' + f1(p[1]);
+    };
+    // generic logical curve f(t) -> [s,v], t in [0,1]
+    Chain.prototype.curve = function (fn) {
+      // estimate length
+      var n0 = 40, len = 0, prev = P.apply(null, fn(0));
+      for (var i = 1; i <= n0; i++) {
+        var q = P.apply(null, fn(i / n0));
+        len += dist(prev, q); prev = q;
+      }
+      var n = Math.max(2, Math.ceil(len / STEP));
+      for (var j = 0; j <= n; j++) this._add(P.apply(null, fn(j / n)));
+      return this;
+    };
+    Chain.prototype.line = function (s1, v1, s2, v2) {
+      return this.curve(function (t) { return [s1 + (s2 - s1) * t, v1 + (v2 - v1) * t]; });
+    };
+    // logical circular arc around (cs,cv), radius rr (logical), angles in degrees
+    // angle convention: point = (cs + rr cos a, cv + rr sin a)
+    Chain.prototype.circ = function (cs, cv, rr, a0, a1) {
+      return this.curve(function (t) {
+        var a = (a0 + (a1 - a0) * t) * Math.PI / 180;
+        return [cs + rr * Math.cos(a), cv + rr * Math.sin(a)];
+      });
+    };
+    // circular arc over the top on ring/wall v, from edge s=from to edge s=to
+    // (from = -2, to = +2 : left side -> over the top -> right side)
+    Chain.prototype.top = function (v, from, to) {
+      var r = R(v);
+      var pa = from * D / r, pb = to * D / r;
+      var total, sgn;
+      if (from < to) { total = 2 * Math.PI - (pb - pa); sgn = -1; } // phi decreasing
+      else { total = 2 * Math.PI - (pa - pb); sgn = +1; }           // phi increasing
+      var n = Math.ceil(total * r / STEP);
+      for (var i = 0; i <= n; i++) {
+        var ph = pa + sgn * total * i / n;
+        this._add([CX + r * Math.sin(ph), CY + r * Math.cos(ph)], false);
+      }
+      var end = this.pts[this.pts.length - 1];
+      // split in two svg arcs (each < 360, the first one large)
+      var mid = pa + sgn * total / 2;
+      var mp = [CX + r * Math.sin(mid), CY + r * Math.cos(mid)];
+      var sweep = sgn < 0 ? 1 : 0;
+      this.d += 'A' + f1(r) + ' ' + f1(r) + ' 0 0 ' + sweep + ' ' + f1(mp[0]) + ' ' + f1(mp[1]);
+      this.d += 'A' + f1(r) + ' ' + f1(r) + ' 0 0 ' + sweep + ' ' + f1(end[0]) + ' ' + f1(end[1]);
+      return this;
+    };
+    Chain.prototype.mark = function (name) {
+      this.marks[name] = this.pts.length - 1;
+      return this;
+    };
+
+    // ------------------------------- PATH --------------------------------
+    var path = new Chain();
+    path
+      .line(-0.5, 0.0, -0.5, 0.5).mark('mouth')            // entrance stub
+      .line(-0.5, 0.5, -0.5, 2.5)                           // up column E
+      .circ(-1, 2.5, 0.5, 0, 90)                            // turn left
+      .line(-1, 3, -2, 3)
+      .top(3, -2, 2)                                        // circuit 3
+      .circ(2, 2.5, 0.5, 90, 180).mark('t1')                // hairpin 3->2
+      .circ(2, 2.5, 0.5, 180, 270)
+      .top(2, 2, -2)                                        // circuit 2
+      .circ(-2, 1.5, 0.5, 90, 0).mark('t2')                 // hairpin 2->1
+      .circ(-2, 1.5, 0.5, 0, -90)
+      .top(1, -2, 2)                                        // circuit 1
+      .line(2, 1, 1, 1)
+      .circ(1, 1.5, 0.5, -90, -180)
+      .line(0.5, 1.5, 0.5, 2.5).mark('t3')                  // U-turn 1->4
+      .line(0.5, 2.5, 0.5, 3.5)
+      .circ(1, 3.5, 0.5, 180, 90)
+      .line(1, 4, 2, 4)
+      .top(4, 2, -2)                                        // circuit 4
+      .line(-2, 4, -1, 4)
+      .circ(-1, 4.5, 0.5, -90, 0)
+      .line(-0.5, 4.5, -0.5, 5.5).mark('t4')                // U-turn 4->7
+      .line(-0.5, 5.5, -0.5, 6.5)
+      .circ(-1, 6.5, 0.5, 0, 90)
+      .line(-1, 7, -2, 7)
+      .top(7, -2, 2)                                        // circuit 7
+      .circ(2, 6.5, 0.5, 90, 180).mark('t5')                // hairpin 7->6
+      .circ(2, 6.5, 0.5, 180, 270)
+      .top(6, 2, -2)                                        // circuit 6
+      .circ(-2, 5.5, 0.5, 90, 0).mark('t6')                 // hairpin 6->5
+      .circ(-2, 5.5, 0.5, 0, -90)
+      .top(5, -2, 2)                                        // circuit 5
+      .line(2, 5, 1, 5)
+      .circ(1, 5.5, 0.5, -90, -180)
+      .line(0.5, 5.5, 0.5, 7.5).mark('cmouth');             // into the centre
+    // final straight into the centre point
+    (function () {
+      var a = path.pts[path.pts.length - 1], b = [CX, CY];
+      var n = Math.ceil(dist(a, b) / STEP);
+      for (var i = 1; i <= n; i++) {
+        path._add([a[0] + (b[0] - a[0]) * i / n, a[1] + (b[1] - a[1]) * i / n]);
+      }
+    })();
+
+    // ------------------------------- WALLS -------------------------------
+    // Three continuous wall chains (the classic labyrinth's walls form the
+    // cross-and-L seed in the bottom sector).
+    var w1 = new Chain();      // w2 tip ... w0 ... axis ... w7 ... w5 tip
+    w1.line(2, 2.5, 2, 2.5)
+      .top(2.5, 2, -2)
+      .line(-2, 2.5, -1, 2.5)
+      .line(-1, 2.5, -1, 0.5)
+      .line(-1, 0.5, -2, 0.5)
+      .top(0.5, -2, 2)
+      .line(2, 0.5, 0, 0.5)
+      .line(0, 0.5, 0, 7.5)
+      .line(0, 7.5, -2, 7.5)
+      .top(7.5, -2, 2)
+      .line(2, 7.5, 1, 7.5)
+      .line(1, 7.5, 1, 5.5)
+      .line(1, 5.5, 2, 5.5)
+      .top(5.5, 2, -2);
+    var w2 = new Chain();      // w3 ... w1 tip
+    w2.line(0, 3.5, -2, 3.5)
+      .top(3.5, -2, 2)
+      .line(2, 3.5, 1, 3.5)
+      .line(1, 3.5, 1, 1.5)
+      .line(1, 1.5, 2, 1.5)
+      .top(1.5, 2, -2);
+    var w3 = new Chain();      // w4 ... w6 tip
+    w3.line(0, 4.5, 2, 4.5)
+      .top(4.5, 2, -2)
+      .line(-2, 4.5, -1, 4.5)
+      .line(-1, 4.5, -1, 6.5)
+      .line(-1, 6.5, -2, 6.5)
+      .top(6.5, -2, 2);
+    var walls = [w1, w2, w3];
+
+    // --------------------------- FIELDS ----------------------------------
+    var pp = path.pts, cum = [0];
+    for (var i = 1; i < pp.length; i++) cum.push(cum[i - 1] + dist(pp[i - 1], pp[i]));
+    function at(L) {
+      var lo = 0, hi = cum.length - 1;
+      while (hi - lo > 1) { var m = (lo + hi) >> 1; if (cum[m] <= L) lo = m; else hi = m; }
+      var seg = cum[hi] - cum[lo] || 1, t = (L - cum[lo]) / seg;
+      var a = pp[lo], b = pp[hi];
+      return { x: a[0] + (b[0] - a[0]) * t, y: a[1] + (b[1] - a[1]) * t,
+               angle: Math.atan2(b[1] - a[1], b[0] - a[0]) };
+    }
+    var L0 = cum[path.marks.mouth], L1 = cum[path.marks.cmouth];
+    var N = 40, margin = 30;
+    var spacing = (L1 - L0 - 2 * margin) / (N - 1);
+    var fields = [], fieldL = [];
+    for (var k = 0; k < N; k++) {
+      var Lk = L0 + margin + spacing * k;
+      var q = at(Lk);
+      fields.push({ x: f1(q.x), y: f1(q.y), angle: Math.round(q.angle * 1000) / 1000 });
+      fieldL.push(Lk);
+    }
+
+    // --------------------------- TURNS -----------------------------------
+    var turns = ['t1', 't2', 't3', 't4', 't5', 't6'].map(function (m) {
+      var idx = path.marks[m], Lt = cum[idx], best = 0;
+      for (var k = 1; k < N; k++) if (Math.abs(fieldL[k] - Lt) < Math.abs(fieldL[best] - Lt)) best = k;
+      return { x: f1(pp[idx][0]), y: f1(pp[idx][1]), field: best + 1 };
+    });
+
+    // --------------------------- RAYS ------------------------------------
+    var rays = [], rOut = R(0.5);
+    for (var j = 0; j < 12; j++) {
+      var th = j * Math.PI / 6;
+      var dx = Math.sin(th), dy = -Math.cos(th);
+      rays.push({ x1: f1(CX + dx * RC), y1: f1(CY + dy * RC),
+                  x2: f1(CX + dx * rOut), y2: f1(CY + dy * rOut) });
+    }
+
+    var ent = P(-0.5, 0.0);
+    var result = {
+      viewBox: '0 0 800 800',
+      wallsD: walls.map(function (w) { return w.d; }).join(' '),
+      pathD: path.d,
+      fields: fields,
+      entrance: { x: f1(ent[0]), y: f1(ent[1]) },
+      center: { x: CX, y: CY, r: RC - 10 },
+      rays: rays,
+      turns: turns
+    };
+    // sampled geometry for tests / hit-testing (non-enumerable)
+    Object.defineProperty(result, '_debug', {
+      enumerable: false,
+      value: { pathPts: pp, pathLen: cum, mouthL: L0, centerL: L1, fieldL: fieldL,
+               wallPts: walls.map(function (w) { return w.pts; }), spacing: spacing }
+    });
+    return result;
+  }
+
+  if (typeof window !== 'undefined') window.buildLabyrinth = buildLabyrinth;
+})();
+</script>
+<script>
+/* ===================== CORE DATA ===================== */
+const D=window.GAME_DATA, LB=window.buildLabyrinth();
+const N=40, GATE_POS=[3,6,10,13,16,20,23,26,30,33,36,39];
+const PCOLS=["#2849a8","#c0263a","#2f8f5b","#e2702a","#7d4fb3","#e79bb5"];
+const DK=D.decks;
+const T={ // field types
+ C:{deck:"choice",name:"Choice",sym:"⇄"},
+ I:{deck:"insight",name:"Insight",sym:"✧"},
+ P:{deck:"pearls",name:"Pearl of Wisdom",sym:"◯"},
+ A:{deck:"animals",name:"Power Animal",sym:"❦"},
+ F:{deck:"colors",name:"Color",sym:"◐"},
+ B:{deck:"prayers",name:"Prayer",sym:"✦"},
+ M:{deck:"together",name:"Togetherness",sym:"∞"},
+ S:{deck:"steps",name:"Golden Step",sym:"▲"},
+ L:{deck:"loops",name:"Loop / Crossing",sym:"↺"},
+ R:{deck:null,name:"Stillness",sym:"·"},
+ G:{deck:null,name:"Gemstone Gate",sym:"◆"}
+};
+const ringCol=k=>k==="R"?"#cfd8de":k==="G"?"#fff":(DK[T[k].deck]&&DK[T[k].deck].color)||"#b08d3c";
+const DESC={
+ C:"Draw a Choice Card. Decide from the heart – or take the loop to think it over. +1 pearl",
+ I:"Draw an Insight Card and reflect on its lesson. +1 pearl",
+ P:"Draw a Pearl of Wisdom and share a piece of your story. +1 pearl",
+ A:"A Power Animal joins you as a companion. +1 pearl",
+ F:"Draw a Color and feel its quality. +1 pearl",
+ B:"Speak a prayer or blessing together. +2 shared light",
+ M:"A Togetherness task for the whole circle.",
+ S:"A conscious pause and a decision from the heart. Reward: +1 pearl and a Core Key",
+ L:"A crossing: take the Loop of Reflection (pause one turn, Loop card, +1 pearl) or continue.",
+ R:"Everyone keeps 30 seconds of silence. Everyone +1 pearl",
+ G:"A gemstone gate: answer its question and take the gem."
+};
+// 28 non-gate slots per set
+const SETS=[
+ {id:"path",name:"The Golden Path",desc:"The balanced journey: choices, insights, pearls, animals, prayers and togetherness.",
+  seq:"CPISACMIFCBPSICAMPRCIBSCMIAC"},
+ {id:"animals",name:"Power Animal Journey",desc:"More power animals and colors – each traveller gathers a family of companions.",
+  seq:"CAIFACASFCBAPICAMFRCAISCMAFC"},
+ {id:"heart",name:"Heart Circle",desc:"For groups & workshops: more togetherness, prayers and stillness.",
+  seq:"CMIBMCRPMBCMSIMBRCMIBSCMRIM"+"C"}
+];
+const TURN_FIELDS=[...new Set((LB.turns||[]).map(t=>t.field))].filter(f=>f>=2&&f<=N-1&&!GATE_POS.includes(f));
+function buildMap(set){
+  const m=[];let k=0;
+  for(let i=1;i<=N;i++){ if(GATE_POS.includes(i)) m.push("G"); else m.push(set.seq[k++]||"P"); }
+  TURN_FIELDS.forEach(f=>{ if(m[f-1]!=="G"&&m[f-1]!=="S") m[f-1]="L"; });
+  return m;
+}
+SETS.forEach(s=>s.map=buildMap(s));
+
+/* ===================== STATE ===================== */
+const KEY="golden-path-2020-v2";
+let S=null;
+const $=s=>document.querySelector(s);
+const esc=s=>String(s==null?"":s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c]));
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
+function loadS(){try{return JSON.parse(localStorage.getItem(KEY))}catch(e){return null}}
+const setObj=()=>SETS.find(s=>s.id===(S?S.setId:"path"));
+const cur=()=>S.players[S.turn];
+function log(t){S.log.unshift(t);S.log=S.log.slice(0,120)}
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a}
+function draw(deck){if(!S.piles[deck]||!S.piles[deck].length)S.piles[deck]=shuffle(DK[deck].cards.map((_,i)=>i));return S.piles[deck].pop()}
+function light(){return S.players.reduce((a,p)=>a+p.pearls+p.gems.length*2+p.keys.length*2+p.tokens*3,0)+S.bonus}
+function toast(t){const e=$("#toast");e.textContent=t;e.classList.add("on");clearTimeout(e._t);e._t=setTimeout(()=>e.classList.remove("on"),2600)}
+
+/* ===================== AUDIO ===================== */
+let AC=null;
+function chime(kind){
+  if(!$("#mChimes").checked)return;
+  try{AC=AC||new (window.AudioContext||window.webkitAudioContext)();
+    const notes=kind==="gate"?[523.25,659.25,783.99,1046.5]:kind==="heart"?[392,523.25,659.25,783.99,1046.5,1318.5]:[880,1318.5];
+    notes.forEach((f,i)=>{const o=AC.createOscillator(),g=AC.createGain();o.type="sine";o.frequency.value=f;
+      const t=AC.currentTime+i*.12;g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.12,t+.02);g.gain.exponentialRampToValueAtTime(.0001,t+1.6);
+      o.connect(g).connect(AC.destination);o.start(t);o.stop(t+1.7)});
+  }catch(e){}
+}
+const Music={songs:[],idx:-1,audio:new Audio(),db:null};
+Music.audio.volume=.6;
+Music.audio.onended=()=>musicNext();
+function idb(){return new Promise((res)=>{try{const r=indexedDB.open("gp-songs",1);r.onupgradeneeded=()=>r.result.createObjectStore("s",{keyPath:"id"});r.onsuccess=()=>res(r.result);r.onerror=()=>res(null)}catch(e){res(null)}})}
+async function songsLoad(){Music.db=await idb();if(!Music.db){renderSongs();return}
+  try{const tx=Music.db.transaction("s","readonly").objectStore("s").getAll();tx.onsuccess=()=>{Music.songs=tx.result.map(s=>({...s,src:s.blob?URL.createObjectURL(s.blob):s.url}));renderSongs()}}catch(e){renderSongs()}}
+function songPut(rec){if(!Music.db)return;try{Music.db.transaction("s","readwrite").objectStore("s").put(rec)}catch(e){}}
+function songDel(id){if(!Music.db)return;try{Music.db.transaction("s","readwrite").objectStore("s").delete(id)}catch(e){}}
+function isAudioUrl(u){return /\.(mp3|m4a|wav|ogg|aac|flac)(\?|$)/i.test(u)}
+function renderSongs(){
+  const L=$("#songList");
+  if(!Music.songs.length){L.innerHTML='<p class="hint">No songs yet. Your songs such as “In Stillness”, “Golden Path” or “Ocean of Light” could live here.</p>';return}
+  L.innerHTML=Music.songs.map((s,i)=>`<div class="song ${i===Music.idx?"on":""}"><span>${s.link?"↗":"♪"}</span><span class="n">${esc(s.name)}</span>
+    ${s.link?`<a class="minibtn" href="${esc(s.url)}" target="_blank" rel="noopener">Open</a>`:`<button class="minibtn" data-p="${i}">▶</button>`}<button class="minibtn" data-d="${i}">✕</button></div>`).join("");
+  L.querySelectorAll("[data-p]").forEach(b=>b.onclick=()=>musicPlay(+b.dataset.p));
+  L.querySelectorAll("[data-d]").forEach(b=>b.onclick=()=>{const s=Music.songs[+b.dataset.d];songDel(s.id);Music.songs.splice(+b.dataset.d,1);if(Music.idx===+b.dataset.d){Music.audio.pause();Music.idx=-1}renderSongs()});
+}
+const playable=()=>Music.songs.map((s,i)=>i).filter(i=>!Music.songs[i].link);
+function musicPlay(i){
+  const P=playable();if(!P.length){toast("Add a song in the Music tab first.");return}
+  if(i==null||Music.songs[i]?.link)i=P[0];
+  Music.idx=i;Music.audio.src=Music.songs[i].src;
+  Music.audio.play().then(()=>{$("#nowPlaying").textContent="♪ "+Music.songs[i].name}).catch(()=>{$("#nowPlaying").textContent="This link can't be played here (try a direct .mp3 on your own server)."});
+  renderSongs();
+}
+function musicNext(){const P=playable();if(!P.length)return;let n;
+  if($("#mShuffle").checked)n=P[Math.random()*P.length|0];else{const k=P.indexOf(Music.idx);n=P[(k+1)%P.length]}musicPlay(n)}
+function momentMusic(){if($("#mMoments").checked&&playable().length&&Music.audio.paused)musicNext()}
+$("#songFile").onchange=e=>{[...e.target.files].forEach(f=>{const rec={id:Date.now()+"-"+Math.random(),name:f.name.replace(/\.[^.]+$/,""),blob:f};songPut(rec);Music.songs.push({...rec,src:URL.createObjectURL(f)})});renderSongs();e.target.value="";toast("Song added ♪")};
+$("#songUrlAdd").onclick=()=>{const u=$("#songUrl").value.trim();if(!/^https?:\/\//.test(u)){toast("Please paste a full link starting with https://");return}
+  const rec={id:Date.now()+"",name:decodeURIComponent(u.split("/").pop().split("?")[0]||u).slice(0,60)||u,url:u,link:!isAudioUrl(u)};songPut(rec);Music.songs.push({...rec,src:u});$("#songUrl").value="";renderSongs()};
+$("#mPlay").onclick=()=>{if(Music.idx>=0&&Music.audio.src&&Music.audio.paused){Music.audio.play().catch(()=>{})}else musicPlay(Music.idx>=0?Music.idx:null)};
+$("#mNext").onclick=musicNext;
+$("#mStop").onclick=()=>{Music.audio.pause();$("#nowPlaying").textContent="Paused"};
+$("#mVol").oninput=e=>Music.audio.volume=+e.target.value;
+
+/* ===================== SVG HELPERS ===================== */
+function gemSVG(col,size=1){return `<g transform="scale(${size})"><path d="M0 -20 L16 -6 L0 22 L-16 -6Z" fill="${col}" stroke="#1b1712" stroke-width="1.4"/><path d="M-16 -6H16M0 -20 L-6 -6 L0 22 L6 -6Z" fill="none" stroke="#fff" stroke-opacity=".45" stroke-width="1"/></g>`}
+const HEART="M12 21s-8-5.2-10.2-10C0.3 7.6 2.3 3.5 6.1 3.5c2.4 0 4 1.4 5.9 3.6 1.9-2.2 3.5-3.6 5.9-3.6 3.8 0 5.8 4.1 4.3 7.5C20 15.8 12 21 12 21z";
+let EID=0;
+function emblem(kind,col){
+  const u="e"+(++EID);
+  const g=`<defs><radialGradient id="${u}" cx="50%" cy="35%"><stop offset="0" stop-color="#fff3c4"/><stop offset=".6" stop-color="#e2bd5a"/><stop offset="1" stop-color="#9c7a2c"/></radialGradient></defs>`;
+  const ring=`<circle cx="60" cy="60" r="54" fill="none" stroke="#d9b85f" stroke-width="1.2"/><circle cx="60" cy="60" r="48" fill="none" stroke="#d9b85f55" stroke-width="1"/>`;
+  let inner="";
+  for(let i=0;i<12;i++){const a=i*Math.PI/6;inner+=`<line x1="${60+40*Math.cos(a)}" y1="${60+40*Math.sin(a)}" x2="${60+47*Math.cos(a)}" y2="${60+47*Math.sin(a)}" stroke="#d9b85f88"/>`}
+  if(kind==="gate") return `<svg class="emb" viewBox="0 0 120 120">${g}${ring}<path d="M34 98V54a26 26 0 0 1 52 0v44" fill="none" stroke="url(#${u})" stroke-width="5"/><g transform="translate(60,64)">${gemSVG(col,1.2)}</g></svg>`;
+  if(kind==="heart") return `<svg class="emb" viewBox="0 0 120 120">${g}${ring}${inner}<path transform="translate(26,24) scale(2.85)" d="${HEART}" fill="url(#${u})"/></svg>`;
+  if(kind==="color") return `<svg class="emb" viewBox="0 0 120 120">${g}${ring}${inner}<circle cx="60" cy="60" r="32" fill="${col}"/><circle cx="50" cy="50" r="9" fill="#fff" opacity=".25"/></svg>`;
+  if(kind==="pearl") return `<svg class="emb" viewBox="0 0 120 120"><defs><radialGradient id="${u}" cx="38%" cy="32%"><stop offset="0" stop-color="#fff"/><stop offset=".55" stop-color="#ece6da"/><stop offset="1" stop-color="#a99f8f"/></radialGradient></defs>${ring}${inner}<circle cx="60" cy="60" r="28" fill="url(#${u})"/></svg>`;
+  return `<svg class="emb" viewBox="0 0 120 120">${g}${ring}${inner}<text x="60" y="76" text-anchor="middle" font-size="46" fill="url(#${u})" font-family="Georgia,serif">${col}</text></svg>`;
+}
+
+/* ===================== BOARD ===================== */
+function boardSVG(withTokens,X){X=X||"b";
+  const m=setObj().map;let h=`<defs>
+   <radialGradient id="${X}hg" cx="50%" cy="35%"><stop offset="0" stop-color="#fff6d2"/><stop offset=".55" stop-color="#e6c463"/><stop offset="1" stop-color="#9c7a2c"/></radialGradient>
+   <radialGradient id="${X}glow"><stop offset="0" stop-color="#ffe9a8" stop-opacity=".9"/><stop offset="1" stop-color="#ffe9a8" stop-opacity="0"/></radialGradient>
+   <linearGradient id="${X}wg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#d8bb6c"/><stop offset=".5" stop-color="#b4954a"/><stop offset="1" stop-color="#d4b562"/></linearGradient>
+   <filter id="${X}sh" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="2" stdDeviation="2" flood-opacity=".35"/></filter></defs>`;
+  const C=LB.center;
+  (LB.rays||[]).forEach((r,i)=>{h+=`<line x1="${r.x1}" y1="${r.y1}" x2="${r.x2}" y2="${r.y2}" stroke="#eadcb6" stroke-width="1.4"/>`;
+    const g=D.gates[i];if(g)h+=`<g transform="translate(${r.x2},${r.y2}) scale(.42)">${gemSVG(g.color)}</g>`});
+  h+=`<circle cx="${C.x}" cy="${C.y}" r="${C.r*1.6}" fill="url(#${X}glow)"/>`;
+  h+=`<path d="${LB.wallsD}" fill="none" stroke="url(#${X}wg)" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>`;
+  h+=`<path d="${LB.pathD}" fill="none" stroke="#b08d3c" stroke-width="1.3" opacity=".7"/>`;
+  // loop petals at loop fields
+  m.forEach((c,i)=>{if(c!=="L")return;const f=LB.fields[i];const a=(f.angle||0)+Math.PI/2;const dx=Math.cos(a)*30,dy=Math.sin(a)*30;
+    h+=`<circle cx="${f.x}" cy="${f.y}" r="25" fill="none" stroke="${ringCol("L")}" stroke-width="1.6" stroke-dasharray="4 4" opacity=".8"/>`});
+  m.forEach((c,i)=>{const f=LB.fields[i],pos=i+1,x=f.x,y=f.y;
+    if(c==="G"){const g=D.gates[GATE_POS.indexOf(pos)];
+      h+=`<g class="field" data-f="${pos}" filter="url(#${X}sh)"><path d="M${x-17} ${y+17}V${y-3}a17 17 0 0 1 34 0V${y+17}Z" fill="${g.color}" stroke="#1b1712" stroke-width="1.6"/>
+      <path d="M${x-9} ${y+17}V${y}a9 9 0 0 1 18 0V${y+17}Z" fill="#fff" opacity=".88"/><text x="${x}" y="${y+14}" font-size="14" text-anchor="middle" font-weight="700" fill="#1b1712" font-family="Georgia,serif">${pos}</text></g>`;return}
+    if(c==="S"){let s=`<g class="field" data-f="${pos}" filter="url(#${X}sh)">`;for(let k=0;k<3;k++)s+=`<ellipse cx="${x}" cy="${y+8-k*7}" rx="18" ry="8" fill="${k===2?"#e6c463":"#c9a44c"}" stroke="#8a6a22" stroke-width="1"/>`;
+      h+=s+`<text x="${x}" y="${y-9}" font-size="14" text-anchor="middle" font-weight="700" fill="#3a2a0a" font-family="Georgia,serif">${pos}</text></g>`;return}
+    h+=`<g class="field" data-f="${pos}"><circle cx="${x}" cy="${y}" r="18" fill="#15120e" stroke="${c==="P"?"#15120e":ringCol(c)}" stroke-width="${c==="P"?0:4}"/>
+      <text x="${x}" y="${y+6}" font-size="17" font-weight="700" text-anchor="middle" fill="#ecd185" font-family="Georgia,serif">${pos}</text></g>`});
+  // golden gate + heart
+  h+=`<g class="field" data-f="41"><circle cx="${C.x}" cy="${C.y}" r="${C.r}" fill="#fff8e6" stroke="#d9b85f" stroke-width="2"/>
+    <path transform="translate(${C.x-C.r*.62},${C.y-C.r*.6}) scale(${C.r*1.24/24})" d="${HEART}" fill="url(#${X}hg)" stroke="#8a6a22" stroke-width=".4"/></g>`;
+  const E=LB.entrance;h+=`<text x="${E.x}" y="${E.y+30}" font-size="15" text-anchor="middle" font-family="Cinzel,serif" letter-spacing="4" fill="#1b1712">START</text>`;
+  if(withTokens&&S){
+    const groups={};S.players.forEach((p,i)=>{(groups[p.pos]=groups[p.pos]||[]).push(i)});
+    for(const pos in groups){const g=groups[pos];const P=+pos<=0?{x:E.x,y:E.y}:+pos>N?{x:C.x,y:C.y+C.r*.15}:LB.fields[+pos-1];
+      g.forEach((pi,k)=>{const p=S.players[pi];const n=g.length;const R=n>1?(+pos>N?C.r*.62:15):0;const a=k/n*2*Math.PI-Math.PI/2;
+        const tx=P.x+R*Math.cos(a),ty=P.y+R*Math.sin(a)-(+pos>0&&+pos<=N?4:0);
+        h+=`<g filter="url(#${X}sh)"><circle cx="${tx}" cy="${ty}" r="11" fill="${p.color}" stroke="#fff" stroke-width="3"/><circle cx="${tx-3}" cy="${ty-3}" r="3" fill="#fff" opacity=".45"/></g>`;
+        if(pi===S.turn&&!S.over)h+=`<circle cx="${tx}" cy="${ty}" r="16" fill="none" stroke="${p.color}" stroke-width="2"><animate attributeName="r" values="14;21;14" dur="1.8s" repeatCount="indefinite"/><animate attributeName="opacity" values="1;.2;1" dur="1.8s" repeatCount="indefinite"/></circle>`})}
+  }
+  return h;
+}
+function drawBoard(){const svg=$("#board");svg.setAttribute("viewBox",LB.viewBox);svg.innerHTML=boardSVG(true);
+  svg.querySelectorAll(".field").forEach(f=>f.addEventListener("click",()=>fieldInfo(+f.dataset.f)))}
+function dieSVG(v){const P={1:[[1,1]],2:[[0,0],[2,2]],3:[[0,0],[1,1],[2,2]],4:[[0,0],[2,0],[0,2],[2,2]],5:[[0,0],[2,0],[1,1],[0,2],[2,2]],6:[[0,0],[2,0],[0,1],[2,1],[0,2],[2,2]]};
+  if(!v)return `<svg width="44" height="44" viewBox="0 0 24 24"><path d="${HEART}" fill="#d9b85f"/></svg>`;
+  return `<svg width="50" height="50" viewBox="0 0 30 30">${P[v].map(([a,b])=>`<circle cx="${6+a*9}" cy="${6+b*9}" r="3" fill="#1b1712"/>`).join("")}</svg>`}
+
+/* ===================== CARD MODAL ===================== */
+let timerId=null;
+function openCard(o){
+  const t=$("#tin");
+  t.innerHTML=`<div class="deck">${esc(o.deck||"")}</div><h2>${o.title}</h2>${o.sub?`<div class="sub">${o.sub}</div>`:""}
+   ${o.emb||""}${o.text?`<p>${o.text}</p>`:""}${o.prompt?`<div class="prompt">${o.prompt}</div>`:""}${o.html||""}
+   ${o.timer?`<div style="margin-top:10px"><button class="btn ghost small" id="tbtn">Start ${o.timer}s of stillness</button></div>`:""}
+   ${o.input?`<textarea id="cardInput" placeholder="${esc(o.input)}" style="margin-top:10px"></textarea>`:""}
+   ${o.reward?`<div class="reward">${o.reward}</div>`:""}<div class="acts"></div>`;
+  const A=t.querySelector(".acts");
+  (o.acts||[]).forEach(([lab,fn,cls])=>{const b=document.createElement("button");b.className="btn "+(cls||"gold");b.innerHTML=lab;b.onclick=fn;A.appendChild(b)});
+  if(o.timer){const tb=$("#tbtn");tb.onclick=()=>{let s=o.timer;tb.disabled=true;clearInterval(timerId);timerId=setInterval(()=>{tb.textContent="… "+(--s)+" s";if(s<=0){clearInterval(timerId);tb.textContent="✓ Stillness complete";chime("pearl")}},1000)}}
+  $("#modal").classList.add("on");$("#modal").scrollTop=0;
+}
+function closeCard(){clearInterval(timerId);$("#modal").classList.remove("on")}
+function fieldInfo(pos){
+  if(pos>N){const g=D.goldenGate;openCard({deck:"Gate 13",title:g.title,sub:"Before the Golden Heart",emb:emblem("heart"),text:g.line,prompt:g.question,acts:[["Close",closeCard]]});return}
+  const c=setObj().map[pos-1];
+  if(c==="G"){const i=GATE_POS.indexOf(pos),g=D.gates[i];openCard({deck:"Field "+pos+" · Gate "+(i+1),title:g.gem+" Gate",sub:g.quality,emb:emblem("gate",g.color),text:g.line,acts:[["Close",closeCard]]});return}
+  openCard({deck:"Field "+pos,title:T[c].name,emb:emblem("sym",T[c].sym),text:DESC[c],acts:[["Close",closeCard]]});
+}
+
+/* ===================== HOME ===================== */
+let setup={setId:"path",players:[{name:"",color:PCOLS[0],arch:"seeker"},{name:"",color:PCOLS[1],arch:"healer"}]};
+function renderHome(){
+  $("#thumb").setAttribute("viewBox",LB.viewBox);
+  const keep=S;S=null;S={setId:setup.setId};$("#thumb").innerHTML=boardSVG(false,"t");S=keep;
+  $("#setcards").innerHTML=SETS.map(s=>{const cnt={};s.map.forEach(c=>cnt[c]=(cnt[c]||0)+1);
+    return `<button class="setcard ${s.id===setup.setId?"on":""}" data-s="${s.id}"><div class="caps hint" style="font-size:.62rem">40 fields</div><h4>${s.name}</h4><div class="hint">${s.desc}</div>
+    <div class="hint" style="margin-top:6px;font-size:.75rem">${Object.entries(cnt).map(([k,v])=>v+" "+T[k].name).join(" · ")}</div></button>`}).join("");
+  $("#setcards").querySelectorAll("[data-s]").forEach(b=>b.onclick=()=>{setup.setId=b.dataset.s;renderHome()});
+  const box=$("#prows");box.innerHTML="";
+  setup.players.forEach((p,i)=>{const r=document.createElement("div");r.className="prow";
+    r.innerHTML=`<div class="pawn" style="background:${p.color}"></div><input placeholder="Traveller ${i+1}" value="${esc(p.name)}">
+     <select>${D.archetypes.map(a=>`<option value="${a.id}" ${a.id===p.arch?"selected":""}>${esc(a.name)}</option>`).join("")}</select>
+     <button class="btn ghost small" ${setup.players.length<=2?"disabled":""} aria-label="Remove">✕</button>
+     <div class="swatches" style="grid-column:2/4">${PCOLS.map(c=>`<button class="sw ${c===p.color?"on":""}" style="background:${c}" data-c="${c}" aria-label="color"></button>`).join("")}</div>`;
+    r.querySelector("input").oninput=e=>p.name=e.target.value;
+    r.querySelector("select").onchange=e=>p.arch=e.target.value;
+    r.querySelector(".btn.ghost").onclick=()=>{setup.players.splice(i,1);renderHome()};
+    r.querySelectorAll(".sw").forEach(b=>b.onclick=()=>{p.color=b.dataset.c;renderHome()});
+    box.appendChild(r)});
+  $("#addP").disabled=setup.players.length>=6;
+  $("#archLib").innerHTML=D.archetypes.map(a=>`<div class="mcard"><div class="in"><div class="k">Archetype</div><h4>${esc(a.name)}</h4>${emblem("sym",a.name[0]).replace('class="emb"','')}<div class="t"><i>${esc(a.essence)}</i></div><div class="p" style="font-size:.85rem">${esc(a.ability)}</div></div></div>`).join("");
+  const sv=loadS();$("#resumeBtn").style.display=sv&&sv.players&&!sv.over?"inline-block":"none";
+}
+$("#addP").onclick=()=>{const used=setup.players.map(p=>p.color);setup.players.push({name:"",color:PCOLS.find(c=>!used.includes(c))||PCOLS[0],arch:D.archetypes[setup.players.length%4].id});renderHome()};
+$("#startBtn").onclick=()=>{
+  S={setId:setup.setId,turn:0,bonus:0,piles:{},log:[],over:false,busy:false,rolled:0,helpedThisTurn:{},
+     players:setup.players.map((p,i)=>({name:p.name.trim()||["Seeker of Light","Morning Star","Silver Moon","River Song","Golden Leaf","Quiet Flame"][i],color:p.color,arch:p.arch,
+       pos:0,pearls:0,gems:[],keys:[],animals:[],tokens:0,choices:[],insight:"",rerolls:p.arch==="creator"?3:0,skip:false,done:false}))};
+  log("The journey begins: “"+setObj().name+"”.");save();go("play");
+  setTimeout(()=>openCard({deck:"Welcome",title:"Are you on your path?",emb:emblem("heart"),text:"Take one breath together. Let the youngest traveller hold the die first – or simply begin with "+esc(cur().name)+".",acts:[["Let us begin",closeCard]]}),300);
+};
+$("#resumeBtn").onclick=()=>{S=loadS();S.busy=false;go("play")};
+$("#newGame").onclick=()=>openCard({deck:"New journey",title:"Begin again?",text:"The current journey will end. Your journal will be cleared.",acts:[["Yes, start fresh",()=>{closeCard();try{localStorage.removeItem(KEY)}catch(e){}S=null;go("home")}],["Keep walking",closeCard,"ghost"]]});
+$("#musicQuick").onclick=()=>go("music");
+
+/* ===================== PLAY ===================== */
+function arch(p){return D.archetypes.find(a=>a.id===p.arch)||D.archetypes[0]}
+function renderPlay(){
+  if(!S||!S.players){go("home");return}
+  drawBoard();
+  const p=cur();
+  $("#die").innerHTML=dieSVG(S.rolled);
+  $("#curName").textContent=S.over?"Everyone has arrived":p.name;$("#curName").style.color=S.over?"var(--gold)":p.color;
+  $("#curHint").textContent=S.over?"The Golden Heart shines.":p.done?"In the Golden Heart · companion of light":arch(p).name+" · "+(p.pos?"field "+p.pos:"at the entrance")+(p.skip?" · walking a loop":"");
+  const box=$("#actions");box.innerHTML="";
+  const add=(t,f,cls="gold",dis)=>{const b=document.createElement("button");b.className="btn "+cls;b.innerHTML=t;b.disabled=!!dis||S.busy;b.onclick=f;box.appendChild(b)};
+  const travellers=S.players.map((q,i)=>i).filter(i=>i!==S.turn&&!S.players[i].done);
+  if(S.over) add("See the closing circle",finale);
+  else if(p.done){
+    add("Send light ✦",()=>pick("Who receives your light?",travellers,i=>{S.players[i].pearls++;p.tokens++;chime("pearl");log(p.name+" sends light to "+S.players[i].name+" (+1 pearl · +1 Knowledge Token).");nextTurn()}),"gold",!travellers.length);
+    add("Rest in the Heart",nextTurn,"ghost");
+  } else if(p.skip){
+    add("Complete your loop",()=>{p.skip=false;p.pearls++;log(p.name+" completes the Loop of Reflection (+1 pearl).");openCard({deck:"Loop of Reflection",title:"Back on the path",emb:emblem("sym","↺"),text:"You took the time you needed. What became clearer?",reward:"+1 pearl",acts:[["Continue",()=>{closeCard();nextTurn()}]]})});
+  } else {
+    add(S.rolled?"Walking…":"Roll the die",roll,"gold",!!S.rolled);
+    if(p.arch==="healer"&&p.pearls>0&&!S.helpedThisTurn.healer&&travellers.length)add("Gift a pearl",()=>pick("Who receives your pearl?",travellers,i=>{p.pearls--;S.players[i].pearls++;p.tokens++;S.helpedThisTurn.healer=1;log(p.name+" gifts a pearl to "+S.players[i].name+" (+1 Knowledge Token).");refresh()}),"ghost small");
+    if(p.arch==="guide"&&!S.helpedThisTurn.guide&&travellers.length)add("Guide someone +1",()=>pick("Whom do you guide one field forward?",travellers,i=>{S.helpedThisTurn.guide=1;const q=S.players[i];q.pos=Math.min(N,q.pos+1);p.tokens++;log(p.name+" guides "+q.name+" one field forward (+1 Knowledge Token).");refresh()}),"ghost small");
+  }
+  $("#plist").innerHTML=`<h3 style="font-size:1.3rem;margin-bottom:4px">Travellers</h3>`+S.players.map((q,i)=>`<div class="pl ${i===S.turn&&!S.over?"cur":""}">
+    <div class="pawn" style="background:${q.color}"></div><div style="flex:1;min-width:0"><b>${esc(q.name)}</b> <span class="meta">· ${esc(arch(q).name)}</span>
+    <div class="meta">${q.done?"♥ in the Golden Heart":q.pos?"field "+q.pos:"entrance"}${q.animals.length?" · "+q.animals.map(esc).join(", "):""}</div>
+    <div class="badges"><span class="stat">◯ ${q.pearls}</span><span class="stat">🗝 ${q.keys.length}/7</span><span class="stat">✦ ${q.tokens}</span>${q.gems.map(g=>`<span class="gem" title="${esc(D.gates[g].gem)}" style="background:${D.gates[g].color}"></span>`).join("")}</div></div></div>`).join("");
+  const L=light(),goal=Math.max(60,S.players.length*30);$("#goal").textContent=goal;$("#lightNum").textContent=L;$("#lightBar").style.width=Math.min(100,L/goal*100)+"%";
+  $("#log").innerHTML=S.log.map(t=>`<div>${esc(t)}</div>`).join("");
+  $("#legend").innerHTML=Object.entries(T).map(([k,t])=>`<span><svg width="16" height="16"><circle cx="8" cy="8" r="6" fill="${k==="G"?"#7d4fb3":k==="S"?"#d9b85f":"#15120e"}" stroke="${k==="P"||k==="G"||k==="S"?"none":ringCol(k)}" stroke-width="2.6"/></svg>${t.name}</span>`).join("");
+}
+function refresh(){save();renderPlay()}
+function roll(){
+  const p=cur(),v=1+(Math.random()*6|0);S.rolled=v;S.busy=true;
+  const d=$("#die");d.classList.remove("roll");void d.offsetWidth;d.classList.add("roll");
+  let n=0;const sp=setInterval(()=>{d.innerHTML=dieSVG(1+(Math.random()*6|0));if(++n>7){clearInterval(sp);d.innerHTML=dieSVG(v);
+    if(p.arch==="creator"&&p.rerolls>0){S.busy=false;openCard({deck:"Creator",title:"You rolled "+v,emb:emblem("sym",String(v)),text:"As a Creator you may shape your path: "+p.rerolls+" re-roll"+(p.rerolls>1?"s":"")+" left.",acts:[["Walk "+v+" fields",()=>{closeCard();S.busy=true;walk(v)}],["Roll again",()=>{closeCard();p.rerolls--;S.rolled=0;roll()},"ghost"]]});}
+    else walk(v)}},65);
+  renderPlay();
+}
+function walk(v){const p=cur();let left=v;
+  const t=setInterval(()=>{if(left<=0||p.pos>N){clearInterval(t);S.busy=false;land();return}p.pos++;left--;drawBoard()},280)}
+function land(){const p=cur();log(p.name+" rolls "+S.rolled+" → "+(p.pos>N?"the Golden Gate":"field "+p.pos)+".");
+  if(p.pos>N){goldenGate(S.turn);return}resolve(p.pos)}
+function done(fn){return()=>{closeCard();if(fn)fn();nextTurn()}}
+function resolve(pos){
+  const p=cur(),c=setObj().map[pos-1];
+  if(c==="G"){const gi=GATE_POS.indexOf(pos),g=D.gates[gi],has=p.gems.includes(gi);chime("gate");
+    openCard({deck:"Gate "+(gi+1)+" of 13",title:g.gem+" Gate",sub:g.quality,emb:emblem("gate",g.color),text:g.line,prompt:g.question,html:`<p style="font-size:.92rem;color:#e9d9ae">“${esc(g.affirmation)}”</p>`,
+      reward:has?"You already carry this gem: +1 pearl":"Reward: the "+g.gem,acts:[["I walk through the gate",done(()=>{if(has)p.pearls++;else p.gems.push(gi);log(p.name+" passes the "+g.gem+" Gate – "+g.quality+".")})]]});return}
+  if(c==="R"){momentMusic();openCard({deck:"Stillness",title:"Field of Stillness",emb:emblem("pearl"),text:"In stillness the path becomes visible. Everyone closes their eyes and breathes together.",timer:30,reward:"Everyone +1 pearl",
+      acts:[["We kept the silence",done(()=>{S.players.forEach(q=>q.pearls++);chime("pearl");log("Shared stillness – everyone +1 pearl.")})]]});return}
+  if(c==="L"){openCard({deck:"Crossing",title:"A turning point",sub:"Do you need time?",emb:emblem("sym","↺"),text:"Here the path turns. You may step into the Loop of Reflection: pause for one turn, rethink a decision, and receive a pearl.",
+      acts:[["Take the loop",()=>{closeCard();takeLoop()}],["Continue on the path",done(),"ghost"]]});return}
+  if(c==="S"){momentMusic();const card=DK.steps.cards[draw("steps")];
+    openCard({deck:DK.steps.name,title:esc(card.title),emb:emblem("sym","▲"),text:esc(card.text),prompt:esc(card.prompt),reward:"Reward: +1 pearl and a Core Key",
+      acts:[["My heart has decided",()=>{closeCard();p.pearls++;giveKey(p)}]]});return}
+  drawDeck(T[c].deck);
+}
+function takeLoop(){const p=cur(),card=DK.loops.cards[draw("loops")];p.skip=true;
+  openCard({deck:DK.loops.name,title:esc(card.title),emb:emblem("sym","↺"),text:esc(card.text),reward:"You pause one turn. Next turn: +1 pearl",
+    acts:[["I take my time",done(()=>log(p.name+" steps into a Loop of Reflection."))]]})}
+function giveKey(p){
+  const free=DK.core.cards.map((_,i)=>i).filter(i=>!p.keys.includes(i));
+  if(!free.length){p.pearls++;log(p.name+" already holds all 7 keys (+1 pearl).");nextTurn();return}
+  const k=free[Math.random()*free.length|0],card=DK.core.cards[k];p.keys.push(k);chime("gate");
+  openCard({deck:"Core Key "+(k+1)+" of 7",title:esc(card.title),sub:esc(card.key),emb:emblem("sym","🗝"),text:esc(card.text),prompt:"“"+esc(card.affirmation)+"”",
+    acts:[["Receive the key",done(()=>log(p.name+" receives the Key of "+card.key+"."))]]});
+}
+function drawDeck(deck){
+  const p=cur();let swapped=false;
+  const show=idx=>{const card=DK[deck].cards[idx];const swap=p.arch==="seeker"&&!swapped&&!p.swapUsed?[["Seeker: draw another card (once per game)",()=>{swapped=true;p.swapUsed=true;show(draw(deck))},"ghost"]]:[];
+    const base={deck:DK[deck].name,title:esc(card.title)};
+    if(deck==="choice"){openCard({...base,emb:emblem("sym","⇄"),text:esc(card.text),reward:"+1 pearl for a decision from the heart",
+      acts:[["A · "+esc(card.a),done(()=>{p.pearls++;p.choices.push(card.title+": "+card.a);log(p.name+" chooses: “"+card.a+"”");chime("pearl")}),"opt"],
+            ["B · "+esc(card.b),done(()=>{p.pearls++;p.choices.push(card.title+": "+card.b);log(p.name+" chooses: “"+card.b+"”");chime("pearl")}),"opt"],
+            ["↺ I need time – take the loop",()=>{closeCard();takeLoop()},"ghost"]].concat(swap)});return}
+    if(deck==="colors"){openCard({...base,emb:emblem("color",card.hex),text:esc(card.text),prompt:esc(card.prompt),reward:"+1 pearl",acts:[["Shared ✓",done(()=>{p.pearls++;chime("pearl")})]].concat(swap)});return}
+    if(deck==="animals"){openCard({...base,sub:"Power Animal",emb:emblem("sym",card.title[0]),text:esc(card.text),prompt:esc(card.prompt),reward:"The "+esc(card.title)+" walks with you · +1 pearl",
+      acts:[["Welcome, "+esc(card.title),done(()=>{p.pearls++;if(!p.animals.includes(card.title))p.animals.push(card.title);log(p.name+" is joined by the "+card.title+".")})]].concat(swap)});return}
+    if(deck==="prayers"){momentMusic();openCard({...base,emb:emblem("heart"),text:`<span style="font-family:var(--serif);font-size:1.3rem;font-style:italic">${esc(card.text)}</span>`,prompt:esc(card.how),reward:"+2 shared light",
+      acts:[["Amen · So be it",done(()=>{S.bonus+=2;log("A prayer is spoken: “"+card.title+"”.");chime("heart")})]].concat(swap)});return}
+    if(deck==="together"){openCard({...base,sub:"for the whole circle",emb:emblem("sym","∞"),text:esc(card.text),reward:effectText(card.effect),acts:[["Done together ✓",()=>{closeCard();applyEffect(card)}]].concat(swap)});return}
+    // insight / pearls
+    openCard({...base,emb:deck==="pearls"?emblem("pearl"):emblem("sym","✧"),text:esc(card.text),prompt:card.prompt?esc(card.prompt):"",reward:"+1 pearl",
+      acts:[["Shared ✓",done(()=>{p.pearls++;chime("pearl");log(p.name+" shares: “"+card.title+"”.")})]].concat(swap)});
+  };
+  show(draw(deck));
+}
+function effectText(e){return {allPearl:"Everyone +1 pearl",give:"Gift a pearl to someone still far from the Heart · +1 Knowledge Token",move2:"Someone walks you 2 fields forward",helpLast:"The traveller with the fewest pearls walks 2 fields · +1 Knowledge Token",pullUp:"Everyone behind you moves 1 field forward · +1 Knowledge Token",light:"+1 pearl and +1 shared light",token:"You helped someone · +1 Knowledge Token"}[e]||"+1 pearl"}
+function applyEffect(card){
+  const p=cur(),idx=S.turn,trav=S.players.map((q,i)=>i).filter(i=>i!==idx&&!S.players[i].done);
+  switch(card.effect){
+    case "allPearl":S.players.forEach(q=>q.pearls++);log("Togetherness – everyone +1 pearl.");break;
+    case "give":if(trav.length){const i=trav.sort((a,b)=>S.players[a].pos-S.players[b].pos)[0];if(p.pearls>0)p.pearls--;S.players[i].pearls++;p.tokens++;log(p.name+" gifts a pearl to "+S.players[i].name+" (+1 Knowledge Token).")}else p.pearls++;break;
+    case "move2":p.pos=Math.min(N,p.pos+2);log(p.name+" is walked 2 fields forward.");break;
+    case "helpLast":{const all=S.players.map((q,i)=>i).filter(i=>!S.players[i].done).sort((a,b)=>S.players[a].pearls-S.players[b].pearls);const i=all[0];S.players[i].pos=Math.min(N,S.players[i].pos+2);if(i!==idx)p.tokens++;log(S.players[i].name+" walks 2 fields forward.");break}
+    case "pullUp":{let n=0;S.players.forEach(q=>{if(!q.done&&q!==p&&q.pos<p.pos){q.pos++;n++}});if(n)p.tokens++;log("Everyone behind "+p.name+" moves 1 field forward.");break}
+    case "token":p.tokens++;log(p.name+" earns a Knowledge Token for helping.");break;
+    default:p.pearls++;S.bonus++;
+  }
+  chime("pearl");nextTurn();
+}
+function goldenGate(i){
+  const q=S.players[i],g=D.goldenGate;q.pos=N+1;drawBoard();chime("heart");momentMusic();
+  openCard({deck:"Gate 13",title:esc(g.title),sub:esc(q.name),emb:emblem("heart"),text:esc(g.line),prompt:esc(g.question),input:"My greatest insight on this journey…",
+    reward:"You become a companion of light: from now on you send light to the others.",
+    acts:[["Enter the Golden Heart",()=>{const v=($("#cardInput")||{}).value||"";q.insight=v.trim();q.done=true;q.pearls++;log(q.name+" enters the Golden Heart."+(q.insight?" Insight: “"+q.insight+"”":""));closeCard();nextTurn()}]]});
+}
+function pick(title,idxs,cb){
+  if(!idxs.length){toast("No one else is still on the path.");return}
+  openCard({deck:"Choose",title:esc(title),emb:emblem("heart"),acts:idxs.map(i=>[`<span style="display:inline-block;width:12px;height:12px;border-radius:50%;background:${S.players[i].color};margin-right:8px"></span>`+esc(S.players[i].name),()=>{closeCard();cb(i)},"opt"]).concat([["Cancel",closeCard,"ghost"]])});
+}
+function nextTurn(){
+  if(S.players.every(q=>q.done)){S.over=true;S.rolled=0;refresh();setTimeout(finale,500);return}
+  S.rolled=0;S.helpedThisTurn={};S.turn=(S.turn+1)%S.players.length;refresh();
+}
+function finale(){
+  const L=light();chime("heart");
+  const html=S.players.map(q=>`<div style="text-align:left;margin:8px 0;padding:10px;border:1px solid #d9b85f55;border-radius:12px">
+    <b style="color:#fff6dc">${esc(q.name)}</b> <span style="color:#d9b85f;font-size:.85rem">· ${q.pearls} pearls · ${q.gems.length} gems · ${q.keys.length} key${q.keys.length===1?"":"s"} · ${q.tokens} token${q.tokens===1?"":"s"}</span>
+    ${q.animals.length?`<div style="font-size:.82rem;color:#cdbb92">Companions: ${q.animals.map(esc).join(", ")}</div>`:""}
+    ${q.insight?`<div style="font-family:var(--serif);font-style:italic;font-size:1.1rem;margin-top:4px">“${esc(q.insight)}”</div>`:""}</div>`).join("");
+  openCard({deck:"The journey is complete",title:"The Golden Heart shines",sub:"Shared light: "+L,emb:emblem("heart"),text:"Life does not happen against us. It invites us forward. Thank you for walking together.",html,
+    acts:[["Close",closeCard,"ghost"],["Begin a new journey",()=>{closeCard();try{localStorage.removeItem(KEY)}catch(e){}S=null;go("home")}]]});
+}
+
+/* ===================== CARD LIBRARY ===================== */
+let libSel="gates";
+function mini(k,title,t,p,emb){return `<div class="mcard"><div class="in"><div class="k">${k}</div><h4>${title}</h4>${emb.replace('class="emb"','')}<div class="t">${t}</div>${p?`<div class="p">${p}</div>`:""}</div></div>`}
+function renderCards(){
+  const chips=[["gates","13 Gates"],["core","Core Keys"],["choice"],["insight"],["pearls"],["animals"],["colors"],["prayers"],["together"],["steps"],["loops"]];
+  $("#deckChips").innerHTML=chips.map(([k,n])=>`<button class="${k===libSel?"on":""}" data-k="${k}">${n||DK[k].name} ${k!=="gates"&&k!=="core"?"<span style='opacity:.6'>"+DK[k].cards.length+"</span>":""}</button>`).join("");
+  $("#deckChips").querySelectorAll("button").forEach(b=>b.onclick=()=>{libSel=b.dataset.k;renderCards()});
+  let h="";
+  if(libSel==="gates"){h=D.gates.map((g,i)=>mini("Gate "+(i+1)+" · field "+GATE_POS[i],esc(g.gem)+"<br><span style='font-size:.9rem;color:#d9b85f'>"+esc(g.quality)+"</span>",esc(g.question),"“"+esc(g.affirmation)+"”",emblem("gate",g.color))).join("")+
+    mini("Gate 13",esc(D.goldenGate.title),esc(D.goldenGate.question),"“"+esc(D.goldenGate.affirmation)+"”",emblem("heart"))}
+  else if(libSel==="core"){h=DK.core.cards.map((c,i)=>mini("Core Key "+(i+1),esc(c.title),esc(c.text),"“"+esc(c.affirmation)+"”",emblem("sym","🗝"))).join("")}
+  else{const d=DK[libSel];h=d.cards.map(c=>{
+    if(libSel==="choice")return mini(d.name,esc(c.title),esc(c.text),"A · "+esc(c.a)+"<br>B · "+esc(c.b),emblem("sym","⇄"));
+    if(libSel==="colors")return mini(d.name,esc(c.title),esc(c.text),esc(c.prompt),emblem("color",c.hex));
+    if(libSel==="prayers")return mini(d.name,esc(c.title),"<i style='font-family:var(--serif);font-size:.95rem'>"+esc(c.text)+"</i>",esc(c.how),emblem("heart"));
+    if(libSel==="together")return mini(d.name,esc(c.title),esc(c.text),effectText(c.effect),emblem("sym","∞"));
+    const sym={insight:"✧",animals:c.title[0],steps:"▲",loops:"↺"}[libSel];
+    return mini(d.name,esc(c.title),esc(c.text),c.prompt?esc(c.prompt):"",libSel==="pearls"?emblem("pearl"):emblem("sym",sym))}).join("")}
+  $("#cardGrid").innerHTML=h;
+}
+$("#printBtn").onclick=()=>{try{window.print()}catch(e){};setTimeout(()=>toast("If nothing opened: printing works once the game runs on your own server."),400)};
+
+/* ===================== RULES ===================== */
+function renderRules(){
+  $("#ruleFields").innerHTML=Object.entries(T).map(([k,t])=>`<li><b>${t.name}</b> – ${DESC[k]}</li>`).join("");
+  $("#ruleArch").innerHTML=D.archetypes.map(a=>`<li><b>${esc(a.name)}</b> – ${esc(a.essence)}. ${esc(a.ability)}</li>`).join("");
+}
+
+/* ===================== NAV ===================== */
+function go(v){
+  document.querySelectorAll(".view").forEach(x=>x.classList.toggle("on",x.id==="v-"+v));
+  document.querySelectorAll("nav.tabs button").forEach(b=>b.classList.toggle("on",b.dataset.v===v));
+  if(v==="home")renderHome();if(v==="play")renderPlay();if(v==="cards")renderCards();if(v==="rules")renderRules();
+  window.scrollTo({top:0});
+}
+document.querySelectorAll("nav.tabs button").forEach(b=>b.onclick=()=>{if(b.dataset.v==="play"&&!S){const s=loadS();if(s&&s.players){S=s;S.busy=false}}go(b.dataset.v)});
+renderHome();songsLoad();
+</script>
+</body>
+</html>
