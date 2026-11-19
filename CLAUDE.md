@@ -26,7 +26,7 @@ Barbara is the author and creator of this game. **She is not a technical user.**
 ## The project
 
 A spiritual, non-competitive board game as a web app, in English.
-Core ideas: a classic 7-circuit labyrinth with 40 fields, 12 rays, 12 gemstone gates plus the Golden Gate (13 gates), a Golden Heart in the center, golden steps (a conscious pause and a heart decision; a reward, not a speed-up), loops of reflection at the turning points, Pearls of Wisdom, Knowledge Tokens (earned by helping others), 7 Core Keys, archetypes (Seeker, Healer, Creator, Guide). Nobody wins; everyone arrives together. 2–6 players on one device; online play on separate devices is a planned next step.
+Core ideas: a classic 7-circuit labyrinth with 40 fields, 12 rays, 12 gemstone gates plus the Golden Gate (13 gates), a Golden Heart in the center, golden steps (a conscious pause and a heart decision; a reward, not a speed-up), loops of reflection at the turning points, Pearls of Wisdom, Knowledge Tokens (earned by helping others), 7 Core Keys, archetypes (Seeker, Healer, Creator, Guide). Nobody wins; everyone arrives together. 2–6 players on one device; online play on separate devices is a planned next step. Optional path of 40 fields + 40 baby steps (80 steps).
 
 ### Files
 
@@ -34,7 +34,10 @@ Core ideas: a classic 7-circuit labyrinth with 40 fields, 12 rays, 12 gemstone g
 - `src/app.html` – game engine, design, rules text
 - `src/data.js` – all card texts and gates
 - `src/board.js` – labyrinth geometry
-- `src/build.py` – combines the three into `index.html`
+- `src/data2.js`, `src/data3.js` – Barbara's own texts (gates, questions, wings, signs, chests, songs …)
+- `src/fonts.css` – embedded fonts (no external requests)
+- `music/` – Barbara's songs, compressed MP3 (~95 kbps); they load only when played
+- `src/build.py` – combines everything into `index.html` and refuses to write it if any script has a syntax error
 
 ### Every change
 

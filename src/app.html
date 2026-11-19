@@ -3,7 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Game 2020 · The Golden Path</title>
+<title>G.A.M.E 2020 · The Golden Path</title>
+<meta name="description" content="G.A.M.E 2020 – God Allows More Experiences. The Golden Path: a spiritual, joyful board game by Barbara Prinz. Walk the labyrinth to the Golden Heart – together.">
+<meta name="theme-color" content="#0b1433">
 <style>
 /*FONTS*/
 :root{
@@ -133,6 +135,7 @@ label.l{font-weight:700;font-size:.82rem;color:var(--muted);display:block;margin
 .mcard .t{font-size:.76rem;line-height:1.35}
 .mcard .p{font-family:var(--serif);font-style:italic;color:var(--tx);border-radius:6px;font-size:.92rem;margin-top:auto;line-height:1.2}
 .mcard svg{width:54px;height:54px;margin:4px auto}
+.mcard.arch svg{width:140px;height:140px}.mcard.arch{aspect-ratio:auto}.mcard.arch .in{min-height:300px}
 /* music */
 .song{display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:1px dashed var(--line)}
 .song .n{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
@@ -256,6 +259,7 @@ footer{color:#cfc4a6!important}
   <div class="panel">
     <h3 style="font-size:1.5rem">Choose your journey</h3>
     <div class="setcards" id="setcards" style="margin-top:8px"></div>
+    <label class="l">The path</label><select id="pathSel"><option value="40">40 fields</option><option value="80">40 fields + 40 baby steps in between (80 steps)</option></select>
     <label class="l">The die</label><select id="dieSel"></select>
     <label class="l">Travellers (2–6 on one device · ages 9–99)</label>
     <div id="prows"></div>
@@ -272,7 +276,7 @@ footer{color:#cfc4a6!important}
 <section class="view" id="v-play">
   <div class="game">
     <div>
-      <div class="boardwrap"><div class="movebadge" id="moveBadge"></div><button class="zoombtn" id="zoomBtn">⌕ Zoom</button><button class="zoombtn" id="nightBtn" style="top:52px">☾ Night sky</button><button class="zoombtn" id="sfxBtn" style="top:92px">🔊 Sound</button><svg id="board" viewBox="0 0 800 800" aria-label="Game board"></svg></div>
+      <div class="boardwrap"><div class="movebadge" id="moveBadge"></div><button class="zoombtn" id="zoomBtn">⌕ Zoom</button><button class="zoombtn" id="nightBtn" style="top:52px">☾ Night sky</button><button class="zoombtn" id="sfxBtn" style="top:92px">🔊 Sound</button><svg id="board" viewBox="0 0 800 800" role="img" aria-label="Game board: the Golden Path labyrinth"></svg></div>
       <div class="legend" id="legend"></div>
     </div>
     <div>
@@ -385,6 +389,8 @@ footer{color:#cfc4a6!important}
     <p>Ten special Elevator cards stand for empowerment: someone believes in you, you remember your inner power – and you are lifted up, sometimes 5 or even 7 fields toward the light. Unique and special, just like you.</p>
     <h3>Director's Chair</h3>
     <p>You are the producer, director, author and actor in this film – the game of your lifelong journey. Whatever happens, you are co-creating together. Make the best out of every scene. Who do you want to be? What do you want to bring out into the world?</p>
+    <h3>Baby steps</h3>
+    <p>Choose “40 fields + 40 baby steps” for a gentler journey of 80 steps. Between the big fields lie little golden dots: a breath, a smile, a sip of water. Small steps count too – each one recharges your energy.</p>
     <h3>Stepping Stones</h3>
     <p>Sometimes the sunshine on the water hides the next stone. When you pause and look from another angle, new paths appear – left, ahead, right. It is encouraging to stop, pause and move forward in a new direction. Everything is possible.</p>
     <h3>Treasure Chests</h3>
@@ -405,8 +411,8 @@ footer{color:#cfc4a6!important}
 </footer>
 </main>
 
-<div class="modal" id="modal"><div class="tcard"><div class="tin" id="tin"></div></div></div>
-<div class="toast" id="toast"></div>
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="cardTitle"><div class="tcard"><div class="tin" id="tin"></div></div></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script>/*DATA*/</script>
 <script>/*DATA2*/</script>
@@ -513,16 +519,11 @@ const DESC={
  Z:"A treasure of the path: discover, reflect and move on.",
  W:"Flap of Wings: a one-minute action to create, change, open up or serve. +1 pearl"
 };
-// 28 non-gate slots per set
 const SETS=[
- {id:"wisdom",name:"Game ©WISDOM 2020",desc:"Barbara's original journey: pearls of wisdom, Shine-ON words, planets, Flap of Wings and golden steps.",
-  seq:"PQJUWECIHQUMSWKPURZQCUWKIEQH"},
- {id:"path",name:"The Golden Path",desc:"The balanced journey: choices, insights, pearls, animals, prayers and togetherness.",
-  seq:"CPQUWEKIFCBQSUCAKPREUZSCWQAC"},
- {id:"animals",name:"Power Animal Journey",desc:"More power animals and colors – each traveller gathers a family of companions.",
-  seq:"CAQFWEASFCBQEWCAMFREAQSCWEFC"},
- {id:"heart",name:"Heart Circle",desc:"For groups & workshops: more togetherness, prayers and stillness.",
-  seq:"CMQBUERPMBQMSUMBRCUQBSCMREQC"}
+ {id:"wisdom",name:"Game ©WISDOM 2020",desc:"Barbara's original journey: pearls of wisdom, Shine-ON words, planets, Flap of Wings and golden steps.",},
+ {id:"path",name:"The Golden Path",desc:"The balanced journey: choices, insights, pearls, animals, prayers and togetherness.",},
+ {id:"animals",name:"Power Animal Journey",desc:"More power animals and colors – each traveller gathers a family of companions.",},
+ {id:"heart",name:"Heart Circle",desc:"For groups & workshops: more togetherness, prayers and stillness.",}
 ];
 const TURN_FIELDS=[...new Set((LB.turns||[]).map(t=>t.field))].filter(f=>f>=2&&f<=N-1&&!GATE_POS.includes(f));
 const MIX={
@@ -534,7 +535,7 @@ function buildMap(set){
   const m=[];for(let i=1;i<=N;i++)m.push(GATE_POS.includes(i)?"G":"");
   TURN_FIELDS.forEach(f=>{if(m[f-1]!=="G")m[f-1]="L"});
   const free=m.map((c,i)=>c?null:i).filter(x=>x!==null);
-  let pool=(MIX[set.id]||set.seq).split("");
+  let pool=(MIX[set.id]||"PICAHM").split("");
   while(pool.length<free.length)pool.push("PICAHM"[pool.length%6]);
   // seeded shuffle with no identical neighbours
   let seed=[...set.id].reduce((a,c)=>a*31+c.charCodeAt(0),7)%2147483647||1;const rnd=()=>(seed=seed*16807%2147483647)/2147483647;
@@ -551,7 +552,12 @@ let S=null;
 const $=s=>document.querySelector(s);
 const esc=s=>String(s==null?"":s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c]));
 function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
-function loadS(){try{return JSON.parse(localStorage.getItem(KEY))}catch(e){return null}}
+function loadS(){try{return normalize(JSON.parse(localStorage.getItem(KEY)))}catch(e){return null}}
+function normalize(st){if(!st||!Array.isArray(st.players)||!st.players.length)return null;
+  st.piles=st.piles||{};st.log=st.log||[];st.bonus=st.bonus||0;st.helpedThisTurn={};st.busy=false;st.rolled=0;
+  if(!SETS.some(x=>x.id===st.setId))st.setId=SETS[0].id;if(st.turn>=st.players.length)st.turn=0;
+  st.players.forEach(p=>{p.pearls=p.pearls||0;p.gems=p.gems||[];p.keys=(p.keys||[]).filter(k=>k<7);p.animals=p.animals||[];p.tokens=p.tokens||0;p.choices=p.choices||[];if(p.energy==null)p.energy=3;p.pos=Math.max(0,Math.min(N+1,+p.pos||0));});
+  return st}
 const setObj=()=>SETS.find(s=>s.id===(S?S.setId:"path"));
 const cur=()=>S.players[S.turn];
 function log(t){S.log.unshift(t);S.log=S.log.slice(0,120)}
@@ -607,14 +613,7 @@ function sfx(kind){
 }
 function chime(kind){
   try{sparkle(kind)}catch(e){}
-  sfx(kind==="gate"?"gate":kind==="heart"?"heart":"pearl");return;
-  if(!$("#mChimes").checked)return;
-  try{AC=AC||new (window.AudioContext||window.webkitAudioContext)();
-    const notes=kind==="gate"?[523.25,659.25,783.99,1046.5]:kind==="heart"?[392,523.25,659.25,783.99,1046.5,1318.5]:[880,1318.5];
-    notes.forEach((f,i)=>{const o=AC.createOscillator(),g=AC.createGain();o.type="sine";o.frequency.value=f;
-      const t=AC.currentTime+i*.12;g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.12,t+.02);g.gain.exponentialRampToValueAtTime(.0001,t+1.6);
-      o.connect(g).connect(AC.destination);o.start(t);o.stop(t+1.7)});
-  }catch(e){}
+  sfx(kind==="gate"?"gate":kind==="heart"?"heart":"pearl");
 }
 const BUILTIN=[{id:"builtin-1",name:"Life is a game… Play with Love ♥",src:"music/life-is-a-game.mp3",builtin:true,theme:true,role:"start"},
  {id:"builtin-2",name:"The Golden Path of Hope and Love",src:"music/golden-path-of-hope-and-love.mp3",builtin:true,role:"heart"},
@@ -624,6 +623,7 @@ const BUILTIN=[{id:"builtin-1",name:"Life is a game… Play with Love ♥",src:"
  {id:"builtin-6",name:"Connected Beyond",src:"music/connected-beyond.mp3",builtin:true,role:"bridge"}];
 function playRole(r){if(!$("#mMoments").checked)return false;const i=Music.songs.findIndex(x=>x.role===r);if(i<0)return false;if(Music.idx===i&&!Music.audio.paused)return true;musicPlay(i);return true}
 const Music={songs:BUILTIN.slice(),idx:-1,audio:new Audio(),db:null};
+Music.audio.preload="none";
 Music.audio.volume=.6;
 Music.audio.onended=()=>musicNext();
 function idb(){return new Promise((res)=>{try{const r=indexedDB.open("gp-songs",1);r.onupgradeneeded=()=>r.result.createObjectStore("s",{keyPath:"id"});r.onsuccess=()=>res(r.result);r.onerror=()=>res(null)}catch(e){res(null)}})}
@@ -636,7 +636,6 @@ function renderLyrics(){const b=$("#lyricsBox");if(!b||!SONG)return;b.innerHTML=
   (SONG3?`<h3 style="font-size:1.3rem;margin-top:14px">♪ ${esc(SONG3.title)}</h3><div class="hint">${esc(SONG3.credit)}</div><div class="lyrics" style="font-size:1.05rem;margin-top:6px">${esc(SONG3.chorus)}</div>`:"")}
 function renderSongs(){try{renderLyrics()}catch(e){}
   const L=$("#songList");
-  if(false){L.innerHTML='<p class="hint">No songs yet. Your songs such as “In Stillness”, “Golden Path” or “Ocean of Light” could live here.</p>';return}
   L.innerHTML=Music.songs.map((s,i)=>`<div class="song ${i===Music.idx?"on":""}"><span>${s.link?"↗":"♪"}</span><span class="n">${esc(s.name)}${s.builtin?' <span class="hint">· by Barbara</span>':""}</span>
     ${!s.link?`<button class="minibtn" data-t="${i}" title="Theme song">${s.theme?"★ Theme":"☆ Theme"}</button>`:""}${s.link?`<a class="minibtn" href="${esc(s.url)}" target="_blank" rel="noopener">Open</a>`:`<button class="minibtn" data-p="${i}">▶</button>`}${s.builtin?"":`<button class="minibtn" data-d="${i}">✕</button>`}</div>`).join("");
   L.querySelectorAll("[data-p]").forEach(b=>b.onclick=()=>musicPlay(+b.dataset.p));
@@ -648,7 +647,8 @@ function musicPlay(i){
   const P=playable();if(!P.length){toast("Add a song in the Music tab first.");return}
   if(i==null||Music.songs[i]?.link)i=P[0];
   Music.idx=i;Music.audio.src=Music.songs[i].src;
-  Music.audio.play().then(()=>{$("#nowPlaying").textContent="♪ "+Music.songs[i].name}).catch(()=>{$("#nowPlaying").textContent="This link can't be played here (try a direct .mp3 on your own server)."});
+  $("#nowPlaying").textContent="♪ loading "+Music.songs[i].name+" …";
+  Music.audio.play().then(()=>{$("#nowPlaying").textContent="♪ "+Music.songs[i].name}).catch(()=>{$("#nowPlaying").textContent=Music.songs[i].builtin?"Tap ▶ Play to start the music.":"This link can't be played here (try a direct .mp3 on your own server)."});
   renderSongs();
 }
 function musicNext(){const P=playable();if(!P.length)return;let n;
@@ -681,6 +681,32 @@ function emblem(kind,col){
   return `<svg class="emb" viewBox="0 0 120 120">${g}${ring}${inner}<text x="60" y="76" text-anchor="middle" font-size="46" fill="url(#${u})" font-family="Georgia,serif">${col}</text></svg>`;
 }
 
+/* ===================== ARCHETYPE FIGURES ===================== */
+function archSVG(id,size){const u="ar"+(++EID),G="#f2cf6b";
+  const halo=`<circle cx="60" cy="40" r="26" fill="url(#${u}h)"/>${[...Array(16)].map((_,i)=>{const a=i*Math.PI/8;return `<line x1="${60+30*Math.cos(a)}" y1="${40+30*Math.sin(a)}" x2="${60+(i%2?36:40)*Math.cos(a)}" y2="${40+(i%2?36:40)*Math.sin(a)}" stroke="${G}" stroke-opacity=".55" stroke-width="1"/>`}).join("")}`;
+  const defs=`<defs><radialGradient id="${u}h"><stop offset="0" stop-color="#fff1b0" stop-opacity=".55"/><stop offset="1" stop-color="#f2cf6b" stop-opacity="0"/></radialGradient>
+    <linearGradient id="${u}r" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2a3a7a"/><stop offset="1" stop-color="#0b1433"/></linearGradient>
+    <radialGradient id="${u}g"><stop offset="0" stop-color="#fff6d2"/><stop offset=".5" stop-color="${G}"/><stop offset="1" stop-color="${G}" stop-opacity="0"/></radialGradient></defs>`;
+  const robe=`<path d="M60 44 C50 44 47 52 45 60 L34 108 Q60 114 86 108 L75 60 C73 52 70 44 60 44Z" fill="url(#${u}r)" stroke="${G}" stroke-width="1.6"/><path d="M60 56 V108" stroke="${G}" stroke-opacity=".35"/>`;
+  const head=`<circle cx="60" cy="36" r="8" fill="#0b1433" stroke="${G}" stroke-width="1.6"/>`;
+  const ground=`<ellipse cx="60" cy="110" rx="34" ry="4" fill="${G}" opacity=".25"/>`;
+  let fig="";
+  if(id==="seeker")fig=`<path d="M60 22 C46 22 44 36 46 50 C50 44 70 44 74 50 C76 36 74 22 60 22Z" fill="url(#${u}r)" stroke="${G}" stroke-width="1.6"/>${robe}<circle cx="60" cy="38" r="5.5" fill="#0b1433"/>
+    <path d="M73 62 L86 72" stroke="${G}" stroke-width="2" stroke-linecap="round"/><line x1="86" y1="72" x2="86" y2="76" stroke="${G}"/><circle cx="86" cy="84" r="14" fill="url(#${u}g)"/><rect x="81" y="76" width="10" height="13" rx="2" fill="#fff1b0" stroke="${G}"/>
+    <path d="M30 104 q6 -4 12 0 M80 104 q6 -4 12 0" stroke="${G}" stroke-opacity=".5" fill="none"/>`;
+  if(id==="healer")fig=`${robe}${head}<path d="M47 62 Q52 72 60 72 Q68 72 73 62" stroke="${G}" stroke-width="2" fill="none" stroke-linecap="round"/>
+    <circle cx="60" cy="68" r="16" fill="url(#${u}g)"/><path transform="translate(51,60) scale(.75)" d="${HEART}" fill="#e05a5a" stroke="#fff1b0" stroke-width=".8"/>
+    ${[0,1,2,3,4].map(i=>`<circle cx="${44+i*8}" cy="${92-(i%2)*4}" r="1.6" fill="#fff1b0" opacity=".7"/>`).join("")}`;
+  if(id==="creator")fig=`${robe}${head}<path d="M72 56 Q82 44 86 24" stroke="${G}" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+    <circle cx="87" cy="20" r="12" fill="url(#${u}g)"/><path d="M87 10 L89 18 L97 20 L89 22 L87 30 L85 22 L77 20 L85 18Z" fill="#fff6d2"/>
+    <path d="M48 62 Q38 72 42 84" stroke="${G}" stroke-width="2" fill="none" stroke-linecap="round"/>
+    <path d="M30 50 q8 -10 16 -2 q8 8 16 -4" stroke="${G}" stroke-opacity=".6" fill="none"/>${[0,1,2].map(i=>`<circle cx="${28+i*7}" cy="${66+i*9}" r="2" fill="${["#e05a5a","#2bb3b1","#e8c13a"][i]}"/>`).join("")}`;
+  if(id==="guide")fig=`${robe}${head}<line x1="38" y1="22" x2="38" y2="110" stroke="${G}" stroke-width="2.4" stroke-linecap="round"/>
+    <circle cx="38" cy="16" r="12" fill="url(#${u}g)"/><path d="M38 6 L40 14 L48 16 L40 18 L38 26 L36 18 L28 16 L36 14Z" fill="#fff6d2"/>
+    <path d="M47 62 L39 66" stroke="${G}" stroke-width="2" stroke-linecap="round"/><path d="M73 62 Q84 64 90 58" stroke="${G}" stroke-width="2" fill="none" stroke-linecap="round"/>
+    <path d="M70 108 q10 -6 20 -2 q8 3 16 -2" stroke="${G}" stroke-opacity=".5" fill="none" stroke-dasharray="2 4"/>`;
+  return `<svg viewBox="0 0 120 120" width="${size||120}" height="${size||120}" style="display:block;margin:4px auto">${defs}${halo}${ground}${fig}</svg>`}
+
 /* ===================== BOARD ===================== */
 let PATHMEAS=null;
 function pathMeasure(){if(PATHMEAS)return PATHMEAS;
@@ -694,10 +720,18 @@ function rainbowBands(){if(RAINBOW_CACHE)return RAINBOW_CACHE;const M=pathMeasur
   for(let s=0;s<=M.Ltot;s+=6){const q=M.el.getPointAtLength(s);const d=Math.hypot(q.x-C.x,q.y-C.y);const k=Math.max(0,Math.min(6,Math.floor((d-C.r-12)/40)));
     if(k!==cur){if(pts.length)pts.push({x:q.x,y:q.y});flush();cur=k;pts=[]}pts.push({x:q.x,y:q.y})}
   flush();RAINBOW_CACHE=out;return out}
+let BABY=null;
+function babyPoints(){if(BABY)return BABY;const M=pathMeasure();BABY=[];
+  for(let k=0;k<N;k++){const sAt=k===0?M.s1/2:M.s1+(k-.5)*M.step;const q=M.el.getPointAtLength(sAt);BABY.push({x:q.x,y:q.y})}return BABY}
+function babyInfo(i){openCard({th:"gold",deck:"Baby step "+i,title:"A tiny step",emb:emblem("sym","·"),text:"Between the big fields lie little baby steps: a breath, a smile, a tiny pause. Small steps count too.",acts:[["Close",closeCard]]})}
+function babyStep(){const p=cur();const list=D3.babysteps||["Breathe."];const t=list[Math.random()*list.length|0];energy(p,1);sfx("step");
+  openCard({sfx:"none",th:"gold",deck:"Baby step",title:esc(t),emb:emblem("sym","·"),text:"Small steps count too.",reward:"+1 energy",acts:[["Step taken ✦",()=>{closeCard();log(p.name+" takes a baby step: "+t);nextTurn()}]]})}
 function pathBetween(a,b){const M=pathMeasure();const S_=q=>q<=0?0:q>N?M.Ltot:M.s1+(q-1)*M.step;
   const sa=S_(a),sb=S_(b),pts=[];const n=Math.max(2,Math.ceil((sb-sa)/8));for(let i=0;i<=n;i++){const q=M.el.getPointAtLength(sa+(sb-sa)*i/n);pts.push({x:q.x,y:q.y})}return pts}
 function boardSVG(withTokens,X){X=X||"b";
-  const m=setObj().map;let h=`<defs>
+  return boardBg(X,withTokens||X==="t")+(withTokens?boardTrail(X):"")+boardFields(X)+(withTokens?boardTokens(X):"")}
+function boardBg(X,rainbow){
+  let h=`<defs>
    <radialGradient id="${X}hg" cx="50%" cy="35%"><stop offset="0" stop-color="#fff6d2"/><stop offset=".55" stop-color="#e6c463"/><stop offset="1" stop-color="#9c7a2c"/></radialGradient>
    <radialGradient id="${X}glow"><stop offset="0" stop-color="#ffe9a8" stop-opacity=".9"/><stop offset="1" stop-color="#ffe9a8" stop-opacity="0"/></radialGradient>
    <linearGradient id="${X}wg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#d8bb6c"/><stop offset=".5" stop-color="#b4954a"/><stop offset="1" stop-color="#d4b562"/></linearGradient>
@@ -710,21 +744,25 @@ function boardSVG(withTokens,X){X=X||"b";
     const g=D.gates[i];if(g){const a=Math.atan2(r.y2-C.y,r.x2-C.x),mx=C.x+Math.cos(a)*386,my=C.y+Math.sin(a)*386;
       h+=`<g><circle cx="${mx}" cy="${my}" r="13" fill="${NIGHT?"#0f1733":"#fffaf0"}" stroke="url(#${X}wg)" stroke-width="2.5"/><g transform="translate(${mx},${my+1}) scale(.42)">${gemSVG(g.color)}</g></g>`}});
   h+=`<circle cx="${C.x}" cy="${C.y}" r="${C.r*1.6}" fill="url(#${X}glow)"/>`;
-  if(withTokens||X==="t"){h+=`<g fill="none" stroke-width="27" stroke-linecap="round" stroke-linejoin="round" opacity="${NIGHT?.16:.2}">${rainbowBands()}</g>`}
+  if(rainbow){h+=`<g fill="none" stroke-width="27" stroke-linecap="round" stroke-linejoin="round" opacity="${NIGHT?.16:.2}">${rainbowBands()}</g>`}
   h+=`<path d="${LB.wallsD}" fill="none" stroke="#8f7130" stroke-opacity=".25" stroke-width="13" stroke-linecap="round" stroke-linejoin="round" transform="translate(0,1.5)"/>`;
   h+=`<path d="${LB.wallsD}" fill="none" stroke="url(#${X}wg)" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/>`;
   h+=`<path d="${LB.wallsD}" fill="none" stroke="#fbeec4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity=".75"/>`;
   h+=`<path d="${LB.pathD}" fill="none" stroke="#f2cf6b" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" opacity="${NIGHT?.22:.18}"/>`;
   h+=`<path d="${LB.pathD}" fill="none" stroke="#ffe7a0" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" opacity=".85" stroke-dasharray="1 7"/>`;
-  // trail of last move
-  if(withTokens&&S&&S.trail&&S.trail.to!==S.trail.from){const pt=q=>q<=0?LB.entrance:q>N?{x:C.x,y:C.y}:LB.fields[q-1];
+  return h}
+function boardTrail(X){let h="";const C=LB.center;
+  if(S&&S.trail&&S.trail.to!==S.trail.from){const pt=q=>q<=0?LB.entrance:q>N?{x:C.x,y:C.y}:LB.fields[q-1];
     const pts=pathBetween(S.trail.from,Math.min(S.trail.to,N+1));
     const d=pts.map((p,i)=>(i?"L":"M")+p.x.toFixed(1)+" "+p.y.toFixed(1)).join("");
     h+=`<path d="${d}" fill="none" stroke="${S.trail.color}" stroke-width="16" stroke-linecap="round" stroke-linejoin="round" opacity=".18"/>`;
     h+=`<path d="${d}" fill="none" stroke="${S.trail.color}" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="2 9" opacity=".9"><animate attributeName="stroke-dashoffset" from="22" to="0" dur="1s" repeatCount="indefinite"/></path>`;
     const tp=pt(Math.min(S.trail.to,N+1));h+=`<circle cx="${tp.x}" cy="${tp.y}" r="27" fill="none" stroke="${S.trail.color}" stroke-width="3" opacity=".8"><animate attributeName="r" values="24;31;24" dur="1.4s" repeatCount="indefinite"/></circle>`;}
+  return h}
+function boardFields(X){let h="";const C=LB.center,m=setObj().map;
+  if(S&&S.baby)babyPoints().forEach((b,i)=>{h+=`<g class="field" data-b="${i+1}"><circle cx="${b.x}" cy="${b.y}" r="6.5" fill="#f2cf6b" opacity=".9" stroke="#8a6a22" stroke-width="1"/><circle cx="${b.x}" cy="${b.y}" r="2.2" fill="#fff6d2"/></g>`});
   // loop petals at loop fields
-  m.forEach((c,i)=>{if(c!=="L")return;const f=LB.fields[i];const a=(f.angle||0)+Math.PI/2;const dx=Math.cos(a)*30,dy=Math.sin(a)*30;
+  m.forEach((c,i)=>{if(c!=="L")return;const f=LB.fields[i];
     h+=`<circle cx="${f.x}" cy="${f.y}" r="25" fill="none" stroke="${ringCol("L")}" stroke-width="1.6" stroke-dasharray="4 4" opacity=".8"/>`});
   m.forEach((c,i)=>{const f=LB.fields[i],pos=i+1,x=f.x,y=f.y;
     if(c==="G"){const g=D.gates[GATE_POS.indexOf(pos)];
@@ -750,17 +788,20 @@ function boardSVG(withTokens,X){X=X||"b";
     <path transform="translate(${C.x-C.r*.5},${C.y-C.r*.46}) scale(${C.r*1.0/24})" d="${HEART}" fill="url(#${X}rh)" stroke="#e6c463" stroke-width=".7"/>
     <ellipse cx="${C.x-C.r*.2}" cy="${C.y-C.r*.18}" rx="${C.r*.1}" ry="${C.r*.06}" fill="#fff" opacity=".55" transform="rotate(-30 ${C.x-C.r*.2} ${C.y-C.r*.18})"/></g>`;
   const E=LB.entrance;h+=`<text x="${E.x}" y="${E.y+30}" font-size="15" text-anchor="middle" font-family="Golden Serif,Georgia,serif" letter-spacing="4" fill="${NIGHT?"#e6c463":"#1b1712"}">START</text>`;
-  if(withTokens&&S&&S.players.length){
-    const pp=S.players.map(p=>p.pos<=0?LB.entrance:p.pos>N?{x:C.x,y:C.y}:LB.fields[p.pos-1]);
+  return h}
+function tokenXY(p){const C=LB.center,E=LB.entrance;if(p.pos<=0&&!p.half)return E;if(p.pos>N)return {x:C.x,y:C.y};if(p.half)return babyPoints()[p.pos]||E;return LB.fields[p.pos-1]}
+function boardTokens(X){let h="";const C=LB.center,E=LB.entrance;
+  if(S&&S.players.length){
+    const pp=S.players.map(tokenXY);
     pp.forEach((a,i)=>{const p=S.players[i];
       h+=`<path d="M${a.x} ${a.y} Q ${(a.x+C.x)/2+(a.y-C.y)*.18} ${(a.y+C.y)/2-(a.x-C.x)*.18} ${C.x} ${C.y}" fill="none" stroke="${p.color}" stroke-width="1.6" opacity=".35" stroke-dasharray="1 6" stroke-linecap="round"><animate attributeName="stroke-dashoffset" from="14" to="0" dur="2.2s" repeatCount="indefinite"/></path>`;
       const b=pp[(i+1)%pp.length];if(pp.length>1&&!(pp.length===2&&i===1))h+=`<path d="M${a.x} ${a.y} Q ${C.x} ${C.y} ${b.x} ${b.y}" fill="none" stroke="#e2c46f" stroke-width="1.2" opacity=".35"/>`;});
   }
-  if(withTokens&&S){
-    const groups={};S.players.forEach((p,i)=>{(groups[p.pos]=groups[p.pos]||[]).push(i)});
-    for(const pos in groups){const g=groups[pos];const P=+pos<=0?{x:E.x,y:E.y}:+pos>N?{x:C.x,y:C.y+C.r*.15}:LB.fields[+pos-1];
+  if(S){
+    const groups={};S.players.forEach((p,i)=>{const k=p.pos+(p.half?.5:0);(groups[k]=groups[k]||[]).push(i)});
+    for(const pos in groups){const g=groups[pos];const P=+pos>N?{x:C.x,y:C.y+C.r*.15}:tokenXY(S.players[g[0]]);
       g.forEach((pi,k)=>{const p=S.players[pi];const n=g.length;const R=n>1?(+pos>N?C.r*.62:17):0;const a=k/n*2*Math.PI-Math.PI/2;
-        const tx=P.x+R*Math.cos(a),ty=P.y+R*Math.sin(a)-(+pos>0&&+pos<=N?4:0);
+        const tx=P.x+R*Math.cos(a),ty=P.y+R*Math.sin(a)-(+pos>0&&+pos<=N&&!p.half?4:0);
         {const e=(p.energy==null?3:p.energy)+(p.shine||0)*.5;if(e>0)h+=`<circle cx="${tx}" cy="${ty}" r="${18+e*3}" fill="url(#${X}glow)" opacity="${Math.min(1,.45+e*.12)}" style="pointer-events:none"/>`}
         h+=`<g filter="url(#${X}sh)" style="pointer-events:none"><ellipse cx="${tx}" cy="${ty+13}" rx="11" ry="3.5" fill="#000" opacity=".18"/><circle cx="${tx}" cy="${ty}" r="14" fill="${p.color}" stroke="#fff" stroke-width="3.5"/><circle cx="${tx-4}" cy="${ty-5}" r="4" fill="#fff" opacity=".35"/><text x="${tx}" y="${ty+5}" font-size="14" font-weight="700" text-anchor="middle" fill="#fff" font-family="Golden Sans,sans-serif">${esc((p.name||"?")[0].toUpperCase())}</text></g>`;
         if(pi===S.turn&&!S.over)h+=`<circle cx="${tx}" cy="${ty}" r="16" fill="none" stroke="${p.color}" stroke-width="2"><animate attributeName="r" values="14;21;14" dur="1.8s" repeatCount="indefinite"/><animate attributeName="opacity" values="1;.2;1" dur="1.8s" repeatCount="indefinite"/></circle>`})}
@@ -772,9 +813,13 @@ const STARS=(()=>{let s="",seed=7;const rnd=()=>(seed=(seed*16807)%2147483647)/2
 function focusPoint(){if(!S)return null;const p=cur();if(!p)return null;const q=p.pos;return q<=0?LB.entrance:q>N?LB.center:LB.fields[q-1]}
 function drawBoard(){const svg=$("#board");let vb=LB.viewBox;
   if(ZOOM&&S){const f=focusPoint(),W=400;const x=Math.max(0,Math.min(800-W,f.x-W/2)),y=Math.max(0,Math.min(800-W,f.y-W/2));vb=`${x.toFixed(0)} ${y.toFixed(0)} ${W} ${W}`}
-  svg.setAttribute("viewBox",vb);svg.innerHTML=boardSVG(true);
+  svg.setAttribute("viewBox",vb);
+  const key=(S?S.setId:"")+"|"+NIGHT+"|"+(S&&S.baby?1:0);
+  if(svg._key!==key){svg.innerHTML=`<g id="Lbg">${boardBg("b",true)}</g><g id="Ltrail"></g><g id="Lfields">${boardFields("b")}</g><g id="Ltok"></g>`;svg._key=key}
+  $("#Ltrail").innerHTML=boardTrail("b");$("#Ltok").innerHTML=boardTokens("b");
   const mb=$("#moveBadge");if(S&&S.trail&&S.trail.to!==S.trail.from){const q=S.players[S.trail.who];mb.innerHTML=`<span style="color:${S.trail.color}">●</span> ${esc(q?q.name:"")}: ${S.trail.from||"Start"} → ${S.trail.to>N?"♥":S.trail.to}`;mb.classList.add("on")}else mb.classList.remove("on");
-  svg.querySelectorAll(".field").forEach(f=>f.addEventListener("click",()=>fieldInfo(+f.dataset.f)))}
+}
+document.getElementById("board").addEventListener("click",e=>{const f=e.target.closest(".field");if(!f)return;if(f.dataset.b)babyInfo(+f.dataset.b);else fieldInfo(+f.dataset.f)});
 function dieSVG(v){const P={1:[[1,1]],2:[[0,0],[2,2]],3:[[0,0],[1,1],[2,2]],4:[[0,0],[2,0],[0,2],[2,2]],5:[[0,0],[2,0],[1,1],[0,2],[2,2]],6:[[0,0],[2,0],[0,1],[2,1],[0,2],[2,2]]};
   if(!v)return `<svg width="44" height="44" viewBox="0 0 24 24"><path d="${HEART}" fill="#d9b85f"/></svg>`;
   if(v==="X")return `<svg width="50" height="50" viewBox="0 0 30 30"><path d="M8 8L22 22M22 8L8 22" stroke="#1b1712" stroke-width="3.2" stroke-linecap="round"/></svg>`;
@@ -782,7 +827,6 @@ function dieSVG(v){const P={1:[[1,1]],2:[[0,0],[2,2]],3:[[0,0],[1,1],[2,2]],4:[[
   return `<svg width="50" height="50" viewBox="0 0 30 30">${P[v].map(([a,b])=>`<circle cx="${6+a*9}" cy="${6+b*9}" r="3" fill="#1b1712"/>`).join("")}</svg>`}
 
 /* ===================== CARD THEMES ===================== */
-const RAINBOW="linear-gradient(90deg,#c0263a,#e2702a,#e8c13a,#2f8f5b,#2bb3b1,#2849a8,#7d4fb3)";
 const TH={
  choice:{bg:"radial-gradient(circle at 50% 22%,#6a5420 0,#16255a 38%,#0b1433 72%,#070c22 100%)",tx:"#fbf3dc",ac:"#f2cf6b"},
  insight:{bg:"radial-gradient(circle at 50% 22%,#3a5aa8 0,#16255a 38%,#0b1433 72%,#070c22 100%)",tx:"#fbf3dc",ac:"#f2cf6b"},
@@ -830,7 +874,7 @@ function dotHTML(n){const d=(D2.dots||[])[n-1];if(!d)return"";
 function openCard(o){if(o.sfx!=="none")sfx(o.sfx||"card");
   let dotBlock="";if(DOTCTX&&!o.noDot){dotBlock=dotHTML(DOTCTX);DOTCTX=null}
   const t=$("#tin");const tm=theme(o.th);t.setAttribute("style",themeStyle(o.th));t.className="tin"+(tm.light?" light":"")+(tm.rb?" rb":"");
-  t.innerHTML=`<div class="deck">${esc(o.deck||"")}</div><h2>${o.title}</h2>${o.sub?`<div class="sub">${o.sub}</div>`:""}
+  t.innerHTML=`<div class="deck">${esc(o.deck||"")}</div><h2 id="cardTitle">${o.title}</h2>${o.sub?`<div class="sub">${o.sub}</div>`:""}
    ${o.emb||""}${o.text?`<p>${o.text}</p>`:""}${o.prompt?`<div class="prompt">${o.prompt}</div>`:""}${o.html||""}
    ${o.timer?`<div style="margin-top:10px"><button class="btn ghost small" id="tbtn">${o.timerLabel||("Start "+o.timer+"s of stillness")}</button></div>`:""}
    ${o.input?`<textarea id="cardInput" placeholder="${esc(o.input)}" style="margin-top:10px"></textarea>`:""}
@@ -839,6 +883,7 @@ function openCard(o){if(o.sfx!=="none")sfx(o.sfx||"card");
   (o.acts||[]).forEach(([lab,fn,cls])=>{const b=document.createElement("button");b.className="btn "+(cls||"gold");b.innerHTML=lab;b.onclick=fn;A.appendChild(b)});
   if(o.timer){const tb=$("#tbtn");tb.onclick=()=>{let s=o.timer;tb.disabled=true;clearInterval(timerId);timerId=setInterval(()=>{tb.textContent="… "+(--s)+" s";if(s<=0){clearInterval(timerId);tb.textContent="✓ Time complete";chime("pearl")}},1000)}}
   $("#modal").classList.add("on");$("#modal").scrollTop=0;
+  setTimeout(()=>{const b=A.querySelector("button");if(b)try{b.focus({preventScroll:true})}catch(e){}},60);
 }
 function closeCard(){clearInterval(timerId);$("#modal").classList.remove("on")}
 function fieldInfo(pos){
@@ -877,12 +922,13 @@ function renderHome(){
   $("#addP").disabled=setup.players.length>=6;
   $("#dieSel").innerHTML=[["classic","Classic die: 1–6"],["wisdom","Wisdom die: ✕ pause · −1 step back · 1 · 2 · 3 · 4"]].map(([v,t])=>`<option value="${v}" ${setup.die===v?"selected":""}>${t}</option>`).join("");
   $("#dieSel").onchange=e=>setup.die=e.target.value;
-  $("#archLib").innerHTML=D.archetypes.map(a=>`<div class="mcard"><div class="in"><div class="k">Archetype</div><h4>${esc(a.name)}</h4>${emblem("sym",a.name[0]).replace('class="emb"','')}<div class="t"><i>${esc(a.essence)}</i></div><div class="p" style="font-size:.85rem">${esc(a.ability)}</div></div></div>`).join("");
+  $("#pathSel").value=setup.baby?"80":"40";$("#pathSel").onchange=e=>setup.baby=e.target.value==="80";
+  $("#archLib").innerHTML=D.archetypes.map(a=>`<div class="mcard arch"><div class="in" style="${themeStyle("gold")}"><div class="k">Archetype</div><h4>${esc(a.name)}</h4>${archSVG(a.id,140)}<div class="t"><i>${esc(a.essence)}</i></div><div class="p" style="font-size:.85rem">${esc(a.ability)}</div></div></div>`).join("");
   const sv=loadS();$("#resumeBtn").style.display=sv&&sv.players&&!sv.over?"inline-block":"none";
 }
 $("#addP").onclick=()=>{const used=setup.players.map(p=>p.color);setup.players.push({name:"",color:PCOLS.find(c=>!used.includes(c))||PCOLS[0],arch:D.archetypes[setup.players.length%4].id,el:["air","fire","earth","water"][setup.players.length%4]});renderHome()};
 $("#startBtn").onclick=()=>{
-  S={setId:setup.setId,die:setup.die,turn:0,bonus:0,piles:{},log:[],over:false,busy:false,rolled:0,helpedThisTurn:{},
+  S={setId:setup.setId,die:setup.die,baby:!!setup.baby,turn:0,bonus:0,piles:{},log:[],over:false,busy:false,rolled:0,helpedThisTurn:{},
      players:setup.players.map((p,i)=>({name:p.name.trim()||["Seeker of Light","Morning Star","Silver Moon","River Song","Golden Leaf","Quiet Flame"][i],color:p.color,arch:p.arch,el:p.el||"air",
        pos:0,energy:3,pearls:0,gems:[],keys:[],animals:[],tokens:0,choices:[],insight:"",rerolls:p.arch==="creator"?3:0,skip:false,done:false}))};
   log("The journey begins: “"+setObj().name+"”.");save();go("play");
@@ -931,7 +977,7 @@ function renderPlay(){
     if(p.arch==="guide"&&!S.helpedThisTurn.guide&&travellers.length)add("Guide someone +1",()=>pick("Whom do you guide one field forward?",travellers,i=>{S.helpedThisTurn.guide=1;const q=S.players[i];q.pos=Math.min(N,q.pos+1);p.tokens++;log(p.name+" guides "+q.name+" one field forward (+1 Knowledge Token).");refresh()}),"ghost small");
   }
   $("#plist").innerHTML=`<h3 style="font-size:1.3rem;margin-bottom:4px">Travellers</h3>`+S.players.map((q,i)=>`<div class="pl ${i===S.turn&&!S.over?"cur":""}">
-    <div class="pawn" style="background:${q.color}"></div><div style="flex:1;min-width:0"><b>${esc(q.name)}</b> <span class="meta">· ${ELICON[q.el]||""} ${esc(arch(q).name)}</span>
+    <div style="position:relative;flex:none"><div style="width:46px;height:46px;border-radius:50%;background:#0b1433;border:2px solid ${q.color};overflow:hidden">${archSVG(q.arch,46)}</div></div><div style="flex:1;min-width:0"><b>${esc(q.name)}</b> <span class="meta">· ${ELICON[q.el]||""} ${esc(arch(q).name)}</span>
     <div class="meta">${q.done?"♥ in the Golden Heart":q.pos?"field "+q.pos:"entrance"}${q.animals.length?" · "+q.animals.map(esc).join(", "):""}</div>
     <div class="vals">${values(q).map(v=>`<span>${esc(v)}</span>`).join("")}</div><div class="badges">${battery(q)}<span class="stat">◯ ${q.pearls}</span><span class="stat">✧ ${values(q).length}/19 values</span><span class="stat">✦ ${q.tokens}</span>${q.gems.map(g=>`<span class="gem" title="${esc(D.gates[g].gem)}" style="background:${D.gates[g].color}"></span>`).join("")}</div></div></div>`).join("");
   const L=light(),goal=Math.max(60,S.players.length*30);$("#goal").textContent=goal;$("#lightNum").textContent=L;$("#lightBar").style.width=Math.min(100,L/goal*100)+"%";
@@ -941,6 +987,7 @@ function renderPlay(){
 function refresh(){save();renderPlay()}
 const WFACES=["X",-1,1,2,3,4];
 function roll(){
+  if(!S||S.busy||S.rolled)return;
   const p=cur(),wis=S.die!=="classic",v=wis?WFACES[Math.random()*6|0]:1+(Math.random()*6|0);S.rolled=v;S.busy=true;
   sfx("dice");const d=$("#die");d.classList.remove("roll");void d.offsetWidth;d.classList.add("roll");
   let n=0;const sp=setInterval(()=>{d.innerHTML=dieSVG(wis?WFACES[Math.random()*6|0]:1+(Math.random()*6|0));if(++n>7){clearInterval(sp);d.innerHTML=dieSVG(v);
@@ -952,10 +999,12 @@ function roll(){
   renderPlay();
 }
 function walk(v){const p=cur();if(typeof v==="number"&&v>0&&D3.numbers2){const nw=D3.numbers2.find(x=>x.n===v);if(nw)toast("✦ "+v+" · "+nw.planet+" – "+nw.keywords)}if(p.double&&typeof v==="number"&&v>0){p.double=false;v*=2;toast("✦ Your wings double this roll: "+v+" fields!")}let left=v;S.trail={from:p.pos,to:p.pos,color:p.color,who:S.turn};
-  const t=setInterval(()=>{if(left<=0||p.pos>N){clearInterval(t);S.busy=false;land();return}p.pos++;left--;S.trail.to=p.pos;sfx("step");drawBoard()},280)}
+  const t=setInterval(()=>{if(left<=0||p.pos>N){clearInterval(t);S.busy=false;land();return}
+    if(S.baby&&!p.half&&p.pos<N){p.half=true}else{p.half=false;p.pos++}
+    left--;S.trail.to=p.pos;sfx("step");drawBoard()},S.baby?230:280)}
 function land(){const p=cur();
-  if(p.partner!=null){const q=S.players[p.partner];p.partner=null;if(q&&!q.done&&typeof S.rolled==="number"&&S.rolled>0){q.pos=Math.min(N,q.pos+S.rolled);log(q.name+" walks along "+S.rolled+" fields.");drawBoard()}}log(p.name+" rolls "+(S.rolled)+" → "+(p.pos>N?"the Golden Gate":"field "+p.pos)+".");
-  if(p.pos>N){goldenGate(S.turn);return}resolve(p.pos)}
+  if(p.partner!=null){const q=S.players[p.partner];p.partner=null;if(q&&!q.done&&typeof S.rolled==="number"&&S.rolled>0){q.pos=Math.min(N,q.pos+S.rolled);log(q.name+" walks along "+S.rolled+" fields.");drawBoard()}}log(p.name+" rolls "+(S.rolled)+" → "+(p.pos>N?"the Golden Gate":p.half?"a baby step after field "+p.pos:"field "+p.pos)+".");
+  if(p.pos>N){goldenGate(S.turn);return}if(p.half){babyStep();return}resolve(p.pos)}
 function done(fn){return()=>{closeCard();if(fn)fn();nextTurn()}}
 function resolve(pos){
   const p=cur(),c=setObj().map[pos-1];DOTCTX=pos;
@@ -1035,7 +1084,7 @@ const EMAX=5;
 function energy(q,dv){if(q.energy==null)q.energy=3;q.energy=Math.max(0,Math.min(EMAX,q.energy+dv))}
 function battery(q){const e=q.energy==null?3:q.energy;const col=e<=1?"#e0604a":e<=2?"#e6b04a":"#6ad08a";
   return `<span class="stat" title="Energy">⚡<svg width="30" height="12" viewBox="0 0 30 12" style="vertical-align:-1px;margin-left:3px"><rect x=".5" y=".5" width="26" height="11" rx="2.5" fill="none" stroke="#f6edd6aa"/><rect x="27" y="3.5" width="2.5" height="5" rx="1" fill="#f6edd6aa"/>${[...Array(EMAX)].map((_,i)=>`<rect x="${2+i*5}" y="2.3" width="4" height="7.4" rx="1" fill="${i<e?col:"#ffffff18"}"/>`).join("")}</svg></span>`}
-function moveTo(q,np){const i=S.players.indexOf(q);np=Math.max(0,Math.min(N+1,np));if(np===q.pos)return;sfx(np>q.pos?"fly":"back");S.trail={from:Math.min(q.pos,np),to:Math.max(q.pos,np),color:q.color,who:i};q.pos=np;if(np>N&&i!==S.turn){q.pos=N}drawBoard()}
+function moveTo(q,np){const i=S.players.indexOf(q);np=Math.max(0,Math.min(N+1,np));q.half=false;if(np===q.pos)return;sfx(np>q.pos?"fly":"back");S.trail={from:Math.min(q.pos,np),to:Math.max(q.pos,np),color:q.color,who:i};q.pos=np;if(np>N&&i!==S.turn){q.pos=N}drawBoard()}
 function applyMove(e){
   const p=cur(),me=S.turn,trav=S.players.map((q,i)=>i).filter(i=>i!==me&&!S.players[i].done);
   const fin=()=>{chime("pearl");if(p.pos>N&&!p.done){goldenGate(me);return}nextTurn()};
@@ -1218,7 +1267,7 @@ function renderCards(){
     if(libSel==="colors")return mini(d.name,esc(c.title),esc(c.text),esc(c.prompt),emblem("color",c.hex),{col:c.hex});
     if(libSel==="prayers")return mini(d.name,esc(c.title),"<i style='font-family:var(--serif);font-size:.95rem'>"+esc(c.text)+"</i>",esc(c.how),emblem("heart"),"prayers");
     if(libSel==="together")return mini(d.name,esc(c.title),esc(c.text),effectText(c.effect),emblem("sym","∞"),"together");
-    const sym={bridge:"☽",treasures:"✦",insight:"✧",animals:c.title[0],steps:"▲",loops:"↺",shine:"☀",gratitude:"♡",wings:"〰",signs:"✧"}[libSel];
+    const sym={bridge:"☽",treasures:"✦",insight:"✧",animals:(c.title||"✦")[0],steps:"▲",loops:"↺",shine:"☀",gratitude:"♡",wings:"〰",signs:"✧"}[libSel];
     if(libSel==="elevator")return mini("Elevator "+c.n+" of 10",esc(c.title),esc(c.text),"“"+esc(c.affirmation)+"”",emblem("sym","⇧"),"elevator");
     if(libSel==="film")return mini(d.name,esc(c.title),esc(c.text),esc(c.prompt),emblem("sym","🎬"),"film");
     if(libSel==="helping")return mini(esc(c.kind),esc(c.title),esc(c.text),esc(c.prompt),emblem("sym","✋"),"helping");
