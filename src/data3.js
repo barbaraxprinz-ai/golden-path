@@ -1484,5 +1484,211 @@ window.GAME_DATA3 = {
    "heart": "I trust my journey, surrendered and free, / one conscious step into all I can be.",
    "end": "One step, one breath, one heart, it sings, / smiling, I whisper, “Let the game begin.”"
   }
- }
+ },
+ "song2": {
+  "title": "The Game",
+  "intro": "Welcome, traveler.\n\nSome say life is a game…\na winding path of choices, chances, and hidden doors.\n\nWe roll the dice of courage.\nWe pass through gates of wonder.\nWe meet companions who carry pieces of our story.\n\nYet the deeper we walk the spiral,\nthe more we begin to remember…\n\nThis game was never meant to be won.\nIt was meant to be lived.\n\nAnd somewhere along the path,\nin the quiet chamber of the heart,\nthe greatest secret waits to be discovered:\n\nThe treasure was always within you.\n\nSo take your place at the board…\nand let the game begin.",
+  "moments": {
+   "gate": [
+    "Some gates ask courage to step through, / some ask us simply just to see.",
+    "Every question, every sign, / every gate we wander through… / is just another gentle step / toward the heart that calls to you."
+   ],
+   "companion": [
+    "We meet companions on the way, / some stay awhile, some disappear, / each one holds a little key / to something sacred waiting here."
+   ],
+   "silence": [
+    "Wisdom grows in silent rooms / where we become more fully free."
+   ],
+   "dice": [
+    "You take a step, you roll the dice, / some roads are bright, some hard to see, / but every turn reveals a clue / about the one you’re meant to be."
+   ],
+   "trust": [
+    "The turns were never chance at all, / the path was always guiding you…"
+   ],
+   "heart": [
+    "And when we reach the hidden room / where quiet light begins to rise, / we laugh to see what we became / while walking through the great disguise."
+   ],
+   "end": [
+    "The game was just a sacred way / for love to rediscover you.",
+    "Walk the path… unlock the heart."
+   ]
+  }
+ },
+ "helping": [
+  {
+   "kind": "Helping Hand",
+   "title": "The Mentor",
+   "text": "Someone with wisdom and experience appears and shows you the next step.",
+   "prompt": "Who has been a mentor in your life?",
+   "effect": "walk2"
+  },
+  {
+   "kind": "Helping Hand",
+   "title": "The Coach",
+   "text": "A coach helps you over an emotional hurdle – you don't have to do it alone.",
+   "prompt": "Which hurdle would you love help with?",
+   "effect": "fly3"
+  },
+  {
+   "kind": "Helping Hand",
+   "title": "The Teacher",
+   "text": "A teacher shares knowledge that opens your eyes.",
+   "prompt": "What is the best thing a teacher gave you?",
+   "effect": "insight"
+  },
+  {
+   "kind": "Helping Hand",
+   "title": "The Volunteer",
+   "text": "Someone helps you selflessly – just because.",
+   "prompt": "When did you help someone without expecting anything?",
+   "effect": "giftStep"
+  },
+  {
+   "kind": "Helping Hand",
+   "title": "The Parent",
+   "text": "A parent's love supports you to grow and learn.",
+   "prompt": "What did your parents or elders give you for your path?",
+   "effect": "bring"
+  },
+  {
+   "kind": "Helping Words",
+   "title": "“I believe in you!”",
+   "text": "A friend says the words you needed to hear.",
+   "prompt": "Say “I believe in you!” to someone at the table.",
+   "effect": "cardinal"
+  },
+  {
+   "kind": "Helping Words",
+   "title": "“Well done!”",
+   "text": "Praise and recognition lift you up.",
+   "prompt": "For what can you say “Well done!” to yourself today?",
+   "effect": "coin"
+  },
+  {
+   "kind": "Helping Words",
+   "title": "Words of Wisdom",
+   "text": "“What you sow today, you may harvest tomorrow.”",
+   "prompt": "What are you sowing right now?",
+   "effect": "double"
+  },
+  {
+   "kind": "Helping Music",
+   "title": "A Song That Lifts You",
+   "text": "A song with a positive message lifts your whole mood.",
+   "prompt": "Which song makes you feel you can do anything?",
+   "effect": "music"
+  },
+  {
+   "kind": "Helping Music",
+   "title": "A Childhood Song",
+   "text": "A song from your childhood brings back warm memories.",
+   "prompt": "Hum a song from your childhood.",
+   "effect": "allPearl"
+  },
+  {
+   "kind": "Helping Symbols",
+   "title": "The Angel",
+   "text": "A symbol of protection and guidance watches over you.",
+   "prompt": "Where do you feel protected?",
+   "effect": "toGate"
+  },
+  {
+   "kind": "Helping Symbols",
+   "title": "The Star",
+   "text": "A star – hope, guidance, endless possibilities.",
+   "prompt": "Which star guides you?",
+   "effect": "fly3"
+  },
+  {
+   "kind": "Helping Symbols",
+   "title": "The Key",
+   "text": "A key – a solution, a discovery, a door that opens.",
+   "prompt": "Which door would you love to open?",
+   "effect": "key"
+  },
+  {
+   "kind": "Helping Symbols",
+   "title": "The Bees",
+   "text": "Bees – cooperation and community. Together you are strong.",
+   "prompt": "What can this circle create together?",
+   "effect": "allForward"
+  },
+  {
+   "kind": "Helping Doors",
+   "title": "A New Beginning",
+   "text": "A door opens to a fresh new chapter. Walk 3 steps forward!",
+   "prompt": "What new chapter is calling you?",
+   "effect": "fly3"
+  },
+  {
+   "kind": "Helping Doors",
+   "title": "A Second Chance",
+   "text": "A miracle happens – you receive a second chance.",
+   "prompt": "Where would you love a second chance?",
+   "effect": "again"
+  },
+  {
+   "kind": "Helping Doors",
+   "title": "A New Friendship",
+   "text": "A door opens to a new friendship that brings support.",
+   "prompt": "Whom would you love to get to know better?",
+   "effect": "bring"
+  },
+  {
+   "kind": "Helping Doors",
+   "title": "The Door of Possibilities",
+   "text": "The journey continues – step through the door of possibilities.",
+   "prompt": "Which possibility excites you?",
+   "effect": "lucky"
+  },
+  {
+   "kind": "Helping Nature",
+   "title": "Sunrise",
+   "text": "A sunrise fills you with fresh energy.",
+   "prompt": "When did you last watch the sun rise?",
+   "effect": "energy"
+  },
+  {
+   "kind": "Helping Nature",
+   "title": "Silence of the Forest",
+   "text": "The quiet of the forest calms your mind.",
+   "prompt": "Where in nature do you find peace?",
+   "effect": "rest"
+  },
+  {
+   "kind": "Helping Challenges",
+   "title": "The Mountain Path",
+   "text": "A steep path leads to your goal – and makes you stronger.",
+   "prompt": "Which challenge made you stronger?",
+   "effect": "walk2"
+  },
+  {
+   "kind": "Helping Dreams",
+   "title": "Your Dream Is Calling",
+   "text": "Your dreams are within reach – take the first step today.",
+   "prompt": "What is one small step toward your dream?",
+   "effect": "walk2"
+  }
+ ],
+ "dreams": [
+  "Your dreams are within reach – take the first step today.",
+  "Believe in your vision, the universe is listening.",
+  "The road may be long, but your destination is worth the journey.",
+  "You are capable of more than you realize.",
+  "Each small action brings you closer to your dream.",
+  "Trust the process, your dreams are unfolding perfectly.",
+  "The seeds you plant today will blossom tomorrow.",
+  "Take a leap of faith – the net will appear.",
+  "Every setback is a setup for a comeback.",
+  "Dream big, start small, act now.",
+  "The dream you are chasing is already chasing you.",
+  "Let go of fear; your dreams are waiting on the other side.",
+  "Your dream is the path to your true self – follow it.",
+  "Trust your intuition – it’s guiding you to your dreams.",
+  "Dreams don’t have deadlines – there’s always time to begin.",
+  "Dare to dream without limits.",
+  "Your dreams are the whispers of your soul – listen closely.",
+  "You are a creator of your own destiny – don’t be afraid to dream.",
+  "Step out of your comfort zone – that’s where the dreams live."
+ ]
 };
