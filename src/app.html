@@ -449,6 +449,10 @@ html.light .mcard.arch .in .p{color:#5a4a30!important;background:#f6ecd2!importa
     <p>Choose “40 fields + 40 baby steps” for a gentler journey of 80 steps. Between the big fields lie little golden dots: a breath, a smile, a sip of water. Small steps count too – each one recharges your energy.</p>
     <h3>Stepping Stones</h3>
     <p>Sometimes the sunshine on the water hides the next stone. When you pause and look from another angle, new paths appear – left, ahead, right. It is encouraging to stop, pause and move forward in a new direction. Everything is possible.</p>
+    <h3>Obstacles &amp; Closed Doors</h3>
+    <p>As in real life, sometimes something stands in the way: a closed door, a fallen tree, thick fog, a wall of fear. They appear by chance after a roll. You always have choices: find the key within (answer the question and walk on), ask a companion for help, take another way, or wait and trust. Every obstacle is also a teacher.</p>
+    <h3>Hidden Chambers</h3>
+    <p>At the start of every journey, three hidden chambers are secretly placed in the labyrinth. Land on one and you discover it: a Chamber of Rest to recharge, a Chamber of Deep Learning, or a Chamber of Light. Once found, it stays visible on the board – and everyone may visit it.</p>
     <h3>Portals &amp; Journeys</h3>
     <p>Sometimes a portal opens on the path. Step through and travel for a few steps to another place – a forest path, a crystal cave, a mountain summit, the ocean shore, the stars, an enchanted garden, the desert of silence, a hidden waterfall, a temple of light or a village of friends. Three magical steps, three questions – and you return with a gift.</p>
     <h3>Treasure Chests</h3>
@@ -503,6 +507,8 @@ if(D3.radiate)DK.radiate={name:"Radiate Your Light",color:"#fff1b0",cards:D3.rad
 if(D3.numbers2)DK.numwis={name:"Number Wisdom",color:"#e6c463",cards:D3.numbers2};
 if(D3.recharge)DK.recharge={name:"Recharge Station",color:"#7ad08a",cards:D3.recharge};
 if(D3.moments)DK.moments={name:"Moments of Life · Ups & Downs",color:"#c86a8a",cards:D3.moments};
+if(D3.obstacles)DK.obstacles={name:"Obstacles & Closed Doors",color:"#8a7a6a",cards:D3.obstacles};
+if(D3.chambers)DK.chambers={name:"Hidden Chambers",color:"#b89a5a",cards:D3.chambers};
 if(D3.journeys)DK.journeys={name:"Journeys & Portals",color:"#b07ae0",cards:D3.journeys};
 if(D3.chests)DK.chests={name:"Treasure Chests",color:"#e6a83a",cards:D3.chests};
 if(D3.signs)DK.signs={name:"Signs, Numbers & Messages",color:"#6aa9e0",cards:D3.signs.concat(D3.numbers||[],D3.messages||[])};
@@ -618,6 +624,7 @@ function loadS(){try{return normalize(JSON.parse(localStorage.getItem(KEY)))}cat
 function normalize(st){if(!st||!Array.isArray(st.players)||!st.players.length)return null;
   st.piles=st.piles||{};st.log=st.log||[];st.bonus=st.bonus||0;st.helpedThisTurn={};st.busy=false;st.rolled=0;
   if(!SETS.some(x=>x.id===st.setId))st.setId=SETS[0].id;if(st.turn>=st.players.length)st.turn=0;
+  st._obst=false;st._chamber=null;
   st.players.forEach(p=>{p.pearls=p.pearls||0;p.gems=p.gems||[];p.keys=(p.keys||[]).filter(k=>k<7);p.animals=p.animals||[];p.tokens=p.tokens||0;p.choices=p.choices||[];if(p.energy==null)p.energy=3;p.pos=Math.max(0,Math.min(N+1,+p.pos||0));});
   return st}
 const setObj=()=>SETS.find(s=>s.id===(S?S.setId:"path"));
@@ -812,8 +819,26 @@ function archSVG(id,size){const u="ar"+(++EID),L=ARCH_LOOK[id]||ARCH_LOOK.seeker
       <path d="M${x-2.6} ${cy+5.2} Q${x} ${cy+7} ${x+2.6} ${cy+5.2} Q${x} ${cy+5.8} ${x-2.6} ${cy+5.2}Z" fill="#c86a5e"/><path d="M${x-2} ${cy+5.4} Q${x} ${cy+6} ${x+2} ${cy+5.4}" stroke="#fff" stroke-width=".45" opacity=".6" fill="none"/>`:""}
     ${P.glasses?`<g fill="none" stroke="#c9952e" stroke-width=".45"><circle cx="${x-3.6}" cy="${cy-1.1}" r="2.75"/><circle cx="${x+3.6}" cy="${cy-1.1}" r="2.75"/><path d="M${x-.85} ${cy-1.4} Q${x} ${cy-2} ${x+.85} ${cy-1.4} M${x-6.35} ${cy-1.4} L${x-7.6} ${cy-1.8} M${x+6.35} ${cy-1.4} L${x+7.6} ${cy-1.8}"/></g><ellipse cx="${x-4.4}" cy="${cy-2.2}" rx=".9" ry=".4" fill="#fff" opacity=".35"/><ellipse cx="${x+2.8}" cy="${cy-2.2}" rx=".9" ry=".4" fill="#fff" opacity=".35"/>`:""}`;
   // ----- body -----
-  const limb=(d,w=6.6)=>`<path d="${d}" stroke="url(#${u}gold)" stroke-width="${w+1.6}" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="${d}" stroke="url(#${u}r)" stroke-width="${w}" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="${d}" stroke="#fff" stroke-opacity=".12" stroke-width="${w*.35}" fill="none" stroke-linecap="round"/>`;
-  const hand=(hx,hy,r=2.9)=>`<circle cx="${hx}" cy="${hy}" r="${r}" fill="url(#${u}sk)" stroke="#9a6a4a" stroke-width=".3"/>`;
+  let LD=[0,1];
+  const limb=(d)=>{const n=d.match(/-?[\d.]+/g).map(Number);const [sx,sy,qx,qy,ex,ey]=n;
+    const mx=(sx+2*qx+ex)/4,my=(sy+2*qy+ey)/4;
+    const cx=mx+(ex-mx)*.62,cy2=my+(ey-my)*.62;
+    const dir=(ax,ay,bx,by)=>{const L=Math.hypot(bx-ax,by-ay)||1;return [(bx-ax)/L,(by-ay)/L]};
+    const nrm=(v)=>[-v[1],v[0]];
+    const d1=dir(sx,sy,mx,my),d2=dir(mx,my,cx,cy2),d3=dir(cx,cy2,ex,ey);LD=d3;
+    const n1=nrm(d1),n2=nrm([(d1[0]+d2[0])/2,(d1[1]+d2[1])/2]),n3=nrm(d2);
+    const w1=5,w2=3.7,w3=5;
+    const P=(x,y,nn,w,sg)=>`${(x+nn[0]*w*sg).toFixed(2)} ${(y+nn[1]*w*sg).toFixed(2)}`;
+    const sleeve=`M${P(sx,sy,n1,w1,1)} Q${P(mx,my,n2,w2*1.15,1)} ${P(cx,cy2,n3,w3,1)} L${P(cx,cy2,n3,w3,-1)} Q${P(mx,my,n2,w2*1.15,-1)} ${P(sx,sy,n1,w1,-1)}Z`;
+    const fold=`M${P(sx,sy,n1,w1*.2,1)} Q${P(mx,my,n2,0,1)} ${P(cx,cy2,n3,w3*.3,-1)}`;
+    const cuff=`M${P(cx,cy2,n3,w3,1)} L${P(cx,cy2,n3,w3,-1)}`;
+    return `<path d="M${cx.toFixed(2)} ${cy2.toFixed(2)} L${ex} ${ey}" stroke="url(#${u}sk)" stroke-width="3.1" stroke-linecap="round"/>
+      <path d="${sleeve}" fill="url(#${u}r)" stroke="url(#${u}gold)" stroke-width="1"/><circle cx="${sx}" cy="${sy}" r="${w1-.3}" fill="url(#${u}r)"/><path d="${sleeve}" fill="url(#${u}rs)" opacity=".7"/>
+      <path d="${fold}" stroke="#fff" stroke-opacity=".22" stroke-width=".7" fill="none"/><path d="${cuff}" stroke="url(#${u}gold)" stroke-width="1.8" stroke-linecap="round"/>`};
+  const hand=(hx,hy)=>{const [dx,dy]=LD,ang=Math.atan2(dy,dx)*180/Math.PI-90,nx=-dy,ny=dx;
+    return `<g transform="rotate(${ang.toFixed(1)} ${hx} ${hy})"><path d="M${hx-2} ${hy-2.2} Q${hx-2.4} ${hy+2.4} ${hx-.6} ${hy+3.4} Q${hx+.9} ${hy+3.8} ${hx+1.9} ${hy+2.2} Q${hx+2.3} ${hy-.6} ${hx+1.8} ${hy-2.2}Z" fill="url(#${u}sk)" stroke="#a8724e" stroke-width=".3"/>
+      <path d="M${hx-.5} ${hy+1.4} L${hx-.6} ${hy+3.2} M${hx+.6} ${hy+1.4} L${hx+.6} ${hy+3.3}" stroke="#a8724e" stroke-width=".22" opacity=".6"/></g>
+      <ellipse cx="${(hx+nx*2.1+dx*.4).toFixed(2)}" cy="${(hy+ny*2.1+dy*.4).toFixed(2)}" rx=".9" ry="1.6" transform="rotate(${(ang+30).toFixed(1)} ${(hx+nx*2.1).toFixed(2)} ${(hy+ny*2.1).toFixed(2)})" fill="url(#${u}sk)" stroke="#a8724e" stroke-width=".25"/>`};
   const torso=`<path d="M${x-12} ${cy+16} Q${x} ${cy+14} ${x+12} ${cy+16} Q${x+16} ${cy+18} ${x+16} ${cy+24} L${x+10} ${cy+52} L${x+22} ${cy+108} Q${x} ${cy+114} ${x-22} ${cy+108} L${x-10} ${cy+52} L${x-16} ${cy+24} Q${x-16} ${cy+18} ${x-12} ${cy+16}Z" fill="url(#${u}r)" stroke="url(#${u}gold)" stroke-width="1.3"/>
     <path d="M${x-12} ${cy+16} Q${x} ${cy+14} ${x+12} ${cy+16} Q${x+16} ${cy+18} ${x+16} ${cy+24} L${x+10} ${cy+52} L${x+22} ${cy+108} Q${x} ${cy+114} ${x-22} ${cy+108} L${x-10} ${cy+52} L${x-16} ${cy+24} Q${x-16} ${cy+18} ${x-12} ${cy+16}Z" fill="url(#${u}rs)"/>
     <path d="M${x-5} ${cy+15} Q${x} ${cy+22} ${x+5} ${cy+15}" fill="url(#${u}sk)" stroke="url(#${u}gold)" stroke-width="1.1"/>
@@ -849,7 +874,7 @@ function archSVG(id,size){const u="ar"+(++EID),L=ARCH_LOOK[id]||ARCH_LOOK.seeker
       <g stroke="url(#${u}gold)" fill="none" stroke-width="1.1" opacity=".85"><path d="M${x-6} ${cy+80} a4 4 0 1 1 4 4"/><path d="M${x+6} ${cy+92} a4 4 0 1 1 4 4"/><path d="M${x-2} ${cy+66} a3 3 0 1 1 3 3"/></g>`;}
   if(id==="guide"){
     back=`${cape(34)}${[[22,112],[30,130],[98,116],[90,134]].map(([sx,sy])=>star(sx,sy,2.1,G)).join("")}
-      <line x1="${x+31}" y1="${cy-12}" x2="${x+31}" y2="${cy+116}" stroke="url(#${u}gold)" stroke-width="3" stroke-linecap="round"/>
+      <line x1="${x+31}" y1="${cy-12}" x2="${x+31}" y2="${cy+116}" stroke="#a8782a" stroke-width="3.4" stroke-linecap="round"/><line x1="${x+30.4}" y1="${cy-10}" x2="${x+30.4}" y2="${cy+114}" stroke="#fff1b0" stroke-width="1" stroke-linecap="round"/>
       <circle cx="${x+31}" cy="${cy-16}" r="17" fill="url(#${u}g)"/>${star(x+31,cy-16,9)}`;
     front=`${limb(`M${x+14} ${cy+20} Q${x+24} ${cy+32} ${x+30} ${cy+38}`)}${hand(x+31,cy+38,3.1)}
       ${limb(`M${x-14} ${cy+20} Q${x-18} ${cy+34} ${x-6} ${cy+33}`)}${hand(x-4,cy+32,3)}`;}
@@ -949,6 +974,8 @@ function boardFields(X){let h="";const C=LB.center,m=setObj().map;
   return h}
 function tokenXY(p){const C=LB.center,E=LB.entrance;if(p.pos<=0&&!p.half)return E;if(p.pos>N)return {x:C.x,y:C.y};if(p.half)return babyPoints()[p.pos]||E;return LB.fields[p.pos-1]}
 function boardTokens(X){let h="";const C=LB.center,E=LB.entrance;
+  if(S&&S.hidden)for(const f in S.hidden){const hh=S.hidden[f];if(!hh.found)continue;const P=LB.fields[f-1];
+    h+=`<g style="pointer-events:none"><circle cx="${P.x+15}" cy="${P.y-15}" r="10" fill="#fffbe8" stroke="#c9952e" stroke-width="1.6"/><text x="${P.x+15}" y="${P.y-11}" font-size="11" text-anchor="middle">${CHAMBER_ICON[hh.kind]}</text></g>`}
   if(S&&S.players.length){
     const pp=S.players.map(tokenXY);
     pp.forEach((a,i)=>{const p=S.players[i];
@@ -1089,7 +1116,7 @@ $("#startBtn").onclick=()=>{
   S={setId:setup.setId,die:setup.die,baby:!!setup.baby,turn:0,bonus:0,piles:{},log:[],over:false,busy:false,rolled:0,helpedThisTurn:{},
      players:setup.players.map((p,i)=>({name:p.name.trim()||["Seeker of Light","Morning Star","Silver Moon","River Song","Golden Leaf","Quiet Flame"][i],color:p.color,arch:p.arch,el:p.el||"air",
        pos:0,energy:3,pearls:0,gems:[],keys:[],animals:[],tokens:0,choices:[],insight:"",rerolls:p.arch==="creator"?3:0,skip:false,done:false}))};
-  log("The journey begins: “"+setObj().name+"”.");save();go("play");
+  placeChambers();log("The journey begins: “"+setObj().name+"”.");save();go("play");
   setTimeout(()=>{const first=esc(cur().name);
     openCard({th:"gold",deck:"G.A.M.E 2020 · God Allows More Experiences",title:"Welcome, traveler",emb:emblem("heart"),
       html:`<div class="lyrics" style="font-size:1.15rem">This game was never meant to be won.<br>It was meant to be lived.<br><br>The treasure was always within you.</div>`+(SONG?`<div class="songline" style="margin-top:12px">♪ ${esc(SONG.chorus).replace(/\n/g,"<br>")}</div>`:""),
@@ -1160,15 +1187,17 @@ function roll(){
     else walk(v)}},65);
   renderPlay();
 }
-function walk(v){const p=cur();if(typeof v==="number"&&v>0&&D3.numbers2){const nw=D3.numbers2.find(x=>x.n===v);if(nw)toast("✦ "+v+" · "+nw.planet+" – "+nw.keywords)}if(p.double&&typeof v==="number"&&v>0){p.double=false;v*=2;toast("✦ Your wings double this roll: "+v+" fields!")}let left=v;S.trail={from:p.pos,to:p.pos,color:p.color,who:S.turn};
+function walk(v){const p=cur();
+  if(typeof v==="number"&&v>0&&!S._obst&&DK.obstacles&&(S.turnNo||0)>=3&&(S.turnNo||0)-(S.lastObst==null?-99:S.lastObst)>=4&&Math.random()<0.13){S.busy=true;showObstacle(v);return}if(typeof v==="number"&&v>0&&D3.numbers2){const nw=D3.numbers2.find(x=>x.n===v);if(nw)toast("✦ "+v+" · "+nw.planet+" – "+nw.keywords)}if(p.double&&typeof v==="number"&&v>0){p.double=false;v*=2;toast("✦ Your wings double this roll: "+v+" fields!")}let left=v;S.trail={from:p.pos,to:p.pos,color:p.color,who:S.turn};
   const t=setInterval(()=>{if(left<=0||p.pos>N){clearInterval(t);S.busy=false;land();return}
     if(S.baby&&!p.half&&p.pos<N){p.half=true}else{p.half=false;p.pos++}
     left--;S.trail.to=p.pos;sfx("step");drawBoard()},S.baby?230:280)}
-function land(){const p=cur();
+function land(){const p=cur();S._obst=false;
   if(p.partner!=null){const q=S.players[p.partner];p.partner=null;if(q&&!q.done&&typeof S.rolled==="number"&&S.rolled>0){q.pos=Math.min(N,q.pos+S.rolled);log(q.name+" walks along "+S.rolled+" fields.");drawBoard()}}log(p.name+" rolls "+(S.rolled)+" → "+(p.pos>N?"the Golden Gate":p.half?"a baby step after field "+p.pos:"field "+p.pos)+".");
   if(p.pos>N){goldenGate(S.turn);return}if(p.half){babyStep();return}resolve(p.pos)}
 function done(fn){return()=>{closeCard();if(fn)fn();nextTurn()}}
 function resolve(pos){
+  if(S.hidden&&S.hidden[pos]&&S._chamber!==pos){S._chamber=pos;openChamber(pos,()=>resolve(pos));return}
   const p=cur(),c=setObj().map[pos-1];DOTCTX=pos;
   if(c==="G"){const gi=GATE_POS.indexOf(pos),g=D.gates[gi],has=p.gems.includes(gi);chime("gate");momentMusic();
     openCard({th:{gem:g.color},deck:"Gate "+(gi+1)+" of 13",title:g.gem+" Gate",sub:g.quality,emb:emblem("gate",g.color),text:g.line,prompt:g.question,html:`<p style="font-size:.92rem;color:#e9d9ae">“${esc(g.affirmation)}”</p>`+songLine("gate"),
@@ -1348,6 +1377,25 @@ function steppingStones(){
 function portalSVG(col,icon){return `<svg class="emb" viewBox="0 0 120 120"><defs><radialGradient id="pt${col.slice(1)}"><stop offset="0" stop-color="#fffbe8"/><stop offset=".35" stop-color="${col}"/><stop offset="1" stop-color="${col}" stop-opacity="0"/></radialGradient></defs>
   <circle cx="60" cy="60" r="50" fill="url(#pt${col.slice(1)})"/>${[0,1,2].map(i=>`<ellipse cx="60" cy="60" rx="${44-i*10}" ry="${50-i*11}" fill="none" stroke="#f6d77e" stroke-width="1.4" stroke-dasharray="${6+i*3} ${4+i*2}" opacity="${.9-i*.2}"><animateTransform attributeName="transform" type="rotate" from="${i%2?360:0} 60 60" to="${i%2?0:360} 60 60" dur="${12+i*6}s" repeatCount="indefinite"/></ellipse>`).join("")}
   <text x="60" y="72" text-anchor="middle" font-size="34">${icon}</text></svg>`}
+function placeChambers(){const m=setObj().map;const cand=[];for(let i=5;i<=38;i++)if(!"GL".includes(m[i-1]))cand.push(i);
+  const pick3=shuffle(cand).slice(0,3),kinds=shuffle(["rest","learn","light"]);S.hidden={};pick3.forEach((f,i)=>S.hidden[f]={kind:kinds[i],found:false})}
+const CHAMBER_ICON={rest:"🕯",learn:"📜",light:"✨"},CHAMBER_NAME={rest:"Chamber of Rest",learn:"Chamber of Deep Learning",light:"Chamber of Light"};
+function openChamber(pos,after){const p=cur(),h=S.hidden[pos];const first=!h.found;h.found=true;sfx("sign");chime("gate");
+  const pool=DK.chambers.cards.filter(c=>c.kind===h.kind),c=pool[Math.random()*pool.length|0];
+  const rew={rest:"+3 energy · +1 pearl",learn:"+2 pearls · +1 Knowledge Token",light:"+1 pearl for you and everyone at the table"}[h.kind];
+  openCard({sfx:"none",th:{gem:{rest:"#3a8a6a",learn:"#7d4fb3",light:"#c9952e"}[h.kind]},deck:(first?"You discovered a hidden chamber!":"A hidden chamber")+" · "+CHAMBER_NAME[h.kind],title:CHAMBER_ICON[h.kind]+" "+esc(c.title),emb:portalSVG({rest:"#3a8a6a",learn:"#7d4fb3",light:"#e6b94a"}[h.kind],CHAMBER_ICON[h.kind]),
+    text:esc(c.text),prompt:esc(c.q),timer:h.kind==="rest"?20:0,timerLabel:"Rest for 20 seconds",reward:rew,
+    acts:[["Thank you, chamber ✦",()=>{closeCard();if(h.kind==="rest"){energy(p,3);p.pearls++}else if(h.kind==="learn"){p.pearls+=2;p.tokens++}else{S.players.forEach(q=>q.pearls++);energy(p,1)}
+      log(p.name+(first?" discovers ":" visits ")+"a hidden chamber: "+c.title+".");after()}]]})}
+function showObstacle(v){const p=cur(),o=DK.obstacles.cards[draw("obstacles")];S.lastObst=S.turnNo||0;sfx("back");
+  const trav=S.players.map((q,i)=>i).filter(i=>i!==S.turn&&!S.players[i].done);
+  const go=(n,msg)=>{closeCard();if(msg)log(msg);S._obst=true;if(n>0)walk(n);else{S.busy=false;S._obst=false;nextTurn()}};
+  openCard({sfx:"none",th:{gem:"#6a5a4a"},deck:"An obstacle on the path",title:o.icon+" "+esc(o.title),emb:emblem("sym",o.icon),text:esc(o.text)+"<br><br><i>You rolled "+v+". How do you meet this obstacle?</i>",
+    acts:[["🗝 Find the key within",()=>{closeCard();openCard({sfx:"none",th:{gem:"#c9952e"},deck:"The key within",title:"🗝 "+esc(o.title),emb:emblem("sym","🗝"),text:"Every obstacle is also a teacher.",prompt:esc(o.key),reward:"Answer the question – the way opens: walk "+v+" fields · +1 pearl",acts:[["The way opens ✦",()=>{p.pearls++;chime("gate");go(v,p.name+" finds the key within and passes “"+o.title+"”.")}]]})},"opt"]]
+      .concat(trav.length?[["🤝 Ask a companion for help",()=>{closeCard();pick("Who helps you over the obstacle?",trav,i=>{const q=S.players[i];q.tokens++;p.pearls++;sfx("together");go(v+1,q.name+" helps "+p.name+" over “"+o.title+"” – together you walk on.")})},"opt"]]:[])
+      .concat([["↺ Take another way",()=>go(Math.ceil(v/2),p.name+" takes another way around “"+o.title+"”.")||(p.pearls+=2),"opt"],
+               ["☾ Wait and trust",()=>{p.pearls++;energy(p,2);go(0,p.name+" waits and trusts at “"+o.title+"”.")},"opt"]])});
+}
 function startJourney(){const p=cur();sfx("sign");
   const opts=shuffle(DK.journeys.cards).slice(0,3);
   openCard({sfx:"none",th:{gem:"#7d4fb3"},deck:"Portal · a journey begins",title:"A portal opens",emb:portalSVG("#9a6ae0","◎"),
@@ -1410,7 +1458,7 @@ function pick(title,idxs,cb){
   if(!idxs.length){toast("No one else is still on the path.");return}
   openCard({deck:"Choose",title:esc(title),emb:emblem("heart"),acts:idxs.map(i=>[`<span style="display:inline-block;width:12px;height:12px;border-radius:50%;background:${S.players[i].color};margin-right:8px"></span>`+esc(S.players[i].name),()=>{closeCard();cb(i)},"opt"]).concat([["Cancel",closeCard,"ghost"]])});
 }
-function nextTurn(){DOTCTX=null;
+function nextTurn(){DOTCTX=null;if(S)S._chamber=null;
   S.turnNo=(S.turnNo||0)+1;const calm=S.turnNo-(S.lastSurprise||-9)<4;
   if(S&&!S.over&&!calm&&!S._sign&&DK.signs&&!cur().done&&!S.players.every(q=>q.done)&&Math.random()<0.25){S._sign=true;S.lastSurprise=S.turnNo;S.rolled=0;S.busy=true;refresh();chime("gate");setTimeout(()=>{S.busy=false;(DK.chests&&Math.random()<.35)?openChest(DK.chests.cards[draw("chests")]):(DK.helping&&Math.random()<.4)?drawDeck("helping"):(DK.elevator&&Math.random()<.25)?drawDeck("elevator"):showSign()},350);return}
   if(S)S._sign=false;
@@ -1435,9 +1483,9 @@ function finale(){
 let libSel="gates";
 function mini(k,title,t,p,emb,th){const tm=theme(th);return `<div class="mcard"><div class="in ${tm.light?"light":""} ${tm.rb?"rb":""}" style="${themeStyle(th)}"><div class="k">${k}</div><h4>${title}</h4>${emb.replace('class="emb"','')}<div class="t">${t}</div>${p?`<div class="p">${p}</div>`:""}</div></div>`}
 function renderCards(){
-  const chips=[["dots","40 Questions"],["journeys"],["gates","13 Gates"],["core","Core Keys"],["shine"],["gratitude"],["planets"],["wings"],["signs"],["elevator"],["film"],["helping"],["held"],["comm"],["radiate"],["numwis"],["recharge"],["moments"],["chests"],["bridge"],["treasures"],["choice"],["insight"],["pearls"],["animals"],["colors"],["prayers"],["together"],["steps"],["loops"]];
+  const chips=[["dots","40 Questions"],["journeys"],["obstacles"],["chambers"],["gates","13 Gates"],["core","Core Keys"],["shine"],["gratitude"],["planets"],["wings"],["signs"],["elevator"],["film"],["helping"],["held"],["comm"],["radiate"],["numwis"],["recharge"],["moments"],["chests"],["bridge"],["treasures"],["choice"],["insight"],["pearls"],["animals"],["colors"],["prayers"],["together"],["steps"],["loops"]];
   const chipsOk=chips.filter(([k])=>k==="gates"||k==="core"||(k==="dots"?D2.dots:DK[k]));
-  const GROUPS=[["✦ The Path",["gates","core","dots","choice","insight","pearls","steps","loops","stones"]],["♡ Heart & Soul",["prayers","held","radiate","bridge","numwis","colors","animals","shine","gratitude","recharge"]],["∞ Together",["together","comm","helping","film","moments"]],["✧ Surprises & Riddles",["journeys","chests","wings","signs","elevator","planets","treasures"]]];
+  const GROUPS=[["✦ The Path",["gates","core","dots","choice","insight","pearls","steps","loops","stones"]],["♡ Heart & Soul",["prayers","held","radiate","bridge","numwis","colors","animals","shine","gratitude","recharge"]],["∞ Together",["together","comm","helping","film","moments"]],["✧ Surprises & Riddles",["obstacles","chambers","journeys","chests","wings","signs","elevator","planets","treasures"]]];
   const okSet=new Set(chipsOk.map(c=>c[0])),nm=Object.fromEntries(chipsOk.map(([k,n])=>[k,n]));
   const btn=k=>`<button class="${k===libSel?"on":""}" data-k="${k}">${nm[k]||(DK[k]?DK[k].name:k)} ${k!=="gates"&&k!=="core"&&k!=="dots"?"<span style='opacity:.6'>"+DK[k].cards.length+"</span>":""}</button>`;
   const placed=new Set();
@@ -1465,6 +1513,8 @@ function renderCards(){
     if(libSel==="numwis")return mini(d.name,esc(c.n+" · "+c.planet),"<b>"+esc(c.keywords)+"</b><br>"+esc(c.text),esc(c.prompt),numSVG(c.n,c.planet),"numwis");
     if(libSel==="recharge")return mini(d.name,esc(c.title),esc(c.text),"How do I charge my battery right now?",emblem("sym","⚡"),"recharge");
     if(libSel==="moments")return mini(d.name+" · "+esc(c.mood),esc(c.title),esc(c.situation)+"<br><i>"+esc(c.tool)+"</i>","✦ "+esc(c.help),emblem("sym",c.mood==="Up"?"☀":"☁"),"moments");
+    if(libSel==="obstacles")return mini(d.name,c.icon+" "+esc(c.title),esc(c.text),"🗝 "+esc(c.key),emblem("sym",c.icon),{gem:"#6a5a4a"});
+    if(libSel==="chambers")return mini(CHAMBER_NAME[c.kind],CHAMBER_ICON[c.kind]+" "+esc(c.title),esc(c.text),esc(c.q),emblem("sym",CHAMBER_ICON[c.kind]),{gem:{rest:"#3a8a6a",learn:"#7d4fb3",light:"#c9952e"}[c.kind]});
     if(libSel==="journeys")return mini("Journey",c.icon+" "+esc(c.title),esc(c.intro)+"<br><i>"+c.scenes.map(x=>esc(x.q)).join("<br>")+"</i>","🎁 "+esc(c.gift),portalSVG(c.color,c.icon),{gem:c.color});
     if(libSel==="chests")return mini(d.name,esc(c.title),esc(c.situation),"✦ "+esc(c.good),chestSVG(true),"chests");
     if(["wings","signs","bridge","treasures"].includes(libSel))return mini(d.name,esc(c.title),esc(c.text)+(c.prompt?"<br><i>"+esc(c.prompt)+"</i>":""),moveText(c.effect),emblem("sym",sym),libSel);
