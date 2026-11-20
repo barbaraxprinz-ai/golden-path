@@ -449,6 +449,8 @@ html.light .mcard.arch .in .p{color:#5a4a30!important;background:#f6ecd2!importa
     <p>Choose “40 fields + 40 baby steps” for a gentler journey of 80 steps. Between the big fields lie little golden dots: a breath, a smile, a sip of water. Small steps count too – each one recharges your energy.</p>
     <h3>Stepping Stones</h3>
     <p>Sometimes the sunshine on the water hides the next stone. When you pause and look from another angle, new paths appear – left, ahead, right. It is encouraging to stop, pause and move forward in a new direction. Everything is possible.</p>
+    <h3>Funny Moments &amp; Happy Coincidences</h3>
+    <p>Life is also full of laughter: two tiny kittens behind a bush, a friend who calls just as you think of her, the bus that waits for you, the keys that were in your hand all along. Sometimes a surprise arrives: a beautiful letter, a loving e-mail, a cup of tea or a hot chocolate, flowers at the door, a funny notepad – little things that brighten the day. Funny moments appear on the path and as surprises – laugh together, make silly sounds, and enjoy the little gifts of life.</p>
     <h3>Obstacles &amp; Closed Doors</h3>
     <p>As in real life, sometimes something stands in the way: a closed door, a fallen tree, thick fog, a wall of fear. They appear by chance after a roll. You always have choices: find the key within (answer the question and walk on), ask a companion for help, take another way, or wait and trust. Every obstacle is also a teacher.</p>
     <h3>Hidden Chambers</h3>
@@ -507,6 +509,7 @@ if(D3.radiate)DK.radiate={name:"Radiate Your Light",color:"#fff1b0",cards:D3.rad
 if(D3.numbers2)DK.numwis={name:"Number Wisdom",color:"#e6c463",cards:D3.numbers2};
 if(D3.recharge)DK.recharge={name:"Recharge Station",color:"#7ad08a",cards:D3.recharge};
 if(D3.moments)DK.moments={name:"Moments of Life · Ups & Downs",color:"#c86a8a",cards:D3.moments};
+if(D3.funny)DK.funny={name:"Funny Moments & Happy Coincidences",color:"#ffb84a",cards:D3.funny};
 if(D3.obstacles)DK.obstacles={name:"Obstacles & Closed Doors",color:"#8a7a6a",cards:D3.obstacles};
 if(D3.chambers)DK.chambers={name:"Hidden Chambers",color:"#b89a5a",cards:D3.chambers};
 if(D3.journeys)DK.journeys={name:"Journeys & Portals",color:"#b07ae0",cards:D3.journeys};
@@ -553,6 +556,7 @@ const T={ // field types
  D:{deck:null,name:"Stepping Stones",sym:"◍"},
  T:{deck:"film",name:"Director's Chair",sym:"🎬"},
  "~":{deck:null,name:"Portal · Journey",sym:"◎"},
+ "!":{deck:"funny",name:"Funny Moment",sym:"☺"},
  "^":{deck:"elevator",name:"Elevator · Lift Me Up",sym:"⇧"}
 };
 Object.keys(T).forEach(k=>{if(T[k].deck&&!DK[T[k].deck])T[k].deck="pearls"});
@@ -573,6 +577,7 @@ const DESC={
  Y:"A moment of gratitude: share when you felt it. +1 pearl",
  J:"Jump & Learn: visit a planet and bring back its special power or wisdom.",
  K:"Bridge of Light: feel the connection between here and there – then move on.",
+ "!":"A funny moment or a happy coincidence – laugh together and enjoy the little gift of life.",
  "~":"A portal opens: choose a journey – a forest path, a crystal cave, the stars … – and live three magical steps there. You return with a gift.",
  "^":"Elevator · Lift Me Up: empowerment! You are lifted several fields forward – unique and special.",
  T:"Director's Chair: you are producer, director, author and actor of the film of your life. Who do you want to be?",
@@ -595,10 +600,10 @@ const SETS=[
 ];
 const TURN_FIELDS=[...new Set((LB.turns||[]).map(t=>t.field))].filter(f=>f>=2&&f<=N-1&&!GATE_POS.includes(f));
 const MIX={
- wisdom:"PPHW~JCTYSSQ~UUEEDD^OVXK",
- path:"CCIT~PAMBSSQUE~DD^OVXFWK",
- animals:"AA~FFCTPSSQ~UEEDD^OVXWMB",
- heart:"MM~BBRCTYSSQU~EED^NOVXKP"};
+ wisdom:"P!HW~JCTYSSQ~U!EEDD^OVXK",
+ path:"C!IT~PAMBSSQ!E~DD^OVXFWK",
+ animals:"AA~F!CTPSSQ~U!EDD^OVXWMB",
+ heart:"M!~BBRCTYSSQU~!ED^NOVXKP"};
 function buildMap(set){
   const m=[];for(let i=1;i<=N;i++)m.push(GATE_POS.includes(i)?"G":"");
   TURN_FIELDS.forEach(f=>{if(m[f-1]!=="G")m[f-1]="L"});
@@ -1171,7 +1176,7 @@ function renderPlay(){
     <div class="vals">${values(q).map(v=>`<span>${esc(v)}</span>`).join("")}</div><div class="badges">${battery(q)}<span class="stat">◯ ${q.pearls}</span><span class="stat">✧ ${values(q).length}/19 values</span><span class="stat">✦ ${q.tokens}</span>${q.gems.map(g=>`<span class="gem" title="${esc(D.gates[g].gem)}" style="background:${D.gates[g].color}"></span>`).join("")}</div></div></div>`).join("");
   const L=light(),goal=Math.max(60,S.players.length*30);$("#goal").textContent=goal;$("#lightNum").textContent=L;$("#lightBar").style.width=Math.min(100,L/goal*100)+"%";
   $("#log").innerHTML=S.log.map(t=>`<div>${esc(t)}</div>`).join("");
-  $("#legend").innerHTML=Object.entries(T).map(([k,t])=>`<span><svg width="16" height="16"><circle cx="8" cy="8" r="6" fill="${k==="G"?"#7d4fb3":k==="S"?"#d9b85f":k==="Q"?"#c98a2e":k==="E"?"#6ad08a":k==="N"?"#e6c463":k==="O"?"#fff1b0":k==="V"?"#7fc8f0":k==="X"?"#8fd0a8":k==="D"?"#1f4a8a":k==="T"?"#d98a5a":k==="^"?"#f6d77e":k==="~"?"#9a6ae0":"#15120e"}" stroke="${k==="P"||k==="G"||k==="S"?"none":ringCol(k)}" stroke-width="2.6"/></svg>${t.name}</span>`).join("");
+  $("#legend").innerHTML=Object.entries(T).map(([k,t])=>`<span><svg width="16" height="16"><circle cx="8" cy="8" r="6" fill="${k==="G"?"#7d4fb3":k==="S"?"#d9b85f":k==="Q"?"#c98a2e":k==="E"?"#6ad08a":k==="N"?"#e6c463":k==="O"?"#fff1b0":k==="V"?"#7fc8f0":k==="X"?"#8fd0a8":k==="D"?"#1f4a8a":k==="T"?"#d98a5a":k==="^"?"#f6d77e":k==="~"?"#9a6ae0":k==="!"?"#ffb84a":"#15120e"}" stroke="${k==="P"||k==="G"||k==="S"?"none":ringCol(k)}" stroke-width="2.6"/></svg>${t.name}</span>`).join("");
 }
 function refresh(){save();renderPlay()}
 const WFACES=["X",-1,1,2,3,4];
@@ -1248,6 +1253,8 @@ function drawDeck(deck){
       openCard({...base,th:"comm",sub:"What is said? · What is heard? · What is needed?",emb:emblem("sym","❝"),text:esc(card.exercise),prompt:esc(card.question),reward:"Both partners +1 Knowledge Token · +1 pearl",
         acts:[["We communicated clearly ✦",()=>{closeCard();if(!nb.length){p.pearls++;p.tokens++;nextTurn();return}
           pick("Who was your partner in this exercise?",nb,i=>{const q=S.players[i];p.tokens++;q.tokens++;p.pearls++;q.pearls++;sfx("together");log(p.name+" and "+q.name+" practise clear communication: “"+card.title+"”.");nextTurn()})}]].concat(swap)});return}
+    if(deck==="funny"){openCard({...base,th:{gem:"#e6902a"},sub:"Funny Moments & Happy Coincidences",title:card.icon+" "+esc(card.title),emb:`<svg class="emb" viewBox="0 0 120 120"><circle cx="60" cy="60" r="44" fill="#ffd27a33" stroke="#f6d77e" stroke-width="1.5"/><text x="60" y="78" text-anchor="middle" font-size="50">${card.icon}</text></svg>`,text:esc(card.text),prompt:esc(card.prompt),reward:"😊 "+moveText(card.effect),
+      acts:[["Ha! Life is wonderful ✦",()=>{closeCard();sfx("sign");log(p.name+" – "+card.title+" "+card.icon);applyMove(card.effect)}]].concat(swap)});return}
     if(deck==="radiate"){openCard({...base,th:"radiate",sub:esc(card.quality),emb:emblem("sym","☼"),text:esc(card.text),prompt:esc(card.prompt),html:`<p style="font-family:var(--serif);font-style:italic;font-size:1.15rem;color:#fff1b0">“${esc(card.affirmation)}”</p>`+songLine("radiate"),reward:"Your light lifts everyone: all +1 pearl · you +1 energy",
       acts:[["I radiate my light ☼",done(()=>{S.players.forEach(q=>q.pearls++);energy(p,1);p.shine=(p.shine||0)+1;chime("heart");log(p.name+" radiates "+card.quality+" – everyone receives light.")})]].concat(swap)});return}
     if(deck==="numwis"){openCard({...base,th:"numwis",title:esc(card.n+" · "+card.planet),sub:esc(card.keywords),emb:numSVG(card.n,card.planet),text:esc(card.text),prompt:esc(card.prompt),reward:moveText(card.effect),
@@ -1460,7 +1467,7 @@ function pick(title,idxs,cb){
 }
 function nextTurn(){DOTCTX=null;if(S)S._chamber=null;
   S.turnNo=(S.turnNo||0)+1;const calm=S.turnNo-(S.lastSurprise||-9)<4;
-  if(S&&!S.over&&!calm&&!S._sign&&DK.signs&&!cur().done&&!S.players.every(q=>q.done)&&Math.random()<0.25){S._sign=true;S.lastSurprise=S.turnNo;S.rolled=0;S.busy=true;refresh();chime("gate");setTimeout(()=>{S.busy=false;(DK.chests&&Math.random()<.35)?openChest(DK.chests.cards[draw("chests")]):(DK.helping&&Math.random()<.4)?drawDeck("helping"):(DK.elevator&&Math.random()<.25)?drawDeck("elevator"):showSign()},350);return}
+  if(S&&!S.over&&!calm&&!S._sign&&DK.signs&&!cur().done&&!S.players.every(q=>q.done)&&Math.random()<0.25){S._sign=true;S.lastSurprise=S.turnNo;S.rolled=0;S.busy=true;refresh();chime("gate");setTimeout(()=>{S.busy=false;(DK.chests&&Math.random()<.35)?openChest(DK.chests.cards[draw("chests")]):(DK.funny&&Math.random()<.3)?drawDeck("funny"):(DK.helping&&Math.random()<.4)?drawDeck("helping"):(DK.elevator&&Math.random()<.25)?drawDeck("elevator"):showSign()},350);return}
   if(S)S._sign=false;
   if(S&&!S.over&&!calm&&!S._held&&DK.held&&!S.players.every(q=>q.done)&&Math.random()<0.15){S._held=true;S.lastSurprise=S.turnNo;S.busy=true;refresh();setTimeout(()=>{S.busy=false;showHeld(()=>nextTurn())},300);return}
   if(S)S._held=false;
@@ -1483,9 +1490,9 @@ function finale(){
 let libSel="gates";
 function mini(k,title,t,p,emb,th){const tm=theme(th);return `<div class="mcard"><div class="in ${tm.light?"light":""} ${tm.rb?"rb":""}" style="${themeStyle(th)}"><div class="k">${k}</div><h4>${title}</h4>${emb.replace('class="emb"','')}<div class="t">${t}</div>${p?`<div class="p">${p}</div>`:""}</div></div>`}
 function renderCards(){
-  const chips=[["dots","40 Questions"],["journeys"],["obstacles"],["chambers"],["gates","13 Gates"],["core","Core Keys"],["shine"],["gratitude"],["planets"],["wings"],["signs"],["elevator"],["film"],["helping"],["held"],["comm"],["radiate"],["numwis"],["recharge"],["moments"],["chests"],["bridge"],["treasures"],["choice"],["insight"],["pearls"],["animals"],["colors"],["prayers"],["together"],["steps"],["loops"]];
+  const chips=[["dots","40 Questions"],["funny"],["journeys"],["obstacles"],["chambers"],["gates","13 Gates"],["core","Core Keys"],["shine"],["gratitude"],["planets"],["wings"],["signs"],["elevator"],["film"],["helping"],["held"],["comm"],["radiate"],["numwis"],["recharge"],["moments"],["chests"],["bridge"],["treasures"],["choice"],["insight"],["pearls"],["animals"],["colors"],["prayers"],["together"],["steps"],["loops"]];
   const chipsOk=chips.filter(([k])=>k==="gates"||k==="core"||(k==="dots"?D2.dots:DK[k]));
-  const GROUPS=[["✦ The Path",["gates","core","dots","choice","insight","pearls","steps","loops","stones"]],["♡ Heart & Soul",["prayers","held","radiate","bridge","numwis","colors","animals","shine","gratitude","recharge"]],["∞ Together",["together","comm","helping","film","moments"]],["✧ Surprises & Riddles",["obstacles","chambers","journeys","chests","wings","signs","elevator","planets","treasures"]]];
+  const GROUPS=[["✦ The Path",["gates","core","dots","choice","insight","pearls","steps","loops","stones"]],["♡ Heart & Soul",["prayers","held","radiate","bridge","numwis","colors","animals","shine","gratitude","recharge"]],["∞ Together",["together","comm","helping","film","moments"]],["✧ Surprises & Riddles",["funny","obstacles","chambers","journeys","chests","wings","signs","elevator","planets","treasures"]]];
   const okSet=new Set(chipsOk.map(c=>c[0])),nm=Object.fromEntries(chipsOk.map(([k,n])=>[k,n]));
   const btn=k=>`<button class="${k===libSel?"on":""}" data-k="${k}">${nm[k]||(DK[k]?DK[k].name:k)} ${k!=="gates"&&k!=="core"&&k!=="dots"?"<span style='opacity:.6'>"+DK[k].cards.length+"</span>":""}</button>`;
   const placed=new Set();
@@ -1513,6 +1520,7 @@ function renderCards(){
     if(libSel==="numwis")return mini(d.name,esc(c.n+" · "+c.planet),"<b>"+esc(c.keywords)+"</b><br>"+esc(c.text),esc(c.prompt),numSVG(c.n,c.planet),"numwis");
     if(libSel==="recharge")return mini(d.name,esc(c.title),esc(c.text),"How do I charge my battery right now?",emblem("sym","⚡"),"recharge");
     if(libSel==="moments")return mini(d.name+" · "+esc(c.mood),esc(c.title),esc(c.situation)+"<br><i>"+esc(c.tool)+"</i>","✦ "+esc(c.help),emblem("sym",c.mood==="Up"?"☀":"☁"),"moments");
+    if(libSel==="funny")return mini(d.name,c.icon+" "+esc(c.title),esc(c.text),esc(c.prompt),`<svg viewBox="0 0 120 120"><text x="60" y="80" text-anchor="middle" font-size="60">${c.icon}</text></svg>`,{gem:"#e6902a"});
     if(libSel==="obstacles")return mini(d.name,c.icon+" "+esc(c.title),esc(c.text),"🗝 "+esc(c.key),emblem("sym",c.icon),{gem:"#6a5a4a"});
     if(libSel==="chambers")return mini(CHAMBER_NAME[c.kind],CHAMBER_ICON[c.kind]+" "+esc(c.title),esc(c.text),esc(c.q),emblem("sym",CHAMBER_ICON[c.kind]),{gem:{rest:"#3a8a6a",learn:"#7d4fb3",light:"#c9952e"}[c.kind]});
     if(libSel==="journeys")return mini("Journey",c.icon+" "+esc(c.title),esc(c.intro)+"<br><i>"+c.scenes.map(x=>esc(x.q)).join("<br>")+"</i>","🎁 "+esc(c.gift),portalSVG(c.color,c.icon),{gem:c.color});
