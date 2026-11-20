@@ -45,6 +45,7 @@ label.l{font-weight:700;font-size:.82rem;color:var(--muted);display:block;margin
 .hero h1{font-size:clamp(2.2rem,6vw,3.6rem);line-height:.95}
 .hero .tag{font-family:var(--serif);font-style:italic;color:var(--gold);font-size:1.5rem;margin:6px 0 10px}
 .hero p{line-height:1.55;color:#3c342a;margin:0 0 8px}
+@media (max-width:860px){.hero .thumb{max-width:300px;margin:0 auto}}
 .hero .thumb{background:#fff;border:1px solid var(--line);border-radius:22px;padding:8px}
 .prow{display:grid;grid-template-columns:auto 1fr 1fr auto;gap:8px;align-items:center;margin-bottom:8px}
 .swatches{display:flex;gap:4px}
@@ -115,6 +116,11 @@ label.l{font-weight:700;font-size:.82rem;color:var(--muted);display:block;margin
 .dot .dt{font-family:var(--caps);font-size:.8rem;letter-spacing:.12em;color:var(--ac)}
 .dot p{font-size:.95rem!important;margin:6px 0}
 .dot .dq{font-family:var(--serif);font-style:italic;font-size:1.08rem}
+details.opts{margin-top:10px}details.opts summary,details.more summary,details.legendbox summary,details.rulesmore summary{cursor:pointer;color:#f6d77e;font-weight:700;list-style:none;padding:6px 0}
+details.opts summary::-webkit-details-marker,details.more summary::-webkit-details-marker,details.legendbox summary::-webkit-details-marker,details.rulesmore summary::-webkit-details-marker{display:none}
+details.more summary{font-family:var(--serif);font-size:1.25rem}
+.extras{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}.extras .btn{padding:7px 10px;font-size:.85rem;border-radius:99px}
+.chipgroup{font-family:var(--caps);font-size:.68rem;letter-spacing:.18em;color:#cfc4a6;margin:10px 0 4px;width:100%}
 .vals{display:flex;flex-wrap:wrap;gap:4px;margin-top:4px}
 .vals span{font-family:var(--serif);font-size:.95rem;font-weight:600;color:#1a1405;background:linear-gradient(135deg,#f6d77e,#c9952e);border-radius:99px;padding:1px 9px}
 .vals span.off{background:transparent;color:#f6edd680;border:1px solid #f2cf6b44}
@@ -136,6 +142,7 @@ label.l{font-weight:700;font-size:.82rem;color:var(--muted);display:block;margin
 .mcard .p{font-family:var(--serif);font-style:italic;color:var(--tx);border-radius:6px;font-size:.92rem;margin-top:auto;line-height:1.2}
 .mcard svg{width:54px;height:54px;margin:4px auto}
 .mcard.arch svg{width:160px;height:200px}.mcard.arch{aspect-ratio:auto}.mcard.arch .in{min-height:300px}
+@media (max-width:600px){#archLib{grid-template-columns:1fr 1fr!important;gap:8px}.mcard.arch svg{width:118px;height:148px}.mcard.arch .in{min-height:0;padding:8px}.mcard.arch .t,.mcard.arch .p{font-size:.78rem!important}}
 /* music */
 .song{display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:1px dashed var(--line)}
 .song .n{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
@@ -242,33 +249,34 @@ footer{color:#cfc4a6!important}
       <div class="caps hint">G.A.M.E 2020 · God Allows More Experiences</div>
       <h1>The Golden Path</h1>
       <div class="lyrics" style="font-size:1.25rem;color:#f6d77e;margin:4px 0 6px" id="hymn"></div>
-      <div class="tag">Are you on your path?</div><p style="font-family:var(--serif);font-size:1.15rem;color:#f6d77e">Walk the Golden Path of life toward the Golden Heart – and reach the values of the soul: Intuition · Creation · Passion · Motivation · Inspiration · Compassion · Connection …</p><div class="caps hint" style="margin:-4px 0 10px;letter-spacing:.3em">✦ Shuffle the dots ✦</div>
-      <p>Walk the seven circuits of the labyrinth toward the Golden Heart. Every step is an experience, every experience a Pearl of Wisdom. Pass through twelve gemstone gates and the Golden Gate, pause on golden steps, take loops to rethink a choice, and help each other along the way.</p>
-      <p><b>The True Path.</b> Deep down in our heart and soul we know the true way of living: connected, supporting and helping others, guiding and serving, becoming the best person possible – humble, kind and loving. Pure golden heart wisdom. A conscious way of living life.</p>
-      <p><b>You never walk alone.</b> Whatever step you take, you grow – and the others walk with you. Everything is connected: every pearl you gather lights the Golden Heart for everyone.</p>
-      <p>No one wins against anyone. The journey is complete when everyone has arrived – together.</p>
+      <div class="tag">Are you on your path?</div>
+      <p>A game of life. Walk the labyrinth together toward the Golden Heart – learn, grow and enjoy the journey. <b>No one wins. Everyone arrives.</b></p>
     </div>
     <div class="thumb"><svg id="thumb" viewBox="0 0 800 800" style="width:100%;display:block"></svg></div>
-  </div>
-  <div class="panel" id="welcomePanel" style="text-align:center">
-    <div class="caps hint" style="letter-spacing:.3em">Welcome, traveler</div>
-    <div class="lyrics" id="welcomeText" style="font-size:1.12rem;margin:8px 0"></div>
-    <button class="btn ghost small" id="welcomeSpeak">🔊 Listen to the welcome</button>
   </div>
   <div class="panel">
     <h3 style="font-size:1.5rem">Choose your journey</h3>
     <div class="setcards" id="setcards" style="margin-top:8px"></div>
-    <label class="l">The path</label><select id="pathSel"><option value="40">40 fields</option><option value="80">40 fields + 40 baby steps in between (80 steps)</option></select>
-    <label class="l">The die</label><select id="dieSel"></select>
     <label class="l">Travellers (2–6 on one device · ages 9–99)</label>
     <div id="prows"></div>
+    <details class="opts"><summary>More options · path length &amp; die</summary><label class="l">The path</label><select id="pathSel"><option value="40">40 fields</option><option value="80">40 fields + 40 baby steps in between (80 steps)</option></select>
+    <label class="l">The die</label><select id="dieSel"></select></details>
     <div class="actions">
       <button class="btn ghost small" id="addP">+ Add traveller</button>
       <button class="btn gold" id="startBtn">Begin the journey</button>
       <button class="btn ghost" id="resumeBtn" style="display:none">Continue saved journey</button>
     </div>
   </div>
-  <div class="panel"><h3 style="font-size:1.5rem;margin-bottom:8px">Archetypes</h3><div class="lib" id="archLib" style="grid-template-columns:repeat(auto-fill,minmax(170px,1fr))"></div></div>
+  <div class="panel"><h3 style="font-size:1.5rem;margin-bottom:8px">The four archetypes</h3><div class="lib" id="archLib" style="grid-template-columns:repeat(auto-fill,minmax(170px,1fr))"></div></div>
+  <details class="panel more" id="welcomePanel"><summary>✦ Welcome, traveler – the story of the game</summary>
+    <div style="text-align:center"><div class="lyrics" id="welcomeText" style="font-size:1.12rem;margin:8px 0"></div>
+    <button class="btn ghost small" id="welcomeSpeak">🔊 Listen to the welcome</button></div>
+    <p style="font-family:var(--serif);font-size:1.15rem;color:#f6d77e">Walk the Golden Path of life toward the Golden Heart – and reach the values of the soul: Intuition · Creation · Passion · Motivation · Inspiration · Compassion · Connection …</p>
+      <p>Walk the seven circuits of the labyrinth toward the Golden Heart. Every step is an experience, every experience a Pearl of Wisdom. Pass through twelve gemstone gates and the Golden Gate, pause on golden steps, take loops to rethink a choice, and help each other along the way.</p>
+      <p><b>The True Path.</b> Deep down in our heart and soul we know the true way of living: connected, supporting and helping others, guiding and serving, becoming the best person possible – humble, kind and loving. Pure golden heart wisdom. A conscious way of living life.</p>
+      <p><b>You never walk alone.</b> Whatever step you take, you grow – and the others walk with you. Everything is connected: every pearl you gather lights the Golden Heart for everyone.</p>
+      <p>No one wins against anyone. The journey is complete when everyone has arrived – together.</p>
+  </details>
 </section>
 
 <!-- PLAY -->
@@ -276,7 +284,7 @@ footer{color:#cfc4a6!important}
   <div class="game">
     <div>
       <div class="boardwrap"><div class="movebadge" id="moveBadge"></div><button class="zoombtn" id="zoomBtn">⌕ Zoom</button><button class="zoombtn" id="nightBtn" style="top:52px">☾ Night sky</button><button class="zoombtn" id="sfxBtn" style="top:92px">🔊 Sound</button><svg id="board" viewBox="0 0 800 800" role="img" aria-label="Game board: the Golden Path labyrinth"></svg></div>
-      <div class="legend" id="legend"></div>
+      <details class="legendbox"><summary>✦ Field guide</summary><div class="legend" id="legend"></div></details>
     </div>
     <div>
       <div class="panel">
@@ -293,7 +301,7 @@ footer{color:#cfc4a6!important}
       <div class="panel">
         <div style="display:flex;justify-content:space-between;align-items:baseline"><h3 style="font-size:1.3rem">Light of the Golden Heart</h3><b id="lightNum">0</b></div>
         <div class="lightbar" style="margin-top:6px"><i id="lightBar"></i></div>
-        <div class="hint" style="margin-top:5px">Shared by everyone. Pearl +1 · Value +2 · Knowledge Token +3 · Prayer +2. Goal: <b id="goal">80</b></div>
+        <div class="hint" style="margin-top:5px">One shared light – everything you learn and give makes it shine. Goal: <b id="goal">80</b></div>
       </div>
       <div class="panel" id="plist"></div>
       <div class="panel"><h3 style="font-size:1.3rem;margin-bottom:4px">Journal</h3><div class="log" id="log"></div></div>
@@ -349,6 +357,17 @@ footer{color:#cfc4a6!important}
   <div class="panel">
     <h2 style="font-size:2.2rem">How to play</h2>
     <p><i>Every step can become a Pearl of Wisdom. The question behind each move: What does this step show me about my own path?</i></p>
+    <div class="panel" style="background:#f2cf6b14;border-color:#f2cf6b66">
+      <h3 style="margin-top:0">Quick start</h3>
+      <ol style="margin:0;padding-left:20px;line-height:1.7">
+        <li>Choose your archetype and begin together.</li>
+        <li>Roll the die and walk the golden path.</li>
+        <li>Read the card aloud – answer, share, smile.</li>
+        <li>Help each other on the way – that is how the light grows.</li>
+        <li>Everyone arrives in the Golden Heart. No one wins – everyone grows.</li>
+      </ol>
+    </div>
+    <details class="rulesmore"><summary>✦ Read all the details – fields, cards and wisdom</summary>
     <h3>The Golden Values</h3>
     <p>The Golden Path is life in steps; its goal is the Golden Heart. On the way you reach the <b>19 Golden Values</b> – strengthening words ending in “-on”: the 12 gate qualities (Passion, Communication, Meditation, Regeneration, Compassion, Transformation, Intuition, Imagination, Inspiration, Innovation, Intention, Cooperation) and 7 values from the Golden Steps (Creation, Motivation, Connection, Devotion, Celebration, Illumination, Elevation). At the end you see which values the whole circle reached together.</p>
     <p class="lyrics" style="font-size:1.1rem">This game was never meant to be won. It was meant to be lived. The treasure was always within you.</p>
@@ -392,6 +411,8 @@ footer{color:#cfc4a6!important}
     <p>Choose “40 fields + 40 baby steps” for a gentler journey of 80 steps. Between the big fields lie little golden dots: a breath, a smile, a sip of water. Small steps count too – each one recharges your energy.</p>
     <h3>Stepping Stones</h3>
     <p>Sometimes the sunshine on the water hides the next stone. When you pause and look from another angle, new paths appear – left, ahead, right. It is encouraging to stop, pause and move forward in a new direction. Everything is possible.</p>
+    <h3>Portals &amp; Journeys</h3>
+    <p>Sometimes a portal opens on the path. Step through and travel for a few steps to another place – a forest path, a crystal cave, a mountain summit, the ocean shore, the stars, an enchanted garden, the desert of silence, a hidden waterfall, a temple of light or a village of friends. Three magical steps, three questions – and you return with a gift.</p>
     <h3>Treasure Chests</h3>
     <p>Discover treasure chests on the path. Each one holds a little riddle from real life – a missed bus, a rainy day, a broken cup. Which choice brings more meaning? Find the little happiness – the ladybug on a stone, a helping hand, a rainbow after the rain – and the chest opens with a gift.</p>
     <h3>Bridge of Light &amp; Treasures</h3>
@@ -401,6 +422,7 @@ footer{color:#cfc4a6!important}
     <h3>Knowledge Tokens</h3>
     <p>Whenever you help another traveller – gift a pearl, walk someone forward, send light from the Heart – you receive a Knowledge Token.</p>
     <h3>Archetypes</h3><ul id="ruleArch"></ul>
+    </details>
     <h3>Playing online</h3>
     <p class="hint">This version is for 2–6 people around one device (or a shared screen in a video call). True online play on separate devices needs a small server component – planned for the next version.</p>
   </div>
@@ -443,6 +465,7 @@ if(D3.radiate)DK.radiate={name:"Radiate Your Light",color:"#fff1b0",cards:D3.rad
 if(D3.numbers2)DK.numwis={name:"Number Wisdom",color:"#e6c463",cards:D3.numbers2};
 if(D3.recharge)DK.recharge={name:"Recharge Station",color:"#7ad08a",cards:D3.recharge};
 if(D3.moments)DK.moments={name:"Moments of Life · Ups & Downs",color:"#c86a8a",cards:D3.moments};
+if(D3.journeys)DK.journeys={name:"Journeys & Portals",color:"#b07ae0",cards:D3.journeys};
 if(D3.chests)DK.chests={name:"Treasure Chests",color:"#e6a83a",cards:D3.chests};
 if(D3.signs)DK.signs={name:"Signs, Numbers & Messages",color:"#6aa9e0",cards:D3.signs.concat(D3.numbers||[],D3.messages||[])};
 DK.core.name="Golden Values";
@@ -485,6 +508,7 @@ const T={ // field types
  X:{deck:"helping",name:"Helping Hands",sym:"✋"},
  D:{deck:null,name:"Stepping Stones",sym:"◍"},
  T:{deck:"film",name:"Director's Chair",sym:"🎬"},
+ "~":{deck:null,name:"Portal · Journey",sym:"◎"},
  "^":{deck:"elevator",name:"Elevator · Lift Me Up",sym:"⇧"}
 };
 Object.keys(T).forEach(k=>{if(T[k].deck&&!DK[T[k].deck])T[k].deck="pearls"});
@@ -505,6 +529,7 @@ const DESC={
  Y:"A moment of gratitude: share when you felt it. +1 pearl",
  J:"Jump & Learn: visit a planet and bring back its special power or wisdom.",
  K:"Bridge of Light: feel the connection between here and there – then move on.",
+ "~":"A portal opens: choose a journey – a forest path, a crystal cave, the stars … – and live three magical steps there. You return with a gift.",
  "^":"Elevator · Lift Me Up: empowerment! You are lifted several fields forward – unique and special.",
  T:"Director's Chair: you are producer, director, author and actor of the film of your life. Who do you want to be?",
  D:"Stepping stones in the water: the sunshine hides the next step. Pause, change your angle – and a new path appears. Everything is possible.",
@@ -526,10 +551,10 @@ const SETS=[
 ];
 const TURN_FIELDS=[...new Set((LB.turns||[]).map(t=>t.field))].filter(f=>f>=2&&f<=N-1&&!GATE_POS.includes(f));
 const MIX={
- wisdom:"PPHWWJCTYSSQQUUEEDD^OVXK",
- path:"CCITPPAMBSSQUEEDD^OVXFWK",
- animals:"AAAFFCTPSSQQUEEDD^OVXWMB",
- heart:"MMMBBRCTYSSQUUEED^NOVXKP"};
+ wisdom:"PPHW~JCTYSSQ~UUEEDD^OVXK",
+ path:"CCIT~PAMBSSQUE~DD^OVXFWK",
+ animals:"AA~FFCTPSSQ~UEEDD^OVXWMB",
+ heart:"MM~BBRCTYSSQU~EED^NOVXKP"};
 function buildMap(set){
   const m=[];for(let i=1;i<=N;i++)m.push(GATE_POS.includes(i)?"G":"");
   TURN_FIELDS.forEach(f=>{if(m[f-1]!=="G")m[f-1]="L"});
@@ -840,6 +865,9 @@ function boardFields(X){let h="";const C=LB.center,m=setObj().map;
       <path d="M${x-9} ${y+17}V${y}a9 9 0 0 1 18 0V${y+17}Z" fill="#fff" opacity=".88"/><text x="${x}" y="${y+14}" font-size="14" text-anchor="middle" font-weight="700" fill="#1b1712" font-family="Georgia,serif">${pos}</text></g>`;return}
     if(c==="S"){let s=`<g class="field" data-f="${pos}" filter="url(#${X}sh)">`;for(let k=0;k<3;k++)s+=`<ellipse cx="${x}" cy="${y+8-k*7}" rx="18" ry="8" fill="${k===2?"#e6c463":"#c9a44c"}" stroke="#8a6a22" stroke-width="1"/>`;
       h+=s+`<text x="${x}" y="${y-9}" font-size="14" text-anchor="middle" font-weight="700" fill="#3a2a0a" font-family="Georgia,serif">${pos}</text></g>`;return}
+    if(c==="~"){h+=`<g class="field" data-f="${pos}"><circle cx="${x}" cy="${y}" r="21" fill="#2a1a5a" stroke="#c9a0ff" stroke-width="2"/>
+      <circle cx="${x}" cy="${y}" r="15" fill="none" stroke="#f6d77e" stroke-width="1.6" stroke-dasharray="5 3"><animateTransform attributeName="transform" type="rotate" from="0 ${x} ${y}" to="360 ${x} ${y}" dur="10s" repeatCount="indefinite"/></circle>
+      <circle cx="${x}" cy="${y}" r="8" fill="#c9a0ff" opacity=".55"/><text x="${x}" y="${y+5}" font-size="13" font-weight="700" text-anchor="middle" fill="#fff6d2" font-family="Georgia,serif">${pos}</text></g>`;return}
     if(c==="D"){h+=`<g class="field" data-f="${pos}"><circle cx="${x}" cy="${y}" r="20" fill="#1f4a8a" stroke="#8fc0f0" stroke-width="2"/>
       <ellipse cx="${x-7}" cy="${y+6}" rx="6" ry="3" fill="#c9b48a"/><ellipse cx="${x+3}" cy="${y-1}" rx="5.5" ry="2.7" fill="#c9b48a"/><ellipse cx="${x+10}" cy="${y-8}" rx="5" ry="2.4" fill="#f2cf6b" opacity=".6"/>
       <text x="${x}" y="${y+18}" font-size="10" font-weight="700" text-anchor="middle" fill="#fff6d2" font-family="Georgia,serif">${pos}</text></g>`;return}
@@ -969,12 +997,12 @@ function renderHome(){
   if(SONG3&&$("#hymn")&&!$("#hymn").textContent){$("#hymn").textContent=SONG3.chorus}
   if(SONG2&&$("#welcomeText")&&!$("#welcomeText").textContent){$("#welcomeText").textContent=SONG2.intro.replace(/^Welcome, traveler\.\n\n/,"");$("#welcomeSpeak").onclick=()=>speak(SONG2.intro)}
   if(!SONG2&&$("#welcomePanel"))$("#welcomePanel").style.display="none";
-  if(D2.intro&&!$("#intro2")){const pEl=document.createElement("p");pEl.id="intro2";pEl.style.fontStyle="italic";pEl.textContent=D2.intro;document.querySelector(".hero .tag").parentNode.insertBefore(pEl,document.querySelector(".hero .tag").nextSibling.nextSibling)}
+  if(D2.intro&&!$("#intro2")){const pEl=document.createElement("p");pEl.id="intro2";pEl.className="lyrics";pEl.style.fontSize="1.05rem";pEl.textContent=D2.intro;$("#welcomeText").parentNode.after(pEl)}
   $("#thumb").setAttribute("viewBox",LB.viewBox);
   const keep=S;S=null;S={setId:setup.setId};$("#thumb").innerHTML=boardSVG(false,"t");S=keep;
   $("#setcards").innerHTML=SETS.map(s=>{const cnt={};s.map.forEach(c=>cnt[c]=(cnt[c]||0)+1);
     return `<button class="setcard ${s.id===setup.setId?"on":""}" data-s="${s.id}"><div class="caps hint" style="font-size:.62rem">40 fields</div><h4>${s.name}</h4><div class="hint">${s.desc}</div>
-    <div class="hint" style="margin-top:6px;font-size:.75rem">${Object.entries(cnt).map(([k,v])=>v+" "+T[k].name).join(" · ")}</div></button>`}).join("");
+    </button>`}).join("");
   $("#setcards").querySelectorAll("[data-s]").forEach(b=>b.onclick=()=>{setup.setId=b.dataset.s;renderHome()});
   const box=$("#prows");box.innerHTML="";
   setup.players.forEach((p,i)=>{const r=document.createElement("div");r.className="prow";
@@ -1002,10 +1030,11 @@ $("#startBtn").onclick=()=>{
      players:setup.players.map((p,i)=>({name:p.name.trim()||["Seeker of Light","Morning Star","Silver Moon","River Song","Golden Leaf","Quiet Flame"][i],color:p.color,arch:p.arch,el:p.el||"air",
        pos:0,energy:3,pearls:0,gems:[],keys:[],animals:[],tokens:0,choices:[],insight:"",rerolls:p.arch==="creator"?3:0,skip:false,done:false}))};
   log("The journey begins: “"+setObj().name+"”.");save();go("play");
-  setTimeout(()=>welcomeCard(()=>openCard({th:"gold",deck:"G.A.M.E 2020 · The Golden Path",title:"Let the game begin",emb:emblem("heart"),
-    html:SONG?`<div class="lyrics">${esc(SONG.chorus)}</div><div class="hint" style="margin-top:6px;color:#cfc4a6!important">♪ “${esc(SONG.title)}” – words by ${esc(SONG.author)}</div>`:"",
-    text:"Take one breath together. Then "+esc(cur().name)+" holds the die first.",
-    acts:(themeSong()>=0?[["♪ Play my song & begin",()=>{playTheme();closeCard()}]]:[]).concat([["Let the game begin ✦",closeCard,themeSong()>=0?"ghost":"gold"]])})),300);
+  setTimeout(()=>{const first=esc(cur().name);
+    openCard({th:"gold",deck:"G.A.M.E 2020 · God Allows More Experiences",title:"Welcome, traveler",emb:emblem("heart"),
+      html:`<div class="lyrics" style="font-size:1.15rem">This game was never meant to be won.<br>It was meant to be lived.<br><br>The treasure was always within you.</div>`+(SONG?`<div class="songline" style="margin-top:12px">♪ ${esc(SONG.chorus).replace(/\n/g,"<br>")}</div>`:""),
+      text:"Take one breath together. Then "+first+" holds the die first.",
+      acts:(themeSong()>=0?[["♪ Play my song &amp; begin",()=>{playTheme();closeCard()}]]:[]).concat(SONG2?[["🔊 Listen to the welcome",()=>speak(SONG2.intro),"ghost"]]:[]).concat([["Let the game begin ✦",()=>{try{speechSynthesis.cancel()}catch(e){}closeCard()},themeSong()>=0?"ghost":"gold"]])})},300);
 };
 $("#resumeBtn").onclick=()=>{S=loadS();S.busy=false;go("play")};
 $("#newGame").onclick=()=>openCard({deck:"New journey",title:"Begin again?",text:"The current journey will end. Your journal will be cleared.",acts:[["Yes, start fresh",()=>{closeCard();try{localStorage.removeItem(KEY)}catch(e){}S=null;go("home")}],["Keep walking",closeCard,"ghost"]]});
@@ -1038,21 +1067,22 @@ function renderPlay(){
   } else {
     add(S.rolled?"Walking…":"Roll the die",roll,"gold",!!S.rolled);
     if(!S.rolled&&!S.busy){
-      if(!S.helpedThisTurn.ask&&(p.heartRest||0)<=0)add("♡ Listen to your heart",askHelp,"ghost small");
-      if(travellers.length&&!S.helpedThisTurn.join)add("🤝 Walk together",()=>pick("With whom do you walk this turn? Your roll moves you both.",travellers,i=>{S.helpedThisTurn.join=1;sfx("together");p.partner=i;p.tokens++;S.players[i].tokens++;chime("pearl");log(p.name+" and "+S.players[i].name+" walk together.");refresh();if(SONG2)toast("♪ "+SONG2.moments.companion[0].split(" / ").slice(2).join(" "))}),"ghost small");
-      if(travellers.length&&!S.helpedThisTurn.insp)add("✦ Inspire / give an answer",()=>pick("Whom do you inspire with a word or an answer?",travellers,i=>{S.helpedThisTurn.insp=1;S.players[i].pearls++;p.tokens++;chime("pearl");log(p.name+" inspires "+S.players[i].name+" (+1 pearl · +1 Knowledge Token).");toast("✦ Share your words now – then roll.");refresh()}),"ghost small");
-      add("☾ Silence – pause a round",()=>{sfx("silence");energy(p,2);p.skip=true;log(p.name+" chooses silence and pauses a round (Loop).");openCard({th:"loops",deck:"Silence",title:"A round in stillness",emb:emblem("sym","☾"),text:"You step into the loop of silence. Breathe, listen, let your soul catch up.",html:songLine("silence"),reward:"Next turn: +1 pearl",acts:[["I rest in silence",done()]]})},"ghost small");
+      const ex=document.createElement("div");ex.className="extras";box.appendChild(ex);const addX=(t,f)=>{const b=document.createElement("button");b.className="btn ghost";b.innerHTML=t;b.disabled=S.busy;b.onclick=f;ex.appendChild(b)};
+      if(!S.helpedThisTurn.ask&&(p.heartRest||0)<=0)addX("♡ Heart",askHelp);
+      if(travellers.length&&!S.helpedThisTurn.join)addX("🤝 Together",()=>pick("With whom do you walk this turn? Your roll moves you both.",travellers,i=>{S.helpedThisTurn.join=1;sfx("together");p.partner=i;p.tokens++;S.players[i].tokens++;chime("pearl");log(p.name+" and "+S.players[i].name+" walk together.");refresh();if(SONG2)toast("♪ "+SONG2.moments.companion[0].split(" / ").slice(2).join(" "))}));
+      if(travellers.length&&!S.helpedThisTurn.insp)addX("✦ Inspire",()=>pick("Whom do you inspire with a word or an answer?",travellers,i=>{S.helpedThisTurn.insp=1;S.players[i].pearls++;p.tokens++;chime("pearl");log(p.name+" inspires "+S.players[i].name+" (+1 pearl · +1 Knowledge Token).");toast("✦ Share your words now – then roll.");refresh()}));
+      addX("☾ Silence",()=>{sfx("silence");energy(p,2);p.skip=true;log(p.name+" chooses silence and pauses a round (Loop).");openCard({th:"loops",deck:"Silence",title:"A round in stillness",emb:emblem("sym","☾"),text:"You step into the loop of silence. Breathe, listen, let your soul catch up.",html:songLine("silence"),reward:"Next turn: +1 pearl",acts:[["I rest in silence",done()]]})});
     }
     if(p.arch==="healer"&&p.pearls>0&&!S.helpedThisTurn.healer&&travellers.length)add("Gift a pearl",()=>pick("Who receives your pearl?",travellers,i=>{p.pearls--;S.players[i].pearls++;p.tokens++;S.helpedThisTurn.healer=1;log(p.name+" gifts a pearl to "+S.players[i].name+" (+1 Knowledge Token).");refresh()}),"ghost small");
     if(p.arch==="guide"&&!S.helpedThisTurn.guide&&travellers.length)add("Guide someone +1",()=>pick("Whom do you guide one field forward?",travellers,i=>{S.helpedThisTurn.guide=1;const q=S.players[i];q.pos=Math.min(N,q.pos+1);p.tokens++;log(p.name+" guides "+q.name+" one field forward (+1 Knowledge Token).");refresh()}),"ghost small");
   }
   $("#plist").innerHTML=`<h3 style="font-size:1.3rem;margin-bottom:4px">Travellers</h3>`+S.players.map((q,i)=>`<div class="pl ${i===S.turn&&!S.over?"cur":""}">
     <div style="position:relative;flex:none"><div style="width:46px;height:46px;border-radius:50%;background:#0b1433;border:2px solid ${q.color};overflow:hidden">${archSVG(q.arch,46)}</div></div><div style="flex:1;min-width:0"><b>${esc(q.name)}</b> <span class="meta">· ${ELICON[q.el]||""} ${esc(arch(q).name)}</span>
-    <div class="meta">${q.done?"♥ in the Golden Heart":q.pos?"field "+q.pos:"entrance"}${q.animals.length?" · "+q.animals.map(esc).join(", "):""}</div>
+    <div class="meta">${q.done?"♥ in the Golden Heart":q.pos?"field "+q.pos:"entrance"}${(q.journeys||[]).length?" · "+q.journeys.map(x=>x.split(" ")[0]).join(""):""}${q.animals.length?" · "+q.animals.map(esc).join(", "):""}</div>
     <div class="vals">${values(q).map(v=>`<span>${esc(v)}</span>`).join("")}</div><div class="badges">${battery(q)}<span class="stat">◯ ${q.pearls}</span><span class="stat">✧ ${values(q).length}/19 values</span><span class="stat">✦ ${q.tokens}</span>${q.gems.map(g=>`<span class="gem" title="${esc(D.gates[g].gem)}" style="background:${D.gates[g].color}"></span>`).join("")}</div></div></div>`).join("");
   const L=light(),goal=Math.max(60,S.players.length*30);$("#goal").textContent=goal;$("#lightNum").textContent=L;$("#lightBar").style.width=Math.min(100,L/goal*100)+"%";
   $("#log").innerHTML=S.log.map(t=>`<div>${esc(t)}</div>`).join("");
-  $("#legend").innerHTML=Object.entries(T).map(([k,t])=>`<span><svg width="16" height="16"><circle cx="8" cy="8" r="6" fill="${k==="G"?"#7d4fb3":k==="S"?"#d9b85f":k==="Q"?"#c98a2e":k==="E"?"#6ad08a":k==="N"?"#e6c463":k==="O"?"#fff1b0":k==="V"?"#7fc8f0":k==="X"?"#8fd0a8":k==="D"?"#1f4a8a":k==="T"?"#d98a5a":k==="^"?"#f6d77e":"#15120e"}" stroke="${k==="P"||k==="G"||k==="S"?"none":ringCol(k)}" stroke-width="2.6"/></svg>${t.name}</span>`).join("");
+  $("#legend").innerHTML=Object.entries(T).map(([k,t])=>`<span><svg width="16" height="16"><circle cx="8" cy="8" r="6" fill="${k==="G"?"#7d4fb3":k==="S"?"#d9b85f":k==="Q"?"#c98a2e":k==="E"?"#6ad08a":k==="N"?"#e6c463":k==="O"?"#fff1b0":k==="V"?"#7fc8f0":k==="X"?"#8fd0a8":k==="D"?"#1f4a8a":k==="T"?"#d98a5a":k==="^"?"#f6d77e":k==="~"?"#9a6ae0":"#15120e"}" stroke="${k==="P"||k==="G"||k==="S"?"none":ringCol(k)}" stroke-width="2.6"/></svg>${t.name}</span>`).join("");
 }
 function refresh(){save();renderPlay()}
 const WFACES=["X",-1,1,2,3,4];
@@ -1084,6 +1114,7 @@ function resolve(pos){
   if(c==="R"){momentMusic();openCard({th:"pearls",deck:"Stillness",title:"Field of Stillness",emb:emblem("pearl"),text:"In stillness the path becomes visible. Everyone closes their eyes and breathes together.",timer:30,reward:"Everyone +1 pearl",
       acts:[["We kept the silence",done(()=>{S.players.forEach(q=>{q.pearls++;energy(q,1)});chime("pearl");log("Shared stillness – everyone +1 pearl · +1 energy.")})]]});return}
   if(c==="D"){steppingStones();return}
+  if(c==="~"){startJourney();return}
   if(c==="L"){openCard({th:"loops",deck:"Crossing",title:"A turning point",sub:"Do you need time?",emb:emblem("sym","↺"),text:"Here the path turns. You may step into the Loop of Reflection: pause for one turn, rethink a decision, and receive a pearl.",
       acts:[["Take the loop",()=>{closeCard();takeLoop()}],["Continue on the path",done(),"ghost"]]});return}
   if(c==="S"){if(!playRole("dream"))momentMusic();const card=DK.steps.cards[draw("steps")];
@@ -1252,6 +1283,25 @@ function steppingStones(){
             openCard({th:"loops",deck:"Stepping Stones",title:"A new direction",emb:stonesSVG(true),text:esc(o[1]),reward:"+1 pearl · +1 energy for pausing",acts:[["Step onto it ✦",()=>{closeCard();applyMove(o[0])}]]})},"opt"])})}],
       ["Step on without looking",()=>{closeCard();moveTo(p,p.pos+1);log(p.name+" steps on – one stone forward.");nextTurn()},"ghost"]]});
 }
+function portalSVG(col,icon){return `<svg class="emb" viewBox="0 0 120 120"><defs><radialGradient id="pt${col.slice(1)}"><stop offset="0" stop-color="#fffbe8"/><stop offset=".35" stop-color="${col}"/><stop offset="1" stop-color="${col}" stop-opacity="0"/></radialGradient></defs>
+  <circle cx="60" cy="60" r="50" fill="url(#pt${col.slice(1)})"/>${[0,1,2].map(i=>`<ellipse cx="60" cy="60" rx="${44-i*10}" ry="${50-i*11}" fill="none" stroke="#f6d77e" stroke-width="1.4" stroke-dasharray="${6+i*3} ${4+i*2}" opacity="${.9-i*.2}"><animateTransform attributeName="transform" type="rotate" from="${i%2?360:0} 60 60" to="${i%2?0:360} 60 60" dur="${12+i*6}s" repeatCount="indefinite"/></ellipse>`).join("")}
+  <text x="60" y="72" text-anchor="middle" font-size="34">${icon}</text></svg>`}
+function startJourney(){const p=cur();sfx("sign");
+  const opts=shuffle(DK.journeys.cards).slice(0,3);
+  openCard({sfx:"none",th:{gem:"#7d4fb3"},deck:"Portal · a journey begins",title:"A portal opens",emb:portalSVG("#9a6ae0","◎"),
+    text:"Shimmering light, a soft hum – the path invites you to step into another place for a few steps. Where does your heart want to go?",
+    acts:opts.map(j=>[j.icon+" "+esc(j.title),()=>{closeCard();journeyStep(j,0)},"opt"]).concat([["Stay on the path",()=>{closeCard();nextTurn()},"ghost"]])});
+}
+function journeyStep(j,k){const p=cur();
+  if(k===0){sfx("wings");log(p.name+" steps through a portal: "+j.title+".");
+    openCard({sfx:"none",th:{gem:j.color},deck:"Journey · "+esc(j.title),title:j.icon+" "+esc(j.title),emb:portalSVG(j.color,j.icon),text:esc(j.intro),acts:[["Step in ✦",()=>{closeCard();journeyStep(j,1)}]]});return}
+  if(k<=3){const sc=j.scenes[k-1];sfx("step");
+    openCard({sfx:"none",th:{gem:j.color},deck:esc(j.title)+" · step "+k+" of 3",title:["The first step","Deeper in","The heart of the journey"][k-1],emb:portalSVG(j.color,j.icon),text:esc(sc.text),prompt:esc(sc.q),
+      acts:[[k<3?"Walk on ✦":"Return to the path ✦",()=>{closeCard();journeyStep(j,k+1)}]]});return}
+  chime("gate");p.pearls+=2;energy(p,1);(p.journeys=p.journeys||[]).push(j.icon+" "+j.title);
+  openCard({th:"treasures",deck:"Back on the Golden Path",title:"You return with a gift",emb:portalSVG(j.color,"🎁"),text:"<b>"+esc(j.gift)+"</b><br>"+esc(j.giftText),prompt:"What do you take from this journey into your life?",reward:"+2 pearls · +1 energy · the portal carries you 2 fields forward",
+    acts:[["Thank you, journey ✦",()=>{closeCard();log(p.name+" returns from "+j.title+" with "+j.gift.toLowerCase()+".");moveTo(p,p.pos+2);if(p.pos>N&&!p.done){goldenGate(S.turn);return}nextTurn()}]]});
+}
 function showSign(){sfx("sign");
   const p=cur(),card=DK.signs.cards[draw("signs")];
   openCard({th:"sign",deck:"A surprise for "+esc(p.name),title:esc(card.title),sub:"Signs from the Universe",emb:emblem("sym",/^\d|^Number/.test(card.title)?"✶":"✧"),text:esc(card.text),html:songLine("trust"),prompt:card.prompt?esc(card.prompt):"",reward:moveText(card.effect),
@@ -1299,9 +1349,10 @@ function pick(title,idxs,cb){
   openCard({deck:"Choose",title:esc(title),emb:emblem("heart"),acts:idxs.map(i=>[`<span style="display:inline-block;width:12px;height:12px;border-radius:50%;background:${S.players[i].color};margin-right:8px"></span>`+esc(S.players[i].name),()=>{closeCard();cb(i)},"opt"]).concat([["Cancel",closeCard,"ghost"]])});
 }
 function nextTurn(){DOTCTX=null;
-  if(S&&!S.over&&!S._sign&&DK.signs&&!cur().done&&!S.players.every(q=>q.done)&&Math.random()<0.3){S._sign=true;S.rolled=0;S.busy=true;refresh();chime("gate");setTimeout(()=>{S.busy=false;(DK.chests&&Math.random()<.35)?openChest(DK.chests.cards[draw("chests")]):(DK.helping&&Math.random()<.4)?drawDeck("helping"):(DK.elevator&&Math.random()<.25)?drawDeck("elevator"):showSign()},350);return}
+  S.turnNo=(S.turnNo||0)+1;const calm=S.turnNo-(S.lastSurprise||-9)<4;
+  if(S&&!S.over&&!calm&&!S._sign&&DK.signs&&!cur().done&&!S.players.every(q=>q.done)&&Math.random()<0.25){S._sign=true;S.lastSurprise=S.turnNo;S.rolled=0;S.busy=true;refresh();chime("gate");setTimeout(()=>{S.busy=false;(DK.chests&&Math.random()<.35)?openChest(DK.chests.cards[draw("chests")]):(DK.helping&&Math.random()<.4)?drawDeck("helping"):(DK.elevator&&Math.random()<.25)?drawDeck("elevator"):showSign()},350);return}
   if(S)S._sign=false;
-  if(S&&!S.over&&!S._held&&DK.held&&!S.players.every(q=>q.done)&&Math.random()<0.18){S._held=true;S.busy=true;refresh();setTimeout(()=>{S.busy=false;showHeld(()=>nextTurn())},300);return}
+  if(S&&!S.over&&!calm&&!S._held&&DK.held&&!S.players.every(q=>q.done)&&Math.random()<0.15){S._held=true;S.lastSurprise=S.turnNo;S.busy=true;refresh();setTimeout(()=>{S.busy=false;showHeld(()=>nextTurn())},300);return}
   if(S)S._held=false;
   if(S.players.every(q=>q.done)){S.over=true;S.rolled=0;refresh();setTimeout(finale,500);return}
   S.rolled=0;S.helpedThisTurn={};S.turn=(S.turn+1)%S.players.length;{const n=cur();if(n.heartRest>0)n.heartRest--}refresh();
@@ -1312,7 +1363,7 @@ function finale(){
   const together=[...new Set(S.players.flatMap(values))];
   const html=`<div style="margin:8px 0 4px;font-family:var(--caps);letter-spacing:.14em;font-size:.75rem;color:var(--ac)">Values reached together</div><div class="vals big">${ALLVALUES.map(v=>`<span class="${together.includes(v)?"":"off"}">${esc(v)}</span>`).join("")}</div>`+S.players.map(q=>`<div style="text-align:left;margin:8px 0;padding:10px;border:1px solid #d9b85f55;border-radius:12px">
     <b style="color:#fff6dc">${esc(q.name)}</b> <span style="color:#d9b85f;font-size:.85rem">· ${q.pearls} pearls · ${q.gems.length} gems · ${q.keys.length} key${q.keys.length===1?"":"s"} · ${q.tokens} token${q.tokens===1?"":"s"}</span>
-    <div class="vals">${values(q).map(v=>`<span>${esc(v)}</span>`).join("")}</div>${q.animals.length?`<div style="font-size:.82rem;color:#cdbb92">Companions: ${q.animals.map(esc).join(", ")}</div>`:""}
+    <div class="vals">${values(q).map(v=>`<span>${esc(v)}</span>`).join("")}</div>${(q.journeys||[]).length?`<div style="font-size:.82rem;color:#cdbb92">Journeys: ${q.journeys.map(esc).join(", ")}</div>`:""}${q.animals.length?`<div style="font-size:.82rem;color:#cdbb92">Companions: ${q.animals.map(esc).join(", ")}</div>`:""}
     ${q.insight?`<div style="font-family:var(--serif);font-style:italic;font-size:1.1rem;margin-top:4px">“${esc(q.insight)}”</div>`:""}</div>`).join("");
   openCard({th:"gold",deck:"The journey is complete",title:"The Golden Heart shines",sub:"Shared light: "+L,emb:emblem("heart"),html2:"",text:(SONG?`<span class="lyrics" style="font-size:1.15rem">${esc(SONG.moments.end)}</span><br><br>`:"")+(SONG3?`<span class="lyrics" style="font-size:1.15rem">${esc(SONG3.chorus)}</span><br><br>`:"")+(SONG2?`<span class="lyrics" style="font-size:1.25rem;color:#f6d77e">Walk the path… unlock the heart.</span><br><br>`:"")+"<b>The True Path:</b> connected, helping, guiding, serving – humble, kind and loving. Pure golden heart wisdom.<br><br>Life does not happen against us – it invites us forward. Everything is connected, and no one walked alone. Thank you for sharing the path with joy.",html,
     acts:[["Close",closeCard,"ghost"],["Begin a new journey",()=>{closeCard();try{localStorage.removeItem(KEY)}catch(e){}S=null;go("home")}]]});
@@ -1322,9 +1373,14 @@ function finale(){
 let libSel="gates";
 function mini(k,title,t,p,emb,th){const tm=theme(th);return `<div class="mcard"><div class="in ${tm.light?"light":""} ${tm.rb?"rb":""}" style="${themeStyle(th)}"><div class="k">${k}</div><h4>${title}</h4>${emb.replace('class="emb"','')}<div class="t">${t}</div>${p?`<div class="p">${p}</div>`:""}</div></div>`}
 function renderCards(){
-  const chips=[["dots","40 Questions"],["gates","13 Gates"],["core","Core Keys"],["shine"],["gratitude"],["planets"],["wings"],["signs"],["elevator"],["film"],["helping"],["held"],["comm"],["radiate"],["numwis"],["recharge"],["moments"],["chests"],["bridge"],["treasures"],["choice"],["insight"],["pearls"],["animals"],["colors"],["prayers"],["together"],["steps"],["loops"]];
+  const chips=[["dots","40 Questions"],["journeys"],["gates","13 Gates"],["core","Core Keys"],["shine"],["gratitude"],["planets"],["wings"],["signs"],["elevator"],["film"],["helping"],["held"],["comm"],["radiate"],["numwis"],["recharge"],["moments"],["chests"],["bridge"],["treasures"],["choice"],["insight"],["pearls"],["animals"],["colors"],["prayers"],["together"],["steps"],["loops"]];
   const chipsOk=chips.filter(([k])=>k==="gates"||k==="core"||(k==="dots"?D2.dots:DK[k]));
-  $("#deckChips").innerHTML=chipsOk.map(([k,n])=>`<button class="${k===libSel?"on":""}" data-k="${k}">${n||(DK[k]?DK[k].name:k)} ${k!=="gates"&&k!=="core"&&k!=="dots"?"<span style='opacity:.6'>"+DK[k].cards.length+"</span>":""}</button>`).join("");
+  const GROUPS=[["✦ The Path",["gates","core","dots","choice","insight","pearls","steps","loops","stones"]],["♡ Heart & Soul",["prayers","held","radiate","bridge","numwis","colors","animals","shine","gratitude","recharge"]],["∞ Together",["together","comm","helping","film","moments"]],["✧ Surprises & Riddles",["journeys","chests","wings","signs","elevator","planets","treasures"]]];
+  const okSet=new Set(chipsOk.map(c=>c[0])),nm=Object.fromEntries(chipsOk.map(([k,n])=>[k,n]));
+  const btn=k=>`<button class="${k===libSel?"on":""}" data-k="${k}">${nm[k]||(DK[k]?DK[k].name:k)} ${k!=="gates"&&k!=="core"&&k!=="dots"?"<span style='opacity:.6'>"+DK[k].cards.length+"</span>":""}</button>`;
+  const placed=new Set();
+  $("#deckChips").innerHTML=GROUPS.map(([g,ks])=>{const list=ks.filter(k=>okSet.has(k));list.forEach(k=>placed.add(k));return list.length?`<div class="chipgroup">${g}</div>`+list.map(btn).join(""):""}).join("")+
+    (chipsOk.some(([k])=>!placed.has(k))?`<div class="chipgroup">More</div>`+chipsOk.filter(([k])=>!placed.has(k)).map(([k])=>btn(k)).join(""):"");
   $("#deckChips").querySelectorAll("button").forEach(b=>b.onclick=()=>{libSel=b.dataset.k;renderCards()});
   let h="";
   if(libSel==="dots"){h=(D2.dots||[]).map(d=>mini("Step "+d.n+" · Question of the Path",esc(d.title),esc(d.question),"",emblem("sym",String(d.n)),"choice")).join("")}
@@ -1347,6 +1403,7 @@ function renderCards(){
     if(libSel==="numwis")return mini(d.name,esc(c.n+" · "+c.planet),"<b>"+esc(c.keywords)+"</b><br>"+esc(c.text),esc(c.prompt),numSVG(c.n,c.planet),"numwis");
     if(libSel==="recharge")return mini(d.name,esc(c.title),esc(c.text),"How do I charge my battery right now?",emblem("sym","⚡"),"recharge");
     if(libSel==="moments")return mini(d.name+" · "+esc(c.mood),esc(c.title),esc(c.situation)+"<br><i>"+esc(c.tool)+"</i>","✦ "+esc(c.help),emblem("sym",c.mood==="Up"?"☀":"☁"),"moments");
+    if(libSel==="journeys")return mini("Journey",c.icon+" "+esc(c.title),esc(c.intro)+"<br><i>"+c.scenes.map(x=>esc(x.q)).join("<br>")+"</i>","🎁 "+esc(c.gift),portalSVG(c.color,c.icon),{gem:c.color});
     if(libSel==="chests")return mini(d.name,esc(c.title),esc(c.situation),"✦ "+esc(c.good),chestSVG(true),"chests");
     if(["wings","signs","bridge","treasures"].includes(libSel))return mini(d.name,esc(c.title),esc(c.text)+(c.prompt?"<br><i>"+esc(c.prompt)+"</i>":""),moveText(c.effect),emblem("sym",sym),libSel);
     return mini(d.name,esc(c.title),esc(c.text),c.prompt?esc(c.prompt):"",libSel==="pearls"?emblem("pearl"):emblem("sym",sym),libSel)}).join("")}
