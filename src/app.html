@@ -749,7 +749,7 @@ if(LIGHT){document.documentElement.classList.add("light");}
 const ARCH_DARK0={seeker:{robe:["#8a5ae0","#2a1060"],glow:"#d8c0ff",bg:"#5a3a9a"},healer:{robe:["#2fb874","#063a22"],glow:"#9cf0c0",bg:"#1f7a4a"},
  creator:{robe:["#f0a23a","#6a2c08"],glow:"#ffe08a",bg:"#a8601a"},guide:{robe:["#36c8d8","#06304a"],glow:"#b8f6ff",bg:"#1a7a90"}};
 const ARCH_GOLD={seeker:{robe:["#2f6ae8","#0a1e5a"],glow:"#8fc0ff",bg:"#cfe0ff"},healer:{robe:["#2fb874","#064a2a"],glow:"#9cf0c0",bg:"#d4f4e0"},
- creator:{robe:["#ff7a3a","#b8201a"],glow:"#ffb86a",bg:"#ffd4b8"},guide:{robe:["#fffdf6","#e6c97a"],glow:"#f6d77e",bg:"#fbf0cf"}};
+ creator:{robe:["#d8262a","#6a0a12"],glow:"#ffd27a",bg:"#ffe0b0"},guide:{robe:["#fffdf6","#e6c97a"],glow:"#f6d77e",bg:"#fbf0cf"}};
 const ARCH_LOOK=LIGHT?ARCH_GOLD:ARCH_DARK0;
 function archSVG(id,size){const u="ar"+(++EID),L=ARCH_LOOK[id]||ARCH_LOOK.seeker,G="#f6d77e",GD="#c9952e";
   const small=size&&size<80;
@@ -770,23 +770,34 @@ function archSVG(id,size){const u="ar"+(++EID),L=ARCH_LOOK[id]||ARCH_LOOK.seeker
       <path d="M${x-8.2} ${cy+2} Q${x-8.6} ${cy+len*.6} ${x-7.6} ${cy+len-1} M${x+8.2} ${cy+2} Q${x+8.6} ${cy+len*.6} ${x+7.6} ${cy+len-1}" stroke="#fff" stroke-opacity=".28" stroke-width=".6" fill="none" stroke-linecap="round"/>`:"";
     const hf=hc?`<path d="M${x-8} ${cy-.6} C${x-8.8} ${cy-9.4} ${x-4.4} ${cy-12.4} ${x} ${cy-12} C${x+4.4} ${cy-12.4} ${x+8.8} ${cy-9.4} ${x+8} ${cy-.6} Q${x+7} ${cy-6.2} ${x+.5} ${cy-8.4} L${x} ${cy-9.6} L${x-.5} ${cy-8.4} Q${x-7} ${cy-6.2} ${x-8} ${cy-.6}Z" fill="${hc}"/>
       <path d="M${x-5.6} ${cy-9.2} Q${x-3} ${cy-10.8} ${x-.8} ${cy-10.2} M${x+1.6} ${cy-10.4} Q${x+4} ${cy-10.6} ${x+6} ${cy-8.6}" stroke="#fff" stroke-opacity=".35" stroke-width=".6" fill="none" stroke-linecap="round"/>`:"";
+    const br=hc&&hc!=="#e2e6ea"?hc:"#7a6a5a";
     return hl+`
-    <defs><radialGradient id="${u}fc" cx="45%" cy="38%" r="65%"><stop offset="0" stop-color="#fff6e6"/><stop offset=".6" stop-color="#f6d6b0"/><stop offset="1" stop-color="#d8a676"/></radialGradient>
-    <radialGradient id="${u}bl"><stop offset="0" stop-color="#f08a7a" stop-opacity=".45"/><stop offset="1" stop-color="#f08a7a" stop-opacity="0"/></radialGradient>
-    <radialGradient id="${u}fg"><stop offset="0" stop-color="#fffbe8" stop-opacity=".55"/><stop offset="1" stop-color="#fffbe8" stop-opacity="0"/></radialGradient></defs>
+    <defs><radialGradient id="${u}fc" cx="48%" cy="40%" r="62%"><stop offset="0" stop-color="#fdeedd"/><stop offset=".55" stop-color="#f3d3b2"/><stop offset="1" stop-color="#d9a882"/></radialGradient>
+    <linearGradient id="${u}fs" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#7a4a2a" stop-opacity=".28"/><stop offset=".22" stop-color="#7a4a2a" stop-opacity="0"/><stop offset=".78" stop-color="#7a4a2a" stop-opacity="0"/><stop offset="1" stop-color="#7a4a2a" stop-opacity=".28"/></linearGradient>
+    <radialGradient id="${u}ck"><stop offset="0" stop-color="#e8907e" stop-opacity=".32"/><stop offset="1" stop-color="#e8907e" stop-opacity="0"/></radialGradient>
+    <radialGradient id="${u}fg"><stop offset="0" stop-color="#fffbe8" stop-opacity=".5"/><stop offset="1" stop-color="#fffbe8" stop-opacity="0"/></radialGradient></defs>
     <circle cx="${x}" cy="${cy}" r="13" fill="url(#${u}fg)"/>
-    <path d="M${x-2.6} ${cy+8} L${x-2.8} ${cy+13} Q${x} ${cy+14.2} ${x+2.8} ${cy+13} L${x+2.6} ${cy+8}Z" fill="#e6b88a"/>
-    <path d="M${x-7.8} ${cy-1.4} C${x-8} ${cy-8.4} ${x-4.6} ${cy-10.6} ${x} ${cy-10.6} C${x+4.6} ${cy-10.6} ${x+8} ${cy-8.4} ${x+7.8} ${cy-1.4} C${x+7.7} ${cy+4.4} ${x+4.6} ${cy+8.6} ${x} ${cy+8.9} C${x-4.6} ${cy+8.6} ${x-7.7} ${cy+4.4} ${x-7.8} ${cy-1.4}Z" fill="url(#${u}fc)" stroke="#c9955a" stroke-width=".35"/>
-    <ellipse cx="${x-4.3}" cy="${cy+2.8}" rx="2.9" ry="2" fill="url(#${u}bl)"/><ellipse cx="${x+4.3}" cy="${cy+2.8}" rx="2.9" ry="2" fill="url(#${u}bl)"/>
-    <path d="M${x-5.6} ${cy-3.4} Q${x-3.7} ${cy-4.8} ${x-1.6} ${cy-3.7} M${x+1.6} ${cy-3.7} Q${x+3.7} ${cy-4.8} ${x+5.6} ${cy-3.4}" stroke="#9a6a40" stroke-width=".42" fill="none" stroke-linecap="round" opacity=".85"/>
-    <path d="M${x-5.4} ${cy-1.1} Q${x-3.6} ${cy+.6} ${x-1.8} ${cy-1.1} Q${x-3.6} ${cy} ${x-5.4} ${cy-1.1}Z M${x+1.8} ${cy-1.1} Q${x+3.6} ${cy+.6} ${x+5.4} ${cy-1.1} Q${x+3.6} ${cy} ${x+1.8} ${cy-1.1}Z" fill="#3a2010" stroke="#3a2010" stroke-width=".35" stroke-linejoin="round"/>
-    <path d="M${x-5} ${cy-.9} l-.6 .8 M${x-4.1} ${cy-.4} l-.35 1.1 M${x-3.1} ${cy-.3} l0 1.15 M${x-2.2} ${cy-.6} l.35 1 M${x+2.2} ${cy-.6} l-.35 1 M${x+3.1} ${cy-.3} l0 1.15 M${x+4.1} ${cy-.4} l.35 1.1 M${x+5} ${cy-.9} l.6 .8" stroke="#3a2010" stroke-width=".32" stroke-linecap="round"/>
-    <path d="M${x-1.1} ${cy+2.6} Q${x} ${cy+3.4} ${x+1.1} ${cy+2.6}" stroke="#c08a5e" stroke-width=".5" fill="none" stroke-linecap="round"/><ellipse cx="${x}" cy="${cy+1.4}" rx=".7" ry="1.2" fill="#fff" opacity=".35"/>
-    <path d="M${x-2.6} ${cy+4.7} Q${x-1.2} ${cy+4.2} ${x} ${cy+4.6} Q${x+1.2} ${cy+4.2} ${x+2.6} ${cy+4.7} Q${x} ${cy+7.6} ${x-2.6} ${cy+4.7}Z" fill="#e07a70"/><path d="M${x-1.4} ${cy+5.9} Q${x} ${cy+6.5} ${x+1.4} ${cy+5.9}" stroke="#fff" stroke-opacity=".45" stroke-width=".4" fill="none"/>
-    <path d="M${x-2.6} ${cy+4.8} Q${x} ${cy+6.2} ${x+2.6} ${cy+4.8}" stroke="#b05048" stroke-width=".35" fill="none" stroke-linecap="round"/>
-    <path d="M${x-3.1} ${cy+4} q.3 .5 .6 .4 M${x+3.1} ${cy+4} q-.3 .5 -.6 .4" stroke="#c07a5a" stroke-width=".3" fill="none" stroke-linecap="round"/>
-    <ellipse cx="${x-2.2}" cy="${cy-6.5}" rx="2.6" ry="1.2" fill="#fff" opacity=".35"/>
-    `+hf+`<path d="M${x} ${cy-7} l.8 1.1 l-.8 1.1 l-.8 -1.1Z" fill="${G}"/>`};
+    <path d="M${x-2.7} ${cy+7.5} L${x-3} ${cy+13.5} Q${x} ${cy+14.6} ${x+3} ${cy+13.5} L${x+2.7} ${cy+7.5}Z" fill="#e2b48e"/>
+    <path d="M${x-2.8} ${cy+9.2} Q${x} ${cy+11} ${x+2.8} ${cy+9.2} L${x+2.8} ${cy+10.6} Q${x} ${cy+12} ${x-2.8} ${cy+10.6}Z" fill="#a8704a" opacity=".35"/>
+    ${(()=>{const F=`M${x-7.1} ${cy-3} C${x-7.3} ${cy-9} ${x-4} ${cy-11.4} ${x} ${cy-11.4} C${x+4} ${cy-11.4} ${x+7.3} ${cy-9} ${x+7.1} ${cy-3} C${x+7} ${cy+1.4} ${x+6.3} ${cy+4.6} ${x+4.7} ${cy+6.9} C${x+3.3} ${cy+8.8} ${x+1.7} ${cy+9.8} ${x} ${cy+9.8} C${x-1.7} ${cy+9.8} ${x-3.3} ${cy+8.8} ${x-4.7} ${cy+6.9} C${x-6.3} ${cy+4.6} ${x-7} ${cy+1.4} ${x-7.1} ${cy-3}Z`;
+      return `<path d="${F}" fill="url(#${u}fc)"/><path d="${F}" fill="url(#${u}fs)"/><path d="${F}" fill="none" stroke="#b98262" stroke-width=".3" opacity=".6"/>`})()}
+    <ellipse cx="${x-4.2}" cy="${cy+3}" rx="2.6" ry="1.8" fill="url(#${u}ck)"/><ellipse cx="${x+4.2}" cy="${cy+3}" rx="2.6" ry="1.8" fill="url(#${u}ck)"/>
+    <ellipse cx="${x-3.6}" cy="${cy-1.4}" rx="2.6" ry="1.5" fill="#a87050" opacity=".12"/><ellipse cx="${x+3.6}" cy="${cy-1.4}" rx="2.6" ry="1.5" fill="#a87050" opacity=".12"/>
+    <path d="M${x-6} ${cy-3.7} Q${x-4.1} ${cy-5.5} ${x-1.4} ${cy-4.5} Q${x-1.6} ${cy-4.1} ${x-4} ${cy-4.6} Q${x-5.2} ${cy-4.3} ${x-6} ${cy-3.7}Z" fill="${br}" opacity=".85"/>
+    <path d="M${x+6} ${cy-3.7} Q${x+4.1} ${cy-5.5} ${x+1.4} ${cy-4.5} Q${x+1.6} ${cy-4.1} ${x+4} ${cy-4.6} Q${x+5.2} ${cy-4.3} ${x+6} ${cy-3.7}Z" fill="${br}" opacity=".85"/>
+    <path d="M${x-5.1} ${cy-2.5} Q${x-3.6} ${cy-3.4} ${x-2} ${cy-2.4} M${x+2} ${cy-2.4} Q${x+3.6} ${cy-3.4} ${x+5.1} ${cy-2.5}" stroke="#a8724e" stroke-width=".28" fill="none" opacity=".7"/>
+    <path d="M${x-5.4} ${cy-1.5} Q${x-3.6} ${cy-.1} ${x-1.8} ${cy-1.3} Q${x-3.6} ${cy-.6} ${x-5.4} ${cy-1.5}Z M${x+1.8} ${cy-1.3} Q${x+3.6} ${cy-.1} ${x+5.4} ${cy-1.5} Q${x+3.6} ${cy-.6} ${x+1.8} ${cy-1.3}Z" fill="#2a160a"/>
+    <path d="M${x-5.4} ${cy-1.5} l-.5 .2 M${x+5.4} ${cy-1.5} l.5 .2" stroke="#2a160a" stroke-width=".35" stroke-linecap="round"/>
+    <path d="M${x-.15} ${cy-.6} L${x-.1} ${cy+1.6}" stroke="#fff" stroke-opacity=".2" stroke-width=".55" stroke-linecap="round"/>
+    <path d="M${x-.9} ${cy-1.2} Q${x-1.5} ${cy+1.6} ${x-1.6} ${cy+2.6}" stroke="#a8704a" stroke-width=".35" fill="none" opacity=".55"/>
+    <path d="M${x-1.8} ${cy+3} Q${x-1.1} ${cy+3.7} ${x-.5} ${cy+3.3} Q${x} ${cy+3.6} ${x+.5} ${cy+3.3} Q${x+1.1} ${cy+3.7} ${x+1.8} ${cy+3}" stroke="#9a6040" stroke-width=".38" fill="none" stroke-linecap="round"/>
+    <path d="M${x-.5} ${cy+3.9} L${x-.4} ${cy+4.6} M${x+.5} ${cy+3.9} L${x+.4} ${cy+4.6}" stroke="#c08a64" stroke-width=".25" opacity=".6"/>
+    <path d="M${x-2.5} ${cy+5.3} Q${x-1.2} ${cy+4.5} ${x-.4} ${cy+4.85} Q${x} ${cy+4.55} ${x+.4} ${cy+4.85} Q${x+1.2} ${cy+4.5} ${x+2.5} ${cy+5.3} Q${x} ${cy+5.7} ${x-2.5} ${cy+5.3}Z" fill="#b65a50"/>
+    <path d="M${x-2.3} ${cy+5.45} Q${x} ${cy+7.3} ${x+2.3} ${cy+5.45} Q${x} ${cy+5.9} ${x-2.3} ${cy+5.45}Z" fill="#d27c6e"/>
+    <path d="M${x-1.1} ${cy+6.3} Q${x} ${cy+6.7} ${x+1.1} ${cy+6.3}" stroke="#fff" stroke-opacity=".4" stroke-width=".35" fill="none"/>
+    <path d="M${x-2.6} ${cy+5.3} q-.3 .1 -.5 -.2 M${x+2.6} ${cy+5.3} q.3 .1 .5 -.2" stroke="#a8604e" stroke-width=".3" fill="none" stroke-linecap="round"/>
+    <ellipse cx="${x}" cy="${cy+8.3}" rx="1.6" ry=".8" fill="#fff" opacity=".18"/>
+    `+hf};
   const robe=`<path d="M53 46 Q60 49 67 46 L77 54 Q81 58 81 66 L87 140 Q60 147 33 140 L39 66 Q39 58 43 54Z" fill="url(#${u}r)" stroke="url(#${u}gold)" stroke-width="1.4"/>
     <path d="M53 46 Q60 49 67 46 L77 54 Q81 58 81 66 L87 140 Q60 147 33 140 L39 66 Q39 58 43 54Z" fill="url(#${u}rs)"/>
     <g stroke="#fff" stroke-opacity=".18" fill="none"><path d="M50 72 Q47 106 45 139"/><path d="M60 74 V143"/><path d="M70 72 Q73 106 75 139"/></g>
@@ -821,7 +832,7 @@ function archSVG(id,size){const u="ar"+(++EID),L=ARCH_LOOK[id]||ARCH_LOOK.seeker
     <path transform="translate(50,61) scale(.85)" d="${HEART}" fill="url(#${u}e)" stroke="url(#${u}gold)" stroke-width="1.4"/>
     <path d="M60 66 L55 67.5 L52 70 M60 66 L65 67.5 L68 70 M60 66 V79 M55 67.5 L60 79 L65 67.5" stroke="#f0fff6" stroke-opacity=".6" stroke-width=".7" fill="none"/><circle cx="56" cy="67" r="1.2" fill="#fff"/>
     ${[[18,146,-1],[28,148,1],[92,148,-1],[102,146,1]].map(([x,y,sg])=>`<path d="M${x} ${y} Q${x+sg*2} ${y-14} ${x+sg*5} ${y-24}" stroke="#4fc07a" stroke-width="1.6" fill="none" stroke-linecap="round"/>${[6,12,18].map(k=>`<ellipse cx="${x+sg*(2+k/6)-3}" cy="${y-k}" rx="3.2" ry="1.4" transform="rotate(-30 ${x+sg*(2+k/6)-3} ${y-k})" fill="#6ad898"/><ellipse cx="${x+sg*(2+k/6)+3}" cy="${y-k-2}" rx="3.2" ry="1.4" transform="rotate(30 ${x+sg*(2+k/6)+3} ${y-k-2})" fill="#4fc07a"/>`).join("")}<circle cx="${x+sg*5}" cy="${y-25}" r="2.2" fill="${sg>0?"#fff1b0":"#ffc8e0"}"/>`).join("")}`;
-  if(id==="creator")fig=`${LIGHT?`<g opacity=".55">${["#ff6a6a","#ff9a3a","#ffd23a","#5ad87a","#4ad8c8","#6ab0ff","#a87aff","#ff7ac8"].map((c,i)=>{const a=i*Math.PI/4-Math.PI/2;return `<circle cx="${60+46*Math.cos(a)}" cy="${70+52*Math.sin(a)}" r="16" fill="${c}" opacity=".35"/>`}).join("")}</g>`:""}${[...Array(12)].map((_,i)=>{const a=i*Math.PI/6;return `<line x1="${60+9*Math.cos(a)}" y1="${12+9*Math.sin(a)}" x2="${60+22*Math.cos(a)}" y2="${12+22*Math.sin(a)}" stroke="#fff1b0" stroke-width="1.2" stroke-linecap="round" opacity=".8"/>`}).join("")}
+  if(id==="creator")fig=`${LIGHT?`<g opacity=".55">${["#e83a2a","#f6c24a","#e83a2a","#f6c24a","#e83a2a","#f6c24a","#e83a2a","#f6c24a"].map((c,i)=>{const a=i*Math.PI/4-Math.PI/2;return `<circle cx="${60+46*Math.cos(a)}" cy="${70+52*Math.sin(a)}" r="16" fill="${c}" opacity=".35"/>`}).join("")}</g>`:""}${[...Array(12)].map((_,i)=>{const a=i*Math.PI/6;return `<line x1="${60+9*Math.cos(a)}" y1="${12+9*Math.sin(a)}" x2="${60+22*Math.cos(a)}" y2="${12+22*Math.sin(a)}" stroke="#fff1b0" stroke-width="1.2" stroke-linecap="round" opacity=".8"/>`}).join("")}
     <circle cx="60" cy="12" r="18" fill="url(#${u}g)"/>${star(60,12,10)}
     ${robe}
     <path d="M44 58 Q36 40 46 20 L52 22 Q46 40 50 56Z" fill="url(#${u}r)" stroke="url(#${u}gold)" stroke-width="1.2"/>
