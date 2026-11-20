@@ -1001,10 +1001,10 @@ const ARCH_GOLD={seeker:{robe:["#2f6ae8","#0a1e5a"],glow:"#8fc0ff",bg:"#cfe0ff"}
  creator:{robe:["#d8262a","#6a0a12"],glow:"#ffd27a",bg:"#ffe0b0"},guide:{robe:["#fff8e6","#d6ab4a"],glow:"#f6d77e",bg:"#f8e6b8"}};
 const ARCH_LOOK=LIGHT?ARCH_GOLD:ARCH_DARK0;
 const ARCH_PERSON={
- seeker:{skin:["#f6d4b0","#dca47a","#b27a52"],eye:"#4a7ab8",hair:"#4a2a1a",len:14},
- healer:{skin:["#fde8d2","#f0c8a2","#d2a07a"],eye:"#3a8a5a",hair:"#c9973a",len:24},
- creator:{skin:["#eebf92","#c88c60","#9a643e"],eye:"#7a4a1a",hair:"#7a2a12",len:20},
- guide:{skin:["#fae0c6","#e4b690","#c29070"],eye:"#5a7a8a",hair:"#e2e6ea",len:12,old:true}};
+ seeker:{skin:["#fbe2c8","#e8b892","#c49070"],eye:"#6a4a2a",hair:"#9a6a3a",len:24},
+ healer:{skin:["#fde8d6","#f0c8a8","#d4a282"],eye:"#6a8aa8",hair:"#5a3a24",len:20},
+ creator:{skin:["#fff0e4","#f6d2bc","#dcaa90"],eye:"#6a9aa0",hair:"#a8301a",len:24,wavy:true,freckles:true},
+ guide:{skin:["#fbe0c6","#e8b892","#c69070"],eye:"#6a5a3a",hair:"#4a3424",short:true,glasses:true,beard:"#3a2a1e"}};
 function archSVG(id,size){const u="ar"+(++EID),L=ARCH_LOOK[id]||ARCH_LOOK.seeker,P=ARCH_PERSON[id]||ARCH_PERSON.seeker,G="#f6d77e",GD="#c9952e";
   const small=size&&size<80, x=60, cy=28;
   const defs=`<defs>
@@ -1024,9 +1024,11 @@ function archSVG(id,size){const u="ar"+(++EID),L=ARCH_LOOK[id]||ARCH_LOOK.seeker
   const halo=`<circle cx="${x}" cy="${cy-1}" r="16" fill="none" stroke="url(#${u}gold)" stroke-width="1.4"/>${[...Array(24)].map((_,i)=>{const a=i*Math.PI/12;return `<line x1="${x+18*Math.cos(a)}" y1="${cy-1+18*Math.sin(a)}" x2="${x+(i%2?21:25)*Math.cos(a)}" y2="${cy-1+(i%2?21:25)*Math.sin(a)}" stroke="${G}" stroke-opacity=".7" stroke-width=".9" stroke-linecap="round"/>`}).join("")}`;
   // ----- hair -----
   const hc=P.hair,len=P.len;
-  const hairBack=`<path d="M${x-7.8} ${cy-4} C${x-10} ${cy+4} ${x-10.2} ${cy+len*.7} ${x-9} ${cy+len} Q${x-6.4} ${cy+len-1.5} ${x-5.6} ${cy+len-6} Q${x-6.6} ${cy+3} ${x-6.6} ${cy-2}Z M${x+7.8} ${cy-4} C${x+10} ${cy+4} ${x+10.2} ${cy+len*.7} ${x+9} ${cy+len} Q${x+6.4} ${cy+len-1.5} ${x+5.6} ${cy+len-6} Q${x+6.6} ${cy+3} ${x+6.6} ${cy-2}Z" fill="${hc}"/>
-    <path d="M${x-8.6} ${cy+2} Q${x-9} ${cy+len*.6} ${x-8} ${cy+len-1} M${x+8.6} ${cy+2} Q${x+9} ${cy+len*.6} ${x+8} ${cy+len-1}" stroke="#fff" stroke-opacity=".25" stroke-width=".6" fill="none"/>`;
-  const hairFront=`<path d="M${x-7.9} ${cy-1.2} C${x-8.8} ${cy-10} ${x-4.4} ${cy-12.6} ${x} ${cy-12.2} C${x+4.4} ${cy-12.6} ${x+8.8} ${cy-10} ${x+7.9} ${cy-1.2} Q${x+7} ${cy-6.6} ${x+1.2} ${cy-8.8} Q${x-2.6} ${cy-7.6} ${x-4.2} ${cy-6.4} Q${x-6.6} ${cy-5} ${x-7.9} ${cy-1.2}Z" fill="${hc}"/>
+  const hairBack=P.short?"":`<path d="M${x-7.8} ${cy-4} C${x-10} ${cy+4} ${x-10.2} ${cy+len*.7} ${x-9} ${cy+len} Q${x-6.4} ${cy+len-1.5} ${x-5.6} ${cy+len-6} Q${x-6.6} ${cy+3} ${x-6.6} ${cy-2}Z M${x+7.8} ${cy-4} C${x+10} ${cy+4} ${x+10.2} ${cy+len*.7} ${x+9} ${cy+len} Q${x+6.4} ${cy+len-1.5} ${x+5.6} ${cy+len-6} Q${x+6.6} ${cy+3} ${x+6.6} ${cy-2}Z" fill="${hc}"/>
+    <path d="M${x-8.6} ${cy+2} Q${x-9} ${cy+len*.6} ${x-8} ${cy+len-1} M${x+8.6} ${cy+2} Q${x+9} ${cy+len*.6} ${x+8} ${cy+len-1}" stroke="#fff" stroke-opacity=".25" stroke-width=".6" fill="none"/>`+(P.wavy?[-1,1].map(d=>[0,1,2,3].map(k=>`<path d="M${x+d*9.3} ${cy+3+k*5} q${d*1.1} 1.3 0 2.6 q${-d*1} 1.2 0 2.4" stroke="${hc}" stroke-width="1.3" fill="none" stroke-linecap="round"/><path d="M${x+d*8.6} ${cy+4+k*5} q${d*.8} 1 0 2" stroke="#ff9a6a" stroke-opacity=".4" stroke-width=".4" fill="none"/>`).join("")).join(""):"");
+  const hairFront=P.short?`<path d="M${x-7.6} ${cy-2} C${x-8.4} ${cy-10.4} ${x-4.2} ${cy-13.2} ${x+.4} ${cy-12.8} C${x+4.8} ${cy-13} ${x+8.6} ${cy-10.2} ${x+7.6} ${cy-2} Q${x+7.2} ${cy-6} ${x+5.4} ${cy-8} Q${x+1} ${cy-9.4} ${x-2.6} ${cy-8.6} Q${x-5.6} ${cy-8} ${x-6.6} ${cy-5.4} Q${x-7.2} ${cy-4} ${x-7.6} ${cy-2}Z" fill="${hc}"/>
+    <path d="M${x-7.4} ${cy-2.2} L${x-7.6} ${cy+1.4} L${x-6.8} ${cy+.8}Z M${x+7.4} ${cy-2.2} L${x+7.6} ${cy+1.4} L${x+6.8} ${cy+.8}Z" fill="${hc}"/>
+    <path d="M${x-4.6} ${cy-11.4} q2 -1 4 -.6 M${x+1.6} ${cy-11.6} q2 -.4 3.6 .8 M${x-6.6} ${cy-8.6} q1 -1.6 2.4 -2.2" stroke="#8a7a6a" stroke-opacity=".7" stroke-width=".45" fill="none" stroke-linecap="round"/>`:`<path d="M${x-7.9} ${cy-1.2} C${x-8.8} ${cy-10} ${x-4.4} ${cy-12.6} ${x} ${cy-12.2} C${x+4.4} ${cy-12.6} ${x+8.8} ${cy-10} ${x+7.9} ${cy-1.2} Q${x+7} ${cy-6.6} ${x+1.2} ${cy-8.8} Q${x-2.6} ${cy-7.6} ${x-4.2} ${cy-6.4} Q${x-6.6} ${cy-5} ${x-7.9} ${cy-1.2}Z" fill="${hc}"/>
     <path d="M${x-5.4} ${cy-9.6} Q${x-2} ${cy-11.4} ${x+1.4} ${cy-10.6} M${x+2.6} ${cy-10.6} Q${x+5} ${cy-10.4} ${x+6.4} ${cy-8.4}" stroke="#fff" stroke-opacity=".3" stroke-width=".6" fill="none" stroke-linecap="round"/>`;
   // ----- face with open eyes -----
   const F=`M${x-7.1} ${cy-3} C${x-7.3} ${cy-9} ${x-4} ${cy-11.4} ${x} ${cy-11.4} C${x+4} ${cy-11.4} ${x+7.3} ${cy-9} ${x+7.1} ${cy-3} C${x+7} ${cy+1.4} ${x+6.3} ${cy+4.6} ${x+4.7} ${cy+6.9} C${x+3.3} ${cy+8.8} ${x+1.7} ${cy+9.8} ${x} ${cy+9.8} C${x-1.7} ${cy+9.8} ${x-3.3} ${cy+8.8} ${x-4.7} ${cy+6.9} C${x-6.3} ${cy+4.6} ${x-7} ${cy+1.4} ${x-7.1} ${cy-3}Z`;
@@ -1052,7 +1054,12 @@ function archSVG(id,size){const u="ar"+(++EID),L=ARCH_LOOK[id]||ARCH_LOOK.seeker
     <path d="M${x-1.8} ${cy+5.4} Q${x} ${cy+5.95} ${x+1.8} ${cy+5.4}" stroke="#fff" stroke-width=".4" opacity=".55" fill="none"/>
     <path d="M${x-2.9} ${cy+5} q-.25 0 -.4 -.25 M${x+2.9} ${cy+5} q.25 0 .4 -.25" stroke="#a8604e" stroke-width=".22" fill="none" stroke-linecap="round" opacity=".6"/>
     ${P.old?`<path d="M${x-6} ${cy-7} Q${x} ${cy-8.2} ${x+6} ${cy-7}" stroke="#a8724e" stroke-width=".25" fill="none" opacity=".5"/><path d="M${x-6.2} ${cy-.4} l-.9 -.6 M${x-6.2} ${cy+.2} l-.9 .3 M${x+6.2} ${cy-.4} l.9 -.6 M${x+6.2} ${cy+.2} l.9 .3" stroke="#a8724e" stroke-width=".22" opacity=".6"/>`:""}
-    <ellipse cx="${x}" cy="${cy+8.4}" rx="1.6" ry=".8" fill="#fff" opacity=".16"/>`;
+    <ellipse cx="${x}" cy="${cy+8.4}" rx="1.6" ry=".8" fill="#fff" opacity=".16"/>
+    ${P.freckles?[[-4.6,2],[-3.6,1.4],[-5,3],[-3.2,2.6],[4.6,2],[3.6,1.4],[5,3],[3.2,2.6],[-.6,1],[.6,1.2]].map(([dx,dy])=>`<circle cx="${x+dx}" cy="${cy+dy}" r=".25" fill="#b8704a" opacity=".6"/>`).join(""):""}
+    ${P.beard?`<path d="M${x-5.8} ${cy+3.6} C${x-5.6} ${cy+7.4} ${x-3.2} ${cy+10.2} ${x} ${cy+10.4} C${x+3.2} ${cy+10.2} ${x+5.6} ${cy+7.4} ${x+5.8} ${cy+3.6} C${x+5} ${cy+6} ${x+3.8} ${cy+7.2} ${x+2.6} ${cy+7} Q${x} ${cy+8} ${x-2.6} ${cy+7} C${x-3.8} ${cy+7.2} ${x-5} ${cy+6} ${x-5.8} ${cy+3.6}Z" fill="${P.beard}" opacity=".62"/>
+      <path d="M${x-3} ${cy+4.5} Q${x-1.5} ${cy+3.8} ${x} ${cy+4.15} Q${x+1.5} ${cy+3.8} ${x+3} ${cy+4.5} Q${x+1.5} ${cy+4.35} ${x} ${cy+4.6} Q${x-1.5} ${cy+4.35} ${x-3} ${cy+4.5}Z" fill="${P.beard}" opacity=".7"/>
+      <path d="M${x-2.6} ${cy+5.2} Q${x} ${cy+7} ${x+2.6} ${cy+5.2} Q${x} ${cy+5.8} ${x-2.6} ${cy+5.2}Z" fill="#c86a5e"/><path d="M${x-2} ${cy+5.4} Q${x} ${cy+6} ${x+2} ${cy+5.4}" stroke="#fff" stroke-width=".45" opacity=".6" fill="none"/>`:""}
+    ${P.glasses?`<g fill="none" stroke="#c9952e" stroke-width=".45"><circle cx="${x-3.6}" cy="${cy-1.1}" r="2.75"/><circle cx="${x+3.6}" cy="${cy-1.1}" r="2.75"/><path d="M${x-.85} ${cy-1.4} Q${x} ${cy-2} ${x+.85} ${cy-1.4} M${x-6.35} ${cy-1.4} L${x-7.6} ${cy-1.8} M${x+6.35} ${cy-1.4} L${x+7.6} ${cy-1.8}"/></g><ellipse cx="${x-4.4}" cy="${cy-2.2}" rx=".9" ry=".4" fill="#fff" opacity=".35"/><ellipse cx="${x+2.8}" cy="${cy-2.2}" rx=".9" ry=".4" fill="#fff" opacity=".35"/>`:""}`;
   // ----- body -----
   const limb=(d,w=6.6)=>`<path d="${d}" stroke="url(#${u}gold)" stroke-width="${w+1.6}" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="${d}" stroke="url(#${u}r)" stroke-width="${w}" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="${d}" stroke="#fff" stroke-opacity=".12" stroke-width="${w*.35}" fill="none" stroke-linecap="round"/>`;
   const hand=(hx,hy,r=2.9)=>`<circle cx="${hx}" cy="${hy}" r="${r}" fill="url(#${u}sk)" stroke="#9a6a4a" stroke-width=".3"/>`;
@@ -1095,11 +1102,11 @@ function archSVG(id,size){const u="ar"+(++EID),L=ARCH_LOOK[id]||ARCH_LOOK.seeker
       <circle cx="${x+31}" cy="${cy-16}" r="17" fill="url(#${u}g)"/>${star(x+31,cy-16,9)}`;
     front=`${limb(`M${x+14} ${cy+20} Q${x+24} ${cy+32} ${x+30} ${cy+38}`)}${hand(x+31,cy+38,3.1)}
       ${limb(`M${x-14} ${cy+20} Q${x-18} ${cy+34} ${x-6} ${cy+33}`)}${hand(x-4,cy+32,3)}`;}
-  const beard=P.old?`<path d="M${x-5.6} ${cy+4.6} Q${x-5.4} ${cy+13} ${x} ${cy+17} Q${x+5.4} ${cy+13} ${x+5.6} ${cy+4.6} Q${x+3.6} ${cy+8.4} ${x+2.6} ${cy+7.2} Q${x} ${cy+8.6} ${x-2.6} ${cy+7.2} Q${x-3.6} ${cy+8.4} ${x-5.6} ${cy+4.6}Z" fill="#eef2f4" stroke="#c8d0d6" stroke-width=".4"/><path d="M${x-2.8} ${cy+4.5} Q${x-1.2} ${cy+3.7} ${x} ${cy+4.1} Q${x+1.2} ${cy+3.7} ${x+2.8} ${cy+4.5}" stroke="#eef2f4" stroke-width=".8" fill="none" stroke-linecap="round"/>`:"";
+  const beard=false?`<path d="M${x-5.6} ${cy+4.6} Q${x-5.4} ${cy+13} ${x} ${cy+17} Q${x+5.4} ${cy+13} ${x+5.6} ${cy+4.6} Q${x+3.6} ${cy+8.4} ${x+2.6} ${cy+7.2} Q${x} ${cy+8.6} ${x-2.6} ${cy+7.2} Q${x-3.6} ${cy+8.4} ${x-5.6} ${cy+4.6}Z" fill="#eef2f4" stroke="#c8d0d6" stroke-width=".4"/><path d="M${x-2.8} ${cy+4.5} Q${x-1.2} ${cy+3.7} ${x} ${cy+4.1} Q${x+1.2} ${cy+3.7} ${x+2.8} ${cy+4.5}" stroke="#eef2f4" stroke-width=".8" fill="none" stroke-linecap="round"/>`:"";
   let head=hairBack+face+beard+hairFront;
   if(id==="creator")head+=[...Array(9)].map((_,i)=>{const a=(-160+i*17.5)*Math.PI/180;return `<path d="M${x+9*Math.cos(a)} ${cy-1+10*Math.sin(a)} L${x+15*Math.cos(a)} ${cy-1+16*Math.sin(a)}" stroke="url(#${u}gold)" stroke-width="2" stroke-linecap="round"/>`}).join("")+`<path d="M${x-8} ${cy-8} Q${x} ${cy-14} ${x+8} ${cy-8}" stroke="url(#${u}gold)" stroke-width="1.8" fill="none"/>`;
   if(id==="seeker")head=`<path d="M${x-12} ${cy+18} Q${x-14} ${cy-2} ${x-10} ${cy-10} Q${x} ${cy-18} ${x+10} ${cy-10} Q${x+14} ${cy-2} ${x+12} ${cy+18}" fill="url(#${u}r)" stroke="url(#${u}gold)" stroke-width="1.2"/>`+head;
-  if(id==="guide")head=`<path d="M${x} ${cy-26} L${x+13} ${cy+2} Q${x+14} ${cy+14} ${x+12} ${cy+18} L${x-12} ${cy+18} Q${x-14} ${cy+14} ${x-13} ${cy+2}Z" fill="url(#${u}r)" stroke="url(#${u}gold)" stroke-width="1.2"/>${star(x,cy-18,2.6,G)}`+head;
+  if(id==="guide")head=`<path d="M${x-13} ${cy+18} Q${x-15} ${cy+10} ${x-11} ${cy+6} L${x+11} ${cy+6} Q${x+15} ${cy+10} ${x+13} ${cy+18}Z" fill="url(#${u}r)" stroke="url(#${u}gold)" stroke-width="1.1"/>`+head;
   const fig=`${back}${torso}${halo}${head}${front}`;
   const vb=small?"30 4 60 60":"0 0 120 150";const w=size||120,h=small?w:Math.round(w*1.25);
   return `<svg viewBox="${vb}" width="${w}" height="${h}" style="display:block;margin:4px auto;overflow:visible">${defs}${small?"":aura}${fig}</svg>`}
