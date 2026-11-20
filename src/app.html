@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>G.A.M.E 2020 · The Golden Path</title>
 <meta name="description" content="G.A.M.E 2020 – God Allows More Experiences. The Golden Path: a spiritual, joyful board game by Barbara Prinz. Walk the labyrinth to the Golden Heart – together.">
-<meta name="theme-color" content="#0b1433">
+<meta name="theme-color" content="#fffdf7">
 <style>
 /*FONTS*/
 :root{
@@ -19,7 +19,7 @@ body{background:radial-gradient(1200px 600px at 50% -200px,#fff8e2 0,var(--paper
 h1,h2,h3,h4{font-family:var(--serif);font-weight:700;margin:0}
 button{font:inherit;cursor:pointer}
 .caps{font-family:var(--caps);letter-spacing:.14em;text-transform:uppercase}
-header.top{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 16px;max-width:1240px;margin:0 auto}
+header.top{position:relative;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 16px;max-width:1240px;margin:0 auto}
 .brand{display:flex;align-items:center;gap:10px}
 .brand b{font-family:var(--caps);font-size:1.05rem;letter-spacing:.12em}
 .brand i{font-family:var(--serif);color:var(--gold);font-size:1rem}
@@ -217,6 +217,43 @@ footer{color:#cfc4a6!important}
 .tin .btn.ghost,.tin .btn.opt{color:#fbf3dc;border-color:#f2cf6b88;background:#ffffff0a}
 .mcard .p{color:#fbf3dc}
 
+
+/* ===== Gold & White theme ===== */
+html.light{--paper:#fffdf7;--ink:#1b1712;--muted:#6f6352;--line:#ead9b0}
+html.light body{background:#fffdf7 radial-gradient(ellipse at 50% -10%,#fff6dc 0,#fffdf7 55%) fixed;color:#1b1712}
+html.light body:before{display:none}
+html.light h1,html.light h2,html.light h3,html.light h4{color:#a8782a}
+html.light .hero h1{background:linear-gradient(180deg,#e6b94a,#b8862a 60%,#8a6418);-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:none}
+html.light .hero p,html.light .lyrics{color:#2a2218}
+html.light #hymn,html.light .tag{color:#b8862a!important}
+html.light .panel{background:#ffffff;border-color:#ead9b0;box-shadow:0 10px 30px -22px #a8782a}
+html.light .hint,html.light .pl .meta,html.light .legend,html.light .log,html.light footer{color:#6f6352!important}
+html.light .log div{border-color:#f0e4c6}
+html.light .btn{background:#1b1712;color:#fffdf7;border-color:#1b1712}
+html.light .btn.gold{background:linear-gradient(135deg,#f6d77e,#c9952e);color:#1a1405;box-shadow:0 6px 16px -8px #a8782a}
+html.light .btn.ghost{background:#fff;color:#1b1712;border:1px solid #d9c08a}
+html.light input,html.light select,html.light textarea{background:#fff;color:#1b1712;border-color:#e2cf9f}
+html.light nav.tabs button{color:#6f6352}
+html.light .brand b{color:#1b1712}
+html.light .setcard{background:#fffdf7;color:#1b1712;border-color:#ead9b0}
+html.light .setcard.on{border-color:#c9952e;box-shadow:0 0 0 2px #f6d77e88}
+html.light .chips button{background:#fff;color:#2a2218;border-color:#ead9b0}
+html.light .chipgroup{color:#a8782a}
+html.light .die{background:#fff;border-color:#c9952e;box-shadow:0 4px 0 #c9952e}
+html.light .pl.cur{background:linear-gradient(90deg,#f6d77e44,transparent)}
+html.light .stat{background:#fbf3dc;color:#2a2218}
+html.light .lightbar{background:#f6ecd2}
+html.light .boardwrap,html.light .boardwrap:not(.night),html.light .hero .thumb{background:#fffdf6;border-color:#ead9b0;box-shadow:0 20px 50px -35px #a8782a}
+html.light .boardwrap.night{background:radial-gradient(circle,#18264f,#0a1027)}
+html.light .zoombtn,html.light .movebadge{background:#fffdf8ee;color:#1b1712;border-color:#e2cf9f}
+html.light .toast{background:#fffdf7;color:#2a2218;border-color:#c9952e}
+html.light .modal{background:radial-gradient(circle at 50% 40%,#fff6dccc,#2a2010cc)}
+html.light details.opts summary,html.light details.more summary,html.light details.legendbox summary,html.light details.rulesmore summary,html.light .vals{color:#a8782a}
+html.light .song{border-color:#f0e4c6}html.light .minibtn{background:#fff;color:#1b1712;border-color:#e2cf9f}
+html.light .mcard.arch .in h4{color:#8a6418!important;text-shadow:none}
+html.light .mcard.arch .in .t,html.light .mcard.arch .in .p,html.light .mcard.arch .in .k{text-shadow:none}
+html.light .mcard.arch .in .p{color:#5a4a30!important;background:#f6ecd2!important}html.light .mcard.arch .in .t{color:#2a2218}
+
 @media print{
   header.top,nav,.chips,.noprint{display:none!important}
   body{background:#fff}
@@ -232,6 +269,7 @@ footer{color:#cfc4a6!important}
     <svg width="34" height="34" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="none" stroke="#b08d3c" stroke-width="1"/><path d="M12 19s-6-3.9-7.6-7.5C3.3 9 4.8 6 7.6 6c1.8 0 3 1 4.4 2.7C13.4 7 14.6 6 16.4 6c2.8 0 4.3 3 3.2 5.5C18 15.1 12 19 12 19z" fill="#d9b85f"/></svg>
     <div><b>GAME 2020</b><br><i>The Golden Path</i></div>
   </div>
+  <button class="btn ghost small" id="themeTop" style="position:absolute;right:12px;top:12px;padding:6px 10px;font-size:.8rem;border-radius:99px"></button>
   <nav class="tabs">
     <button data-v="home" class="on">Begin</button>
     <button data-v="play">Board</button>
@@ -428,7 +466,7 @@ footer{color:#cfc4a6!important}
   </div>
 </section>
 <footer style="text-align:center;padding:10px 14px 30px;color:var(--muted);font-size:.85rem;line-height:1.5">
-  <b>Game ©WISDOM 2020 – Are you ON your path?</b><br>A spiritual, interactive game created by Barbara Prinz · © Barbara Prinz · Ages 9–99<br>Songs &amp; lyrics © 2026 Barb&amp;Heart&amp;Soul&amp;Medium
+  <b>Game ©WISDOM 2020 – Are you ON your path?</b><br>A spiritual, interactive game created by Barbara Prinz · © Barbara Prinz · Ages 9–99<br>Songs &amp; lyrics © 2026 Barb&amp;Heart&amp;Soul&amp;Medium<br><button class="btn ghost small" id="themeBtn" style="margin-top:10px"></button>
 </footer>
 </main>
 
@@ -706,8 +744,13 @@ function emblem(kind,col){
 }
 
 /* ===================== ARCHETYPE FIGURES ===================== */
-const ARCH_LOOK={seeker:{robe:["#8a5ae0","#2a1060"],glow:"#d8c0ff",bg:"#5a3a9a"},healer:{robe:["#2fb874","#063a22"],glow:"#9cf0c0",bg:"#1f7a4a"},
+let LIGHT=true;try{LIGHT=localStorage.getItem("gp-theme")!=="dark"}catch(e){}if(location.hash==="#light")LIGHT=true;if(location.hash==="#midnight")LIGHT=false;
+if(LIGHT){document.documentElement.classList.add("light");}
+const ARCH_DARK0={seeker:{robe:["#8a5ae0","#2a1060"],glow:"#d8c0ff",bg:"#5a3a9a"},healer:{robe:["#2fb874","#063a22"],glow:"#9cf0c0",bg:"#1f7a4a"},
  creator:{robe:["#f0a23a","#6a2c08"],glow:"#ffe08a",bg:"#a8601a"},guide:{robe:["#36c8d8","#06304a"],glow:"#b8f6ff",bg:"#1a7a90"}};
+const ARCH_GOLD={seeker:{robe:["#3a322a","#0b0908"],glow:"#f6d77e",bg:"#f6e6b8"},healer:{robe:["#ffffff","#e6dcc4"],glow:"#9cf0c0",bg:"#e8f6ec"},
+ creator:{robe:["#ffb04a","#d0501e"],glow:"#ffb86a",bg:"#ffd9a8"},guide:{robe:["#f4ecd8","#c9a85a"],glow:"#f6d77e",bg:"#f3ead2"}};
+const ARCH_LOOK=LIGHT?ARCH_GOLD:ARCH_DARK0;
 function archSVG(id,size){const u="ar"+(++EID),L=ARCH_LOOK[id]||ARCH_LOOK.seeker,G="#f6d77e",GD="#c9952e";
   const small=size&&size<80;
   const defs=`<defs>
@@ -733,14 +776,14 @@ function archSVG(id,size){const u="ar"+(++EID),L=ARCH_LOOK[id]||ARCH_LOOK.seeker
     <radialGradient id="${u}fg"><stop offset="0" stop-color="#fffbe8" stop-opacity=".55"/><stop offset="1" stop-color="#fffbe8" stop-opacity="0"/></radialGradient></defs>
     <circle cx="${x}" cy="${cy}" r="13" fill="url(#${u}fg)"/>
     <path d="M${x-2.6} ${cy+8} L${x-2.8} ${cy+13} Q${x} ${cy+14.2} ${x+2.8} ${cy+13} L${x+2.6} ${cy+8}Z" fill="#e6b88a"/>
-    <path d="M${x-7.6} ${cy-1.6} C${x-7.8} ${cy-8.4} ${x-4.4} ${cy-10.6} ${x} ${cy-10.6} C${x+4.4} ${cy-10.6} ${x+7.8} ${cy-8.4} ${x+7.6} ${cy-1.6} C${x+7.4} ${cy+3.8} ${x+4} ${cy+8.2} ${x} ${cy+8.8} C${x-4} ${cy+8.2} ${x-7.4} ${cy+3.8} ${x-7.6} ${cy-1.6}Z" fill="url(#${u}fc)" stroke="#c9955a" stroke-width=".35"/>
-    <ellipse cx="${x-4.1}" cy="${cy+2.6}" rx="2.4" ry="1.6" fill="url(#${u}bl)"/><ellipse cx="${x+4.1}" cy="${cy+2.6}" rx="2.4" ry="1.6" fill="url(#${u}bl)"/>
-    <path d="M${x-5.6} ${cy-3.4} Q${x-3.7} ${cy-4.8} ${x-1.6} ${cy-3.7} M${x+1.6} ${cy-3.7} Q${x+3.7} ${cy-4.8} ${x+5.6} ${cy-3.4}" stroke="#7a4a28" stroke-width=".55" fill="none" stroke-linecap="round"/>
-    <path d="M${x-5.2} ${cy-1.2} Q${x-3.6} ${cy+.2} ${x-2} ${cy-1.2} M${x+2} ${cy-1.2} Q${x+3.6} ${cy+.2} ${x+5.2} ${cy-1.2}" stroke="#4a2a14" stroke-width=".7" fill="none" stroke-linecap="round"/>
+    <path d="M${x-7.8} ${cy-1.4} C${x-8} ${cy-8.4} ${x-4.6} ${cy-10.6} ${x} ${cy-10.6} C${x+4.6} ${cy-10.6} ${x+8} ${cy-8.4} ${x+7.8} ${cy-1.4} C${x+7.7} ${cy+4.4} ${x+4.6} ${cy+8.6} ${x} ${cy+8.9} C${x-4.6} ${cy+8.6} ${x-7.7} ${cy+4.4} ${x-7.8} ${cy-1.4}Z" fill="url(#${u}fc)" stroke="#c9955a" stroke-width=".35"/>
+    <ellipse cx="${x-4.3}" cy="${cy+2.8}" rx="2.9" ry="2" fill="url(#${u}bl)"/><ellipse cx="${x+4.3}" cy="${cy+2.8}" rx="2.9" ry="2" fill="url(#${u}bl)"/>
+    <path d="M${x-5.6} ${cy-3.4} Q${x-3.7} ${cy-4.8} ${x-1.6} ${cy-3.7} M${x+1.6} ${cy-3.7} Q${x+3.7} ${cy-4.8} ${x+5.6} ${cy-3.4}" stroke="#9a6a40" stroke-width=".42" fill="none" stroke-linecap="round" opacity=".85"/>
+    <path d="M${x-5.4} ${cy-1.1} Q${x-3.6} ${cy+.6} ${x-1.8} ${cy-1.1} Q${x-3.6} ${cy} ${x-5.4} ${cy-1.1}Z M${x+1.8} ${cy-1.1} Q${x+3.6} ${cy+.6} ${x+5.4} ${cy-1.1} Q${x+3.6} ${cy} ${x+1.8} ${cy-1.1}Z" fill="#3a2010" stroke="#3a2010" stroke-width=".35" stroke-linejoin="round"/>
     <path d="M${x-5} ${cy-.9} l-.6 .8 M${x-4.1} ${cy-.4} l-.35 1.1 M${x-3.1} ${cy-.3} l0 1.15 M${x-2.2} ${cy-.6} l.35 1 M${x+2.2} ${cy-.6} l-.35 1 M${x+3.1} ${cy-.3} l0 1.15 M${x+4.1} ${cy-.4} l.35 1.1 M${x+5} ${cy-.9} l.6 .8" stroke="#3a2010" stroke-width=".32" stroke-linecap="round"/>
-    <path d="M${x-.3} ${cy-1.4} Q${x-.9} ${cy+2.2} ${x-1} ${cy+2.8} Q${x} ${cy+3.5} ${x+1} ${cy+2.8}" stroke="#b07a4e" stroke-width=".5" fill="none" stroke-linecap="round"/>
-    <path d="M${x-2.7} ${cy+4.4} Q${x} ${cy+6.4} ${x+2.7} ${cy+4.4} Q${x} ${cy+7.8} ${x-2.7} ${cy+4.4}Z" fill="#d86a62"/>
-    <path d="M${x-2.7} ${cy+4.4} Q${x} ${cy+6.4} ${x+2.7} ${cy+4.4}" stroke="#a84a44" stroke-width=".35" fill="none" stroke-linecap="round"/>
+    <path d="M${x-1.1} ${cy+2.6} Q${x} ${cy+3.4} ${x+1.1} ${cy+2.6}" stroke="#c08a5e" stroke-width=".5" fill="none" stroke-linecap="round"/><ellipse cx="${x}" cy="${cy+1.4}" rx=".7" ry="1.2" fill="#fff" opacity=".35"/>
+    <path d="M${x-2.6} ${cy+4.7} Q${x-1.2} ${cy+4.2} ${x} ${cy+4.6} Q${x+1.2} ${cy+4.2} ${x+2.6} ${cy+4.7} Q${x} ${cy+7.6} ${x-2.6} ${cy+4.7}Z" fill="#e07a70"/><path d="M${x-1.4} ${cy+5.9} Q${x} ${cy+6.5} ${x+1.4} ${cy+5.9}" stroke="#fff" stroke-opacity=".45" stroke-width=".4" fill="none"/>
+    <path d="M${x-2.6} ${cy+4.8} Q${x} ${cy+6.2} ${x+2.6} ${cy+4.8}" stroke="#b05048" stroke-width=".35" fill="none" stroke-linecap="round"/>
     <path d="M${x-3.1} ${cy+4} q.3 .5 .6 .4 M${x+3.1} ${cy+4} q-.3 .5 -.6 .4" stroke="#c07a5a" stroke-width=".3" fill="none" stroke-linecap="round"/>
     <ellipse cx="${x-2.2}" cy="${cy-6.5}" rx="2.6" ry="1.2" fill="#fff" opacity=".35"/>
     `+hf+`<path d="M${x} ${cy-7} l.8 1.1 l-.8 1.1 l-.8 -1.1Z" fill="${G}"/>`};
@@ -778,7 +821,7 @@ function archSVG(id,size){const u="ar"+(++EID),L=ARCH_LOOK[id]||ARCH_LOOK.seeker
     <path transform="translate(50,61) scale(.85)" d="${HEART}" fill="url(#${u}e)" stroke="url(#${u}gold)" stroke-width="1.4"/>
     <path d="M60 66 L55 67.5 L52 70 M60 66 L65 67.5 L68 70 M60 66 V79 M55 67.5 L60 79 L65 67.5" stroke="#f0fff6" stroke-opacity=".6" stroke-width=".7" fill="none"/><circle cx="56" cy="67" r="1.2" fill="#fff"/>
     ${[[18,146,-1],[28,148,1],[92,148,-1],[102,146,1]].map(([x,y,sg])=>`<path d="M${x} ${y} Q${x+sg*2} ${y-14} ${x+sg*5} ${y-24}" stroke="#4fc07a" stroke-width="1.6" fill="none" stroke-linecap="round"/>${[6,12,18].map(k=>`<ellipse cx="${x+sg*(2+k/6)-3}" cy="${y-k}" rx="3.2" ry="1.4" transform="rotate(-30 ${x+sg*(2+k/6)-3} ${y-k})" fill="#6ad898"/><ellipse cx="${x+sg*(2+k/6)+3}" cy="${y-k-2}" rx="3.2" ry="1.4" transform="rotate(30 ${x+sg*(2+k/6)+3} ${y-k-2})" fill="#4fc07a"/>`).join("")}<circle cx="${x+sg*5}" cy="${y-25}" r="2.2" fill="${sg>0?"#fff1b0":"#ffc8e0"}"/>`).join("")}`;
-  if(id==="creator")fig=`${[...Array(12)].map((_,i)=>{const a=i*Math.PI/6;return `<line x1="${60+9*Math.cos(a)}" y1="${12+9*Math.sin(a)}" x2="${60+22*Math.cos(a)}" y2="${12+22*Math.sin(a)}" stroke="#fff1b0" stroke-width="1.2" stroke-linecap="round" opacity=".8"/>`}).join("")}
+  if(id==="creator")fig=`${LIGHT?`<g opacity=".55">${["#ff6a6a","#ff9a3a","#ffd23a","#5ad87a","#4ad8c8","#6ab0ff","#a87aff","#ff7ac8"].map((c,i)=>{const a=i*Math.PI/4-Math.PI/2;return `<circle cx="${60+46*Math.cos(a)}" cy="${70+52*Math.sin(a)}" r="16" fill="${c}" opacity=".35"/>`}).join("")}</g>`:""}${[...Array(12)].map((_,i)=>{const a=i*Math.PI/6;return `<line x1="${60+9*Math.cos(a)}" y1="${12+9*Math.sin(a)}" x2="${60+22*Math.cos(a)}" y2="${12+22*Math.sin(a)}" stroke="#fff1b0" stroke-width="1.2" stroke-linecap="round" opacity=".8"/>`}).join("")}
     <circle cx="60" cy="12" r="18" fill="url(#${u}g)"/>${star(60,12,10)}
     ${robe}
     <path d="M44 58 Q36 40 46 20 L52 22 Q46 40 50 56Z" fill="url(#${u}r)" stroke="url(#${u}gold)" stroke-width="1.2"/>
@@ -831,7 +874,7 @@ function boardBg(X,rainbow){
    <radialGradient id="${X}glow"><stop offset="0" stop-color="#ffe9a8" stop-opacity=".9"/><stop offset="1" stop-color="#ffe9a8" stop-opacity="0"/></radialGradient>
    <linearGradient id="${X}wg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#d8bb6c"/><stop offset=".5" stop-color="#b4954a"/><stop offset="1" stop-color="#d4b562"/></linearGradient>
    <radialGradient id="${X}sky" cx="50%" cy="50%"><stop offset="0" stop-color="#1d2f5e"/><stop offset=".7" stop-color="#101a3a"/><stop offset="1" stop-color="#0a1027"/></radialGradient>
-   <radialGradient id="${X}rh" cx="45%" cy="30%"><stop offset="0" stop-color="#ffd27a"/><stop offset=".35" stop-color="#f0603c"/><stop offset=".8" stop-color="#c0263a"/><stop offset="1" stop-color="#7d1224"/></radialGradient>
+   <radialGradient id="${X}rh" cx="45%" cy="30%">${LIGHT?`<stop offset="0" stop-color="#fffbe0"/><stop offset=".4" stop-color="#f6d77e"/><stop offset="1" stop-color="#b8862a"/></radialGradient><radialGradient id="${X}rhx">`:""}<stop offset="0" stop-color="#ffd27a"/><stop offset=".35" stop-color="#f0603c"/><stop offset=".8" stop-color="#c0263a"/><stop offset="1" stop-color="#7d1224"/></radialGradient>
    <filter id="${X}sh" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="2" stdDeviation="2" flood-opacity=".35"/></filter></defs>`;
   const C=LB.center;
   if(NIGHT){h+=`<circle cx="400" cy="400" r="398" fill="url(#${X}sky)"/>`+STARS}
@@ -839,7 +882,7 @@ function boardBg(X,rainbow){
     const g=D.gates[i];if(g){const a=Math.atan2(r.y2-C.y,r.x2-C.x),mx=C.x+Math.cos(a)*386,my=C.y+Math.sin(a)*386;
       h+=`<g><circle cx="${mx}" cy="${my}" r="13" fill="${NIGHT?"#0f1733":"#fffaf0"}" stroke="url(#${X}wg)" stroke-width="2.5"/><g transform="translate(${mx},${my+1}) scale(.42)">${gemSVG(g.color)}</g></g>`}});
   h+=`<circle cx="${C.x}" cy="${C.y}" r="${C.r*1.6}" fill="url(#${X}glow)"/>`;
-  if(rainbow){h+=`<g fill="none" stroke-width="27" stroke-linecap="round" stroke-linejoin="round" opacity="${NIGHT?.16:.2}">${rainbowBands()}</g>`}
+  if(rainbow&&!LIGHT){h+=`<g fill="none" stroke-width="27" stroke-linecap="round" stroke-linejoin="round" opacity="${NIGHT?.16:.2}">${rainbowBands()}</g>`}
   h+=`<path d="${LB.wallsD}" fill="none" stroke="#8f7130" stroke-opacity=".25" stroke-width="13" stroke-linecap="round" stroke-linejoin="round" transform="translate(0,1.5)"/>`;
   h+=`<path d="${LB.wallsD}" fill="none" stroke="url(#${X}wg)" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/>`;
   h+=`<path d="${LB.wallsD}" fill="none" stroke="#fbeec4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity=".75"/>`;
@@ -906,7 +949,7 @@ function boardTokens(X){let h="";const C=LB.center,E=LB.entrance;
   }
   return h;
 }
-let ZOOM=false,NIGHT=true;try{NIGHT=localStorage.getItem("gp-night2")!=="0"}catch(e){}
+let ZOOM=false,NIGHT=!LIGHT;try{const v=localStorage.getItem(LIGHT?"gp-night-l":"gp-night2");if(v!==null)NIGHT=v!=="0"}catch(e){}
 const STARS=(()=>{let s="",seed=7;const rnd=()=>(seed=(seed*16807)%2147483647)/2147483647;for(let i=0;i<140;i++){const a=rnd()*Math.PI*2,r=Math.sqrt(rnd())*396;s+=`<circle cx="${(400+r*Math.cos(a)).toFixed(1)}" cy="${(400+r*Math.sin(a)).toFixed(1)}" r="${(rnd()*1.4+.3).toFixed(2)}" fill="#fff" opacity="${(rnd()*.6+.3).toFixed(2)}"/>`}return s})();
 function focusPoint(){if(!S)return null;const p=cur();if(!p)return null;const q=p.pos;return q<=0?LB.entrance:q>N?LB.center:LB.fields[q-1]}
 function drawBoard(){const svg=$("#board");let vb=LB.viewBox;
@@ -1021,7 +1064,7 @@ function renderHome(){
   $("#dieSel").innerHTML=[["classic","Classic dice: 1–6"],["wisdom","Wisdom dice: ✕ pause · −1 step back · 1 · 2 · 3 · 4"]].map(([v,t])=>`<option value="${v}" ${setup.die===v?"selected":""}>${t}</option>`).join("");
   $("#dieSel").onchange=e=>setup.die=e.target.value;
   $("#pathSel").value=setup.baby?"80":"40";$("#pathSel").onchange=e=>setup.baby=e.target.value==="80";
-  $("#archLib").innerHTML=D.archetypes.map(a=>`<div class="mcard arch"><div class="in" style="background:radial-gradient(circle at 50% 30%,${(ARCH_LOOK[a.id]||{}).bg||"#3a3a7a"} 0,#16255a 45%,#0b1433 75%,#070c22 100%);--tx:#fbf3dc;--ac:#f2cf6b"><div class="k">Archetype</div><h4>${esc(a.name)}</h4>${archSVG(a.id,160)}<div class="t"><i>${esc(a.essence)}</i></div><div class="p" style="font-size:.85rem">${esc(a.ability)}</div></div></div>`).join("");
+  $("#archLib").innerHTML=D.archetypes.map(a=>`<div class="mcard arch"><div class="in" style="${LIGHT?`background:radial-gradient(circle at 50% 30%,${(ARCH_LOOK[a.id]||{}).bg} 0,#fffdf6 55%,#f8f0dc 100%);--tx:#1b1712;--ac:#a8782a`:`background:radial-gradient(circle at 50% 30%,${(ARCH_LOOK[a.id]||{}).bg||"#3a3a7a"} 0,#16255a 45%,#0b1433 75%,#070c22 100%);--tx:#fbf3dc;--ac:#f2cf6b`}"><div class="k">Archetype</div><h4>${esc(a.name)}</h4>${archSVG(a.id,160)}<div class="t"><i>${esc(a.essence)}</i></div><div class="p" style="font-size:.85rem">${esc(a.ability)}</div></div></div>`).join("");
   const sv=loadS();$("#resumeBtn").style.display=sv&&sv.players&&!sv.over?"inline-block":"none";
 }
 $("#addP").onclick=()=>{const used=setup.players.map(p=>p.color);setup.players.push({name:"",color:PCOLS.find(c=>!used.includes(c))||PCOLS[0],arch:D.archetypes[setup.players.length%4].id,el:["air","fire","earth","water"][setup.players.length%4]});renderHome()};
@@ -1039,11 +1082,13 @@ $("#startBtn").onclick=()=>{
 $("#resumeBtn").onclick=()=>{S=loadS();S.busy=false;go("play")};
 $("#newGame").onclick=()=>openCard({deck:"New journey",title:"Begin again?",text:"The current journey will end. Your journal will be cleared.",acts:[["Yes, start fresh",()=>{closeCard();try{localStorage.removeItem(KEY)}catch(e){}S=null;go("home")}],["Keep walking",closeCard,"ghost"]]});
 $("#musicQuick").onclick=()=>go("music");
+{const tt=$("#themeTop");if(tt){tt.textContent=LIGHT?"☾":"☀";tt.title=LIGHT?"Midnight & Gold":"Gold & White";tt.setAttribute("aria-label",tt.title);tt.onclick=()=>{try{localStorage.setItem("gp-theme",LIGHT?"dark":"light")}catch(e){};if(location.hash)history.replaceState(null,"",location.pathname);location.reload()}}}
+{const tb=$("#themeBtn");if(tb){tb.textContent=LIGHT?"☾ Midnight & Gold":"☀ Gold & White";tb.onclick=()=>{try{localStorage.setItem("gp-theme",LIGHT?"dark":"light")}catch(e){};if(location.hash)history.replaceState(null,"",location.pathname);location.reload()}}}
 function syncSfx(){$("#sfxBtn").textContent=SFX_ON?"🔊 Sound":"🔇 Sound off";$("#sfxBtn").classList.toggle("on",!SFX_ON)}
 $("#sfxBtn").onclick=()=>{SFX_ON=!SFX_ON;try{localStorage.setItem("gp-sfx",SFX_ON?"1":"0")}catch(e){};syncSfx();if(SFX_ON)sfx("pearl")};syncSfx();
 document.addEventListener("click",e=>{if(e.target.closest(".chips button,nav.tabs button,.sw"))sfx("tap")});
 function syncNight(){$("#nightBtn").classList.toggle("on",NIGHT);$("#nightBtn").textContent=NIGHT?"☀ Daylight":"☾ Night sky";$(".boardwrap").classList.toggle("night",NIGHT)}
-$("#nightBtn").onclick=()=>{NIGHT=!NIGHT;try{localStorage.setItem("gp-night2",NIGHT?"1":"0")}catch(e){};syncNight();drawBoard()};syncNight();
+$("#nightBtn").onclick=()=>{NIGHT=!NIGHT;try{localStorage.setItem(LIGHT?"gp-night-l":"gp-night2",NIGHT?"1":"0")}catch(e){};syncNight();drawBoard()};syncNight();
 $("#zoomBtn").onclick=()=>{ZOOM=!ZOOM;$("#zoomBtn").classList.toggle("on",ZOOM);$("#zoomBtn").textContent=ZOOM?"⌕ Whole board":"⌕ Zoom";drawBoard()};
 
 /* ===================== PLAY ===================== */
