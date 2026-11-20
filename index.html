@@ -997,8 +997,8 @@ let LIGHT=true;try{LIGHT=localStorage.getItem("gp-theme")!=="dark"}catch(e){}if(
 if(LIGHT){document.documentElement.classList.add("light");}
 const ARCH_DARK0={seeker:{robe:["#8a5ae0","#2a1060"],glow:"#d8c0ff",bg:"#5a3a9a"},healer:{robe:["#2fb874","#063a22"],glow:"#9cf0c0",bg:"#1f7a4a"},
  creator:{robe:["#f0a23a","#6a2c08"],glow:"#ffe08a",bg:"#a8601a"},guide:{robe:["#36c8d8","#06304a"],glow:"#b8f6ff",bg:"#1a7a90"}};
-const ARCH_GOLD={seeker:{robe:["#3a322a","#0b0908"],glow:"#f6d77e",bg:"#f6e6b8"},healer:{robe:["#ffffff","#e6dcc4"],glow:"#9cf0c0",bg:"#e8f6ec"},
- creator:{robe:["#ffb04a","#d0501e"],glow:"#ffb86a",bg:"#ffd9a8"},guide:{robe:["#f4ecd8","#c9a85a"],glow:"#f6d77e",bg:"#f3ead2"}};
+const ARCH_GOLD={seeker:{robe:["#2f6ae8","#0a1e5a"],glow:"#8fc0ff",bg:"#cfe0ff"},healer:{robe:["#2fb874","#064a2a"],glow:"#9cf0c0",bg:"#d4f4e0"},
+ creator:{robe:["#ff7a3a","#b8201a"],glow:"#ffb86a",bg:"#ffd4b8"},guide:{robe:["#fffdf6","#e6c97a"],glow:"#f6d77e",bg:"#fbf0cf"}};
 const ARCH_LOOK=LIGHT?ARCH_GOLD:ARCH_DARK0;
 function archSVG(id,size){const u="ar"+(++EID),L=ARCH_LOOK[id]||ARCH_LOOK.seeker,G="#f6d77e",GD="#c9952e";
   const small=size&&size<80;
