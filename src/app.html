@@ -259,8 +259,8 @@ footer{color:#cfc4a6!important}
     <div class="setcards" id="setcards" style="margin-top:8px"></div>
     <label class="l">Travellers (2–6 on one device · ages 9–99)</label>
     <div id="prows"></div>
-    <details class="opts"><summary>More options · path length &amp; die</summary><label class="l">The path</label><select id="pathSel"><option value="40">40 fields</option><option value="80">40 fields + 40 baby steps in between (80 steps)</option></select>
-    <label class="l">The die</label><select id="dieSel"></select></details>
+    <details class="opts"><summary>More options · path length &amp; dice</summary><label class="l">The path</label><select id="pathSel"><option value="40">40 fields</option><option value="80">40 fields + 40 baby steps in between (80 steps)</option></select>
+    <label class="l">The dice</label><select id="dieSel"></select></details>
     <div class="actions">
       <button class="btn ghost small" id="addP">+ Add traveller</button>
       <button class="btn gold" id="startBtn">Begin the journey</button>
@@ -361,7 +361,7 @@ footer{color:#cfc4a6!important}
       <h3 style="margin-top:0">Quick start</h3>
       <ol style="margin:0;padding-left:20px;line-height:1.7">
         <li>Choose your archetype and begin together.</li>
-        <li>Roll the die and walk the golden path.</li>
+        <li>Roll the dice and walk the golden path.</li>
         <li>Read the card aloud – answer, share, smile.</li>
         <li>Help each other on the way – that is how the light grows.</li>
         <li>Everyone arrives in the Golden Heart. No one wins – everyone grows.</li>
@@ -376,9 +376,9 @@ footer{color:#cfc4a6!important}
     <h3>Goal</h3>
     <p>Celebrate life and reach the Golden Heart in the centre – together. Every step, even a detour, is growth. You are never alone: your fellow players are your companions on the path, and help is always near. There are no winners. All pearls, gems, keys and tokens feed one shared Light. When the last traveller arrives, the journey is complete.</p>
     <h3>A turn</h3>
-    <ol><li>Roll the die and walk along the path (fields 1 → 40, then through the Golden Gate into the Heart).</li>
+    <ol><li>Roll the dice and walk along the path (fields 1 → 40, then through the Golden Gate into the Heart).</li>
     <li>The field you land on tells you what happens. Read the card aloud, answer, share, decide.</li>
-    <li>Receive your reward and pass the die to the left.</li></ol>
+    <li>Receive your reward and pass the dice to the left.</li></ol>
     <h3>The fields</h3><ul id="ruleFields"></ul>
     <h3>The 13 Gates</h3>
     <p>Twelve gemstone gates stand along the path, each with a quality – Passion, Innovation, Inspiration, Intuition, Compassion… Land on one, answer its question and take the gemstone. Already have it? Take a pearl instead. The thirteenth gate is the <b>Golden Gate</b> before the Heart.</p>
@@ -388,8 +388,8 @@ footer{color:#cfc4a6!important}
     <p>A golden step is a conscious time-out and a decision from the heart. It does not move you faster – it rewards you with a pearl and one of the seven Core Keys.</p>
     <h3>Surprises on the path</h3>
     <p><b>Flap of Wings</b> cards move you: fly ahead, fly to the next gate, choose your lucky number, bring a companion to your field or give your steps away. And sometimes, at the end of a turn, a <b>Sign from the Universe</b> appears – a feather, a ladybug, a heart-shaped cloud, the number 11 – with a little gift for your journey.</p>
-    <h3>The die</h3>
-    <p>Roll a classic die 1–6 and move on. As a variation you can choose the wisdom die: ✕ = take a break and breathe · −1 = step back one stone and deepen your wisdom · 1–4 = walk forward.</p>
+    <h3>The dice</h3>
+    <p>Roll a classic dice 1–6 and move on. As a variation you can choose the wisdom dice: ✕ = take a break and breathe · −1 = step back one stone and deepen your wisdom · 1–4 = walk forward.</p>
     <h3>Moments of Life &amp; the inner voice</h3>
     <p>Life has ups and downs: racing thoughts, fear, friendship struggles, stress, grief – and waves of joy. <b>Moments of Life</b> cards show how to transform them, and the support that appeared: an angel in the right moment, a sign, a word from a stranger, an advertisement, a car plate, a synchronicity. There is always support, even if we can't see it.</p>
     <p>Now and then you can pause with <b>♡ Listen to your heart</b>: close your eyes, breathe, ask silently and hear the subtle inner voice. In stillness is power and strength.</p>
@@ -1018,7 +1018,7 @@ function renderHome(){
     r.querySelectorAll(".sw").forEach(b=>b.onclick=()=>{p.color=b.dataset.c;renderHome()});
     box.appendChild(r)});
   $("#addP").disabled=setup.players.length>=6;
-  $("#dieSel").innerHTML=[["classic","Classic die: 1–6"],["wisdom","Wisdom die: ✕ pause · −1 step back · 1 · 2 · 3 · 4"]].map(([v,t])=>`<option value="${v}" ${setup.die===v?"selected":""}>${t}</option>`).join("");
+  $("#dieSel").innerHTML=[["classic","Classic dice: 1–6"],["wisdom","Wisdom dice: ✕ pause · −1 step back · 1 · 2 · 3 · 4"]].map(([v,t])=>`<option value="${v}" ${setup.die===v?"selected":""}>${t}</option>`).join("");
   $("#dieSel").onchange=e=>setup.die=e.target.value;
   $("#pathSel").value=setup.baby?"80":"40";$("#pathSel").onchange=e=>setup.baby=e.target.value==="80";
   $("#archLib").innerHTML=D.archetypes.map(a=>`<div class="mcard arch"><div class="in" style="background:radial-gradient(circle at 50% 30%,${(ARCH_LOOK[a.id]||{}).bg||"#3a3a7a"} 0,#16255a 45%,#0b1433 75%,#070c22 100%);--tx:#fbf3dc;--ac:#f2cf6b"><div class="k">Archetype</div><h4>${esc(a.name)}</h4>${archSVG(a.id,160)}<div class="t"><i>${esc(a.essence)}</i></div><div class="p" style="font-size:.85rem">${esc(a.ability)}</div></div></div>`).join("");
@@ -1033,7 +1033,7 @@ $("#startBtn").onclick=()=>{
   setTimeout(()=>{const first=esc(cur().name);
     openCard({th:"gold",deck:"G.A.M.E 2020 · God Allows More Experiences",title:"Welcome, traveler",emb:emblem("heart"),
       html:`<div class="lyrics" style="font-size:1.15rem">This game was never meant to be won.<br>It was meant to be lived.<br><br>The treasure was always within you.</div>`+(SONG?`<div class="songline" style="margin-top:12px">♪ ${esc(SONG.chorus).replace(/\n/g,"<br>")}</div>`:""),
-      text:"Take one breath together. Then "+first+" holds the die first.",
+      text:"Take one breath together. Then "+first+" holds the dice first.",
       acts:(themeSong()>=0?[["♪ Play my song &amp; begin",()=>{playTheme();closeCard()}]]:[]).concat(SONG2?[["🔊 Listen to the welcome",()=>speak(SONG2.intro),"ghost"]]:[]).concat([["Let the game begin ✦",()=>{try{speechSynthesis.cancel()}catch(e){}closeCard()},themeSong()>=0?"ghost":"gold"]])})},300);
 };
 $("#resumeBtn").onclick=()=>{S=loadS();S.busy=false;go("play")};
@@ -1065,7 +1065,7 @@ function renderPlay(){
   } else if(p.skip){
     add("Complete your loop",()=>{p.skip=false;p.pearls++;log(p.name+" completes the Loop of Reflection (+1 pearl).");openCard({th:"loops",deck:"Loop of Reflection",title:"Back on the path",emb:emblem("sym","↺"),text:"You took the time you needed. What became clearer?",reward:"+1 pearl",acts:[["Continue",()=>{closeCard();nextTurn()}]]})});
   } else {
-    add(S.rolled?"Walking…":"Roll the die",roll,"gold",!!S.rolled);
+    add(S.rolled?"Walking…":"Roll the dice",roll,"gold",!!S.rolled);
     if(!S.rolled&&!S.busy){
       const ex=document.createElement("div");ex.className="extras";box.appendChild(ex);const addX=(t,f)=>{const b=document.createElement("button");b.className="btn ghost";b.innerHTML=t;b.disabled=S.busy;b.onclick=f;ex.appendChild(b)};
       if(!S.helpedThisTurn.ask&&(p.heartRest||0)<=0)addX("♡ Heart",askHelp);
@@ -1091,9 +1091,9 @@ function roll(){
   const p=cur(),wis=S.die!=="classic",v=wis?WFACES[Math.random()*6|0]:1+(Math.random()*6|0);S.rolled=v;S.busy=true;
   sfx("dice");const d=$("#die");d.classList.remove("roll");void d.offsetWidth;d.classList.add("roll");
   let n=0;const sp=setInterval(()=>{d.innerHTML=dieSVG(wis?WFACES[Math.random()*6|0]:1+(Math.random()*6|0));if(++n>7){clearInterval(sp);d.innerHTML=dieSVG(v);
-    if(v==="X"){S.busy=false;log(p.name+" rolls ✕ – a pause to relax and breathe.");momentMusic();openCard({th:"pearls",deck:"Wisdom die · ✕",title:"Take a break",emb:emblem("pearl"),text:"Relax and breathe for a moment. Nothing to do, nowhere to rush. Your path waits for you.",timer:20,reward:"+1 pearl for the pause",acts:[["I breathed and rested",done(()=>{p.pearls++})]]});return}
+    if(v==="X"){S.busy=false;log(p.name+" rolls ✕ – a pause to relax and breathe.");momentMusic();openCard({th:"pearls",deck:"Wisdom dice · ✕",title:"Take a break",emb:emblem("pearl"),text:"Relax and breathe for a moment. Nothing to do, nowhere to rush. Your path waits for you.",timer:20,reward:"+1 pearl for the pause",acts:[["I breathed and rested",done(()=>{p.pearls++})]]});return}
     if(v===-1){S.busy=false;S.trail={from:Math.max(0,p.pos-1),to:p.pos,color:p.color,who:S.turn};p.pos=Math.max(0,p.pos-1);drawBoard();log(p.name+" rolls −1 – one step back to deepen wisdom.");
-      openCard({th:"insight",deck:"Wisdom die · −1",title:"One step back",emb:emblem("sym","↶"),text:"Sometimes we step back for our own learning. Look again at where you came from – what do you see now?",acts:[["Deepen my wisdom",()=>{closeCard();drawDeck("insight")}]]});return}
+      openCard({th:"insight",deck:"Wisdom dice · −1",title:"One step back",emb:emblem("sym","↶"),text:"Sometimes we step back for our own learning. Look again at where you came from – what do you see now?",acts:[["Deepen my wisdom",()=>{closeCard();drawDeck("insight")}]]});return}
     if(p.arch==="creator"&&p.rerolls>0){S.busy=false;openCard({deck:"Creator",title:"You rolled "+v,emb:emblem("sym",String(v)),text:"As a Creator you may shape your path: "+p.rerolls+" re-roll"+(p.rerolls>1?"s":"")+" left.",acts:[["Walk "+v+" fields",()=>{closeCard();S.busy=true;walk(v)}],["Roll again",()=>{closeCard();p.rerolls--;S.rolled=0;roll()},"ghost"]]});}
     else walk(v)}},65);
   renderPlay();
@@ -1180,7 +1180,7 @@ function drawDeck(deck){
   };
   show(draw(deck));
 }
-function moveText(e){return {fly3:"Fly 3 fields forward",walk2:"Walk 2 fields forward",toGate:"Fly to the next gate",lucky:"Choose your lucky number: walk 1 to 6 fields",bring:"A companion behind you joins you on your field · +1 Knowledge Token",meet:"Fly to a companion ahead of you – walk together",again:"Roll the die once more",rest:"Stay and rest · +2 pearls",insight:"Draw an Insight Card",energy:"Healing energy: everyone +1 pearl",allForward:"Everyone on the path moves 1 field forward",detour:"Step back 2 fields and gain 2 pearls of wisdom",detourLight:"Step back 1 field and gain 2 pearls",double:"Your next roll counts double",giftStep:"Give 2 steps to a companion · +1 Knowledge Token",key:"Receive a Core Key",music:"Play a song – everyone +1 pearl",cardinal:"You and a companion +1 pearl",coin:"+2 pearls",allPearl:"Everyone +1 pearl",pullUp:"Everyone behind you moves 1 field forward · +1 Knowledge Token",lift5:"The elevator lifts you 5 fields up!",lift7:"The elevator lifts you 7 fields toward the light!",liftAll:"You rise 3 fields – and lift everyone else 1 field",mars3:"Walk 3 fields – then 1 step back is given",bridgeCard:"Cross the Bridge of Light: draw a Bridge card",swap:"Swap places with a companion if you both agree · +1 Knowledge Token each",minute:"+1 pearl · +1 shared light"}[e]||"+1 pearl"}
+function moveText(e){return {fly3:"Fly 3 fields forward",walk2:"Walk 2 fields forward",toGate:"Fly to the next gate",lucky:"Choose your lucky number: walk 1 to 6 fields",bring:"A companion behind you joins you on your field · +1 Knowledge Token",meet:"Fly to a companion ahead of you – walk together",again:"Roll the dice once more",rest:"Stay and rest · +2 pearls",insight:"Draw an Insight Card",energy:"Healing energy: everyone +1 pearl",allForward:"Everyone on the path moves 1 field forward",detour:"Step back 2 fields and gain 2 pearls of wisdom",detourLight:"Step back 1 field and gain 2 pearls",double:"Your next roll counts double",giftStep:"Give 2 steps to a companion · +1 Knowledge Token",key:"Receive a Core Key",music:"Play a song – everyone +1 pearl",cardinal:"You and a companion +1 pearl",coin:"+2 pearls",allPearl:"Everyone +1 pearl",pullUp:"Everyone behind you moves 1 field forward · +1 Knowledge Token",lift5:"The elevator lifts you 5 fields up!",lift7:"The elevator lifts you 7 fields toward the light!",liftAll:"You rise 3 fields – and lift everyone else 1 field",mars3:"Walk 3 fields – then 1 step back is given",bridgeCard:"Cross the Bridge of Light: draw a Bridge card",swap:"Swap places with a companion if you both agree · +1 Knowledge Token each",minute:"+1 pearl · +1 shared light"}[e]||"+1 pearl"}
 const EMAX=5;
 function energy(q,dv){if(q.energy==null)q.energy=3;q.energy=Math.max(0,Math.min(EMAX,q.energy+dv))}
 function battery(q){const e=q.energy==null?3:q.energy;const col=e<=1?"#e0604a":e<=2?"#e6b04a":"#6ad08a";
@@ -1197,7 +1197,7 @@ function applyMove(e){
     case "lucky":openCard({th:"wings",deck:"Your lucky number",title:"Choose 1 – 6",emb:emblem("sym","✦"),text:"Which number feels right today?",acts:[1,2,3,4,5,6].map(n=>[String(n),()=>{closeCard();moveTo(p,p.pos+n);log(p.name+" chooses lucky number "+n+".");fin()},"opt"])});return;
     case "bring":{const b=trav.filter(i=>S.players[i].pos<p.pos);if(!b.length){p.pearls++;return fin()}return pick("Who joins you on your field?",b,i=>{moveTo(S.players[i],p.pos);p.tokens++;log(S.players[i].name+" joins "+p.name+".");fin()})}
     case "meet":{const a=trav.filter(i=>S.players[i].pos>p.pos);if(!a.length){p.pearls++;return fin()}return pick("Whom do you fly to?",a,i=>{moveTo(p,S.players[i].pos);log(p.name+" flies to "+S.players[i].name+" – walking together.");fin()})}
-    case "again":S.rolled=0;S.busy=false;chime("gate");refresh();toast("✦ Roll the die once more!");return;
+    case "again":S.rolled=0;S.busy=false;chime("gate");refresh();toast("✦ Roll the dice once more!");return;
     case "rest":p.pearls+=2;return fin();
     case "insight":return drawDeck("insight");
     case "energy":case "allPearl":S.players.forEach(q=>q.pearls++);return fin();
