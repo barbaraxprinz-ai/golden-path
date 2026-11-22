@@ -1887,7 +1887,7 @@ function wingsAction(p){const L=D3.bigWings;S._bwi=((S._bwi==null?(Math.random()
 function gratMoment(p){const c=DK.gratitude.cards[draw("gratitude")];
   openCard({th:"pearls",deck:"A moment of gratitude",title:esc(c.title),emb:emblem("sym","♡"),text:esc(c.text),prompt:esc(c.prompt||""),reward:"+1 pearl",
     acts:[["Thank you ♡",()=>{closeCard();p.pearls++;chime("pearl");log(p.name+" feels grateful: "+c.title+".");refresh()}]]})}
-function meTime(p){openCard({th:"pearls",deck:"Me-time",title:"Time just for you",emb:emblem("sym","🕊"),text:"Taking time for yourself is part of the path. Breathe, stretch, have a sip of tea – the others wait with love.",timer:60,reward:"+1 energy",
+function meTime(p){openCard({th:"pearls",deck:"Me-time",title:"Time just for you",emb:emblem("sym","🕊"),text:"Taking time for yourself is part of the path. Breathe, stretch, have a sip of tea – the others wait with love.",prompt:(D3.upliftVibes?esc(D3.upliftVibes[Math.random()*D3.upliftVibes.length|0]):""),timer:60,reward:"+1 energy",
     acts:[["I took my time ✓",()=>{closeCard();energy(p,1);log(p.name+" takes some me-time.");refresh()}]]})}
 function guardianCard(p){const st=LIGHT?"story":"light";
   openCard({th:{gem:"#2a8a9a"},deck:"Once per journey",title:"The Guardian",emb:"",html:`<div style="width:150px;margin:0 auto">${personSVG("guardian",st)}</div><div class="lyrics" style="font-size:1.15rem">“You are not alone in this. I stand beside you.”</div>`,
