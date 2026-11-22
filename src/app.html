@@ -285,6 +285,7 @@ details.spirit{margin:8px 0;border:1px solid #d9b85f66;border-radius:12px;paddin
 .gatedeep{margin:10px 0 4px;padding:10px 12px;border-radius:12px;border:1px solid #d9b85f88;background:#ffffff14;font-family:var(--serif);font-size:1.05rem;line-height:1.45}
 .gatedeep .gd-h{font-family:var(--caps);letter-spacing:.1em;font-size:.72rem;color:var(--ac);margin-bottom:4px}.gatedeep .gd-s{font-size:.85rem;opacity:.8;margin-top:6px;font-style:italic}
 html.light .gatedeep{background:#fffaf0;border-color:#c9952e66;color:#1f1a14}
+.lawline{margin:10px 0 0;font-size:.95rem;line-height:1.45;color:inherit}
 </style>
 </head>
 <body>
@@ -320,6 +321,7 @@ html.light .gatedeep{background:#fffaf0;border-color:#c9952e66;color:#1f1a14}
       <p class="lyrics" style="font-size:1.12rem">Play, be still, ask, listen – and step forward.<br>Repeat.</p>
       <details class="spirit"><summary>✦ The spirit of the game</summary>
       <p class="lyrics" style="font-size:1.12rem">The Golden Path is a game of ON(e)ness.<br>Every traveller is unique – one of a kind – and yet we are all one.<br>Step by step we switch ourselves ON and remember our connection and our purpose.<br>No one arrives alone: together we reach the Golden Heart.<br><b>Walk ON – walk as ONE.</b></p>
+      <p class="lyrics" style="font-size:1.05rem">The Golden Path is alive everywhere. Every moment can change your path – and every step brings us closer to the Golden Heart, carrying every pearl of wisdom, every memory, insight and lesson we gather.</p>
       <p><b>Golden heartlight – brightly, lightheartedly.</b> Now and always, decide to invite and radiate light and love, and let both become the focus of all your thoughts, words and deeds. Once you step on this golden wisdom path, it changes your being, your relationships and your connections – starting with the one relationship to yourself.</p>
       <p class="lyrics" style="font-size:1.05rem">Before enlightenment, cope with everyday life – and afterwards, too. There is always something to learn and to experience, and so you gain pearls of wisdom. Go with it, without resistance. Be courageous and take one step at a time – even baby steps take you forward. Life is like waves, with ups and downs. The labyrinth, an ancient symbol, keeps you on your path and shows the way to the centre of your heart: to unconditional love, pure trust and joy. Walk with your partner, your children, your friends and family, and with loved ones beyond the veil, spirit animals and angels. Free your Self, follow your inner voice and find your golden heart. Day by day, play – or start anew.<br><span style="font-size:.9rem">– Barbara</span></p>
       <p>Remember how to be a spiritual being. With anticipation, dedicate yourself to this unique game of experience – a game for <b>you</b>, for understanding your life's path, with all its lessons and your infinite choices for your next steps.</p>
@@ -513,6 +515,10 @@ html.light .gatedeep{background:#fffaf0;border-color:#c9952e66;color:#1f1a14}
     <p>Walking the Golden Path is a cycle you live again and again:<br><b>R</b>emember the light within. · <b>I</b>ntegrate the wisdom you receive. · <b>S</b>erve the world through your gifts. · <b>E</b>xpress your truth – and expand.<br><i>Turn the light ON. Walk the Golden Path – and R.I.S.E.</i></p>
     <h3>Elements and star signs</h3>
     <p>Every traveller has a home element – and may choose their <b>star sign</b>, which brings its element with it. <b>Earth</b> (Taurus, Virgo, Capricorn): stable and grounded. <b>Air</b> (Gemini, Libra, Aquarius): lively, curious and communicative. <b>Water</b> (Cancer, Scorpio, Pisces): kind-hearted, intuitive and healing. <b>Fire</b> (Aries, Leo, Sagittarius): passionate, spontaneous and goal-oriented. At the start each traveller sees the gemstones that support their element.</p>
+    <h3>Five elements of healing</h3>
+    <p>Now and then a card of the <b>five elements</b> appears – Water, Wood, Fire, Earth and Metal. Each one is a short impulse to learn something new. The world is full of healing ways and every person is unique: dig deeper wherever you feel drawn.</p>
+    <h3>Laws of the Path</h3>
+    <p>Each of the 13 gates carries one <b>Law of the Path</b> – a short sentence of wisdom to take with you, from Balance to Abundance.</p>
     <h3>Angel signs</h3>
     <p>Angels answer when we keep in contact and ask. At ♡ Heart you can <b>ask your angels for a sign</b>: a feather, a coin, a rainbow, the right song, numbers like 11:11 … And sometimes a little sign simply appears between the steps.</p>
     <h3>The Guardian</h3>
@@ -561,6 +567,7 @@ html.light .gatedeep{background:#fffaf0;border-color:#c9952e66;color:#1f1a14}
     </details>
     <h3>Playing online</h3>
     <p class="hint">This version is for 2–7 people around one device (or a shared screen in a video call). True online play on separate devices needs a small server component – planned for the next version.</p>
+    <p class="hint" style="margin-top:18px;font-size:.85rem;opacity:.75">The Golden Path is meant to touch, accompany and inspire you – an impulse for joy, for feeling accompanied and for finding yourself. It is not a promise of healing and does not replace a doctor: for physical complaints, please see your doctor.</p>
   </div>
 </section>
 <footer style="text-align:center;padding:10px 14px 30px;color:var(--muted);font-size:.85rem;line-height:1.5">
@@ -1486,7 +1493,7 @@ function resolve(pos){
   if(S.hidden&&S.hidden[pos]&&S._chamber!==pos){S._chamber=pos;openChamber(pos,()=>resolve(pos));return}
   const p=cur(),c=curMap()[pos-1];DOTCTX=pos;
   if(c==="G"){const gi=GATE_POS.indexOf(pos),g=D.gates[gi],has=p.gems.includes(gi);chime("gate");momentMusic();
-    openCard({th:{gem:g.color},deck:"Gate "+(gi+1)+" of 13 · a gift",title:g.gem+" Gate",sub:g.quality,emb:emblem("gate",g.color),text:g.line,prompt:g.question,html:`<p style="font-size:.92rem;color:#e9d9ae">“${esc(g.affirmation)}”</p>`+(D3.gateWisdom&&D3.gateWisdom[gi]?`<div class="gatedeep"><div class="gd-h">${esc(D3.gateWisdom[gi].angel)} · Gate of the ${esc(D3.gateWisdom[gi].dir)}</div>${esc(D3.gateWisdom[gi].deep)}<div class="gd-s">${esc((D3.gateBlessings||[])[gi]||"A gate of a single pearl – never shut.")}</div></div>`:"")+songLine("gate"),
+    openCard({th:{gem:g.color},deck:"Gate "+(gi+1)+" of 13 · a gift",title:g.gem+" Gate",sub:g.quality,emb:emblem("gate",g.color),text:g.line,prompt:g.question,html:`<p style="font-size:.92rem;color:#e9d9ae">“${esc(g.affirmation)}”</p>`+(D3.gateWisdom&&D3.gateWisdom[gi]?`<div class="gatedeep"><div class="gd-h">${esc(D3.gateWisdom[gi].angel)} · Gate of the ${esc(D3.gateWisdom[gi].dir)}</div>${esc(D3.gateWisdom[gi].deep)}<div class="gd-s">${esc((D3.gateBlessings||[])[gi]||"A gate of a single pearl – never shut.")}</div></div>`:"")+(D3.pathLaws&&D3.pathLaws[gi]?`<p class="lawline">✦ Law of the Path · ${esc(D3.pathLaws[gi][0])}<br><i>${esc(D3.pathLaws[gi][1])}</i></p>`:"")+songLine("gate"),
       reward:has?"You already carry "+g.quality+": +1 pearl":"You reach the value of "+g.quality+" · "+g.gem,acts:[["Enter the gate – the lights guide you ✦",done(()=>{if(has)p.pearls++;else p.gems.push(gi);log(p.name+" reaches "+g.quality+" at the "+g.gem+" Gate.")})]]});return}
   if(c==="R"){momentMusic();openCard({th:"pearls",deck:"Stillness",title:"Field of Stillness",emb:emblem("pearl"),text:"In stillness the path becomes visible. Everyone closes their eyes and breathes together.",timer:30,reward:"Everyone +1 pearl",
       acts:[["We kept the silence",done(()=>{S.players.forEach(q=>{q.pearls++;energy(q,1)});chime("pearl");log("Shared stillness – everyone +1 pearl · +1 energy.")})]]});return}
@@ -1551,7 +1558,7 @@ function drawDeck(deck){
       html:`<div class="gd-s" style="text-align:center;margin-top:6px">→ ${esc(card.line)}</div>`,reward:"You move because you live it – not because you drew it.",
       acts:[["✦ I apply this now (walk 2 · +1 pearl)",()=>{closeCard();p.pearls++;addVal(p,"Dedication");log(p.name+" applies “"+card.title+"” – and moves on.");applyMove("walk2")},"gold"],
         ["I’m not ready yet – I stay",()=>{closeCard();log(p.name+" is honest: not ready yet for “"+card.title+"”.");toast("✦ Honesty is also a step. Awareness comes first.");nextTurn()},"ghost"]].concat(swap)});return}
-    if(deck==="rise"){openCard({...base,th:{gem:"#e0a020"},title:"Where are you on the path?",sub:"The Golden Path is a living spiral",emb:emblem("sym","⟡"),
+    if(deck==="rise"){openCard({...base,th:{gem:"#e0a020"},title:"Where are you on the path?",sub:"The Golden Path is a living labyrinth",emb:emblem("sym","⟡"),
       text:"Sometimes we are remembering. Sometimes integrating. Sometimes serving. Sometimes expressing and expanding. Which movement is calling you today?",prompt:"I trust the unfolding of my path.",
       acts:[["R · Remembrance – reconnect with your inner truth",done(()=>{p.pearls++;energy(p,1);log(p.name+" is in Remembrance.")}),"opt"],
         ["I · Integration – live the wisdom you have",()=>{closeCard();log(p.name+" is in Integration.");applyMove("insight")},"opt"],
@@ -1775,6 +1782,10 @@ function canvasCard(card,swap){const p=cur();p.palette=p.palette||[];
     html:`<div class="hint" style="margin-top:10px">Which colour do you choose for your next step?</div>`,
     acts:PAINTS.map(([n,col,q,eff,txt])=>[`<span style="display:inline-block;width:14px;height:14px;border-radius:50%;background:${col};margin-right:8px;vertical-align:-2px;border:1px solid #0003"></span><b>${n}</b> · ${q} <span style="opacity:.7;font-size:.85em">– ${txt}</span>`,()=>{closeCard();if(!p.palette.includes(n))p.palette.push(n);sfx("pearl");log(p.name+" paints the canvas "+n.toLowerCase()+" – "+q.toLowerCase()+".");applyMove(eff)},"opt"]).concat(swap||[])});
 }
+function fiveElementCard(){const L=D3.fiveElements;S._fe=((S._fe==null?(Math.random()*L.length|0):S._fe)+1)%L.length;const e=L[S._fe],p=cur();chime("pearl");
+  openCard({th:"pearls",deck:"Five Elements of Healing · an impulse",title:e.icon+" "+esc(e.name),sub:esc(e.season)+" · "+esc(e.gift),emb:emblem("sym",e.icon),text:esc(e.balance),prompt:esc(e.impulse),
+    html:'<p style="font-size:.9rem;opacity:.85">Explore further – an impulse. The world is full of healing ways, and every person is unique.</p>',reward:"+1 pearl",
+    acts:[["I take this impulse with me ◯",done(()=>{p.pearls++;log(p.name+" receives an impulse of the element "+e.name+".")})]]})}
 function showSign(){sfx("sign");
   const p=cur(),card=DK.signs.cards[draw("signs")];
   openCard({th:"sign",deck:"A surprise for "+esc(p.name),title:esc(card.title),sub:card.kind==="good"?"A sign toward good things":card.kind==="lesson"?"A sign toward a lesson":"Signs from the Universe",emb:emblem("sym",/^\d|^Number/.test(card.title)?"✶":"✧"),text:esc(card.text),html:songLine("trust"),prompt:card.prompt?esc(card.prompt):"",reward:moveText(card.effect),
@@ -1814,7 +1825,7 @@ function applyEffect(card){
 function goldenGate(i){
   const q=S.players[i],g=D.goldenGate;q.pos=N+1;drawBoard();chime("heart");if(!playRole("heart")&&!playTheme())momentMusic();
   const hm=(D3.heartMsgs||[])[Math.random()*((D3.heartMsgs||[]).length||1)|0];
-  openCard({th:"gold",deck:"Gate 13",title:esc(g.title),sub:esc(q.name),emb:emblem("heart"),text:esc(g.line)+(hm?`<div class="gatedeep" style="margin-top:10px"><div class="gd-h">☀ ${esc(hm[0])}</div>${esc(hm[1])}<div class="gd-s">${esc(hm[2])}</div></div>`:""),prompt:esc(g.question),html:`<div class="gatedeep"><div class="gd-h">★ The Morning Star</div>${esc(D3.morningStar||"")}<div class="gd-s">${esc((D3.gateBlessings||[])[12]||"")}</div></div>`+songLine("heart"),input:"Take your golden feather and write your golden wisdom…",
+  openCard({th:"gold",deck:"Gate 13",title:esc(g.title),sub:esc(q.name),emb:emblem("heart"),text:esc(g.line)+(hm?`<div class="gatedeep" style="margin-top:10px"><div class="gd-h">☀ ${esc(hm[0])}</div>${esc(hm[1])}<div class="gd-s">${esc(hm[2])}</div></div>`:""),prompt:esc(g.question),html:`<div class="gatedeep"><div class="gd-h">★ The Morning Star</div>${esc(D3.morningStar||"")}<div class="gd-s">${esc((D3.gateBlessings||[])[12]||"")}</div></div>`+(D3.pathLaws&&D3.pathLaws[12]?`<p class="lawline">✦ Law of the Path · ${esc(D3.pathLaws[12][0])}<br><i>${esc(D3.pathLaws[12][1])}</i></p>`:"")+songLine("heart"),input:"Take your golden feather and write your golden wisdom…",
     reward:"★ You receive the Morning Star and become a companion of light.",
     acts:[["Enter the Golden Heart",()=>{const v=($("#cardInput")||{}).value||"";q.insight=v.trim();q.done=true;q.pearls++;q.star=true;addVal(q,"Emanation");log(q.name+" enters the Golden Heart."+(q.insight?" Insight: “"+q.insight+"”":""));closeCard();nextTurn()}]]});
 }
@@ -1824,7 +1835,7 @@ function pick(title,idxs,cb){
 }
 function nextTurn(){DOTCTX=null;if(S)S._chamber=null;
   S.turnNo=(S.turnNo||0)+1;const calm=S.turnNo-(S.lastSurprise||-9)<4;
-  if(S&&!S.over&&!calm&&!S._sign&&DK.signs&&!cur().done&&!S.players.every(q=>q.done)&&Math.random()<0.25){S._sign=true;S.lastSurprise=S.turnNo;S.rolled=0;S.busy=true;refresh();chime("gate");setTimeout(()=>{S.busy=false;(DK.chests&&Math.random()<.35)?openChest(DK.chests.cards[draw("chests")]):(DK.funny&&Math.random()<.3)?drawDeck("funny"):(DK.helping&&Math.random()<.4)?drawDeck("helping"):(DK.elevator&&Math.random()<.25)?drawDeck("elevator"):showSign()},350);return}
+  if(S&&!S.over&&!calm&&!S._sign&&DK.signs&&!cur().done&&!S.players.every(q=>q.done)&&Math.random()<0.25){S._sign=true;S.lastSurprise=S.turnNo;S.rolled=0;S.busy=true;refresh();chime("gate");setTimeout(()=>{S.busy=false;(DK.chests&&Math.random()<.35)?openChest(DK.chests.cards[draw("chests")]):(DK.funny&&Math.random()<.3)?drawDeck("funny"):(DK.helping&&Math.random()<.4)?drawDeck("helping"):(DK.elevator&&Math.random()<.25)?drawDeck("elevator"):(D3.fiveElements&&Math.random()<.2)?fiveElementCard():showSign()},350);return}
   if(S)S._sign=false;
   if(S&&!S.over&&!calm&&!S._held&&DK.held&&!S.players.every(q=>q.done)&&Math.random()<0.15){S._held=true;S.lastSurprise=S.turnNo;S.busy=true;refresh();setTimeout(()=>{S.busy=false;showHeld(()=>nextTurn())},300);return}
   if(S)S._held=false;
