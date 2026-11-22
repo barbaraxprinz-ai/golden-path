@@ -1375,7 +1375,7 @@ function resolve(pos){
   if(S.hidden&&S.hidden[pos]&&S._chamber!==pos){S._chamber=pos;openChamber(pos,()=>resolve(pos));return}
   const p=cur(),c=curMap()[pos-1];DOTCTX=pos;
   if(c==="G"){const gi=GATE_POS.indexOf(pos),g=D.gates[gi],has=p.gems.includes(gi);chime("gate");momentMusic();
-    openCard({th:{gem:g.color},deck:"Gate "+(gi+1)+" of 13 · a gift",title:g.gem+" Gate",sub:g.quality,emb:emblem("gate",g.color),text:g.line,prompt:g.question,html:`<p style="font-size:.92rem;color:#e9d9ae">“${esc(g.affirmation)}”</p>`+(D3.gateWisdom&&D3.gateWisdom[gi]?`<div class="gatedeep"><div class="gd-h">${esc(D3.gateWisdom[gi].angel)} · Gate of the ${esc(D3.gateWisdom[gi].dir)}</div>${esc(D3.gateWisdom[gi].deep)}<div class="gd-s">A gate of a single pearl – never shut.</div></div>`:"")+songLine("gate"),
+    openCard({th:{gem:g.color},deck:"Gate "+(gi+1)+" of 13 · a gift",title:g.gem+" Gate",sub:g.quality,emb:emblem("gate",g.color),text:g.line,prompt:g.question,html:`<p style="font-size:.92rem;color:#e9d9ae">“${esc(g.affirmation)}”</p>`+(D3.gateWisdom&&D3.gateWisdom[gi]?`<div class="gatedeep"><div class="gd-h">${esc(D3.gateWisdom[gi].angel)} · Gate of the ${esc(D3.gateWisdom[gi].dir)}</div>${esc(D3.gateWisdom[gi].deep)}<div class="gd-s">${esc((D3.gateBlessings||[])[gi]||"A gate of a single pearl – never shut.")}</div></div>`:"")+songLine("gate"),
       reward:has?"You already carry "+g.quality+": +1 pearl":"You reach the value of "+g.quality+" · "+g.gem,acts:[["Enter the gate – the lights guide you ✦",done(()=>{if(has)p.pearls++;else p.gems.push(gi);log(p.name+" reaches "+g.quality+" at the "+g.gem+" Gate.")})]]});return}
   if(c==="R"){momentMusic();openCard({th:"pearls",deck:"Stillness",title:"Field of Stillness",emb:emblem("pearl"),text:"In stillness the path becomes visible. Everyone closes their eyes and breathes together.",timer:30,reward:"Everyone +1 pearl",
       acts:[["We kept the silence",done(()=>{S.players.forEach(q=>{q.pearls++;energy(q,1)});chime("pearl");log("Shared stillness – everyone +1 pearl · +1 energy.")})]]});return}
@@ -1687,7 +1687,7 @@ function applyEffect(card){
 }
 function goldenGate(i){
   const q=S.players[i],g=D.goldenGate;q.pos=N+1;drawBoard();chime("heart");if(!playRole("heart")&&!playTheme())momentMusic();
-  openCard({th:"gold",deck:"Gate 13",title:esc(g.title),sub:esc(q.name),emb:emblem("heart"),text:esc(g.line),prompt:esc(g.question),html:`<div class="gatedeep"><div class="gd-h">★ The Morning Star</div>${esc(D3.morningStar||"")}<div class="gd-s">The street of the city is gold, clear as glass. It needs no sun and no moon – the Light itself shines there.</div></div>`+songLine("heart"),input:"Take your golden feather and write your golden wisdom…",
+  openCard({th:"gold",deck:"Gate 13",title:esc(g.title),sub:esc(q.name),emb:emblem("heart"),text:esc(g.line),prompt:esc(g.question),html:`<div class="gatedeep"><div class="gd-h">★ The Morning Star</div>${esc(D3.morningStar||"")}<div class="gd-s">${esc((D3.gateBlessings||[])[12]||"")}</div></div>`+songLine("heart"),input:"Take your golden feather and write your golden wisdom…",
     reward:"★ You receive the Morning Star and become a companion of light.",
     acts:[["Enter the Golden Heart",()=>{const v=($("#cardInput")||{}).value||"";q.insight=v.trim();q.done=true;q.pearls++;q.star=true;addVal(q,"Emanation");log(q.name+" enters the Golden Heart."+(q.insight?" Insight: “"+q.insight+"”":""));closeCard();nextTurn()}]]});
 }
