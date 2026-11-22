@@ -1268,7 +1268,7 @@ function renderHome(){
   $("#dieSel").innerHTML=[["classic","Classic dice: 1–6"],["wisdom","Wisdom dice: ✕ pause · −1 step back · 1 · 2 · 3 · 4"]].map(([v,t])=>`<option value="${v}" ${setup.die===v?"selected":""}>${t}</option>`).join("");
   $("#dieSel").onchange=e=>setup.die=e.target.value;
   $("#pathSel").value=setup.baby?"80":"40";$("#pathSel").onchange=e=>setup.baby=e.target.value==="80";
-  $("#archLib").innerHTML=D.archetypes.map(a=>`<div class="mcard arch"><div class="in" style="${LIGHT?`background:radial-gradient(circle at 50% 30%,${(ARCH_LOOK[a.id]||{}).bg} 0,#fffdf6 55%,#f8f0dc 100%);--tx:#1b1712;--ac:#a8782a`:`background:radial-gradient(circle at 50% 30%,${(ARCH_LOOK[a.id]||{}).bg||"#3a3a7a"} 0,#16255a 45%,#0b1433 75%,#070c22 100%);--tx:#fbf3dc;--ac:#f2cf6b`}"><div class="k">Archetype</div><h4>${esc(a.name)}</h4>${archSVG(a.id,160)}<div class="t"><i>${esc(a.essence)}</i></div><div class="p" style="font-size:.85rem">${esc(a.ability)}</div></div></div>`).join("");
+  $("#archLib").innerHTML=D.archetypes.map(a=>`<div class="mcard arch"><div class="in" style="${LIGHT?`background:radial-gradient(circle at 50% 30%,${(ARCH_LOOK[a.id]||{}).bg} 0,#fffdf6 55%,#f8f0dc 100%);--tx:#1b1712;--ac:#a8782a`:`background:radial-gradient(circle at 50% 30%,${(ARCH_LOOK[a.id]||{}).bg||"#3a3a7a"} 0,#16255a 45%,#0b1433 75%,#070c22 100%);--tx:#fbf3dc;--ac:#f2cf6b`}"><div class="k">Archetype</div><h4>${esc(a.name)}</h4>${archSVG(a.id,160)}<div class="t"><i>${esc(a.essence)}</i></div>${(D3.archMantra||{})[a.id]?`<div class="t" style="font-family:var(--serif);font-size:1.1rem;margin:4px 0"><b>“${esc(D3.archMantra[a.id])}”</b></div>`:""}<div class="p" style="font-size:.85rem">${esc(a.ability)}</div></div></div>`).join("");
   const sv=loadS();$("#resumeBtn").style.display=sv&&sv.players&&!sv.over?"inline-block":"none";
 }
 $("#addP").onclick=()=>{const used=setup.players.map(p=>p.color);setup.players.push({name:"",color:PCOLS.find(c=>!used.includes(c))||PCOLS[0],arch:D.archetypes[setup.players.length%4].id,el:["air","fire","earth","water"][setup.players.length%4]});renderHome()};
@@ -1820,7 +1820,7 @@ $("#printBtn").onclick=()=>{try{window.print()}catch(e){};setTimeout(()=>toast("
 /* ===================== RULES ===================== */
 function renderRules(){
   $("#ruleFields").innerHTML=Object.entries(T).map(([k,t])=>`<li><b>${t.name}</b> – ${DESC[k]}</li>`).join("");
-  $("#ruleArch").innerHTML=D.archetypes.map(a=>`<li><b>${esc(a.name)}</b> – ${esc(a.essence)}. ${esc(a.ability)}</li>`).join("");
+  $("#ruleArch").innerHTML=D.archetypes.map(a=>`<li><b>${esc(a.name)}</b> – ${esc(a.essence)} ${(D3.archMantra||{})[a.id]?"<i>“"+esc(D3.archMantra[a.id])+"”</i> ":""}${esc(a.ability)}</li>`).join("");
 }
 
 /* ===================== NAV ===================== */
