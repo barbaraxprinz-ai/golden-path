@@ -592,6 +592,7 @@ if(D3.again)DK.again={name:"Walk It Again",color:"#8ab890",cards:D3.again};
 if(D3.colors40&&DK.colors){DK.colors.cards=D3.colors40;DK.colors.name="40 Colours of Life"}
 if(D3.animalsPlus&&DK.animals){const have=new Set(DK.animals.cards.map(c=>c.title));DK.animals.cards=DK.animals.cards.concat(D3.animalsPlus.filter(c=>!have.has(c.title)))}
 if(D3.crystals)DK.crystals={name:"Crystal Pocket",color:"#9ad0e8",cards:D3.crystals};
+if(D3.wings2)DK.wings2={name:"Spinning Wings",color:"#2ac0d8",cards:[{title:"Spinning Wings"}]};
 if(D3.wheel)DK.wheel={name:"Wheel of Growth",color:"#e02aa0",cards:[{title:"Wheel of Growth"}]};
 DK.balance={name:"Two Energies",color:"#b89ae0",cards:[{title:"Two Energies"}]};
 if(D3.onwords)DK.onwords={name:"Words with ON",color:"#d9a520",cards:D3.onwords.map(c=>({...c,title:c.word}))};
@@ -663,6 +664,7 @@ const T={ // field types
  r:{deck:"again",name:"Walk It Again",sym:"↻"},
  l:{deck:"love",name:"The Web of Love",sym:"❤"},
  v:{deck:"crystals",name:"Crystal Pocket",sym:"◇"},
+ z:{deck:"wings2",name:"Spinning Wings",sym:"✣"},
  u:{deck:"wheel",name:"Wheel of Growth",sym:"✇"},
  b:{deck:"balance",name:"Two Energies",sym:"☯"},
  n:{deck:"onwords",name:"Words with ON",sym:"ON"},
@@ -694,6 +696,7 @@ const DESC={
  g:"Your Guides: humans, angels, spirit animals and the dragonfly give you strength on your path.",
  t:"Become the Teacher: share a lesson from your life – everyone +1 pearl, you +1 Knowledge Token.",
  v:"Crystal Pocket: you find a crystal – a short message and a playful task. Keep it in your pocket.",
+ z:"Spinning Wings: spin the wings – straight ahead, right, left, up, stop and listen, or meet someone. Which impulse guides you?",
  u:"Wheel of Growth: spiritual growth is a cycle – quietness, impulse, creating, overcoming, celebrating. Spin the wheel!",
  b:"Two Energies: the feminine way (receive, listen, rest) and the masculine way (act, move, finish) – best of all, both in harmony.",
  n:"Words with ON: one golden word ending in “-on” – a short message and a playful task. Switch yourself ON!",
@@ -732,7 +735,7 @@ const MIX={
  path:"C!IT~PAMBSSQ!E~DD^OVXFWK",
  animals:"AA~F!CTPSSQ~U!EDD^OVXWMB",
  heart:"M!~BBRCTYSSQU~!ED^NOVXKP"};
-const CORE="QQQSSE~!hsFn",ROTATE="cowkgtrlyyxvub";
+const CORE="QQQSSE~!hsFn",ROTATE="cowkgtrlyyxvubz";
 function buildMap(set,seedIn){
   const m=[];for(let i=1;i<=N;i++)m.push(GATE_POS.includes(i)?"G":"");
   TURN_FIELDS.forEach(f=>{if(m[f-1]!=="G")m[f-1]="L"});
@@ -1329,7 +1332,7 @@ function renderPlay(){
     <div class="vals">${values(q).map(v=>`<span>${esc(v)}</span>`).join("")}</div><div class="badges">${(q.palette||[]).length?`<span class="stat" title="Your colours">🎨 ${q.palette.map(n=>`<span style="display:inline-block;width:9px;height:9px;border-radius:50%;background:${(PAINTS.find(x=>x[0]===n)||[])[1]}"></span>`).join(" ")}</span>`:""}${battery(q)}<span class="stat">◯ ${q.pearls}</span><span class="stat">✧ ${values(q).length}/${ALLVALUES.length} values</span><span class="stat">✦ ${q.tokens}</span>${q.gems.map(g=>`<span class="gem" title="${esc(D.gates[g].gem)}" style="background:${D.gates[g].color}"></span>`).join("")}</div></div></div>`).join("");
   const L=light(),goal=Math.max(60,S.players.length*30);$("#goal").textContent=goal;$("#lightNum").textContent=L;$("#lightBar").style.width=Math.min(100,L/goal*100)+"%";
   $("#log").innerHTML=S.log.map(t=>`<div>${esc(t)}</div>`).join("");
-  $("#legend").innerHTML=Object.entries(T).map(([k,t])=>`<span><svg width="16" height="16"><circle cx="8" cy="8" r="6" fill="${k==="G"?"#7d4fb3":k==="S"?"#d9b85f":k==="Q"?"#c98a2e":k==="E"?"#6ad08a":k==="N"?"#e6c463":k==="O"?"#fff1b0":k==="V"?"#7fc8f0":k==="X"?"#8fd0a8":k==="D"?"#1f4a8a":k==="T"?"#d98a5a":k==="^"?"#f6d77e":k==="~"?"#9a6ae0":k==="!"?"#ffb84a":k==="c"?"#e8c13a":k==="h"?"#7ab8d8":k==="o"?"#f2c83a":k==="w"?"#a8d4e8":k==="k"?"#4aa0c8":k==="g"?"#c8a8e8":k==="t"?"#d8a050":k==="r"?"#8ab890":k==="l"?"#e88aa8":k==="n"?"#d9a520":k==="b"?"#b89ae0":k==="u"?"#e02aa0":k==="v"?"#9ad0e8":k==="s"?"#ffc83a":k==="y"?"#e0b070":k==="x"?"#b880d0":"#15120e"}" stroke="${k==="P"||k==="G"||k==="S"?"none":ringCol(k)}" stroke-width="2.6"/></svg>${t.name}</span>`).join("");
+  $("#legend").innerHTML=Object.entries(T).map(([k,t])=>`<span><svg width="16" height="16"><circle cx="8" cy="8" r="6" fill="${k==="G"?"#7d4fb3":k==="S"?"#d9b85f":k==="Q"?"#c98a2e":k==="E"?"#6ad08a":k==="N"?"#e6c463":k==="O"?"#fff1b0":k==="V"?"#7fc8f0":k==="X"?"#8fd0a8":k==="D"?"#1f4a8a":k==="T"?"#d98a5a":k==="^"?"#f6d77e":k==="~"?"#9a6ae0":k==="!"?"#ffb84a":k==="c"?"#e8c13a":k==="h"?"#7ab8d8":k==="o"?"#f2c83a":k==="w"?"#a8d4e8":k==="k"?"#4aa0c8":k==="g"?"#c8a8e8":k==="t"?"#d8a050":k==="r"?"#8ab890":k==="l"?"#e88aa8":k==="n"?"#d9a520":k==="b"?"#b89ae0":k==="z"?"#2ac0d8":k==="u"?"#e02aa0":k==="v"?"#9ad0e8":k==="s"?"#ffc83a":k==="y"?"#e0b070":k==="x"?"#b880d0":"#15120e"}" stroke="${k==="P"||k==="G"||k==="S"?"none":ringCol(k)}" stroke-width="2.6"/></svg>${t.name}</span>`).join("");
 }
 function refresh(){save();renderPlay()}
 const WFACES=["X",-1,1,2,3,4];
@@ -1434,13 +1437,13 @@ function drawDeck(deck){
       acts:[["🌙 I listen and rest (+2 energy)",done(()=>{energy(p,2);log(p.name+" walks the feminine way: listening and resting.")}),"opt"],
         ["☀ I act and move forward (walk 2)",()=>{closeCard();log(p.name+" walks the masculine way: acting with strength.");applyMove("walk2")},"opt"],
         ["☯ Both in harmony (+1 pearl for everyone)",done(()=>{S.players.forEach(q=>q.pearls++);addVal(p,"Expression");log(p.name+" lets both energies flow in harmony.")}),"opt"]]});return}
-    if(deck==="wheel"){const W=D3.wheel,n=W.length,a=360/n;let seg="";W.forEach((w,i)=>{const a0=(i*a-90)*Math.PI/180,a1=((i+1)*a-90)*Math.PI/180,am=((i+.5)*a-90)*Math.PI/180;
+    if(deck==="wheel"||deck==="wings2"){const W=deck==="wheel"?D3.wheel:D3.wings2,n=W.length,a=360/n,WN=deck==="wheel"?"Wheel of Growth":"Spinning Wings";let seg="";W.forEach((w,i)=>{const a0=(i*a-90)*Math.PI/180,a1=((i+1)*a-90)*Math.PI/180,am=((i+.5)*a-90)*Math.PI/180;
         seg+=`<path d="M100 100L${(100+95*Math.cos(a0)).toFixed(1)} ${(100+95*Math.sin(a0)).toFixed(1)}A95 95 0 0 1 ${(100+95*Math.cos(a1)).toFixed(1)} ${(100+95*Math.sin(a1)).toFixed(1)}Z" fill="${w.col}" stroke="#fff" stroke-width="2"/><text x="${(100+60*Math.cos(am)).toFixed(1)}" y="${(100+60*Math.sin(am)+4).toFixed(1)}" font-size="11" font-weight="700" fill="#fff" text-anchor="middle" transform="rotate(${((i+.5)*a).toFixed(0)} ${(100+60*Math.cos(am)).toFixed(1)} ${(100+60*Math.sin(am)).toFixed(1)})">${esc(w.name)}</text>`});
       const k=Math.random()*n|0,spin=360*5+(360-(k+.5)*a);
-      openCard({...base,th:{gem:"#c8288a"},title:"Wheel of Growth",sub:"Growth is a cycle – go with the flow",emb:"",html:`<div style="position:relative;width:210px;margin:6px auto"><svg id="wheelSvg" viewBox="0 0 200 200" width="210" height="210" style="transition:transform 2.6s cubic-bezier(.17,.67,.2,1);display:block">${seg}<circle cx="100" cy="100" r="14" fill="#fffaf0" stroke="#c9952e" stroke-width="3"/></svg><div style="position:absolute;left:50%;top:-6px;transform:translateX(-50%);width:0;height:0;border-left:11px solid transparent;border-right:11px solid transparent;border-top:20px solid #c9952e"></div></div>`,
-        text:"Spiritual growth doesn’t happen in one day. It turns like a wheel: quietness, impulses, creating, overcoming – and celebrating.",
-        acts:[["✇ Spin the wheel",()=>{const el=$("#wheelSvg");if(!el||el._spun)return;el._spun=1;sfx("dice");el.style.transform=`rotate(${spin}deg)`;
-          setTimeout(()=>{closeCard();const w=W[k];openCard({th:{gem:w.col},deck:"Wheel of Growth",title:esc(w.name),emb:emblem("color",w.col),text:esc(w.task),reward:moveText(w.effect),acts:[["Done ✦",()=>{closeCard();log(p.name+" spins the Wheel of Growth: "+w.name+".");applyMove(w.effect)}]]})},2800)}]]});return}
+      openCard({...base,th:{gem:deck==="wheel"?"#c8288a":"#2a9ac0"},title:WN,sub:deck==="wheel"?"Growth is a cycle – go with the flow":"Which impulse guides you?",emb:"",html:`<div style="position:relative;width:210px;margin:6px auto"><svg id="wheelSvg" viewBox="0 0 200 200" width="210" height="210" style="transition:transform 2.6s cubic-bezier(.17,.67,.2,1);display:block">${seg}<circle cx="100" cy="100" r="14" fill="#fffaf0" stroke="#c9952e" stroke-width="3"/></svg><div style="position:absolute;left:50%;top:-6px;transform:translateX(-50%);width:0;height:0;border-left:11px solid transparent;border-right:11px solid transparent;border-top:20px solid #c9952e"></div></div>`,
+        text:deck==="wheel"?"Spiritual growth doesn’t happen in one day. It turns like a wheel: quietness, impulses, creating, overcoming – and celebrating.":"The wings spin: straight ahead, right, left, up – or stop and listen. Are you guided straight to your purpose, or on a little detour to learn more?",
+        acts:[[deck==="wheel"?"✇ Spin the wheel":"〰 Spin the wings",()=>{const el=$("#wheelSvg");if(!el||el._spun)return;el._spun=1;sfx("dice");el.style.transform=`rotate(${spin}deg)`;
+          setTimeout(()=>{closeCard();const w=W[k];openCard({th:{gem:w.col},deck:WN,title:esc(w.name),emb:emblem("color",w.col),text:esc(w.task),reward:moveText(w.effect),acts:[["Done ✦",()=>{closeCard();log(p.name+" spins the "+WN+": "+w.name+".");applyMove(w.effect)}]]})},2800)}]]});return}
     if(deck==="crystals"){openCard({...base,th:{col:card.hex},sub:"You find a crystal",emb:emblem("color",card.hex),text:esc(card.text),prompt:esc(card.prompt),reward:"◇ The crystal goes in your pocket · +1 pearl",
       acts:[["Into my pocket ◇",done(()=>{p.pearls++;p.crystals=(p.crystals||[]);if(!p.crystals.includes(card.title))p.crystals.push(card.title);log(p.name+" finds a "+card.title+".")})]].concat(swap)});return}
     if(deck==="sun"){openCard({...base,th:{gem:"#f0b020"},sub:"Warmth · love · light – for everyone",emb:emblem("sym","☀"),text:esc(card.text),prompt:esc(card.prompt),reward:"☀ +1 shared light · "+moveText(card.effect),
@@ -1745,9 +1748,9 @@ function finale(){
 let libSel="gates";
 function mini(k,title,t,p,emb,th){const tm=theme(th);return `<div class="mcard"><div class="in ${tm.light?"light":""} ${tm.rb?"rb":""}" style="${themeStyle(th)}"><div class="k">${k}</div><h4>${title}</h4>${emb.replace('class="emb"','')}<div class="t">${t}</div>${p?`<div class="p">${p}</div>`:""}</div></div>`}
 function renderCards(){
-  const chips=[["onwords"],["sun"],["wheel"],["balance"],["crystals"],["magic"],["walk"],["emotions"],["love"],["herenow"],["possibilities"],["canvas"],["breath"],["chalice"],["guides"],["teacher"],["again"],["dots","40 Questions"],["funny"],["journeys"],["obstacles"],["chambers"],["gates","13 Gates"],["core","Core Keys"],["shine"],["gratitude"],["planets"],["wings"],["signs"],["elevator"],["film"],["helping"],["held"],["comm"],["radiate"],["numwis"],["recharge"],["moments"],["chests"],["bridge"],["treasures"],["choice"],["insight"],["pearls"],["animals"],["colors"],["prayers"],["together"],["steps"],["loops"]];
+  const chips=[["onwords"],["sun"],["wheel"],["wings2"],["balance"],["crystals"],["magic"],["walk"],["emotions"],["love"],["herenow"],["possibilities"],["canvas"],["breath"],["chalice"],["guides"],["teacher"],["again"],["dots","40 Questions"],["funny"],["journeys"],["obstacles"],["chambers"],["gates","13 Gates"],["core","Core Keys"],["shine"],["gratitude"],["planets"],["wings"],["signs"],["elevator"],["film"],["helping"],["held"],["comm"],["radiate"],["numwis"],["recharge"],["moments"],["chests"],["bridge"],["treasures"],["choice"],["insight"],["pearls"],["animals"],["colors"],["prayers"],["together"],["steps"],["loops"]];
   const chipsOk=chips.filter(([k])=>k==="gates"||k==="core"||(k==="dots"?D2.dots:DK[k]));
-  const GROUPS=[["✦ The Path",["onwords","balance","sun","magic","walk","emotions","herenow","possibilities","canvas","breath","chalice","again","gates","core","dots","choice","insight","pearls","steps","loops","stones"]],["♡ Heart & Soul",["prayers","held","radiate","bridge","numwis","colors","animals","shine","gratitude","recharge"]],["∞ Together",["love","guides","teacher","together","comm","helping","film","moments"]],["✧ Surprises & Riddles",["wheel","crystals","funny","obstacles","chambers","journeys","chests","wings","signs","elevator","planets","treasures"]]];
+  const GROUPS=[["✦ The Path",["onwords","balance","sun","magic","walk","emotions","herenow","possibilities","canvas","breath","chalice","again","gates","core","dots","choice","insight","pearls","steps","loops","stones"]],["♡ Heart & Soul",["prayers","held","radiate","bridge","numwis","colors","animals","shine","gratitude","recharge"]],["∞ Together",["love","guides","teacher","together","comm","helping","film","moments"]],["✧ Surprises & Riddles",["wheel","wings2","crystals","funny","obstacles","chambers","journeys","chests","wings","signs","elevator","planets","treasures"]]];
   const okSet=new Set(chipsOk.map(c=>c[0])),nm=Object.fromEntries(chipsOk.map(([k,n])=>[k,n]));
   const btn=k=>`<button class="${k===libSel?"on":""}" data-k="${k}">${nm[k]||(DK[k]?DK[k].name:k)} ${k!=="gates"&&k!=="core"&&k!=="dots"?"<span style='opacity:.6'>"+DK[k].cards.length+"</span>":""}</button>`;
   const placed=new Set();
@@ -1777,6 +1780,7 @@ function renderCards(){
     if(libSel==="moments")return mini(d.name+" · "+esc(c.mood),esc(c.title),esc(c.situation)+"<br><i>"+esc(c.tool)+"</i>","✦ "+esc(c.help),emblem("sym",c.mood==="Up"?"☀":"☁"),"moments");
     if(libSel==="onwords")return mini(d.name,esc(c.word),esc(c.text),esc(c.prompt),emblem("sym","ON"),{gem:"#d9a520"});
     if(libSel==="balance")return mini(d.name,"Feminine · Masculine · Both","🌙 Follow your inner self, calm down, receive.<br>☀ Act, move forward, finish your goal.<br>☯ Let both mingle: talk and listen, act and rest.","",emblem("sym","☯"),{gem:"#9a7ad0"});
+    if(libSel==="wings2")return (D3.wings2||[]).map(w=>mini(d.name,esc(w.name),esc(w.task),"",emblem("color",w.col),{col:w.col})).join("");
     if(libSel==="wheel")return (D3.wheel||[]).map(w=>mini(d.name,esc(w.name),esc(w.task),"",emblem("color",w.col),{col:w.col})).join("");
     if(libSel==="crystals")return mini(d.name,esc(c.title),esc(c.text),esc(c.prompt),emblem("color",c.hex),{col:c.hex});
     if(libSel==="sun")return mini(d.name,esc(c.title),esc(c.text),esc(c.prompt),emblem("sym","☀"),{gem:"#f0b020"});
