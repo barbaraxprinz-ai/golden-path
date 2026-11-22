@@ -515,6 +515,8 @@ html.light .gatedeep{background:#fffaf0;border-color:#c9952e66;color:#1f1a14}
     <p>Walking the Golden Path is a cycle you live again and again:<br><b>R</b>emember the light within. · <b>I</b>ntegrate the wisdom you receive. · <b>S</b>erve the world through your gifts. · <b>E</b>xpress your truth – and expand.<br><i>Turn the light ON. Walk the Golden Path – and R.I.S.E.</i></p>
     <h3>Elements and star signs</h3>
     <p>Every traveller has a home element – and may choose their <b>star sign</b>, which brings its element with it. <b>Earth</b> (Taurus, Virgo, Capricorn): stable and grounded. <b>Air</b> (Gemini, Libra, Aquarius): lively, curious and communicative. <b>Water</b> (Cancer, Scorpio, Pisces): kind-hearted, intuitive and healing. <b>Fire</b> (Aries, Leo, Sagittarius): passionate, spontaneous and goal-oriented. At the start each traveller sees the gemstones that support their element.</p>
+    <h3>Big Flap of Wings</h3>
+    <p>Whenever the game needs more action, a twist or new inspiration, tap <b>🪽 Big Flap of Wings</b> (once per turn). <b>Choose</b> what your heart needs: an action card with your teammates, a moment of gratitude – or <b>me-time</b>, a minute just for you. Ask your angels to keep you moving and connected.</p>
     <h3>Five elements of healing</h3>
     <p>Now and then a card of the <b>five elements</b> appears – Water, Wood, Fire, Earth and Metal. Each one is a short impulse to learn something new. The world is full of healing ways and every person is unique: dig deeper wherever you feel drawn.</p>
     <h3>Laws of the Path</h3>
@@ -590,7 +592,7 @@ const PCOLS=["#2849a8","#c0263a","#2f8f5b","#e2702a","#7d4fb3","#e79bb5","#1a8a8
 const D2=window.GAME_DATA2||{};
 if(D2.gates&&D2.gates.length===12)D.gates=D2.gates;
 const DK=D.decks;
-if(D2.shine)DK.shine={name:"Shine-ON",color:"#e8c13a",cards:D2.shine.map(w=>({title:w.word,text:"Share one thing you are grateful for that relates to this word. Then everyone may share theirs.",prompt:"Create your own affirmation – or speak: “"+w.affirmation+"”"}))};
+if(D2.shine)DK.shine={name:"High Vibration",color:"#e8c13a",cards:D2.shine.map(w=>({title:w.word,text:"Share one thing you are grateful for that relates to this word. Then everyone may share theirs.",prompt:"Create your own affirmation – or speak: “"+w.affirmation+"”"}))};
 if(D2.gratitude)DK.gratitude={name:"Moments of Gratitude",color:"#e79bb5",cards:D2.gratitude.map(g=>({title:g.title,text:g.text,prompt:"When did you last feel this – and whom would you like to thank?"}))};
 if(D2.planets)DK.planets={name:"Jump & Learn · Planets",color:"#3b5bb5",cards:D2.planets.map(x=>({title:x.name,sub:x.gift,text:x.text,effect:x.effect}))};
 const D3=window.GAME_DATA3||{};
@@ -619,7 +621,7 @@ if(D3.crystals)DK.crystals={name:"Crystal Pocket",color:"#9ad0e8",cards:D3.cryst
 if(D3.wings2)DK.wings2={name:"Spinning Wings",color:"#2ac0d8",cards:[{title:"Spinning Wings"}]};
 if(D3.wheel)DK.wheel={name:"Wheel of Growth",color:"#e02aa0",cards:[{title:"Wheel of Growth"}]};
 DK.balance={name:"Two Energies",color:"#b89ae0",cards:[{title:"Two Energies"}]};
-if(D3.onwords)DK.onwords={name:"Words with ON",color:"#d9a520",cards:D3.onwords.map(c=>({...c,title:c.word}))};
+if(D3.onwords)DK.onwords={name:"Shine-ON",color:"#d9a520",cards:D3.onwords.map(c=>({...c,title:c.word}))};
 if(D3.laws)DK.laws={name:"Universal Laws",color:"#8a7a5a",cards:D3.laws};
 DK.rise={name:"R.I.S.E.",color:"#e0a020",cards:[{title:"Where are you on the path?"}]};
 if(D3.living)DK.living={name:"The Honest Step",color:"#d0a040",cards:D3.living};
@@ -668,7 +670,7 @@ const T={ // field types
  L:{deck:"loops",name:"Loop / Crossing",sym:"↺"},
  R:{deck:null,name:"Stillness",sym:"·"},
  G:{deck:null,name:"Gemstone Gate",sym:"◆"},
- H:{deck:"shine",name:"Shine-ON",sym:"☀"},
+ H:{deck:"shine",name:"High Vibration",sym:"☀"},
  Y:{deck:"gratitude",name:"Gratitude",sym:"♡"},
  J:{deck:"planets",name:"Jump & Learn",sym:"♃"},
  W:{deck:"wings",name:"Flap of Wings",sym:"〰"},
@@ -698,7 +700,7 @@ const T={ // field types
  z:{deck:"wings2",name:"Spinning Wings",sym:"✣"},
  u:{deck:"wheel",name:"Wheel of Growth",sym:"✇"},
  b:{deck:"balance",name:"Two Energies",sym:"☯"},
- n:{deck:"onwords",name:"Words with ON",sym:"ON"},
+ n:{deck:"onwords",name:"Shine-ON",sym:"ON"},
  j:{deck:"laws",name:"Universal Laws",sym:"⚖"},
  a:{deck:"rise",name:"R.I.S.E. Journey",sym:"⟡"},
  e:{deck:"living",name:"The Honest Step",sym:"⟐"},
@@ -721,7 +723,7 @@ const DESC={
  L:"A crossing: take the Loop of Reflection (pause one turn, Loop card, +1 pearl) or continue.",
  R:"Everyone keeps 30 seconds of silence. Everyone +1 pearl",
  G:"A gemstone gate of higher consciousness: answer its question and take the crystal.",
- H:"Shine-ON: read the word, share a gratitude, create an affirmation. Everyone +1 pearl",
+ H:"High Vibration: read the word, share a gratitude, create an affirmation. Everyone +1 pearl",
  Y:"A moment of gratitude: share when you felt it. +1 pearl",
  J:"Jump & Learn: visit a planet and bring back its special power or wisdom.",
  K:"Bridge of Light: feel the connection between here and there – then move on.",
@@ -733,7 +735,7 @@ const DESC={
  z:"Spinning Wings: spin the wings – straight ahead, right, left, up, stop and listen, or meet someone. Which impulse guides you?",
  u:"Wheel of Growth: spiritual growth is a cycle – quietness, impulse, creating, overcoming, celebrating. Spin the wheel!",
  b:"Two Energies: the feminine way (receive, listen, rest) and the masculine way (act, move, finish) – best of all, both in harmony.",
- n:"Words with ON: one golden word ending in “-on” – a short message and a playful task. Switch yourself ON!",
+ n:"Shine-ON: one golden word ending in “-on” – a short message and a playful task. Switch yourself ON!",
  j:"Universal Laws: oneness, detachment, polarity, rhythm, cause and effect, correspondence, inspired action – one law and one question.",
  a:"R.I.S.E. Journey: where are you on the path today – Remembrance, Integration, Service or Expression?",
  e:"The Honest Step: you don’t move because you drew a card – you move because you live it. Apply it now (walk 2) or admit you’re not ready yet (stay).",
@@ -761,7 +763,7 @@ const DESC={
  W:"Flap of Wings: a one-minute action to create, change, open up or serve. +1 pearl"
 };
 const SETS=[
- {id:"wisdom",name:"Game ©WISDOM 2020",desc:"Barbara's original journey: pearls of wisdom, Shine-ON words, planets, Flap of Wings and golden steps.",},
+ {id:"wisdom",name:"Game ©WISDOM 2020",desc:"Barbara's original journey: pearls of wisdom, high vibration words, planets, Flap of Wings and golden steps.",},
  {id:"path",name:"The Golden Path",desc:"The balanced journey: choices, insights, pearls, animals, prayers and togetherness.",},
  {id:"animals",name:"Power Animal Journey",desc:"More power animals and colors – each traveller gathers a family of companions.",},
  {id:"heart",name:"Heart Circle",desc:"For groups & workshops: more togetherness, prayers and stillness.",}
@@ -1440,7 +1442,7 @@ function renderPlay(){
     if(!S.rolled&&!S.busy){
       const ex=document.createElement("div");ex.className="extras";box.appendChild(ex);const addX=(t,f)=>{const b=document.createElement("button");b.className="btn ghost";b.innerHTML=t;b.disabled=S.busy;b.onclick=f;ex.appendChild(b)};
       if(!S.helpedThisTurn.ask&&(p.heartRest||0)<=0)addX("♡ Heart",askHelp);
-      if(!p.guardianUsed)addX("🛡 Guardian",()=>guardianCard(p));
+      if(!p.guardianUsed)addX("🛡 Guardian",()=>guardianCard(p));if(D3.bigWings&&S.wingsTurn!==(S.turnNo||0))addX("🪽 Big Flap of Wings",()=>bigWings(p));
       if(travellers.length&&!S.helpedThisTurn.love)addX("❤ Love",()=>loveMenu(travellers));
       if(!p.steppedOut&&p.pos>0)addX("✧ Step out",stepOut);
       if(travellers.length&&!S.helpedThisTurn.join)addX("🤝 Together",()=>pick("With whom do you walk this turn? Your roll moves you both.",travellers,i=>{S.helpedThisTurn.join=1;sfx("together");p.partner=i;p.tokens++;S.players[i].tokens++;chime("pearl");log(p.name+" and "+S.players[i].name+" walk together.");refresh();if(SONG2)toast("♪ "+SONG2.moments.companion[0].split(" / ").slice(2).join(" "))}));
@@ -1615,7 +1617,7 @@ function drawDeck(deck){
     if(deck==="bridge")playRole("bridge");
     if(deck==="gratitude"||deck==="shine")playRole("gratitude");
     if(deck==="bridge"||deck==="treasures"){openCard({...base,sub:deck==="bridge"?"Here & There":"A treasure for you",emb:emblem("sym",deck==="bridge"?"☽":"✦"),text:esc(card.text),prompt:esc(card.prompt),reward:moveText(card.effect),acts:[[deck==="bridge"?"I feel the connection ✦":"I take the treasure ✦",()=>{closeCard();log(p.name+" – "+card.title+".");applyMove(card.effect)}]].concat(swap)});return}
-    if(deck==="shine"){openCard({...base,sub:"Shine-ON",emb:emblem("sym","☀"),text:esc(card.text),html:songLine("gratitude"),prompt:esc(card.prompt),reward:"Gratitude Circle · everyone +1 pearl",acts:[["We shared our gratitude ✓",done(()=>{S.players.forEach(q=>q.pearls++);chime("heart");log("Shine-ON “"+card.title+"” – a circle of gratitude.")})]].concat(swap)});return}
+    if(deck==="shine"){openCard({...base,sub:"High Vibration",emb:emblem("sym","☀"),text:esc(card.text),html:songLine("gratitude"),prompt:esc(card.prompt),reward:"Gratitude Circle · everyone +1 pearl",acts:[["We shared our gratitude ✓",done(()=>{S.players.forEach(q=>q.pearls++);chime("heart");log("High Vibration “"+card.title+"” – a circle of gratitude.")})]].concat(swap)});return}
     if(deck==="together"){openCard({...base,sub:"for the whole circle",emb:emblem("sym","∞"),text:esc(card.text),reward:effectText(card.effect),acts:[["Done together ✓",()=>{closeCard();applyEffect(card)}]].concat(swap)});return}
     // insight / pearls
     openCard({...base,emb:deck==="pearls"?emblem("pearl"):emblem("sym","✧"),text:esc(card.text),prompt:card.prompt?esc(card.prompt):"",reward:"+1 pearl",
@@ -1876,6 +1878,17 @@ function calmBox(){const c=D3.calmFirst;return c?`<div class="gatedeep"><div cla
 function angelSign(p){const A=D3.angelSigns||[];if(!A.length)return;const a=A[Math.random()*A.length|0];chime("pearl");
   openCard({sfx:"none",th:{gem:"#c8b8f0"},deck:"A sign that support is near",title:esc(a.title),emb:emblem("sym",a.icon),text:`<span style="font-family:var(--serif);font-size:1.3rem;font-style:italic">${esc(a.text)}</span>`,prompt:"Angels answer when we keep in contact and ask. Watch for this sign in your life today.",reward:"+1 energy",
     acts:[["Thank you, angels ✦",()=>{closeCard();energy(p,1);log(p.name+" receives a sign: "+a.title+".");refresh()}]]})}
+function bigWings(p){S.wingsTurn=(S.turnNo||0);refresh();chime("gate");
+  openCard({th:{gem:"#2bb3b1"},deck:"Big Flap of Wings",title:"What does your heart choose?",sub:"Your angels keep you moving – and connected to your team",emb:emblem("sym","🪽"),text:"Raise your own energy. You are your own alchemist – you can transform your situation in an instant. Choose: an action, a moment of gratitude – or time just for you. Every choice is right.",
+    acts:[["🪽 An action card",()=>{closeCard();wingsAction(p)},"opt"],["♡ A moment of gratitude",()=>{closeCard();gratMoment(p)},"opt"],["🕊 Me-time",()=>{closeCard();meTime(p)},"opt"],["Not now",closeCard,"ghost"]]})}
+function wingsAction(p){const L=D3.bigWings;S._bwi=((S._bwi==null?(Math.random()*L.length|0):S._bwi)+7)%L.length;const t=L[S._bwi];
+  openCard({th:{gem:"#2bb3b1"},deck:"Big Flap of Wings · action card",title:"Spread your wings",sub:"Ask your angels to keep you moving",emb:emblem("sym","🪽"),text:esc(t),reward:"+1 pearl · +1 energy",
+    acts:[["Done – thank you, angels ✓",()=>{closeCard();p.pearls++;energy(p,1);chime("pearl");log(p.name+" spreads their wings: "+t);refresh()}],["🕊 I choose me-time instead",()=>{closeCard();meTime(p)},"ghost"]]})}
+function gratMoment(p){const c=DK.gratitude.cards[draw("gratitude")];
+  openCard({th:"pearls",deck:"A moment of gratitude",title:esc(c.title),emb:emblem("sym","♡"),text:esc(c.text),prompt:esc(c.prompt||""),reward:"+1 pearl",
+    acts:[["Thank you ♡",()=>{closeCard();p.pearls++;chime("pearl");log(p.name+" feels grateful: "+c.title+".");refresh()}]]})}
+function meTime(p){openCard({th:"pearls",deck:"Me-time",title:"Time just for you",emb:emblem("sym","🕊"),text:"Taking time for yourself is part of the path. Breathe, stretch, have a sip of tea – the others wait with love.",timer:60,reward:"+1 energy",
+    acts:[["I took my time ✓",()=>{closeCard();energy(p,1);log(p.name+" takes some me-time.");refresh()}]]})}
 function guardianCard(p){const st=LIGHT?"story":"light";
   openCard({th:{gem:"#2a8a9a"},deck:"Once per journey",title:"The Guardian",emb:"",html:`<div style="width:150px;margin:0 auto">${personSVG("guardian",st)}</div><div class="lyrics" style="font-size:1.15rem">“You are not alone in this. I stand beside you.”</div>`,
     text:"Call the Guardian whenever times feel hard. You receive +2 energy – and when the next obstacle comes, the Guardian stands beside you and you walk on.",
