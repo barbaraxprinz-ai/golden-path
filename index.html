@@ -1118,7 +1118,8 @@ const BUILTIN=[{id:"builtin-1",name:"Life is a game… Play with Love ♥",src:"
  {id:"builtin-3",name:"Riddles of Life – Make Dreams Come True",src:"music/riddles-of-life.mp3",builtin:true,role:"chest"},
  {id:"builtin-4",name:"Dare to Dream",src:"music/dare-to-dream.mp3",builtin:true,role:"dream"},
  {id:"builtin-5",name:"A Grateful Heart",src:"music/a-grateful-heart.mp3",builtin:true,role:"gratitude"},
- {id:"builtin-6",name:"Connected Beyond",src:"music/connected-beyond.mp3",builtin:true,role:"bridge"}];
+ {id:"builtin-6",name:"Connected Beyond",src:"music/connected-beyond.mp3",builtin:true,role:"bridge"},
+ {id:"builtin-7",name:"Let Your Child Breathe",src:"music/let-your-child-breathe.mp3",builtin:true}];
 function playRole(r){if(!$("#mMoments").checked)return false;const i=Music.songs.findIndex(x=>x.role===r);if(i<0)return false;if(Music.idx===i&&!Music.audio.paused)return true;musicPlay(i);return true}
 const Music={songs:BUILTIN.slice(),idx:-1,audio:new Audio(),db:null};
 Music.audio.preload="none";
