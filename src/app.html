@@ -1699,7 +1699,8 @@ function applyEffect(card){
 }
 function goldenGate(i){
   const q=S.players[i],g=D.goldenGate;q.pos=N+1;drawBoard();chime("heart");if(!playRole("heart")&&!playTheme())momentMusic();
-  openCard({th:"gold",deck:"Gate 13",title:esc(g.title),sub:esc(q.name),emb:emblem("heart"),text:esc(g.line),prompt:esc(g.question),html:`<div class="gatedeep"><div class="gd-h">★ The Morning Star</div>${esc(D3.morningStar||"")}<div class="gd-s">${esc((D3.gateBlessings||[])[12]||"")}</div></div>`+songLine("heart"),input:"Take your golden feather and write your golden wisdom…",
+  const hm=(D3.heartMsgs||[])[Math.random()*((D3.heartMsgs||[]).length||1)|0];
+  openCard({th:"gold",deck:"Gate 13",title:esc(g.title),sub:esc(q.name),emb:emblem("heart"),text:esc(g.line)+(hm?`<div class="gatedeep" style="margin-top:10px"><div class="gd-h">☀ ${esc(hm[0])}</div>${esc(hm[1])}<div class="gd-s">${esc(hm[2])}</div></div>`:""),prompt:esc(g.question),html:`<div class="gatedeep"><div class="gd-h">★ The Morning Star</div>${esc(D3.morningStar||"")}<div class="gd-s">${esc((D3.gateBlessings||[])[12]||"")}</div></div>`+songLine("heart"),input:"Take your golden feather and write your golden wisdom…",
     reward:"★ You receive the Morning Star and become a companion of light.",
     acts:[["Enter the Golden Heart",()=>{const v=($("#cardInput")||{}).value||"";q.insight=v.trim();q.done=true;q.pearls++;q.star=true;addVal(q,"Emanation");log(q.name+" enters the Golden Heart."+(q.insight?" Insight: “"+q.insight+"”":""));closeCard();nextTurn()}]]});
 }
