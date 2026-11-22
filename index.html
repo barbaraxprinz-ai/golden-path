@@ -1524,7 +1524,7 @@ $("#startBtn").onclick=()=>{
   setTimeout(()=>{const first=esc(cur().name);
     openCard({th:"gold",deck:"G.A.M.E 2020 · God Allows More Experiences",title:"Welcome, traveler",emb:emblem("heart"),
       html:`<div class="lyrics" style="font-size:1.15rem">This game was never meant to be won.<br>It was meant to be lived.<br><br>The treasure was always within you.</div>`+(SONG?`<div class="songline" style="margin-top:12px">♪ ${esc(SONG.chorus).replace(/\n/g,"<br>")}</div>`:""),
-      text:"Take one breath together. Then "+first+" holds the dice first.",
+      text:"<i>The journey begins… with one step, and then another step.</i><br><br>Take one breath together. Then "+first+" holds the dice first.",
       acts:(themeSong()>=0?[["♪ Play my song &amp; begin",()=>{playTheme();closeCard();setTimeout(()=>askIntention(0),250)}]]:[]).concat(SONG2?[["🔊 Listen to the welcome",()=>speak(SONG2.intro),"ghost"]]:[]).concat([["Let the game begin ✦",()=>{try{speechSynthesis.cancel()}catch(e){}closeCard();setTimeout(()=>askIntention(0),250)},themeSong()>=0?"ghost":"gold"]])})},300);
 };
 $("#resumeBtn").onclick=()=>{S=loadS();S.busy=false;go("play")};
