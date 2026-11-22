@@ -506,6 +506,8 @@ html.light .gatedeep{background:#fffaf0;border-color:#c9952e66;color:#1f1a14}
     <h3>The City of Light and the twelve gates</h3>
     <p>Imagine a city of light, shining like a precious jewel and clear as crystal. It has twelve gates: three in the East, three in the South, three in the West and three in the North. Each gate is made of a single pearl, an angel stands at every gate, and the gates are never shut. The street is pure gold, as clear as glass. The city needs no sun and no moon, because the Light itself shines there. Every tear is wiped away, and everything is made new. Each gemstone gate in the game has its own angel and a piece of deeper wisdom.</p>
     <p>Whoever arrives in the Golden Heart receives the <b>Morning Star</b>, the sign of a new day. <i>Blessed are the pure in heart, for they will see the Divine.</i> The wisdom here is meant for everyone, whatever their faith. <i>Religio</i> means to connect again.</p>
+    <h3>The Honest Step</h3>
+    <p>Every journey has a field of the Honest Step. <b>You don’t move because you drew a card – you move because you live it.</b> Read the card, look honestly inside, then choose: <i>“I apply this now”</i> (walk 2 fields) or <i>“I’m not ready yet”</i> (you stay – honesty is also a step). Seven themes: Remembrance, Inner Compass, Conscious Choice, Love in Action, Release, Truth, Connection.</p>
     <h3>R.I.S.E.</h3>
     <p>Walking the Golden Path is a cycle you live again and again:<br><b>R</b>emember the light within. · <b>I</b>ntegrate the wisdom you receive. · <b>S</b>erve the world through your gifts. · <b>E</b>xpress your truth – and expand.<br><i>Turn the light ON. Walk the Golden Path – and R.I.S.E.</i></p>
     <h3>The core law of the game</h3>
@@ -606,6 +608,7 @@ DK.balance={name:"Two Energies",color:"#b89ae0",cards:[{title:"Two Energies"}]};
 if(D3.onwords)DK.onwords={name:"Words with ON",color:"#d9a520",cards:D3.onwords.map(c=>({...c,title:c.word}))};
 if(D3.laws)DK.laws={name:"Universal Laws",color:"#8a7a5a",cards:D3.laws};
 DK.rise={name:"R.I.S.E.",color:"#e0a020",cards:[{title:"Where are you on the path?"}]};
+if(D3.living)DK.living={name:"The Honest Step",color:"#d0a040",cards:D3.living};
 if(D3.sun)DK.sun={name:"Rays of the Sun",color:"#ffc83a",cards:D3.sun};
 if(D3.walk)DK.walk={name:"Walk Your Path",color:"#e0b070",cards:D3.walk};
 if(D3.emotions)DK.emotions={name:"Alchemy of Feelings",color:"#b880d0",cards:[{title:"Alchemy of Feelings"}]};
@@ -680,6 +683,7 @@ const T={ // field types
  n:{deck:"onwords",name:"Words with ON",sym:"ON"},
  j:{deck:"laws",name:"Universal Laws",sym:"⚖"},
  a:{deck:"rise",name:"R.I.S.E. Journey",sym:"⟡"},
+ e:{deck:"living",name:"The Honest Step",sym:"⟐"},
  s:{deck:"sun",name:"Rays of the Sun",sym:"☀"},
  y:{deck:"walk",name:"Walk Your Path",sym:"👣"},
  x:{deck:"emotions",name:"Alchemy of Feelings",sym:"❂"},
@@ -714,6 +718,7 @@ const DESC={
  n:"Words with ON: one golden word ending in “-on” – a short message and a playful task. Switch yourself ON!",
  j:"Universal Laws: oneness, detachment, polarity, rhythm, cause and effect, correspondence, inspired action – one law and one question.",
  a:"R.I.S.E. Journey: where are you on the path today – Remembrance, Integration, Service or Expression?",
+ e:"The Honest Step: you don’t move because you drew a card – you move because you live it. Apply it now (walk 2) or admit you’re not ready yet (stay).",
  s:"Rays of the Sun: the sun gives warmth, love and light to each and every body – without judgement or distinction.",
  y:"Walk Your Path: a short guiding word for your next step – curious, courageous, open-hearted, aware.",
  x:"Alchemy of Feelings: name the feeling that is here – and discover the gift inside it. Every emotion can be transformed.",
@@ -749,7 +754,7 @@ const MIX={
  path:"C!IT~PAMBSSQ!E~DD^OVXFWK",
  animals:"AA~F!CTPSSQ~U!EDD^OVXWMB",
  heart:"M!~BBRCTYSSQU~!ED^NOVXKP"};
-const CORE="QQQSSE~!hsFn",ROTATE="cowkgtrlyyxvubzja";
+const CORE="QQQSSE~!hsFne",ROTATE="cowkgtrlyyxvubzja";
 function buildMap(set,seedIn){
   const m=[];for(let i=1;i<=N;i++)m.push(GATE_POS.includes(i)?"G":"");
   TURN_FIELDS.forEach(f=>{if(m[f-1]!=="G")m[f-1]="L"});
@@ -1346,7 +1351,7 @@ function renderPlay(){
     <div class="vals">${values(q).map(v=>`<span>${esc(v)}</span>`).join("")}</div><div class="badges">${(q.palette||[]).length?`<span class="stat" title="Your colours">🎨 ${q.palette.map(n=>`<span style="display:inline-block;width:9px;height:9px;border-radius:50%;background:${(PAINTS.find(x=>x[0]===n)||[])[1]}"></span>`).join(" ")}</span>`:""}${battery(q)}<span class="stat">◯ ${q.pearls}</span><span class="stat">✧ ${values(q).length}/${ALLVALUES.length} values</span><span class="stat">✦ ${q.tokens}</span>${q.gems.map(g=>`<span class="gem" title="${esc(D.gates[g].gem)}" style="background:${D.gates[g].color}"></span>`).join("")}</div></div></div>`).join("");
   const L=light(),goal=Math.max(60,S.players.length*30);$("#goal").textContent=goal;$("#lightNum").textContent=L;$("#lightBar").style.width=Math.min(100,L/goal*100)+"%";
   $("#log").innerHTML=S.log.map(t=>`<div>${esc(t)}</div>`).join("");
-  $("#legend").innerHTML=Object.entries(T).map(([k,t])=>`<span><svg width="16" height="16"><circle cx="8" cy="8" r="6" fill="${k==="G"?"#7d4fb3":k==="S"?"#d9b85f":k==="Q"?"#c98a2e":k==="E"?"#6ad08a":k==="N"?"#e6c463":k==="O"?"#fff1b0":k==="V"?"#7fc8f0":k==="X"?"#8fd0a8":k==="D"?"#1f4a8a":k==="T"?"#d98a5a":k==="^"?"#f6d77e":k==="~"?"#9a6ae0":k==="!"?"#ffb84a":k==="c"?"#e8c13a":k==="h"?"#7ab8d8":k==="o"?"#f2c83a":k==="w"?"#a8d4e8":k==="k"?"#4aa0c8":k==="g"?"#c8a8e8":k==="t"?"#d8a050":k==="r"?"#8ab890":k==="l"?"#e88aa8":k==="n"?"#d9a520":k==="b"?"#b89ae0":k==="a"?"#e0a020":k==="j"?"#8a7a5a":k==="z"?"#2ac0d8":k==="u"?"#e02aa0":k==="v"?"#9ad0e8":k==="s"?"#ffc83a":k==="y"?"#e0b070":k==="x"?"#b880d0":"#15120e"}" stroke="${k==="P"||k==="G"||k==="S"?"none":ringCol(k)}" stroke-width="2.6"/></svg>${t.name}</span>`).join("");
+  $("#legend").innerHTML=Object.entries(T).map(([k,t])=>`<span><svg width="16" height="16"><circle cx="8" cy="8" r="6" fill="${k==="G"?"#7d4fb3":k==="S"?"#d9b85f":k==="Q"?"#c98a2e":k==="E"?"#6ad08a":k==="N"?"#e6c463":k==="O"?"#fff1b0":k==="V"?"#7fc8f0":k==="X"?"#8fd0a8":k==="D"?"#1f4a8a":k==="T"?"#d98a5a":k==="^"?"#f6d77e":k==="~"?"#9a6ae0":k==="!"?"#ffb84a":k==="c"?"#e8c13a":k==="h"?"#7ab8d8":k==="o"?"#f2c83a":k==="w"?"#a8d4e8":k==="k"?"#4aa0c8":k==="g"?"#c8a8e8":k==="t"?"#d8a050":k==="r"?"#8ab890":k==="l"?"#e88aa8":k==="n"?"#d9a520":k==="b"?"#b89ae0":k==="e"?"#d0a040":k==="a"?"#e0a020":k==="j"?"#8a7a5a":k==="z"?"#2ac0d8":k==="u"?"#e02aa0":k==="v"?"#9ad0e8":k==="s"?"#ffc83a":k==="y"?"#e0b070":k==="x"?"#b880d0":"#15120e"}" stroke="${k==="P"||k==="G"||k==="S"?"none":ringCol(k)}" stroke-width="2.6"/></svg>${t.name}</span>`).join("");
 }
 function refresh(){save();renderPlay()}
 const WFACES=["X",-1,1,2,3,4];
@@ -1442,6 +1447,11 @@ function drawDeck(deck){
       acts:[["Thank you, my guide ✦",()=>{closeCard();p.guides=(p.guides||[]);if(!p.guides.includes(card.title))p.guides.push(card.title);log(p.name+" is supported by "+card.title+".");applyMove(card.effect)}]].concat(swap)});return}
     if(deck==="emotions"){const E=D3.emotions;openCard({...base,th:{gem:"#9a60b8"},title:"Alchemy of Feelings",sub:"Transform every emotion",emb:emblem("sym","❂"),text:"Which feeling is here right now? Name it – every emotion carries a gift.",
       acts:E.map(e=>[esc(e.feel),()=>{closeCard();openCard({th:{gem:"#9a60b8"},deck:"Alchemy of Feelings",title:esc(e.feel)+" → "+esc(e.gift),emb:emblem("sym","❂"),text:esc(e.text),prompt:"Breathe in the feeling, breathe out the gift.",timer:10,reward:"+1 pearl · +1 energy",acts:[["Transformed ✦",done(()=>{p.pearls++;energy(p,1);log(p.name+" transforms "+e.feel.toLowerCase()+" into "+e.gift.toLowerCase()+".")})]]})},"opt"])});return}
+    if(deck==="living"){openCard({...base,th:{gem:"#c89030"},sub:"Look honestly – then choose",emb:emblem("sym","⟐"),
+      text:`<span style="font-family:var(--serif);font-size:1.3rem;font-style:italic">${esc(card.inv)}</span>`,prompt:"<b>"+esc(card.refl)+"</b><br><br>"+esc(card.act),
+      html:`<div class="gd-s" style="text-align:center;margin-top:6px">→ ${esc(card.line)}</div>`,reward:"You move because you live it – not because you drew it.",
+      acts:[["✦ I apply this now (walk 2 · +1 pearl)",()=>{closeCard();p.pearls++;addVal(p,"Dedication");log(p.name+" applies “"+card.title+"” – and moves on.");applyMove("walk2")},"gold"],
+        ["I’m not ready yet – I stay",()=>{closeCard();log(p.name+" is honest: not ready yet for “"+card.title+"”.");toast("✦ Honesty is also a step. Awareness comes first.");nextTurn()},"ghost"]].concat(swap)});return}
     if(deck==="rise"){openCard({...base,th:{gem:"#e0a020"},title:"Where are you on the path?",sub:"The Golden Path is a living spiral",emb:emblem("sym","⟡"),
       text:"Sometimes we are remembering. Sometimes integrating. Sometimes serving. Sometimes expressing and expanding. Which movement is calling you today?",prompt:"I trust the unfolding of my path.",
       acts:[["R · Remembrance – reconnect with your inner truth",done(()=>{p.pearls++;energy(p,1);log(p.name+" is in Remembrance.")}),"opt"],
@@ -1772,9 +1782,9 @@ function finale(){
 let libSel="gates";
 function mini(k,title,t,p,emb,th){const tm=theme(th);return `<div class="mcard"><div class="in ${tm.light?"light":""} ${tm.rb?"rb":""}" style="${themeStyle(th)}"><div class="k">${k}</div><h4>${title}</h4>${emb.replace('class="emb"','')}<div class="t">${t}</div>${p?`<div class="p">${p}</div>`:""}</div></div>`}
 function renderCards(){
-  const chips=[["onwords"],["rise"],["laws"],["sun"],["wheel"],["wings2"],["balance"],["crystals"],["magic"],["walk"],["emotions"],["love"],["herenow"],["possibilities"],["canvas"],["breath"],["chalice"],["guides"],["teacher"],["again"],["dots","40 Questions"],["funny"],["journeys"],["obstacles"],["chambers"],["gates","13 Gates"],["core","Core Keys"],["shine"],["gratitude"],["planets"],["wings"],["signs"],["elevator"],["film"],["helping"],["held"],["comm"],["radiate"],["numwis"],["recharge"],["moments"],["chests"],["bridge"],["treasures"],["choice"],["insight"],["pearls"],["animals"],["colors"],["prayers"],["together"],["steps"],["loops"]];
+  const chips=[["onwords"],["living"],["rise"],["laws"],["sun"],["wheel"],["wings2"],["balance"],["crystals"],["magic"],["walk"],["emotions"],["love"],["herenow"],["possibilities"],["canvas"],["breath"],["chalice"],["guides"],["teacher"],["again"],["dots","40 Questions"],["funny"],["journeys"],["obstacles"],["chambers"],["gates","13 Gates"],["core","Core Keys"],["shine"],["gratitude"],["planets"],["wings"],["signs"],["elevator"],["film"],["helping"],["held"],["comm"],["radiate"],["numwis"],["recharge"],["moments"],["chests"],["bridge"],["treasures"],["choice"],["insight"],["pearls"],["animals"],["colors"],["prayers"],["together"],["steps"],["loops"]];
   const chipsOk=chips.filter(([k])=>k==="gates"||k==="core"||(k==="dots"?D2.dots:DK[k]));
-  const GROUPS=[["✦ The Path",["onwords","rise","laws","balance","sun","magic","walk","emotions","herenow","possibilities","canvas","breath","chalice","again","gates","core","dots","choice","insight","pearls","steps","loops","stones"]],["♡ Heart & Soul",["prayers","held","radiate","bridge","numwis","colors","animals","shine","gratitude","recharge"]],["∞ Together",["love","guides","teacher","together","comm","helping","film","moments"]],["✧ Surprises & Riddles",["wheel","wings2","crystals","funny","obstacles","chambers","journeys","chests","wings","signs","elevator","planets","treasures"]]];
+  const GROUPS=[["✦ The Path",["onwords","living","rise","laws","balance","sun","magic","walk","emotions","herenow","possibilities","canvas","breath","chalice","again","gates","core","dots","choice","insight","pearls","steps","loops","stones"]],["♡ Heart & Soul",["prayers","held","radiate","bridge","numwis","colors","animals","shine","gratitude","recharge"]],["∞ Together",["love","guides","teacher","together","comm","helping","film","moments"]],["✧ Surprises & Riddles",["wheel","wings2","crystals","funny","obstacles","chambers","journeys","chests","wings","signs","elevator","planets","treasures"]]];
   const okSet=new Set(chipsOk.map(c=>c[0])),nm=Object.fromEntries(chipsOk.map(([k,n])=>[k,n]));
   const btn=k=>`<button class="${k===libSel?"on":""}" data-k="${k}">${nm[k]||(DK[k]?DK[k].name:k)} ${k!=="gates"&&k!=="core"&&k!=="dots"?"<span style='opacity:.6'>"+DK[k].cards.length+"</span>":""}</button>`;
   const placed=new Set();
@@ -1802,6 +1812,7 @@ function renderCards(){
     if(libSel==="numwis")return mini(d.name,esc(c.n+" · "+c.planet),"<b>"+esc(c.keywords)+"</b><br>"+esc(c.text),esc(c.prompt),numSVG(c.n,c.planet),"numwis");
     if(libSel==="recharge")return mini(d.name,esc(c.title),esc(c.text),"How do I charge my battery right now?",emblem("sym","⚡"),"recharge");
     if(libSel==="moments")return mini(d.name+" · "+esc(c.mood),esc(c.title),esc(c.situation)+"<br><i>"+esc(c.tool)+"</i>","✦ "+esc(c.help),emblem("sym",c.mood==="Up"?"☀":"☁"),"moments");
+    if(libSel==="living")return mini(d.name,esc(c.title),esc(c.inv)+"<br><b>"+esc(c.refl)+"</b>",esc(c.act),emblem("sym","⟐"),{gem:"#c89030"});
     if(libSel==="rise")return mini(d.name,"Where are you on the path?","Remembrance · Integration · Service · Expression","I trust the unfolding of my path.",emblem("sym","⟡"),{gem:"#e0a020"});
     if(libSel==="laws")return mini(d.name,esc(c.title),esc(c.text),esc(c.prompt),emblem("sym","⚖"),{gem:"#8a7a5a"});
     if(libSel==="onwords")return mini(d.name,esc(c.word),esc(c.text),esc(c.prompt),emblem("sym","ON"),{gem:"#d9a520"});
