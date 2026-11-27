@@ -608,7 +608,7 @@ if(D3.held)DK.held={name:"Held & Guided · Words of Light",color:"#f6e3a8",cards
 if(D3.communication)DK.comm={name:"Clear Communication",color:"#7fc8f0",cards:D3.communication};
 if(D3.radiate)DK.radiate={name:"Radiate Your Light",color:"#fff1b0",cards:D3.radiate};
 if(D3.numbers2)DK.numwis={name:"Number Wisdom",color:"#e6c463",cards:D3.numbers2};
-if(D3.recharge)DK.recharge={name:"Recharge Station",color:"#7ad08a",cards:D3.recharge};
+if(D3.recharge)DK.recharge={name:"Recharge Station",color:"#7ad08a",cards:D3.recharge};if(D3.lightEnergy)DK.lightenergy={name:"Light & Energy",color:"#f2c94c",cards:D3.lightEnergy};
 if(D3.moments)DK.moments={name:"Moments of Life · Ups & Downs",color:"#c86a8a",cards:D3.moments};
 if(D3.breath)DK.breath={name:"Ruach · Breath of Wind",color:"#a8d4e8",cards:D3.breath};
 if(D3.chalice)DK.chalice={name:"The Chalice",color:"#4aa0c8",cards:D3.chalice};
@@ -707,6 +707,7 @@ const T={ // field types
  s:{deck:"sun",name:"Rays of the Sun",sym:"☀"},
  y:{deck:"walk",name:"Walk Your Path",sym:"👣"},
  x:{deck:"emotions",name:"Alchemy of Feelings",sym:"❂"},
+ q:{deck:"lightenergy",name:"Light & Energy",sym:"⚡"},
  "^":{deck:"elevator",name:"Elevator · Lift Me Up",sym:"⇧"}
 };
 Object.keys(T).forEach(k=>{if(T[k].deck&&!DK[T[k].deck])T[k].deck="pearls"});
@@ -774,7 +775,7 @@ const MIX={
  path:"C!IT~PAMBSSQ!E~DD^OVXFWK",
  animals:"AA~F!CTPSSQ~U!EDD^OVXWMB",
  heart:"M!~BBRCTYSSQU~!ED^NOVXKP"};
-const CORE="QQQSSE~!hsFne",ROTATE="cowkgtrlyyxvubzja";
+const CORE="QQQSSE~!hsFne",ROTATE="cowkgtrlyyxvubzjaq";
 function buildMap(set,seedIn){
   const m=[];for(let i=1;i<=N;i++)m.push(GATE_POS.includes(i)?"G":"");
   TURN_FIELDS.forEach(f=>{if(m[f-1]!=="G")m[f-1]="L"});
@@ -1607,6 +1608,8 @@ function drawDeck(deck){
       acts:[["I radiate my light ☼",done(()=>{S.players.forEach(q=>q.pearls++);energy(p,1);p.shine=(p.shine||0)+1;chime("heart");log(p.name+" radiates "+card.quality+" – everyone receives light.")})]].concat(swap)});return}
     if(deck==="numwis"){openCard({...base,th:"numwis",title:esc(card.n+" · "+card.planet),sub:esc(card.keywords),emb:numSVG(card.n,card.planet),text:esc(card.text),prompt:esc(card.prompt),reward:moveText(card.effect),
       acts:[["I understand the number "+card.n+" ✦",()=>{closeCard();log(p.name+" learns the wisdom of "+card.n+" – "+card.planet+".");applyMove(card.effect)}]].concat(swap)});return}
+    if(deck==="lightenergy"){openCard({...base,th:{gem:"#e0a82e"},sub:"A question of light",title:card.icon+" "+esc(card.title),emb:emblem("sym","⚡"),text:`<span style="font-family:var(--serif);font-size:1.3rem">${esc(card.text)}</span>`,html:'<p style="font-size:.85rem;opacity:.8">Everything is energy – even you. Light you cannot see is still light.</p>',reward:"+1 energy",
+      acts:[["Shared ⚡",done(()=>{energy(p,1);sfx("pearl");log(p.name+" shares a light question: "+card.title+".")})]].concat(swap)});return}
     if(deck==="recharge"){openCard({...base,th:"recharge",sub:"Recharge Station",emb:emblem("sym","⚡"),text:esc(card.text),prompt:"How do I charge my own battery in this moment? What do I need to re-charge or re-balance?",reward:"+2 energy",
       acts:[["Recharged ⚡",done(()=>{energy(p,2);sfx("pearl");log(p.name+" recharges: "+card.title+".")})],["Let the whole circle recharge with me",done(()=>{S.players.forEach(q=>energy(q,1));energy(p,1);sfx("together");log("Everyone recharges together: "+card.title+".")}),"ghost"]]});return}
     if(deck==="chests"){openChest(card,swap);return}
@@ -1917,9 +1920,9 @@ function finale(){
 let libSel="gates";
 function mini(k,title,t,p,emb,th){const tm=theme(th);return `<div class="mcard"><div class="in ${tm.light?"light":""} ${tm.rb?"rb":""}" style="${themeStyle(th)}"><div class="k">${k}</div><h4>${title}</h4>${emb.replace('class="emb"','')}<div class="t">${t}</div>${p?`<div class="p">${p}</div>`:""}</div></div>`}
 function renderCards(){
-  const chips=[["onwords"],["living"],["rise"],["laws"],["sun"],["wheel"],["wings2"],["balance"],["crystals"],["magic"],["walk"],["emotions"],["love"],["herenow"],["possibilities"],["canvas"],["breath"],["chalice"],["guides"],["teacher"],["again"],["dots","40 Questions"],["funny"],["journeys"],["obstacles"],["chambers"],["gates","13 Gates"],["core","Core Keys"],["shine"],["gratitude"],["planets"],["wings"],["signs"],["elevator"],["film"],["helping"],["held"],["comm"],["radiate"],["numwis"],["recharge"],["moments"],["chests"],["bridge"],["treasures"],["choice"],["insight"],["pearls"],["animals"],["colors"],["prayers"],["together"],["steps"],["loops"]];
+  const chips=[["onwords"],["living"],["rise"],["laws"],["sun"],["wheel"],["wings2"],["balance"],["crystals"],["magic"],["walk"],["emotions"],["love"],["herenow"],["possibilities"],["canvas"],["breath"],["chalice"],["guides"],["teacher"],["again"],["dots","40 Questions"],["funny"],["journeys"],["obstacles"],["chambers"],["gates","13 Gates"],["core","Core Keys"],["shine"],["gratitude"],["planets"],["wings"],["signs"],["elevator"],["film"],["helping"],["held"],["comm"],["radiate"],["numwis"],["recharge"],["lightenergy"],["moments"],["chests"],["bridge"],["treasures"],["choice"],["insight"],["pearls"],["animals"],["colors"],["prayers"],["together"],["steps"],["loops"]];
   const chipsOk=chips.filter(([k])=>k==="gates"||k==="core"||(k==="dots"?D2.dots:DK[k]));
-  const GROUPS=[["✦ The Path",["onwords","living","rise","laws","balance","sun","magic","walk","emotions","herenow","possibilities","canvas","breath","chalice","again","gates","core","dots","choice","insight","pearls","steps","loops","stones"]],["♡ Heart & Soul",["prayers","held","radiate","bridge","numwis","colors","animals","shine","gratitude","recharge"]],["∞ Together",["love","guides","teacher","together","comm","helping","film","moments"]],["✧ Surprises & Riddles",["wheel","wings2","crystals","funny","obstacles","chambers","journeys","chests","wings","signs","elevator","planets","treasures"]]];
+  const GROUPS=[["✦ The Path",["onwords","living","rise","laws","balance","sun","magic","walk","emotions","herenow","possibilities","canvas","breath","chalice","again","gates","core","dots","choice","insight","pearls","steps","loops","stones"]],["♡ Heart & Soul",["prayers","held","radiate","bridge","numwis","colors","animals","shine","gratitude","recharge","lightenergy"]],["∞ Together",["love","guides","teacher","together","comm","helping","film","moments"]],["✧ Surprises & Riddles",["wheel","wings2","crystals","funny","obstacles","chambers","journeys","chests","wings","signs","elevator","planets","treasures"]]];
   const okSet=new Set(chipsOk.map(c=>c[0])),nm=Object.fromEntries(chipsOk.map(([k,n])=>[k,n]));
   const btn=k=>`<button class="${k===libSel?"on":""}" data-k="${k}">${nm[k]||(DK[k]?DK[k].name:k)} ${k!=="gates"&&k!=="core"&&k!=="dots"?"<span style='opacity:.6'>"+DK[k].cards.length+"</span>":""}</button>`;
   const placed=new Set();
@@ -1965,6 +1968,7 @@ function renderCards(){
     if(libSel==="guides")return mini(d.name+" · "+esc(c.kind),esc(c.title),esc(c.text),esc(c.prompt),emblem("sym","🕊"),{gem:"#9a7ac8"});
     if(libSel==="teacher")return mini(d.name,esc(c.title),esc(c.text),esc(c.prompt),emblem("sym","✎"),{gem:"#c88a3a"});
     if(libSel==="again")return mini(d.name,esc(c.title),esc(c.text),esc(c.prompt),emblem("sym","↻"),{gem:"#5a9a6a"});
+    if(libSel==="lightenergy")return mini(d.name,c.icon+" "+esc(c.title),esc(c.text),"",emblem("sym","⚡"),{gem:"#e0a82e"});
     if(libSel==="herenow")return mini(d.name,esc(c.title),esc(c.text),esc(c.prompt),emblem("sym","◉"),{gem:"#5a9ac8"});
     if(libSel==="possibilities")return mini(d.name,esc(c.title),"<span style='opacity:.7'>Fear: "+esc(c.fear)+"</span><br><b>Open: "+esc(c.open)+"</b>",esc(c.prompt),emblem("sym","✺"),{gem:"#e8b83a"});
     if(libSel==="canvas")return mini(d.name,esc(c.title),esc(c.text),esc(c.prompt),paintSVG(["#d8323a","#f2c83a","#3a6ad8"]),"canvas");
