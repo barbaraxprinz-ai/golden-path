@@ -311,6 +311,8 @@ body.music-on .wrap{padding-bottom:64px}
 .corner svg[viewBox="27 27 66 66"]{width:40px;height:40px}
 .mcard .corner svg[viewBox="27 27 66 66"]{width:28px;height:28px}
 .mcard .corner svg{width:18px;height:18px}
+.hsunbig{width:96px!important;height:96px!important;padding:8px;border-radius:50%;border:1.5px solid #e6c46399}
+.hsun{width:1.15em;height:1.15em;vertical-align:-.2em;display:inline-block}
 </style>
 </head>
 <body>
@@ -510,7 +512,7 @@ body.music-on .wrap{padding-bottom:64px}
     <h3>Number Wisdom</h3>
     <p>Every number carries a meaning: 0 Pluto – transformation · 1 Sun – energy, healing power, empowering others · 2 Moon – emotions, mother, foresight, balance · 3 Mars – a powerful force that brings you forward (sometimes one step back is given) · 4 Mercury – bring your ideas into the world · 5 Faith – belief, mind, luck · 6 Venus – love, friendship, care, grace · 7 Saturn – cause and effect, step by step, grounding others · 8 Uranus – family, rebellion, sudden change · 9 Jupiter – communication, companionship, voice · 10 Medium – bridge between here and there. After every roll the meaning of your number lights up – and on Number Wisdom fields you learn more.</p>
     <h3>Recharge Stations &amp; your energy battery</h3>
-    <p>Every traveller has an energy battery ⚡. Sometimes we feel depleted or empty – then the little <b>Recharge Stations</b> help: breathe, walk, sing, dance, journal, create. Ask yourself: How do I charge my own battery in this moment? What do I need to re-charge or re-balance? Stillness and silence also fill the battery; hard moments of life use a little energy.</p>
+    <p>Every traveller has an energy battery <svg class="hsun" viewBox="0 0 24 24" aria-hidden="true"><g stroke="#e0a82e" stroke-width="1.6" stroke-linecap="round"><line x1="12" y1="1" x2="12" y2="3.6"/><line x1="12" y1="20.4" x2="12" y2="23"/><line x1="1" y1="12" x2="3.6" y2="12"/><line x1="20.4" y1="12" x2="23" y2="12"/><line x1="4.2" y1="4.2" x2="6" y2="6"/><line x1="18" y1="18" x2="19.8" y2="19.8"/><line x1="19.8" y1="4.2" x2="18" y2="6"/><line x1="6" y1="18" x2="4.2" y2="19.8"/></g><path d="M12 18.2c-3.6-2.6-6-4.7-6-7.3a3.1 3.1 0 0 1 6-1.2a3.1 3.1 0 0 1 6 1.2c0 2.6-2.4 4.7-6 7.3z" fill="#f2c14e" stroke="#c9952e" stroke-width=".8"/></svg>. Sometimes we feel depleted or empty – then the little <b>Recharge Stations</b> help: breathe, walk, sing, dance, journal, create. Ask yourself: How do I charge my own battery in this moment? What do I need to re-charge or re-balance? Stillness and silence also fill the battery; hard moments of life use a little energy.</p>
     <h3>Elevator · Lift Me Up</h3>
     <p>Ten special Elevator cards stand for empowerment: someone believes in you, you remember your inner power – and you are lifted up, sometimes 5 or even 7 fields toward the light. Unique and special, just like you.</p>
     <h3>Director's Chair</h3>
@@ -703,7 +705,7 @@ const T={ // field types
  Z:{deck:"treasures",name:"Treasure",sym:"✦"},
  Q:{deck:"chests",name:"Treasure Chest",sym:"❖"},
  U:{deck:"moments",name:"Moment of Life",sym:"∿"},
- E:{deck:"recharge",name:"Recharge Station",sym:"⚡"},
+ E:{deck:"recharge",name:"Recharge Station",sym:"💛"},
  N:{deck:"numwis",name:"Number Wisdom",sym:"#"},
  O:{deck:"radiate",name:"Radiate Your Light",sym:"☼"},
  V:{deck:"comm",name:"Clear Communication",sym:"❝"},
@@ -1375,6 +1377,7 @@ let timerId=null;
 let DOTCTX=null;
 function dotHTML(n){const d=(D2.dots||[])[n-1];if(!d)return"";
   return `<div class="dot"><div class="dt">✦ Step ${n} · ${esc(d.title)}</div><div class="dq">${esc(d.question)}</div></div>`}
+const HSUN=`<svg class="hsun" viewBox="0 0 24 24" aria-hidden="true"><g stroke="#e0a82e" stroke-width="1.6" stroke-linecap="round"><line x1="12" y1="1" x2="12" y2="3.6"/><line x1="12" y1="20.4" x2="12" y2="23"/><line x1="1" y1="12" x2="3.6" y2="12"/><line x1="20.4" y1="12" x2="23" y2="12"/><line x1="4.2" y1="4.2" x2="6" y2="6"/><line x1="18" y1="18" x2="19.8" y2="19.8"/><line x1="19.8" y1="4.2" x2="18" y2="6"/><line x1="6" y1="18" x2="4.2" y2="19.8"/></g><path d="M12 18.2c-3.6-2.6-6-4.7-6-7.3a3.1 3.1 0 0 1 6-1.2a3.1 3.1 0 0 1 6 1.2c0 2.6-2.4 4.7-6 7.3z" fill="#f2c14e" stroke="#c9952e" stroke-width=".8"/></svg>`;
 const PGLYPH={Sun:"☉",Moon:"☽",Earth:"♁",Mercury:"☿",Venus:"♀",Mars:"♂",Jupiter:"♃",Saturn:"♄",Uranus:"♅",Neptune:"♆",Pluto:"♇"};
 const AEMOJI={Eagle:"🦅",Owl:"🦉",Wolf:"🐺",Bear:"🐻",Dolphin:"🐬",Butterfly:"🦋",Deer:"🦌",Turtle:"🐢",Fox:"🦊",Hummingbird:"🐦",Lion:"🦁",Horse:"🐴",Raven:"🐦‍⬛",Swan:"🦢",Bee:"🐝",Dragonfly:"🪽",Elephant:"🐘","Koi Fish":"🐟",Ladybug:"🐞",Penguin:"🐧",Panda:"🐼",Peacock:"🦚",Frog:"🐸",Snake:"🐍",Chameleon:"🦎",Seal:"🦭",Tiger:"🐯",Badger:"🦡",Bat:"🦇",Beaver:"🦫",Buffalo:"🦬",Coyote:"🐾",Elk:"🫎",Falcon:"🦅",Hare:"🐇",Hawk:"🦅",Mole:"🐾",Otter:"🦦",Spider:"🕷",Squirrel:"🐿"};
 const STAIRS=`<svg viewBox="0 0 24 24" width="20" height="20"><path d="M3 20h5v-5h5v-5h5V5h3" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M15 3h6v6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
@@ -1610,7 +1613,7 @@ function drawDeck(deck){
           pick("Who was your partner in this exercise?",nb,i=>{const q=S.players[i];p.tokens++;q.tokens++;p.pearls++;q.pearls++;sfx("together");log(p.name+" and "+q.name+" practise clear communication: “"+card.title+"”.");nextTurn()})}]].concat(swap)});return}
     if(deck==="canvas"){canvasCard(card,swap);return}
     if(deck==="possibilities"){possCard(card,swap);return}
-    if(deck==="breath"){momentMusic();openCard({...base,th:{gem:"#7ab8d8"},sub:"Wind · Breath · Spirit",emb:emblem("sym","≋"),html:`<div class="breathe"><div class="bcirc"></div><div class="blab">breathe in … and out …</div></div>`,text:esc(card.text),prompt:esc(card.prompt),timer:15,timerLabel:"15 seconds of conscious breathing",reward:"⚡ +1 energy · "+moveText(card.effect),
+    if(deck==="breath"){momentMusic();openCard({...base,th:{gem:"#7ab8d8"},sub:"Wind · Breath · Spirit",emb:emblem("sym","≋"),html:`<div class="breathe"><div class="bcirc"></div><div class="blab">breathe in … and out …</div></div>`,text:esc(card.text),prompt:esc(card.prompt),timer:15,timerLabel:"15 seconds of conscious breathing",reward:HSUN+" +1 energy · "+moveText(card.effect),
       acts:[["I breathed consciously ≋",()=>{closeCard();energy(p,1);log(p.name+" breathes with the wind: "+card.title+".");applyMove(card.effect)}]].concat(swap)});return}
     if(deck==="chalice"){const others=S.players.map((q,i)=>i).filter(i=>i!==S.turn&&!S.players[i].done);
       openCard({...base,th:{gem:"#3a8ab8"},sub:"Receive · Cleanse · Share",emb:emblem("sym","🜄"),text:esc(card.text),prompt:esc(card.prompt),reward:"Keep the balance: receive or share",
@@ -1673,8 +1676,8 @@ function drawDeck(deck){
       acts:[["I understand the number "+card.n+" ✦",()=>{closeCard();log(p.name+" learns the wisdom of "+card.n+" – "+card.planet+".");applyMove(card.effect)}]].concat(swap)});return}
     if(deck==="lightenergy"){openCard({...base,th:{gem:"#e0a82e"},sub:"A question of light",title:card.icon+" "+esc(card.title),emb:emblem("sym","⚡"),text:`<span style="font-family:var(--serif);font-size:1.3rem">${esc(card.text)}</span>`,html:'<p style="font-size:.85rem;opacity:.8">Everything is energy – even you. Light you cannot see is still light.</p>',reward:"+1 energy",
       acts:[["Shared ⚡",done(()=>{energy(p,1);sfx("pearl");log(p.name+" shares a light question: "+card.title+".")})]].concat(swap)});return}
-    if(deck==="recharge"){openCard({...base,th:"recharge",sub:"Recharge Station",emb:emblem("sym","⚡"),text:esc(card.text),prompt:"How do I charge my own battery in this moment? What do I need to re-charge or re-balance?",reward:"+2 energy",
-      acts:[["Recharged ⚡",done(()=>{energy(p,2);sfx("pearl");log(p.name+" recharges: "+card.title+".")})],["Let the whole circle recharge with me",done(()=>{S.players.forEach(q=>energy(q,1));energy(p,1);sfx("together");log("Everyone recharges together: "+card.title+".")}),"ghost"]]});return}
+    if(deck==="recharge"){openCard({...base,th:"recharge",sub:"Recharge Station",emb:HSUN.replace('class="hsun"','class="emb hsunbig"'),text:esc(card.text),prompt:"How do I charge my own battery in this moment? What do I need to re-charge or re-balance?",reward:"+2 energy",
+      acts:[["Recharged "+HSUN,done(()=>{energy(p,2);sfx("pearl");log(p.name+" recharges: "+card.title+".")})],["Let the whole circle recharge with me",done(()=>{S.players.forEach(q=>energy(q,1));energy(p,1);sfx("together");log("Everyone recharges together: "+card.title+".")}),"ghost"]]});return}
     if(deck==="chests"){openChest(card,swap);return}
     if(deck==="moments"){const up=card.mood==="Up";
       openCard({...base,th:"moments",sub:up?"☀ An up of life":"☁ A down of life",emb:emblem("sym",up?"☀":"☁"),text:esc(card.situation),
@@ -1696,7 +1699,7 @@ function moveText(e){return {fly3:"Fly 3 fields forward",walk2:"Walk 2 fields fo
 const EMAX=5;
 function energy(q,dv){if(q.energy==null)q.energy=3;q.energy=Math.max(0,Math.min(EMAX,q.energy+dv))}
 function battery(q){const e=q.energy==null?3:q.energy;const col=e<=1?"#e0604a":e<=2?"#e6b04a":"#6ad08a";
-  return `<span class="stat" title="Energy">⚡<svg width="30" height="12" viewBox="0 0 30 12" style="vertical-align:-1px;margin-left:3px"><rect x=".5" y=".5" width="26" height="11" rx="2.5" fill="none" stroke="#f6edd6aa"/><rect x="27" y="3.5" width="2.5" height="5" rx="1" fill="#f6edd6aa"/>${[...Array(EMAX)].map((_,i)=>`<rect x="${2+i*5}" y="2.3" width="4" height="7.4" rx="1" fill="${i<e?col:"#ffffff18"}"/>`).join("")}</svg></span>`}
+  return `<span class="stat" title="Energy">${HSUN}<svg width="30" height="12" viewBox="0 0 30 12" style="vertical-align:-1px;margin-left:3px"><rect x=".5" y=".5" width="26" height="11" rx="2.5" fill="none" stroke="#f6edd6aa"/><rect x="27" y="3.5" width="2.5" height="5" rx="1" fill="#f6edd6aa"/>${[...Array(EMAX)].map((_,i)=>`<rect x="${2+i*5}" y="2.3" width="4" height="7.4" rx="1" fill="${i<e?col:"#ffffff18"}"/>`).join("")}</svg></span>`}
 function moveTo(q,np){const i=S.players.indexOf(q);np=Math.max(0,Math.min(N+1,np));q.half=false;if(np===q.pos)return;sfx(np>q.pos?"fly":"back");S.trail={from:Math.min(q.pos,np),to:Math.max(q.pos,np),color:q.color,who:i};q.pos=np;if(np>0&&np<=N)(S.lit=S.lit||{})[np]=1;if(np>N&&i!==S.turn){q.pos=N}drawBoard()}
 function applyMove(e){
   const p=cur(),me=S.turn,trav=S.players.map((q,i)=>i).filter(i=>i!==me&&!S.players[i].done);
@@ -1912,7 +1915,7 @@ function nextTurn(){DOTCTX=null;if(S)S._chamber=null;
   S.rolled=0;S.helpedThisTurn={};S.turn=(S.turn+1)%S.players.length;{const n=cur();if(n.heartRest>0)n.heartRest--}refresh();
   const nx=cur();if(!nx.done&&DK.magic&&stage(nx)>(nx.stageSeen||0)){nx.stageSeen=stage(nx);save();setTimeout(()=>upLevel(nx),350);return}
   if(!nx.done&&!nx.above&&nx.pos>=20){nx.above=true;save();setTimeout(()=>fromAbove(nx),350);return}
-  if(!nx.done)toast((nx.energy!=null&&nx.energy<=1)?"⚡ "+nx.name+", your battery is low – a pause, a breath or a song will help.":"✦ "+encourage(nx));
+  if(!nx.done)toast((nx.energy!=null&&nx.energy<=1)?"💛 "+nx.name+", your battery is low – a pause, a breath or a song will help.":"✦ "+encourage(nx));
 }
 function fromAbove(q){chime("gate");const lines=D3.above||[];const ln=lines[S.players.indexOf(q)%Math.max(1,lines.length)]||"";
   const pts=pathBetween(0,Math.min(q.pos,N));const d=pts.map((t,i)=>(i?"L":"M")+t.x.toFixed(1)+" "+t.y.toFixed(1)).join("");
@@ -1929,7 +1932,7 @@ function loveMenu(tr){const p=cur();
     acts:[["🤗 Heart hug",()=>{closeCard();pick("Whom do you give a heart hug? (The centres of your hearts become one.)",tr,i=>{S.helpedThisTurn.love=1;energy(p,1);energy(S.players[i],1);p.tokens++;S.web=(S.web||0)+1;sfx("together");log(p.name+" and "+S.players[i].name+" share a heart hug (+1 energy each).");refresh()})},"opt"],
       ["✦ Send a blessing to everyone",()=>{closeCard();S.helpedThisTurn.love=1;S.bonus+=1;p.tokens++;S.web=(S.web||0)+1;chime("heart");log(p.name+" sends a blessing to everyone.");toast("✦ Speak your blessing now – then roll.");refresh()},"opt"],
       ["✦ Inspire someone with a word",()=>{closeCard();pick("Whom do you inspire with a word or an answer?",tr,i=>{S.helpedThisTurn.love=1;S.players[i].pearls++;p.tokens++;S.web=(S.web||0)+1;chime("pearl");log(p.name+" inspires "+S.players[i].name+" (+1 pearl · +1 Knowledge Token).");toast("✦ Share your words now – then roll.");refresh()})},"opt"],
-      ["🕊 I forgive",()=>{closeCard();S.helpedThisTurn.love=1;energy(p,2);S.web=(S.web||0)+1;openCard({th:{gem:"#d86a8a"},deck:"Forgiveness",title:"One thread mended",emb:emblem("heart"),text:"When we hurt someone, we hurt ourselves – we are one. Forgiving frees you first. Think of someone, breathe, and let a little of the weight go.",timer:20,reward:"⚡ +2 energy",acts:[["I let it go ✦",()=>{closeCard();log(p.name+" forgives – a thread in the quilt is mended.");refresh()}]]})},"opt"],
+      ["🕊 I forgive",()=>{closeCard();S.helpedThisTurn.love=1;energy(p,2);S.web=(S.web||0)+1;openCard({th:{gem:"#d86a8a"},deck:"Forgiveness",title:"One thread mended",emb:emblem("heart"),text:"When we hurt someone, we hurt ourselves – we are one. Forgiving frees you first. Think of someone, breathe, and let a little of the weight go.",timer:20,reward:HSUN+" +2 energy",acts:[["I let it go ✦",()=>{closeCard();log(p.name+" forgives – a thread in the quilt is mended.");refresh()}]]})},"opt"],
       ["Not now",closeCard,"ghost"]]})}
 function stepOut(){const p=cur();
   openCard({th:"planet",deck:"Step out of the game",title:"A pit stop among the stars",emb:emblem("sym","✧"),
@@ -2011,7 +2014,7 @@ function renderCards(){
     if(libSel==="comm")return mini(d.name,esc(c.title),esc(c.exercise),esc(c.question),emblem("sym","❝"),"comm");
     if(libSel==="radiate")return mini(d.name,esc(c.title),esc(c.text)+"<br><i>"+esc(c.prompt)+"</i>","“"+esc(c.affirmation)+"”",emblem("sym","☼"),"radiate");
     if(libSel==="numwis")return mini(d.name,esc(c.n+" · "+c.planet),"<b>"+esc(c.keywords)+"</b><br>"+esc(c.text),esc(c.prompt),numSVG(c.n,c.planet),"numwis");
-    if(libSel==="recharge")return mini(d.name,esc(c.title),esc(c.text),"How do I charge my battery right now?",emblem("sym","⚡"),"recharge");
+    if(libSel==="recharge")return mini(d.name,esc(c.title),esc(c.text),"How do I charge my battery right now?",HSUN.replace('class="hsun"','class="emb hsunbig"'),"recharge");
     if(libSel==="moments")return mini(d.name+" · "+esc(c.mood),esc(c.title),esc(c.situation)+"<br><i>"+esc(c.tool)+"</i>","✦ "+esc(c.help),emblem("sym",c.mood==="Up"?"☀":"☁"),"moments");
     if(libSel==="living")return mini(d.name,esc(c.title),esc(c.inv)+"<br><b>"+esc(c.refl)+"</b>",esc(c.act),emblem("sym","⟐"),{gem:"#c89030"});
     if(libSel==="rise")return mini(d.name,"Where are you on the path?","Remembrance · Integration · Service · Expression","I trust the unfolding of my path.",emblem("sym","⟡"),{gem:"#e0a020"});
