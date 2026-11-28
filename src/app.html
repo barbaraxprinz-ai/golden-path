@@ -297,6 +297,11 @@ html.light .gatedeep{background:#fffaf0;border-color:#c9952e66;color:#1f1a14}
 @media (prefers-reduced-motion:reduce){.gticket{animation:none}}
 #musicPill{position:fixed;left:10px;bottom:calc(10px + env(safe-area-inset-bottom));z-index:85;display:none;align-items:center;gap:6px;max-width:58vw;padding:4px 5px 4px 10px;border-radius:999px;background:linear-gradient(135deg,#f6dc7a,#c99a2a);color:#2a1d05;font-size:.78rem;font-weight:600;box-shadow:0 4px 14px rgba(0,0,0,.25)}
 #musicPill.on{display:flex}
+.ppgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.pptile{display:flex;flex-direction:column;align-items:center;gap:2px;padding:10px 6px;border-radius:14px;border:1.5px solid var(--pc);background:linear-gradient(160deg,#fffdf6,color-mix(in srgb,var(--pc) 18%,#fff8ea));font:inherit;color:#3a2a10;cursor:pointer;min-height:96px}.pptile .ppi{font-size:2rem;line-height:1.1}.pptile b{font-size:.98rem}.pptile small{font-size:.78rem;opacity:.85;line-height:1.2}.pptile.locked{filter:grayscale(.7);opacity:.6}.pptile:disabled:not(.locked){opacity:.85;cursor:default}
+.ppbig{font-size:4.2rem;line-height:1;margin:6px auto;filter:drop-shadow(0 0 14px rgba(242,207,107,.8))}
+.beamfx{position:fixed;inset:0;pointer-events:none;z-index:300;background:radial-gradient(circle at 50% 50%,rgba(255,246,200,.95),rgba(242,207,107,.5) 30%,transparent 70%);animation:beamfx 1.6s ease-out forwards}@keyframes beamfx{0%{opacity:0;transform:scaleY(.2)}25%{opacity:1;transform:scaleY(1)}100%{opacity:0}}
+.shootstar{position:fixed;top:12%;left:-10%;width:120px;height:3px;border-radius:3px;z-index:300;pointer-events:none;background:linear-gradient(90deg,transparent,#fff6c8,#fff);box-shadow:0 0 12px #fff6c8;transform:rotate(18deg);animation:shoot 2.1s ease-in forwards}@keyframes shoot{to{left:110%;top:48%;opacity:0}}
+body.moon #board{background:radial-gradient(circle at 70% 20%,#3a4a8a,#0e1638 70%);border-radius:18px;filter:brightness(.92) saturate(.85)}
 .rhint{margin:6px auto;max-width:420px;text-align:left;border:1px solid rgba(168,120,42,.35);border-radius:12px;padding:8px 12px;background:rgba(255,250,235,.6)}.rhint summary{cursor:pointer;font-weight:700;color:#8a6ad0}.rhint p{margin:6px 0 0;font-size:1.05rem}
 body.music-on .modal{padding-bottom:52px}
 body.music-on .wrap{padding-bottom:48px}
@@ -490,7 +495,7 @@ body.music-on .wrap{padding-bottom:48px}
     <h3>The True Path</h3>
     <p>Deep down in our heart and soul we know the true way of living: connected, supporting and helping others, guiding and serving, becoming the best person possible – humble, kind and loving. Pure golden heart wisdom. A conscious way of living life.</p>
     <h3>Goal</h3>
-    <p>Celebrate life and reach the Golden Heart in the centre – together. Every step, even a detour, is growth. You are never alone: your fellow players are your companions on the path, and help is always near. There are no winners. All pearls, gems, keys and tokens feed one shared Light. When the last traveller arrives, the journey is complete.</p>
+    <p>Celebrate life and reach the Golden Heart in the centre – together. Every step, even a detour, is growth. You are never alone: your fellow players are your companions on the path, and help is always near. <b>There are no opponents.</b> Either you are on the same wavelength, walking the same stretch of the path – or you learn from each other. Or you spark something in the other: a new interest, the joy of learning, a real conversation. Listening matters – and so does passing the light on. There are no winners. All pearls, gems, keys and tokens feed one shared Light. When the last traveller arrives, the journey is complete.</p>
     <h3>A turn</h3>
     <ol><li>Roll the dice and walk along the path (fields 1 → 40, then through the Golden Gate into the Heart).</li>
     <li>The field you land on tells you what happens. Read the card aloud, answer, share, decide.</li>
@@ -548,6 +553,12 @@ body.music-on .wrap{padding-bottom:48px}
     <p>Walking the Golden Path is a cycle you live again and again:<br><b>R</b>emember the light within. · <b>I</b>ntegrate the wisdom you receive. · <b>S</b>erve the world through your gifts. · <b>E</b>xpress your truth – and expand.<br><i>Turn the light ON. Walk the Golden Path – and R.I.S.E.</i></p>
     <h3>Elements and star signs</h3>
     <p>Every traveller has a home element – and may choose their <b>star sign</b>, which brings its element with it. <b>Earth</b> (Taurus, Virgo, Capricorn): stable and grounded. <b>Air</b> (Gemini, Libra, Aquarius): lively, curious and communicative. <b>Water</b> (Cancer, Scorpio, Pisces): kind-hearted, intuitive and healing. <b>Fire</b> (Aries, Leo, Sagittarius): passionate, spontaneous and goal-oriented. At the start each traveller sees the gemstones that support their element.</p>
+    <h3>Beam-ON · The Power Places</h3>
+    <p>Around the labyrinth lie places to recharge: an island, a silver lake, a crystal cave, a mountain, a green hill, a waterfall, a castle, a temple and a golden pyramid. Once per journey, before you roll, you may tap <b>✨ Beam-ON</b> and choose a place consciously. Sometimes a beam of light also carries you there unexpectedly. Every place gives you <b>+3 energy</b> – and, only if you wish, a question of higher wisdom (<b>Ascensi-ON</b>). One very secret place opens only on rare occasions …</p>
+    <h3>Hidden passages · Transformati-ON</h3>
+    <p>Beneath some fields run hidden passages (a dark opening with a number). Land there, and you may walk through to the field shown – or stay where you are.</p>
+    <h3>Special Occasi-ONs</h3>
+    <p>Now and then the path surprises the whole circle: a celebration with a song, a meeting of two paths, a shooting star, a full moon night – and perhaps a golden moment at 11:11, 2:22 or 22:22.</p>
     <h3>Big Flap of Wings</h3>
     <p>Whenever the game needs more action, a twist or new inspiration, tap <b>🪽 Big Flap of Wings</b> (once per turn). <b>Choose</b> what your heart needs: an action card with your teammates, a moment of gratitude – or <b>me-time</b>, a minute just for you. Ask your angels to keep you moving and connected.</p>
     <h3>Five elements of healing</h3>
@@ -1346,6 +1357,8 @@ function boardFields(X){let h="";const C=LB.center,m=curMap();
   return h}
 function tokenXY(p){const C=LB.center,E=LB.entrance;if(p.pos<=0&&!p.half)return E;if(p.pos>N)return {x:C.x,y:C.y};if(p.half)return babyPoints()[p.pos]||E;return LB.fields[p.pos-1]}
 function boardTokens(X){let h="";const C=LB.center,E=LB.entrance;
+  if(S&&S.tunnels)for(const f in S.tunnels){const P=LB.fields[f-1];if(!P)continue;h+=`<g style="pointer-events:none"><ellipse cx="${P.x-15}" cy="${P.y+16}" rx="9" ry="6" fill="#2a1a0e" stroke="#c9952e" stroke-width="1.4"/><text x="${P.x-15}" y="${P.y+19.5}" font-size="8" text-anchor="middle" fill="#f2cf6b">${S.tunnels[f]}</text></g>`}
+  if(S)[["🏝",46,52],["🏰",46,770],["🔺",754,770]].forEach(([ic,x,y])=>{h+=`<g class="ppcorner" onclick="powerMap(cur())" style="cursor:pointer"><circle cx="${x}" cy="${y-8}" r="24" fill="rgba(255,250,235,.75)" stroke="#c9952e" stroke-width="1.6"/><text x="${x}" y="${y}" font-size="24" text-anchor="middle">${ic}</text></g>`});
   if(S&&S.hidden)for(const f in S.hidden){const hh=S.hidden[f];if(!hh.found)continue;const P=LB.fields[f-1];
     h+=`<g style="pointer-events:none"><circle cx="${P.x+15}" cy="${P.y-15}" r="10" fill="#fffbe8" stroke="#c9952e" stroke-width="1.6"/><text x="${P.x+15}" y="${P.y-11}" font-size="11" text-anchor="middle">${CHAMBER_ICON[hh.kind]}</text></g>`}
   if(S)S.players.forEach((q,qi)=>(q.lessons||[]).forEach(f=>{const P=LB.fields[f-1];if(!P)return;const a=qi/S.players.length*Math.PI*2;h+=`<circle cx="${(P.x+21*Math.cos(a)).toFixed(1)}" cy="${(P.y+21*Math.sin(a)).toFixed(1)}" r="5" fill="#fffaf0" stroke="${q.color}" stroke-width="2.4" style="pointer-events:none"/>`}));
@@ -1448,7 +1461,7 @@ const PEMOJI={Earth:"🌍"};
 function planetIcon(n){return PEMOJI[n]||emblem("planet",n).replace('class="emb" viewBox="0 0 120 120"','viewBox="27 27 66 66" width="30" height="30"')}
 function deckSym(d){if(DECKSYM_X[d])return DECKSYM_X[d];for(const v of Object.values(T))if(v&&v.deck===d)return v.sym;return "✦"}
 function cornerHTML(c,c2){return (c?`<div class="corner" aria-hidden="true">${c}</div>`:"")+(c2?`<div class="corner left" aria-hidden="true">${c2}</div>`:"")}
-function openCard(o){if(o.sfx!=="none")sfx(o.sfx||"card");
+function openCard(o){if(o.sfx!=="none")sfx(o.sfx||"card");if(S&&(S.moonLeft||0)>0&&o.prompt&&!/Full moon/.test(o.prompt))o={...o,prompt:o.prompt+"<br>🌕 <i>Full moon: what is your dream telling you?</i>"};
   let dotBlock="";if(DOTCTX&&!o.noDot){dotBlock=dotHTML(DOTCTX);DOTCTX=null}
   const t=$("#tin");const tm=theme(o.th);t.setAttribute("style",themeStyle(o.th));t.className="tin"+(tm.light?" light":"")+(tm.rb?" rb":"");
   t.innerHTML=`${cornerHTML(o.corner,o.corner2)}<div class="deck">${esc(o.deck||"")}</div><h2 id="cardTitle">${o.title}</h2>${o.sub?`<div class="sub">${o.sub}</div>`:""}
@@ -1512,7 +1525,7 @@ $("#startBtn").onclick=()=>{
        pos:0,energy:3,pearls:0,gems:[],keys:[],animals:[],tokens:0,choices:[],insight:"",rerolls:p.arch==="creator"?3:0,standLeft:p.arch==="guardian"?3:0,magicLeft:p.arch==="magician"?3:0,skip:false,done:false}))};
   S.seed=1+(Math.random()*2147483000|0);S.map=buildMap(setObj(),S.seed);
   {const cand=[];for(let i=4;i<=38;i++)if(!GATE_POS.includes(i))cand.push(i);S.players.forEach(q=>{const c=cand.slice();q.lessons=[];for(let k=0;k<3;k++)q.lessons.push(c.splice(Math.random()*c.length|0,1)[0]);q.lessons.sort((a,b)=>a-b)})}
-  placeChambers();log("The journey begins: “"+setObj().name+"”.");save();go("play");
+  placeChambers();placeTunnels();document.body.classList.remove("moon");log("The journey begins: “"+setObj().name+"”.");save();go("play");
   setTimeout(()=>{const first=esc(cur().name);
     openCard({th:"gold",deck:"G.A.M.E 2020 · God Allows More Experiences",title:"Welcome, traveler",emb:emblem("heart"),
       html:`<div class="lyrics" style="font-size:1.15rem">This game was never meant to be won.<br>It was meant to be lived.<br><br>The treasure was always within you.</div>`+(SONG?`<div class="songline" style="margin-top:12px">♪ ${esc(SONG.chorus).replace(/\n/g,"<br>")}</div>`:""),
@@ -1559,6 +1572,7 @@ function renderPlay(){
     if(!S.rolled&&!S.busy){
       const ex=document.createElement("div");ex.className="extras";box.appendChild(ex);const addX=(t,f)=>{const b=document.createElement("button");b.className="btn ghost";b.innerHTML=t;b.disabled=S.busy;b.onclick=f;ex.appendChild(b)};
       if(!S.helpedThisTurn.ask&&(p.heartRest||0)<=0)addX("♡ Heart",askHelp);
+      if(!p.beamUsed)addX("✨ Beam-ON",()=>powerMap(p));
       if(!p.guardianUsed)addX("🛡 Guardian",()=>guardianCard(p));if(D3.bigWings&&S.wingsTurn!==(S.turnNo||0))addX("🪽 Big Flap of Wings",()=>bigWings(p));
       if(travellers.length&&!S.helpedThisTurn.love)addX("❤ Love",()=>loveMenu(travellers));
       if(!p.steppedOut&&p.pos>0)addX("✧ Step out",stepOut);
@@ -1607,6 +1621,9 @@ function land(){const p=cur();S._obst=false;
   {const met=S.players.filter(q=>q!==p&&!q.done&&!q.half&&q.pos===p.pos&&p.pos>0);if(met.length){met.forEach(q=>energy(q,1));energy(p,1);log(p.name+" meets "+met.map(q=>q.name).join(" & ")+" on the path – you walk together for a while.");toast("✦ You meet "+met.map(q=>q.name).join(" & ")+" – you never walk alone. Everyone here +1 energy.")}}
   if(!S.ticket&&(S.turnNo||0)>4&&Math.random()<(window.TICKET_P||.003)){goldenTicket(p);return}
   if(!S.peace&&(S.turnNo||0)>6&&Math.random()<(window.PEACE_P||.03)){peaceEvent(p);return}
+  {const mt=S.players.filter(q=>q!==p&&!q.done&&!q.half&&q.pos===p.pos&&p.pos>0);if(mt.length&&(S.connect||0)<2&&Math.random()<.6){connectiOn(p,mt[0]);return}}
+  if(!p.half&&S.tunnels&&S.tunnels[p.pos]){tunnelCard(p);return}
+  if((S.turnNo||0)>3&&(S.beamsRand||0)<3&&Math.random()<(window.BEAM_P||.03)){S.beamsRand=(S.beamsRand||0)+1;const pool=POWER.filter(x=>!x.secret||secretOpen());beamCard(p,pool[Math.random()*pool.length|0],true,()=>{closeCard();resolve(p.pos)});return}
   resolve(p.pos)}
 function ticketHTML(name){const z=[];for(let k=0;k<=20;k++)z.push(`${k%2?4:0}% ${k*5}%`);const zb=[];for(let k=20;k>=0;k--)zb.push(`${k%2?96:100}% ${k*5}%`);
   return `<div class="gticket" style="clip-path:polygon(${z.join(",")},${zb.join(",")})"><div class="gt-in">
@@ -1653,6 +1670,63 @@ function peaceDone(p,kind){const toName=($("#peaceTo")||{}).value||"";const q=S.
   openCard({th:{gem:"#7ab8d8"},deck:"A Message of Peace",title:"A bridge of peace",emb:emblem("sym","🕊"),
     text:`<span class="lyrics" style="font-size:1.15rem">Where words once hurt, a bridge now stands.<br>What is healed in one heart brings light to all.</span>`,
     reward:"Everyone +1 pearl",acts:[["We walk on together ✦",()=>{closeCard();resolve(p.pos)},"gold"]]})}
+
+/* ===================== BEAM-ON · POWER PLACES & SPECIAL OCCASI-ONS ===================== */
+const POWER=[
+ {id:"island",icon:"🏝",on:"Vacati-ON",name:"The Island of Stillness",text:"Waves come and go. Breathe in with the wave, breathe out with the wave – and let everything go.",q:"What can you let go of today?",deep:"Who are you when you no longer need to do anything?",col:"#3aa8c8"},
+ {id:"lake",icon:"🛶",on:"Reflecti-ON",name:"The Silver Lake",text:"You row out onto the silver lake. Place one worry on the water and watch it drift away.",q:"Which worry do you place on the water?",deep:"If your soul could look at your life like a reflection in still water – what would it see?",col:"#7a9ac8"},
+ {id:"cave",icon:"🕯",on:"Meditati-ON",name:"The Crystal Cave",text:"Deep inside the earth, crystals glow in the dark. Whisper a wish into the cave – and listen as the echo carries it back to you.",q:"What is your wish?",deep:"What does your inner voice know that your mind does not yet want to hear?",col:"#8a6ad0"},
+ {id:"mountain",icon:"⛰",on:"Elevati-ON",name:"The Mountain of Vision",text:"From the summit you see the whole labyrinth below you. From up here, every turn makes sense.",q:"Seen from above – what really matters?",deep:"Which experience in your life looked like a detour, but was really part of your path?",col:"#8a8a9a"},
+ {id:"hill",icon:"🌿",on:"Relaxati-ON",name:"The Green Hill",text:"Lie down in the soft grass and watch the clouds drift by. Nothing to do, nowhere to go.",q:"Which shape do you see in the clouds?",deep:"What would change if you trusted that life is carrying you?",col:"#5aae5a"},
+ {id:"waterfall",icon:"🌊",on:"Purificati-ON",name:"The Waterfall",text:"Stand beneath the clear, sparkling water and let it wash away everything heavy.",q:"What does the water wash away?",deep:"Which old belief about yourself are you ready to let go of?",col:"#3a8ad8"},
+ {id:"castle",icon:"🏰",on:"Protecti-ON",name:"The Castle of Courage",text:"Behind strong walls you are safe. Here you remember your strength and your courage.",q:"What do you want to protect in your life?",deep:"What is the true strength that no one can ever take from you?",col:"#b0804a"},
+ {id:"temple",icon:"🛕",on:"Devoti-ON",name:"The Temple of Light",text:"In the quiet temple a thousand candles burn. Light one more – for someone you love.",q:"For whom do you light your candle?",deep:"What do all great spiritual teachers have in common – Jesus, Gandhi, Yogananda and so many others? And how much of it already lives in you?",col:"#e0a040"},
+ {id:"pyramid",icon:"🔺",on:"Activati-ON",name:"The Golden Pyramid",text:"Sit at the heart of the pyramid. Feel the energy rise from the earth, through your body, up to the sky.",q:"Where in your body do you feel the energy now?",deep:"If your energy were a light, where would you want it to shine in the world?",col:"#d8a82e"},
+ {id:"secret",icon:"✨",on:"Revelati-ON",name:"The Hidden Sanctuary",text:"You have found the most secret place of the Golden Path. Few travellers ever see it. Golden light flows from every direction – and you hear the softest voice of your own heart.",q:"What does your heart whisper to you?",deep:"What did your soul come here to learn – and to give?",col:"#f2cf6b",secret:true}];
+const SYNC_MSG=["The universe winks at you. You are exactly where you are meant to be.","A golden moment: the numbers line up – and so does your path.","Pause. Smile. This moment was waiting for you.","Your guides are near. Keep walking with an open heart.","Everything is connected – even this very minute."];
+function secretOpen(){return !!(S&&(S.secretOpen||(S.moonLeft||0)>0))}
+function powerMap(p,view){const can=!view&&p&&!p.done&&!p.beamUsed&&!S.rolled&&!S.busy&&S.players[S.turn]===p;
+  if(can&&!S._secretRoll){S._secretRoll=1;if(Math.random()<(window.SECRET_P||.05))S.secretOpen=true}
+  const open=secretOpen();
+  const tiles=POWER.map(pl=>{const lock=pl.secret&&!open;return `<button class="pptile${lock?" locked":""}" style="--pc:${pl.col}" ${can&&!lock?`onclick="beamTo('${pl.id}')"`:"disabled"}><span class="ppi">${lock?"🔒":pl.icon}</span><b>${pl.on}</b><small>${lock?"Opens only on rare occasions":pl.name}</small></button>`}).join("");
+  openCard({th:{gem:"#3aa8c8"},deck:"Beam-ON",title:"✨ The Power Places",emb:"",
+    html:`<p class="hint" style="margin:0 0 8px">${can?"Where would you like to recharge? You may beam yourself to one place – once per journey.":p&&p.beamUsed?esc(p.name)+" has already used the beam on this journey. Sometimes a beam of light carries travellers away unexpectedly …":"Beam-ON before you roll the dice – once per journey."}</p><div class="ppgrid">${tiles}</div>${open?`<p class="hint" style="margin-top:8px">✨ The Hidden Sanctuary is open right now!</p>`:""}`,
+    acts:[["Close",()=>{closeCard();refresh()},"ghost"]]})}
+function beamTo(id){const p=cur();p.beamUsed=true;beamCard(p,POWER.find(x=>x.id===id),false,()=>{closeCard();refresh()})}
+function beamCard(p,pl,surprise,after){if(pl.secret){S.secretOpen=false;S.secretFound=p.name}
+  chime("heart");sfx("sign");const fx=document.createElement("div");fx.className="beamfx";document.body.appendChild(fx);setTimeout(()=>fx.remove(),1600);
+  log("✨ "+p.name+(surprise?" is carried away by a beam of light to ":" beams to ")+pl.name+" – "+pl.on+".");
+  openCard({sfx:"none",th:{gem:pl.col},deck:(surprise?"A beam of light – unexpected! · ":"Beam-ON · ")+pl.on,title:pl.icon+" "+pl.name,emb:`<div class="ppbig">${pl.icon}</div>`,
+    text:`<span class="lyrics" style="font-size:1.15rem;line-height:1.5">${pl.text}</span>`,prompt:pl.q,
+    html:`<details class="rhint"><summary>✧ Ascensi-ON · a question of higher wisdom</summary><p>${pl.deep}</p><p class="hint" style="margin-top:4px">Only if you wish – take your time.</p></details>`,
+    timer:30,timerLabel:"30 seconds to recharge",reward:pl.secret?"+5 "+HSUN+" for you · everyone +1 pearl and +1 energy":"+3 "+HSUN+" energy",
+    acts:[["I am recharged ✦",()=>{if(pl.secret){energy(p,5);S.players.forEach(q=>{q.pearls++;energy(q,1)})}else energy(p,3);sfx("pearl");if(pl.secret)addVal(p,"Revelation");after()},"gold"]]})}
+function tunnelCard(p){const to=S.tunnels[p.pos];
+  openCard({th:{gem:"#6a4a2a"},deck:"Transformati-ON",title:"🚇 A hidden passage",emb:`<div class="ppbig">🕳</div>`,
+    text:`<span class="lyrics" style="font-size:1.15rem">Sometimes the way leads underground before it rises into the light.</span>`,prompt:"What is waiting beneath your surface?",
+    html:`<p class="hint">This passage leads to field ${to}${to<p.pos?" – a step back that may bring something new":""}.</p>`,
+    acts:[["Go through the passage 🚇",()=>{closeCard();log("🚇 "+p.name+" walks through a hidden passage: field "+p.pos+" → "+to+".");p.pos=to;sfx("sign");drawBoard();setTimeout(()=>resolve(p.pos),500)},"gold"],["Stay on this field",()=>{closeCard();resolve(p.pos)},"ghost"]]})}
+function placeTunnels(){const bad=new Set([...GATE_POS,...TURN_FIELDS,...Object.keys(S.hidden||{}).map(Number)]);const c=[];for(let i=5;i<=37;i++)if(!bad.has(i))c.push(i);
+  S.tunnels={};for(let k=0;k<2&&c.length>3;k++){const a=c.splice(Math.random()*c.length|0,1)[0];const far=c.filter(x=>Math.abs(x-a)>=6);if(!far.length)break;const b=far[Math.random()*far.length|0];c.splice(c.indexOf(b),1);S.tunnels[a]=b;S.tunnels[b]=a}}
+function connectiOn(p,q){S.connect=(S.connect||0)+1;chime("heart");
+  openCard({th:{gem:"#e05a8a"},deck:"Special Occasi-ON",title:"🤝 Connecti-ON",emb:`<div class="ppbig">🤝</div>`,
+    text:`<span class="lyrics" style="font-size:1.15rem">${esc(p.name)} and ${esc(q.name)} – two paths cross.</span>`,prompt:"Tell each other one thing you truly appreciate about the other.",reward:"+1 pearl and +1 energy for both",
+    acts:[["Thank you ✦",()=>{[p,q].forEach(x=>{x.pearls++;energy(x,1)});closeCard();log("🤝 Connecti-ON: "+p.name+" & "+q.name+".");resolve(p.pos)},"gold"]]})}
+function occasion(){if(!S||S.over)return false;const n=S.turnNo||0;
+  const d=new Date(),hm=String(d.getHours()).padStart(2,"0")+":"+String(d.getMinutes()).padStart(2,"0"),key=d.toDateString()+hm;
+  if((window.SYNC_FORCE||["11:11","02:22","14:22","22:22"].includes(hm))&&S.syncAt!==key){S.syncAt=key;S.secretOpen=true;chime("heart");
+    const m=SYNC_MSG[Math.random()*SYNC_MSG.length|0];S.players.forEach(q=>q.pearls++);log("🕰 Synchronizati-ON at "+hm+".");
+    openCard({th:"gold",deck:"Special Occasi-ON",title:"🕰 Synchronizati-ON",sub:hm,emb:`<div class="ppbig">🕰</div>`,text:`<span class="lyrics" style="font-size:1.2rem">${m}</span>`,html:'<p class="hint">✨ The Hidden Sanctuary has opened its door …</p>',reward:"Everyone +1 pearl",acts:[["✦",()=>{closeCard();refresh()},"gold"]]});return true}
+  const ML=[80,170,260];S.celebrated=S.celebrated||0;
+  if(S.celebrated<ML.length&&light()>=ML[S.celebrated]){S.celebrated++;S.players.forEach(q=>energy(q,1));log("🎶 Celebrati-ON – the shared light shines brighter.");
+    openCard({th:"gold",deck:"Special Occasi-ON",title:"🎶 Celebrati-ON",emb:`<div class="ppbig">🎉</div>`,text:`<span class="lyrics" style="font-size:1.2rem">Your shared light has grown so bright – it is time to celebrate!</span>`,prompt:"Stand up and dance together – a whole song long, or just a little.",reward:"Everyone +1 energy",
+      acts:[["Play a song by Barbara ♪",()=>{const P=playable().filter(i=>Music.songs[i].builtin);if(P.length)musicPlay(P[Math.random()*P.length|0]);closeCard();refresh()},"gold"],["We celebrate in silence ✦",()=>{closeCard();refresh()},"ghost"]]});return true}
+  if(!S.moonDone&&n>8&&Math.random()<(window.MOON_P||.03)){S.moonDone=1;S.moonLeft=S.players.length+1;document.body.classList.add("moon");log("🌕 Full Moon Night begins.");
+    openCard({th:{gem:"#3a4a8a"},deck:"Special Occasi-ON",title:"🌕 Full Moon Night",emb:`<div class="ppbig">🌕</div>`,text:`<span class="lyrics" style="font-size:1.15rem">For one round, the labyrinth lies in silver moonlight. Every card now also asks about your dreams.</span>`,html:'<p class="hint">✨ Under the full moon, the Hidden Sanctuary opens its door.</p>',
+      acts:[["Into the night ✦",()=>{closeCard();refresh()},"gold"]]});return true}
+  if((S.stars||0)<2&&n>3&&Math.random()<(window.STAR_P||.025)){S.stars=(S.stars||0)+1;const st=document.createElement("div");st.className="shootstar";document.body.appendChild(st);setTimeout(()=>st.remove(),2200);chime("gate");
+    setTimeout(()=>{S.players.forEach(q=>q.pearls++);log("🌠 Inspirati-ON – a shooting star.");openCard({th:{gem:"#2a3a7a"},deck:"Special Occasi-ON",title:"🌠 Inspirati-ON",emb:`<div class="ppbig">🌠</div>`,text:`<span class="lyrics" style="font-size:1.2rem">A shooting star crosses the sky!</span>`,prompt:"Everyone closes their eyes and makes a silent wish.",reward:"Everyone +1 pearl",acts:[["Wished ✦",()=>{closeCard();refresh()},"gold"]]})},1400);return true}
+  return false}
 function goldenTicket(p){S.ticket=p.name;chime("heart");sfx("sign");S.players.forEach(q=>{q.pearls++;energy(q,1)});log("🎫 "+p.name+" finds the Golden Ticket! Everyone receives a pearl and +1 energy.");refresh();
   openCard({th:"gold",deck:"A rare treasure",title:"You found it!",emb:ticketHTML(p.name),
     text:`<span class="lyrics" style="font-size:1.12rem;line-height:1.55">This is for you – for daring to walk, to grow, to share your pearls and to choose love, again and again.<br><br>A red thread runs through every life. But the golden thread is woven from what you learn, share and love along the way.<br><br>Life's little gold is everywhere. Today, it found you.<br><br><b>Shine on.</b><br><i>– Barbara</i></span>`,
@@ -2022,7 +2096,9 @@ function nextTurn(){DOTCTX=null;if(S)S._chamber=null;
   if(S&&!S.over&&!calm&&!S._held&&DK.held&&!S.players.every(q=>q.done)&&Math.random()<0.15){S._held=true;S.lastSurprise=S.turnNo;S.busy=true;refresh();setTimeout(()=>{S.busy=false;showHeld(()=>nextTurn())},300);return}
   if(S)S._held=false;
   if(S.players.every(q=>q.done)){S.over=true;S.rolled=0;refresh();setTimeout(finale,500);return}
-  S.rolled=0;S.helpedThisTurn={};S.turn=(S.turn+1)%S.players.length;{const n=cur();if(n.heartRest>0)n.heartRest--}refresh();
+  S.rolled=0;S.helpedThisTurn={};S._secretRoll=0;S.turn=(S.turn+1)%S.players.length;{const n=cur();if(n.heartRest>0)n.heartRest--}
+  if((S.moonLeft||0)>0){S.moonLeft--;if(!S.moonLeft){document.body.classList.remove("moon");log("🌕 The full moon night ends.")}}
+  refresh();if(occasion())return;
   const nx=cur();if(!nx.done&&DK.magic&&stage(nx)>(nx.stageSeen||0)){nx.stageSeen=stage(nx);save();setTimeout(()=>upLevel(nx),350);return}
   if(!nx.done&&!nx.above&&nx.pos>=20){nx.above=true;save();setTimeout(()=>fromAbove(nx),350);return}
   if(!nx.done)toast((nx.energy!=null&&nx.energy<=1)?"💛 "+nx.name+", your battery is low – a pause, a breath or a song will help.":"✦ "+encourage(nx));
