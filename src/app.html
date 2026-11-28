@@ -295,6 +295,12 @@ html.light .gatedeep{background:#fffaf0;border-color:#c9952e66;color:#1f1a14}
 .gt-foot{font-family:var(--caps);font-size:.46rem;letter-spacing:.14em;margin-top:5px;opacity:.85}
 @keyframes gtshine{from{background-position:0% 0}to{background-position:220% 0}}
 @media (prefers-reduced-motion:reduce){.gticket{animation:none}}
+#musicPill{position:fixed;left:10px;bottom:calc(10px + env(safe-area-inset-bottom));z-index:85;display:none;align-items:center;gap:8px;max-width:70vw;padding:7px 8px 7px 14px;border-radius:999px;background:linear-gradient(135deg,#f6dc7a,#c99a2a);color:#2a1d05;font-size:.92rem;font-weight:600;box-shadow:0 4px 14px rgba(0,0,0,.25)}
+#musicPill.on{display:flex}
+body.music-on .modal{padding-bottom:68px}
+body.music-on .wrap{padding-bottom:64px}
+#musicPill .mp-name{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#musicPill button{border:0;border-radius:999px;background:#2a1d05;color:#fff3c4;font-size:.95rem;font-weight:700;padding:7px 12px;cursor:pointer;min-height:36px}
 </style>
 </head>
 <body>
@@ -587,7 +593,7 @@ html.light .gatedeep{background:#fffaf0;border-color:#c9952e66;color:#1f1a14}
 </main>
 
 <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="cardTitle"><div class="tcard"><div class="tin" id="tin"></div></div></div>
-<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<div id="musicPill" role="region" aria-label="Music"><span class="mp-name">♪</span><button id="musicPillStop" aria-label="Stop the music">■ Stop</button></div><div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script>/*DATA*/</script>
 <script>/*DATA2*/</script>
@@ -921,6 +927,9 @@ $("#mPlay").onclick=()=>{if(Music.idx>=0&&Music.audio.src&&Music.audio.paused){M
 $("#mNext").onclick=musicNext;
 $("#mStop").onclick=()=>{Music.audio.pause();$("#nowPlaying").textContent="Paused"};
 $("#mVol").oninput=e=>Music.audio.volume=+e.target.value;
+function musicPill(){const on=!Music.audio.paused&&Music.idx>=0;$("#musicPill").classList.toggle("on",on);document.body.classList.toggle("music-on",on);if(on)$("#musicPill .mp-name").textContent="♪ "+(Music.songs[Music.idx]?.name||"Music")}
+["play","playing","pause","ended","emptied"].forEach(ev=>Music.audio.addEventListener(ev,musicPill));
+$("#musicPillStop").onclick=()=>{Music.audio.pause();$("#nowPlaying").textContent="Paused";musicPill()};
 
 /* ===================== SVG HELPERS ===================== */
 function gemSVG(col,size=1){return `<g transform="scale(${size})"><path d="M0 -20 L16 -6 L0 22 L-16 -6Z" fill="${col}" stroke="#1b1712" stroke-width="1.4"/><path d="M-16 -6H16M0 -20 L-6 -6 L0 22 L6 -6Z" fill="none" stroke="#fff" stroke-opacity=".45" stroke-width="1"/></g>`}
