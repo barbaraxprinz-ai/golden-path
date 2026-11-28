@@ -295,12 +295,12 @@ html.light .gatedeep{background:#fffaf0;border-color:#c9952e66;color:#1f1a14}
 .gt-foot{font-family:var(--caps);font-size:.46rem;letter-spacing:.14em;margin-top:5px;opacity:.85}
 @keyframes gtshine{from{background-position:0% 0}to{background-position:220% 0}}
 @media (prefers-reduced-motion:reduce){.gticket{animation:none}}
-#musicPill{position:fixed;left:10px;bottom:calc(10px + env(safe-area-inset-bottom));z-index:85;display:none;align-items:center;gap:8px;max-width:70vw;padding:7px 8px 7px 14px;border-radius:999px;background:linear-gradient(135deg,#f6dc7a,#c99a2a);color:#2a1d05;font-size:.92rem;font-weight:600;box-shadow:0 4px 14px rgba(0,0,0,.25)}
+#musicPill{position:fixed;left:10px;bottom:calc(10px + env(safe-area-inset-bottom));z-index:85;display:none;align-items:center;gap:6px;max-width:58vw;padding:4px 5px 4px 10px;border-radius:999px;background:linear-gradient(135deg,#f6dc7a,#c99a2a);color:#2a1d05;font-size:.78rem;font-weight:600;box-shadow:0 4px 14px rgba(0,0,0,.25)}
 #musicPill.on{display:flex}
-body.music-on .modal{padding-bottom:68px}
-body.music-on .wrap{padding-bottom:64px}
+body.music-on .modal{padding-bottom:52px}
+body.music-on .wrap{padding-bottom:48px}
 #musicPill .mp-name{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-#musicPill button{border:0;border-radius:999px;background:#2a1d05;color:#fff3c4;font-size:.95rem;font-weight:700;padding:7px 12px;cursor:pointer;min-height:36px}
+#musicPill button{border:0;border-radius:999px;background:#2a1d05;color:#fff3c4;font-size:.78rem;font-weight:700;padding:4px 9px;cursor:pointer;min-height:28px;white-space:nowrap;flex-shrink:0}
 .corner{position:absolute;top:10px;right:10px;width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.45rem;border:1.5px solid #fff7d6;font-family:var(--serif);font-weight:700;line-height:1;color:#7a5410;background:radial-gradient(circle at 35% 30%,#fff6cf,#f2cf6b 60%,#c99a2a);box-shadow:0 1px 4px rgba(0,0,0,.25);z-index:2}
 .corner.left{right:auto;left:10px}
 .tin .deck{padding:0 46px}
@@ -898,12 +898,15 @@ function chime(kind){
   sfx(kind==="gate"?"gate":kind==="heart"?"heart":"pearl");
 }
 const BUILTIN=[{id:"builtin-1",name:"Life is a game… Play with Love ♥",src:"music/life-is-a-game.mp3",builtin:true,theme:true,role:"start"},
- {id:"builtin-2",name:"The Golden Path of Hope and Love",src:"music/golden-path-of-hope-and-love.mp3",builtin:true,role:"heart"},
+ {id:"builtin-2",name:"The Golden Path of Hope, Light and Love",src:"music/golden-path-of-hope-and-love.mp3",builtin:true,role:"heart"},
  {id:"builtin-3",name:"Riddles of Life – Make Dreams Come True",src:"music/riddles-of-life.mp3",builtin:true,role:"chest"},
  {id:"builtin-4",name:"Dare to Dream",src:"music/dare-to-dream.mp3",builtin:true,role:"dream"},
  {id:"builtin-5",name:"A Grateful Heart",src:"music/a-grateful-heart.mp3",builtin:true,role:"gratitude"},
  {id:"builtin-6",name:"Connected Beyond",src:"music/connected-beyond.mp3",builtin:true,role:"bridge"},
- {id:"builtin-7",name:"Let Your Child Breathe",src:"music/let-your-child-breathe.mp3",builtin:true}];
+ {id:"builtin-7",name:"Let Your Child Breathe",src:"music/let-your-child-breathe.mp3",builtin:true},
+ {id:"builtin-8",name:"Born to Create",src:"music/born-to-create.mp3",builtin:true},
+ {id:"builtin-9",name:"Create in Us a Golden Heart",src:"music/create-in-us-a-golden-heart.mp3",builtin:true},
+ {id:"builtin-10",name:"The Path Is Already Open",src:"music/the-path-is-already-open.mp3",builtin:true}];
 function playRole(r){if(!$("#mMoments").checked)return false;const i=Music.songs.findIndex(x=>x.role===r);if(i<0)return false;if(Music.idx===i&&!Music.audio.paused)return true;musicPlay(i);return true}
 const Music={songs:BUILTIN.slice(),idx:-1,audio:new Audio(),db:null};
 Music.audio.preload="none";
