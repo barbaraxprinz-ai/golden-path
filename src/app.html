@@ -297,6 +297,7 @@ html.light .gatedeep{background:#fffaf0;border-color:#c9952e66;color:#1f1a14}
 @media (prefers-reduced-motion:reduce){.gticket{animation:none}}
 #musicPill{position:fixed;left:10px;bottom:calc(10px + env(safe-area-inset-bottom));z-index:85;display:none;align-items:center;gap:6px;max-width:58vw;padding:4px 5px 4px 10px;border-radius:999px;background:linear-gradient(135deg,#f6dc7a,#c99a2a);color:#2a1d05;font-size:.78rem;font-weight:600;box-shadow:0 4px 14px rgba(0,0,0,.25)}
 #musicPill.on{display:flex}
+.rhint{margin:6px auto;max-width:420px;text-align:left;border:1px solid rgba(168,120,42,.35);border-radius:12px;padding:8px 12px;background:rgba(255,250,235,.6)}.rhint summary{cursor:pointer;font-weight:700;color:#8a6ad0}.rhint p{margin:6px 0 0;font-size:1.05rem}
 body.music-on .modal{padding-bottom:52px}
 body.music-on .wrap{padding-bottom:48px}
 #musicPill .mp-name{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
@@ -375,7 +376,7 @@ body.music-on .wrap{padding-bottom:48px}
       <button class="btn ghost" id="resumeBtn" style="display:none">Continue saved journey</button>
     </div>
   </div>
-  <div class="panel"><h3 style="font-size:1.5rem;margin-bottom:8px">The seven archetypes</h3><div class="lib" id="archLib" style="grid-template-columns:repeat(auto-fill,minmax(170px,1fr))"></div></div>
+  <div class="panel"><h3 style="font-size:1.5rem;margin-bottom:8px">The ten archetypes</h3><div class="lib" id="archLib" style="grid-template-columns:repeat(auto-fill,minmax(170px,1fr))"></div></div>
   <details class="panel more" id="welcomePanel"><summary>✦ Welcome, traveler – the story of the game</summary>
     <div style="text-align:center"><div class="lyrics" id="welcomeText" style="font-size:1.12rem;margin:8px 0"></div>
     <button class="btn ghost small" id="welcomeSpeak">🔊 Listen to the welcome</button></div>
@@ -640,7 +641,7 @@ if(D3.held)DK.held={name:"Held & Guided · Words of Light",color:"#f6e3a8",cards
 if(D3.communication)DK.comm={name:"Clear Communication",color:"#7fc8f0",cards:D3.communication};
 if(D3.radiate)DK.radiate={name:"Radiate Your Light",color:"#fff1b0",cards:D3.radiate};
 if(D3.numbers2)DK.numwis={name:"Number Wisdom",color:"#e6c463",cards:D3.numbers2};
-if(D3.recharge)DK.recharge={name:"Recharge Station",color:"#7ad08a",cards:D3.recharge};if(D3.lightEnergy)DK.lightenergy={name:"Light & Energy",color:"#f2c94c",cards:D3.lightEnergy};
+if(D3.recharge)DK.recharge={name:"Recharge Station",color:"#7ad08a",cards:D3.recharge};if(D3.lightEnergy)DK.lightenergy={name:"Light & Energy",color:"#f2c94c",cards:D3.lightEnergy};if(D3.riddles)DK.riddles={name:"Riddles of the Path",color:"#8a6ad0",cards:D3.riddles};
 if(D3.moments)DK.moments={name:"Moments of Life · Ups & Downs",color:"#c86a8a",cards:D3.moments};
 if(D3.breath)DK.breath={name:"Ruach · Breath of Wind",color:"#a8d4e8",cards:D3.breath};
 if(D3.chalice)DK.chalice={name:"The Chalice",color:"#4aa0c8",cards:D3.chalice};
@@ -740,6 +741,7 @@ const T={ // field types
  y:{deck:"walk",name:"Walk Your Path",sym:"👣"},
  x:{deck:"emotions",name:"Alchemy of Feelings",sym:"❂"},
  q:{deck:"lightenergy",name:"Light & Energy",sym:"⚡"},
+ d:{deck:"riddles",name:"Riddle Door",sym:"🔐"},
  "^":{deck:"elevator",name:"Elevator · Lift Me Up",sym:"⇧"}
 };
 Object.keys(T).forEach(k=>{if(T[k].deck&&!DK[T[k].deck])T[k].deck="pearls"});
@@ -807,7 +809,7 @@ const MIX={
  path:"C!IT~PAMBSSQ!E~DD^OVXFWK",
  animals:"AA~F!CTPSSQ~U!EDD^OVXWMB",
  heart:"M!~BBRCTYSSQU~!ED^NOVXKP"};
-const CORE="QQQSSE~!hsFne",ROTATE="cowkgtrlyyxvubzjaq";
+const CORE="QQQSSE~!hsFnedd",ROTATE="cowkgtrlyyxvubzjaq";
 function buildMap(set,seedIn){
   const m=[];for(let i=1;i<=N;i++)m.push(GATE_POS.includes(i)?"G":"");
   TURN_FIELDS.forEach(f=>{if(m[f-1]!=="G")m[f-1]="L"});
@@ -1003,6 +1005,9 @@ const FIG = {
   creator: {name:"The Creator", robe:["#e0362e","#7a0e14"], trim:"#f6cf5a", cloak:null,                 skin:["#fdeee2","#f4d0b8","#d8a88c"], hair:"#b0381c", hairHi:"#e0703a", eye:"#4f8a8c", style:"curl", sym:"brush",   glow:"#ffd27a", freckles:true},
   alchemist:{name:"The Alchemist", robe:["#8a5ad8","#3a1a6e"], trim:"#f2cf6b", cloak:["#5a2e9a","#2a0e4a"], skin:["#f6dcc6","#e2b496","#c08a6a"], hair:"#d8d4cc", hairHi:"#ffffff", eye:"#4a5a7a", style:"bun", sym:"chalice", glow:"#f6dc8a"},
   lantern: {name:"The Lantern Bearer", robe:["#f0a040","#9a4a10"], trim:"#fff0b8", cloak:["#c86a20","#6a2a08"], skin:["#fbe6d4","#f0c8a8","#d0a080"], hair:"#c89a52", hairHi:"#f2d08a", eye:"#6a5a3a", style:"wave", sym:"lanternHigh", glow:"#ffe08a"},
+  magician:{name:"The Magician", robe:["#9a7ad0","#4e3388"], trim:"#f2cf6b", cloak:["#1e2e86","#0a1242"], skin:["#f8dcc8","#eab89a","#c8907a"], hair:"#7a5836", hairHi:"#a8845a", eye:"#5a6a7a", style:"slick", sym:"wand", glow:"#e0d0ff", beard:"#7a5836b8", cape:true},
+  teacher:{name:"The Teacher", robe:["#c8507a","#6a1a3a"], trim:"#f2cf6b", cloak:null, skin:["#f6dcc4","#e6b898","#c69072"], hair:"#4a2e1e", hairHi:"#7a5236", eye:"#5a4a32", style:"wave", sym:"book", glow:"#ffd8e4", glasses:true},
+  child:{name:"The Playful Child", robe:["#f6c838","#e0901a"], trim:"#ffffff", cloak:null, skin:["#fde6d4","#f4c8a8","#dca482"], hair:"#c87a3a", hairHi:"#f0a860", eye:"#4a7aa8", style:"curl", sym:"balloon", glow:"#fff0a8", scale:.8, freckles:true},
   guardian:{name:"The Guardian", robe:["#2a8a9a","#0c3a4a"], trim:"#e8c66a", cloak:["#1a4a6a","#081e30"], skin:["#c08a62","#9a6440","#6e4228"], hair:"#1a120c", hairHi:"#4a3a2a", eye:"#2a1a0e", style:"crop", sym:"shield", glow:"#a8f0f0"},
   guide:   {name:"The Guide",   robe:["#fffaf0","#d9b65e"], trim:"#c9952e", cloak:["#e8d4a0","#b8862e"], skin:["#f6d8bc","#e2b28c","#c28a66"], hair:"#3e2c1e", hairHi:"#6a5038", eye:"#5a4a32", style:"short", sym:"staff", glow:"#fff3b8", beard:"#3a2a1c", glasses:true}
 };
@@ -1030,6 +1035,7 @@ function personSVG(k, S) {
   let hairBack = "";
   if (H === "wave") hairBack = `<path d="M${cx-12.6} ${hy-3} C${cx-15} ${hy+8} ${cx-14.5} ${hy+17} ${cx-11} ${hy+22} Q${cx-7} ${hy+20} ${cx-7.5} ${hy+12} L${cx+7.5} ${hy+12} Q${cx+7} ${hy+20} ${cx+11} ${hy+22} C${cx+14.5} ${hy+17} ${cx+15} ${hy+8} ${cx+12.6} ${hy-3}Z" fill="url(#${u}hair)"/>`;
   if (H === "long") hairBack = `<path d="M${cx-12.8} ${hy-4} C${cx-15.5} ${hy+10} ${cx-15} ${hy+28} ${cx-12} ${hy+36} Q${cx-8} ${hy+33} ${cx-7.6} ${hy+14} L${cx+7.6} ${hy+14} Q${cx+8} ${hy+33} ${cx+12} ${hy+36} C${cx+15} ${hy+28} ${cx+15.5} ${hy+10} ${cx+12.8} ${hy-4}Z" fill="url(#${u}hair)"/>`;
+  if (H === "slick") hairBack = `<path d="M${cx-12.2} ${hy-5} C${cx-13.2} ${hy+1} ${cx-12.8} ${hy+4} ${cx-11} ${hy+6} Q${cx} ${hy+8} ${cx+11} ${hy+6} C${cx+12.8} ${hy+4} ${cx+13.2} ${hy+1} ${cx+12.2} ${hy-5}Z" fill="url(#${u}hair)"/>`;
   if (H === "curl") hairBack = `<path d="M${cx-13} ${hy-4} C${cx-18} ${hy+8} ${cx-17} ${hy+24} ${cx-13} ${hy+32} Q${cx-8} ${hy+28} ${cx-7.6} ${hy+14} L${cx+7.6} ${hy+14} Q${cx+8} ${hy+28} ${cx+13} ${hy+32} C${cx+17} ${hy+24} ${cx+18} ${hy+8} ${cx+13} ${hy-4}Z" fill="url(#${u}hair)"/>` +
     [-1, 1].map(d => [0, 1, 2, 3, 4].map(i => `<circle cx="${cx + d * (14 - i * .3)}" cy="${hy + 2 + i * 6}" r="3.1" fill="${i % 2 ? P.hair : P.hairHi}" opacity=".9"/>`).join("")).join("");
 
@@ -1077,15 +1083,38 @@ function personSVG(k, S) {
          ${[["#2f7fd0", -6, 120], ["#f6c838", 5, 128], ["#3fae5a", -3, 140], ["#c8288a", 8, 146], ["#e0362e", 0, 112]].map(([c, dx, y]) => `<circle cx="${cx + dx}" cy="${y}" r="2.2" fill="${c}" opacity=".85"/>`).join("")}
          <path d="M${cx-6} 132 h12 v8 h-12z" fill="none" stroke="#e0c890" stroke-width="1"/>`;
     }
-    if (k === "alchemist" || k === "lantern" || k === "guardian") {
+    if (k === "alchemist" || k === "lantern" || k === "guardian" || k === "teacher") {
       const robeD = `M${cx-15} ${sh} Q${cx-20} ${sh+4} ${cx-21} ${sh+16} L${cx-26} ${k === "guardian" ? 156 : 184} Q${cx} ${k === "guardian" ? 162 : 191} ${cx+26} ${k === "guardian" ? 156 : 184} L${cx+21} ${sh+16} Q${cx+20} ${sh+4} ${cx+15} ${sh} Q${cx+8} ${sh-4} ${cx} ${sh-4} Q${cx-8} ${sh-4} ${cx-15} ${sh}Z`;
       const hood = k === "lantern" ? `<path d="M${cx-13} ${sh-1} Q${cx-22} ${sh+4} ${cx-19} ${sh+14} Q${cx} ${sh+20} ${cx+19} ${sh+14} Q${cx+22} ${sh+4} ${cx+13} ${sh-1}" fill="#c86a20" stroke="${P.trim}" stroke-width="1"/>` : "";
+      const capeD = `M${cx-15} ${sh} Q${cx-31} ${sh+10} ${cx-39} 184 Q${cx-33} 189 ${cx-26} 186 L${cx-22} ${sh+14}Z M${cx+15} ${sh} Q${cx+31} ${sh+10} ${cx+39} 184 Q${cx+33} 189 ${cx+26} 186 L${cx+22} ${sh+14}Z`;
+      const star = (x, y, r) => `<path d="M${x} ${y-r} L${x+r*.3} ${y-r*.3} L${x+r} ${y} L${x+r*.3} ${y+r*.3} L${x} ${y+r} L${x-r*.3} ${y+r*.3} L${x-r} ${y} L${x-r*.3} ${y-r*.3}Z" fill="url(#${u}gold)"/>`;
+      const cape = P.cape ? `<path d="${capeD}" fill="url(#${u}c)"/><path d="M${cx-39} 184 Q${cx-33} 189 ${cx-26} 186 M${cx+39} 184 Q${cx+33} 189 ${cx+26} 186" stroke="${P.trim}" stroke-width="1.6" fill="none"/>` + [[-25,92,2.4],[-30,122,3],[-33,152,2.6],[-30,176,2.2],[25,92,2.4],[30,122,3],[33,152,2.6],[30,176,2.2],[-27,106,1.4],[27,138,1.5],[-28,164,1.4],[32,166,1.4]].map(([dx,y,r])=>star(cx+dx,y,r)).join("") : "";
+      const stars = k === "magician" ? [[-12,130,1.8],[10,146,1.6],[-6,166,1.8],[14,176,1.5]].map(([dx,y,r])=>star(cx+dx,y,r)).join("") : "";
       const sash = k === "alchemist" ? `<path d="M${cx-14} ${sh+2} L${cx+16} 110 L${cx+12} 116 L${cx-18} ${sh+8}Z" fill="#f2cf6b" opacity=".9"/>${["☉","☽","△","▽"].map((g, i) => `<text x="${cx - 10 + i * 7}" y="${sh + 14 + i * 9}" font-size="5" fill="#5a2e9a">${g}</text>`).join("")}` : "";
       const belt = k === "guardian" ? `<path d="M${cx-20} 106 Q${cx} 112 ${cx+20} 106" stroke="#6a4018" stroke-width="4" fill="none"/><rect x="${cx-3}" y="105" width="6" height="6" rx="1" fill="url(#${u}gold)"/>` : `<path d="M${cx-20} 108 Q${cx} 113 ${cx+20} 108" stroke="${P.trim}" stroke-width="2.6" fill="none"/>`;
-      storyBody = (k === "guardian" ? legs("#2a2a34", "#3a2412", 150) : `<ellipse cx="${cx-7}" cy="188" rx="5.4" ry="2.4" fill="#5a3a22"/><ellipse cx="${cx+8}" cy="189.6" rx="5.8" ry="2.6" fill="#5a3a22"/>`) +
-        (P.cloak ? `<path d="M${cx-15} ${sh} Q${cx-27} ${sh+10} ${cx-31} 181 Q${cx-26} 185 ${cx-22} 183 Q${cx-20} 120 ${cx-12} ${sh+4}Z M${cx+15} ${sh} Q${cx+27} ${sh+10} ${cx+31} 181 Q${cx+26} 185 ${cx+22} 183 Q${cx+20} 120 ${cx+12} ${sh+4}Z" fill="url(#${u}c)"/>` : "") +
-        `<path d="${robeD}" fill="url(#${u}r)"/><path d="${robeD}" fill="url(#${u}sh)"/><path d="M${cx-10} 120 Q${cx-13} 150 ${cx-17} 180 M${cx+12} 118 Q${cx+15} 150 ${cx+18} 180" stroke="#000" stroke-opacity=".14" stroke-width="1.3" fill="none"/>` + hood + sash + belt +
+      storyBody = cape + (k === "guardian" ? legs("#2a2a34", "#3a2412", 150) : `<ellipse cx="${cx-7}" cy="188" rx="5.4" ry="2.4" fill="#5a3a22"/><ellipse cx="${cx+8}" cy="189.6" rx="5.8" ry="2.6" fill="#5a3a22"/>`) +
+        (P.cloak && !P.cape ? `<path d="M${cx-15} ${sh} Q${cx-27} ${sh+10} ${cx-31} 181 Q${cx-26} 185 ${cx-22} 183 Q${cx-20} 120 ${cx-12} ${sh+4}Z M${cx+15} ${sh} Q${cx+27} ${sh+10} ${cx+31} 181 Q${cx+26} 185 ${cx+22} 183 Q${cx+20} 120 ${cx+12} ${sh+4}Z" fill="url(#${u}c)"/>` : "") +
+        `<path d="${robeD}" fill="url(#${u}r)"/><path d="${robeD}" fill="url(#${u}sh)"/><path d="M${cx-10} 120 Q${cx-13} 150 ${cx-17} 180 M${cx+12} 118 Q${cx+15} 150 ${cx+18} 180" stroke="#000" stroke-opacity=".14" stroke-width="1.3" fill="none"/>` + hood + sash + stars + belt +
         `<path d="M${cx-26} ${k === "guardian" ? 156 : 184} Q${cx} ${k === "guardian" ? 162 : 191} ${cx+26} ${k === "guardian" ? 156 : 184}" stroke="${P.trim}" stroke-width="2" fill="none"/>`;
+    }
+    if (k === "child") {
+      const tee = `M${cx-14} ${sh} Q${cx-17} ${sh+3} ${cx-16} ${sh+14} Q${cx-14} ${sh+30} ${cx-13} 112 L${cx-15} 136 Q${cx} 140 ${cx+15} 136 L${cx+13} 112 Q${cx+14} ${sh+30} ${cx+16} ${sh+14} Q${cx+17} ${sh+3} ${cx+14} ${sh} Q${cx+8} ${sh-4} ${cx} ${sh-4} Q${cx-8} ${sh-4} ${cx-14} ${sh}Z`;
+      storyBody = legs("#3a7ad8", "#e0362e", 132) + `<path d="${tee}" fill="url(#${u}r)"/>` + shade(tee) +
+        `<path d="M${cx-15} 136 Q${cx} 140 ${cx+15} 136" stroke="#fff" stroke-width="1.6" fill="none"/>` +
+        [[-7,90,"#e0362e"],[6,100,"#2f7fd0"],[-4,116,"#3fae5a"],[8,124,"#c8288a"]].map(([dx,y,c])=>`<circle cx="${cx+dx}" cy="${y}" r="2.6" fill="${c}" opacity=".9"/>`).join("");
+    }
+    if (k === "magician") {
+      const capeD = `M${cx-16} ${sh-1} Q${cx-32} ${sh+10} ${cx-39} 184 Q${cx} 194 ${cx+39} 184 Q${cx+32} ${sh+10} ${cx+16} ${sh-1} Q${cx} ${sh-6} ${cx-16} ${sh-1}Z`;
+      const star = (x, y, r) => `<path d="M${x} ${y-r} L${x+r*.3} ${y-r*.3} L${x+r} ${y} L${x+r*.3} ${y+r*.3} L${x} ${y+r} L${x-r*.3} ${y+r*.3} L${x-r} ${y} L${x-r*.3} ${y-r*.3}Z" fill="url(#${u}gold)"/>`;
+      const tunic = `M${cx-16} ${sh} Q${cx-19} ${sh+3} ${cx-18} ${sh+14} Q${cx-15} ${sh+34} ${cx-12} 108 L${cx-15} 150 Q${cx} 154 ${cx+15} 150 L${cx+12} 108 Q${cx+15} ${sh+34} ${cx+18} ${sh+14} Q${cx+19} ${sh+3} ${cx+16} ${sh} Q${cx+8} ${sh-4} ${cx} ${sh-4} Q${cx-8} ${sh-4} ${cx-16} ${sh}Z`;
+      storyBody = `<path d="${capeD}" fill="url(#${u}c)"/><path d="M${cx-39} 184 Q${cx} 194 ${cx+39} 184" stroke="${P.trim}" stroke-width="1.8" fill="none"/>` +
+        [[-24,90,2.4],[-29,118,3],[-32,148,2.6],[-30,174,2.2],[24,90,2.4],[29,118,3],[32,148,2.6],[30,174,2.2],[-26,104,1.4],[27,134,1.5],[-27,162,1.4],[31,162,1.4],[-20,180,1.8],[0,168,2.2],[20,180,1.8],[-19,160,1.4],[19,158,1.5],[0,186,1.4]].map(([dx,y,r])=>star(cx+dx,y,r)).join("") +
+        legs("#1c2440", "#3a2416", 146) +
+        `<path d="${tunic}" fill="url(#${u}r)"/>` + shade(tunic) +
+        `<path d="M${cx-15} 150 Q${cx} 154 ${cx+15} 150" stroke="${P.trim}" stroke-width="1.8" fill="none"/><path d="M${cx-8} ${sh-3} Q${cx} ${sh+5} ${cx+8} ${sh-3}" stroke="${P.trim}" stroke-width="1.8" fill="none"/>` +
+        `<path d="M${cx-13} 107 Q${cx} 111 ${cx+13} 107" stroke="${P.trim}" stroke-width="3" fill="none"/><circle cx="${cx}" cy="109.5" r="2.4" fill="url(#${u}gold)"/>` +
+        `<path d="M${cx-16} ${sh} Q${cx-10} ${sh+6} ${cx-6} ${sh+2} M${cx+16} ${sh} Q${cx+10} ${sh+6} ${cx+6} ${sh+2}" stroke="${P.trim}" stroke-width="1.4" fill="none"/><circle cx="${cx-13}" cy="${sh+1}" r="2.4" fill="url(#${u}gold)"/><circle cx="${cx+13}" cy="${sh+1}" r="2.4" fill="url(#${u}gold)"/>` +
+        [[-6,126,1.5],[7,136,1.4]].map(([dx,y,r])=>star(cx+dx,y,r)).join("");
     }
     if (k === "guide") {
       const coat = `M${cx-15} ${sh} Q${cx-21} ${sh+4} ${cx-22} ${sh+16} L${cx-27} 172 Q${cx-16} 176 ${cx-6} 172 L${cx-4} ${sh+10} L${cx+4} ${sh+10} L${cx+6} 172 Q${cx+16} 176 ${cx+27} 172 L${cx+22} ${sh+16} Q${cx+21} ${sh+4} ${cx+15} ${sh} Q${cx+8} ${sh-4} ${cx} ${sh-4} Q${cx-8} ${sh-4} ${cx-15} ${sh}Z`;
@@ -1151,6 +1180,28 @@ function personSVG(k, S) {
       `<path d="M${cx + 30} ${sh - 3} L${cx + 42} ${sh - 26}" stroke="#7a4a22" stroke-width="2.6" stroke-linecap="round"/><path d="M${cx + 41} ${sh - 24} L${cx + 44} ${sh - 30} L${cx + 46} ${sh - 29} L${cx + 43.5} ${sh - 22.5}Z" fill="url(#${u}gold)"/><path d="M${cx + 44.5} ${sh - 30} q2.5 -4 1.5 -7 q-3 2 -3.5 6.5Z" fill="#e0362e"/>` +
       [[52, 0], [56, -4], [50, -8]].map(([dx, dy], i) => `<circle cx="${cx + dx}" cy="${sh - 38 + dy}" r="${10 - i * 3}" fill="url(#${u}g)" opacity=".85"/>`).join("") + `<path d="M${cx + 50} ${sh - 44} l1.2 3 3 1.2 -3 1.2 -1.2 3 -1.2 -3 -3 -1.2 3 -1.2Z" fill="#fff"/>` + hand(cx + 30, sh - 3);
   }
+  if (P.sym === "book") {
+    arms = sleeve(cx - 13.5, sh + 5, cx - 21, sh + 22, cx - 9, sh + 32, 9) + sleeve(cx + 13.5, sh + 5, cx + 21, sh + 22, cx + 9, sh + 32, 9);
+    const bx = cx, by = sh + 30;
+    symFront = `<circle cx="${bx}" cy="${by - 4}" r="20" fill="url(#${u}g)" opacity=".8"/><path d="M${bx} ${by - 9} Q${bx - 8} ${by - 12} ${bx - 15} ${by - 9} L${bx - 15} ${by + 4} Q${bx - 8} ${by + 1} ${bx} ${by + 4}Z" fill="#fffaf0" stroke="#a8761e" stroke-width=".8"/><path d="M${bx} ${by - 9} Q${bx + 8} ${by - 12} ${bx + 15} ${by - 9} L${bx + 15} ${by + 4} Q${bx + 8} ${by + 1} ${bx} ${by + 4}Z" fill="#fffaf0" stroke="#a8761e" stroke-width=".8"/><path d="M${bx} ${by - 9} L${bx} ${by + 4}" stroke="#a8761e" stroke-width=".8"/>` +
+      [0, 1, 2].map(i => `<path d="M${bx - 12} ${by - 6 + i * 3} Q${bx - 7} ${by - 7.5 + i * 3} ${bx - 3} ${by - 6 + i * 3} M${bx + 3} ${by - 6 + i * 3} Q${bx + 7} ${by - 7.5 + i * 3} ${bx + 12} ${by - 6 + i * 3}" stroke="#c8a870" stroke-width=".6" fill="none"/>`).join("") +
+      `<path d="M${bx} ${by - 12} q-2 -6 0 -10 q2 4 0 10Z M${bx - 7} ${by - 13} l-2 -6 M${bx + 7} ${by - 13} l2 -6" stroke="#f2cf6b" stroke-width="1" fill="#f6dc8a" opacity=".8"/>` + hand(cx - 10, sh + 33) + hand(cx + 10, sh + 33);
+  }
+  if (P.sym === "balloon") {
+    arms = sleeve(cx - 12.5, sh + 5, cx - 22, sh + 14, cx - 30, sh + 4, 8) + sleeve(cx + 12.5, sh + 5, cx + 22, sh - 4, cx + 24, sh - 18, 8);
+    const ax = cx + 30, ay = sh - 62;
+    symBack = `<path d="M${cx + 24} ${sh - 20} Q${cx + 20} ${sh - 40} ${ax} ${ay + 13}" stroke="#a8761e" stroke-width=".8" fill="none"/>` + [[10, 40], [100, 120], [16, 110]].map(([x, y]) => `<circle cx="${x}" cy="${y}" r="2" fill="url(#${u}gold)"/>`).join("");
+    symFront = hand(cx - 30, sh + 3, 3.8) + hand(cx + 24, sh - 19, 3.8) + `<circle cx="${ax}" cy="${ay}" r="20" fill="url(#${u}g)" opacity=".9"/><path d="M${ax} ${ay + 12} C${ax - 16} ${ay + 2} ${ax - 12} ${ay - 12} ${ax - 6} ${ay - 11} C${ax - 3} ${ay - 10.6} ${ax} ${ay - 8} ${ax} ${ay - 6} C${ax} ${ay - 8} ${ax + 3} ${ay - 10.6} ${ax + 6} ${ay - 11} C${ax + 12} ${ay - 12} ${ax + 16} ${ay + 2} ${ax} ${ay + 12}Z" fill="url(#${u}gold)" stroke="#a8761e" stroke-width=".7"/><path d="M${ax - 7} ${ay - 7} q-3 2 -2 6" stroke="#fff" stroke-width="1.4" fill="none" stroke-linecap="round" opacity=".8"/><path d="M${ax - 1.5} ${ay + 12} l1.5 2 1.5 -2Z" fill="#a8761e"/>`;
+  }
+  if (P.sym === "wand") {
+    arms = sleeve(cx - 13.5, sh + 5, cx - 22, sh + 22, cx - 14, sh + 34, 9) + sleeve(cx + 13.5, sh + 5, cx + 25, sh + 12, cx + 30, sh - 2, 9);
+    const wx = cx + 43, wy = sh - 26, gx = cx - 14, gy = sh + 40;
+    symBack = [[18, 24], [98, 14], [106, 52], [14, 70]].map(([x, y], i) => `<path d="M${x} ${y - 4} l1.2 2.8 2.8 1.2 -2.8 1.2 -1.2 2.8 -1.2 -2.8 -2.8 -1.2 2.8 -1.2Z" fill="url(#${u}gold)" opacity="${.9 - i * .12}"/>`).join("");
+    symFront = `<circle cx="${gx}" cy="${gy}" r="14" fill="url(#${u}g)" opacity=".9"/><rect x="${gx - 5}" y="${gy - 3}" width="10" height="8" rx="1.2" fill="#8a5ad8" stroke="#f6dc8a" stroke-width=".8"/><path d="M${gx} ${gy - 3} v8 M${gx - 5} ${gy + 1} h10" stroke="#f6dc8a" stroke-width="1.2"/><path d="M${gx} ${gy - 3} q-4 -4 -5 -1 q1 2 5 1 q4 -4 5 -1 q-1 2 -5 1Z" fill="#f6dc8a"/>` + hand(cx - 14, sh + 35) +
+      `<path d="M${cx + 30} ${sh - 3} L${wx} ${wy}" stroke="#1a1430" stroke-width="2.8" stroke-linecap="round"/><path d="M${wx - 2} ${wy + 4} L${wx} ${wy}" stroke="#fff" stroke-width="2.8" stroke-linecap="round"/>` +
+      `<circle cx="${wx}" cy="${wy}" r="13" fill="url(#${u}g)"/><path d="M${wx} ${wy - 7} l1.8 4.6 4.8 .4 -3.7 3 1.2 4.8 -4.1 -2.6 -4.1 2.6 1.2 -4.8 -3.7 -3 4.8 -.4Z" fill="url(#${u}gold)" stroke="#fff6c8" stroke-width=".6"/>` +
+      [[8, -12, 1.6], [12, 2, 1.2], [-6, -14, 1.3], [16, -6, 1]].map(([dx, dy, r]) => `<circle cx="${wx + dx}" cy="${wy + dy}" r="${r}" fill="#fff"/>`).join("") + hand(cx + 30, sh - 3);
+  }
   if (P.sym === "staff") {
     const sx = cx + 26;
     symBack = `<path d="M${sx} ${sh - 36} L${sx + 1} 187" stroke="#8a5a2a" stroke-width="3.4" stroke-linecap="round"/><path d="M${sx - .6} ${sh - 30} L${sx} 187" stroke="#c8925a" stroke-width="1" opacity=".7"/>` +
@@ -1179,6 +1230,7 @@ function personSVG(k, S) {
   if (H === "long") hairFront = `<path d="M${cx-11.4} ${hy-1} C${cx-12.6} ${hy-14} ${cx-5.6} ${hy-18} ${cx} ${hy-17.6} C${cx+5.6} ${hy-18} ${cx+12.6} ${hy-14} ${cx+11.4} ${hy-1} Q${cx+9.6} ${hy-9} ${cx+1} ${hy-12.4} L${cx} ${hy-15} L${cx-1} ${hy-12.4} Q${cx-9.6} ${hy-9} ${cx-11.4} ${hy-1}Z" fill="url(#${u}hair)"/><path d="M${cx-1} ${hy-16} Q${cx-6} ${hy-15} ${cx-9} ${hy-9} M${cx+1} ${hy-16} Q${cx+6} ${hy-15} ${cx+9} ${hy-9}" stroke="#fff" stroke-opacity=".25" stroke-width=".8" fill="none"/><circle cx="${cx-11}" cy="${hy-8}" r="2.4" fill="#f6e3a8"/><circle cx="${cx-11}" cy="${hy-8}" r="1" fill="#ffb8c8"/>`;
   if (H === "curl") hairFront = `<path d="M${cx-12} ${hy-1} C${cx-14} ${hy-15} ${cx-6} ${hy-19.4} ${cx} ${hy-18.6} C${cx+6} ${hy-19.4} ${cx+14} ${hy-15} ${cx+12} ${hy-1} Q${cx+10.6} ${hy-9} ${cx+5} ${hy-11} Q${cx+1} ${hy-8.6} ${cx-3} ${hy-11.4} Q${cx-9.4} ${hy-9.6} ${cx-12} ${hy-1}Z" fill="url(#${u}hair)"/>` + [[-9, -14], [-4, -17.4], [2, -18], [7.6, -15.6], [11, -10], [-11.6, -8]].map(([dx, dy], i) => `<circle cx="${cx + dx}" cy="${hy + dy}" r="3" fill="${i % 2 ? P.hairHi : P.hair}"/>`).join("");
   if (H === "bun") hairFront = `<circle cx="${cx}" cy="${hy-17}" r="6.6" fill="url(#${u}hair)"/><path d="M${cx-11} ${hy-2} C${cx-12} ${hy-14} ${cx-6} ${hy-17.4} ${cx} ${hy-17} C${cx+6} ${hy-17.4} ${cx+12} ${hy-14} ${cx+11} ${hy-2} Q${cx+9} ${hy-10} ${cx} ${hy-11.6} Q${cx-9} ${hy-10} ${cx-11} ${hy-2}Z" fill="url(#${u}hair)"/><path d="M${cx-8} ${hy-12} Q${cx-2} ${hy-16} ${cx+6} ${hy-13}" stroke="#a8a49c" stroke-width=".6" fill="none"/><path d="M${cx-4} ${hy-20} l8 4" stroke="#c9952e" stroke-width="1.2"/>`;
+  if (H === "slick") hairFront = `<path d="M${cx-11.2} ${hy-3} C${cx-12.6} ${hy-15} ${cx-5} ${hy-19.4} ${cx+1} ${hy-19} C${cx+8} ${hy-18.8} ${cx+12.8} ${hy-13} ${cx+11.4} ${hy-3} Q${cx+10.8} ${hy-9.6} ${cx+7.4} ${hy-12.2} Q${cx+2} ${hy-13.6} ${cx-3.4} ${hy-12.8} Q${cx-9} ${hy-11.2} ${cx-11.2} ${hy-3}Z" fill="url(#${u}hair)"/><path d="M${cx-3} ${hy-13} Q${cx+3} ${hy-17.6} ${cx+10} ${hy-12} M${cx-6} ${hy-12} Q${cx-1} ${hy-17.4} ${cx+7} ${hy-16.4} M${cx-9} ${hy-9} Q${cx-7} ${hy-16} ${cx-1} ${hy-18}" stroke="${P.hairHi}" stroke-opacity=".7" stroke-width=".7" fill="none" stroke-linecap="round"/>`;
   if (H === "crop") hairFront = `<path d="M${cx-10.8} ${hy-3} C${cx-11.6} ${hy-14} ${cx-6} ${hy-16.6} ${cx} ${hy-16.4} C${cx+6} ${hy-16.6} ${cx+11.6} ${hy-14} ${cx+10.8} ${hy-3} Q${cx+10} ${hy-9} ${cx+6} ${hy-10.4} Q${cx} ${hy-11.6} ${cx-6} ${hy-10.4} Q${cx-10} ${hy-9} ${cx-10.8} ${hy-3}Z" fill="url(#${u}hair)"/>` + [[-8, -12], [-4, -14.4], [0, -15], [4, -14.4], [8, -12], [-10, -7], [10, -7]].map(([dx, dy]) => `<circle cx="${cx + dx}" cy="${hy + dy}" r="2" fill="${P.hair}"/>`).join("");
   if (H === "short") hairFront = `<path d="M${cx-11} ${hy-3} C${cx-12} ${hy-14} ${cx-6} ${hy-17.6} ${cx} ${hy-17.2} C${cx+6} ${hy-17.6} ${cx+12} ${hy-14} ${cx+11} ${hy-3} Q${cx+10.4} ${hy-9} ${cx+7} ${hy-11} Q${cx+1} ${hy-12.6} ${cx-4} ${hy-11.6} Q${cx-8.6} ${hy-10.2} ${cx-11} ${hy-3}Z" fill="url(#${u}hair)"/><path d="M${cx-10.8} ${hy-3} L${cx-11} ${hy+2.6} L${cx-9.6} ${hy+1.4}Z M${cx+10.8} ${hy-3} L${cx+11} ${hy+2.6} L${cx+9.6} ${hy+1.4}Z" fill="${P.hair}"/><path d="M${cx-6} ${hy-15} q4 -1.8 8 -1 M${cx+3} ${hy-15.6} q3 .2 5 2" stroke="#9a8a7a" stroke-opacity=".7" stroke-width=".6" fill="none"/>`;
 
@@ -1196,7 +1248,8 @@ function personSVG(k, S) {
     pre = `<ellipse cx="60" cy="100" rx="58" ry="96" fill="url(#${u}au)"/><g filter="url(#${u}bl)" opacity=".9"><path d="M${cx-15} ${sh} Q${cx-20} ${sh+4} ${cx-21} ${sh+16} L${cx-28} 182 Q${cx} 190 ${cx+28} 182 L${cx+21} ${sh+16} Q${cx+20} ${sh+4} ${cx+15} ${sh}Z" fill="${P.glow}"/><circle cx="${cx}" cy="${hy}" r="16" fill="${P.glow}"/></g>`;
     post = [[14, 40, 2.2], [104, 60, 1.8], [20, 130, 1.6], [100, 150, 2.4], [30, 90, 1.2], [96, 104, 1.3], [60, 8, 2]].map(([x, y, r]) => `<path d="M${x} ${y - r * 2.4} L${x + r * .5} ${y - r * .5} L${x + r * 2.4} ${y} L${x + r * .5} ${y + r * .5} L${x} ${y + r * 2.4} L${x - r * .5} ${y + r * .5} L${x - r * 2.4} ${y} L${x - r * .5} ${y - r * .5}Z" fill="#fff" opacity=".9"/>`).join("");
   }
-  return `<svg viewBox="0 -12 120 214" xmlns="http://www.w3.org/2000/svg">${defs}${pre}${symBack}${hairBack}${S === "story" ? storyBody : cloak + robe + feet}${neck}${arms}${head}${symFront}${post}</svg>`;
+  const body = `${symBack}${hairBack}${S === "story" ? storyBody : cloak + robe + feet}${neck}${arms}${head}${symFront}`;
+  return `<svg viewBox="0 -12 120 214" xmlns="http://www.w3.org/2000/svg">${defs}${pre}${P.scale ? `<g transform="translate(60 190) scale(${P.scale}) translate(-60 -190)">${body}</g>` : body}${post}</svg>`;
 }
 
 
@@ -1390,7 +1443,7 @@ const PGLYPH={Sun:"☉",Moon:"☽",Earth:"♁",Mercury:"☿",Venus:"♀",Mars:"�
 const AEMOJI={Eagle:"🦅",Owl:"🦉",Wolf:"🐺",Bear:"🐻",Dolphin:"🐬",Butterfly:"🦋",Deer:"🦌",Turtle:"🐢",Fox:"🦊",Hummingbird:"🐦",Lion:"🦁",Horse:"🐴",Raven:"🐦‍⬛",Swan:"🦢",Bee:"🐝",Dragonfly:"🪽",Elephant:"🐘","Koi Fish":"🐟",Ladybug:"🐞",Penguin:"🐧",Panda:"🐼",Peacock:"🦚",Frog:"🐸",Snake:"🐍",Chameleon:"🦎",Seal:"🦭",Tiger:"🐯",Badger:"🦡",Bat:"🦇",Beaver:"🦫",Buffalo:"🦬",Coyote:"🐾",Elk:"🫎",Falcon:"🦅",Hare:"🐇",Hawk:"🦅",Mole:"🐾",Otter:"🦦",Spider:"🕷",Squirrel:"🐿"};
 const STAIRS=`<svg viewBox="0 0 24 24" width="20" height="20"><path d="M3 20h5v-5h5v-5h5V5h3" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M15 3h6v6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
 const CHALICE_SVG=`<svg viewBox="0 0 24 24" width="20" height="20"><path d="M5 4h14c0 5-3 8-7 8S5 9 5 4z" fill="currentColor"/><path d="M12 12v6M8 20h8" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>`;
-const DECKSYM_X={teacher:"📖",planets:"🔭",animals:"🐾",recharge:"🔋",treasures:"💎",shine:"✨",elevator:STAIRS,chalice:CHALICE_SVG,core:"🗝",held:"🤲",magic:"🪄",obstacles:"🪨",chambers:"🚪",journeys:"🧭",signs:"🪶"};
+const DECKSYM_X={riddles:"🔐",teacher:"📖",planets:"🔭",animals:"🐾",recharge:"🔋",treasures:"💎",shine:"✨",elevator:STAIRS,chalice:CHALICE_SVG,core:"🗝",held:"🤲",magic:"🪄",obstacles:"🪨",chambers:"🚪",journeys:"🧭",signs:"🪶"};
 const PEMOJI={Earth:"🌍"};
 function planetIcon(n){return PEMOJI[n]||emblem("planet",n).replace('class="emb" viewBox="0 0 120 120"','viewBox="27 27 66 66" width="30" height="30"')}
 function deckSym(d){if(DECKSYM_X[d])return DECKSYM_X[d];for(const v of Object.values(T))if(v&&v.deck===d)return v.sym;return "✦"}
@@ -1456,7 +1509,7 @@ $("#addP").onclick=()=>{const used=setup.players.map(p=>p.color);setup.players.p
 $("#startBtn").onclick=()=>{
   S={setId:setup.setId,die:setup.die,baby:!!setup.baby,turn:0,bonus:0,piles:{},log:[],over:false,busy:false,rolled:0,helpedThisTurn:{},
      players:setup.players.map((p,i)=>({name:p.name.trim()||["Seeker of Light","Morning Star","Silver Moon","River Song","Golden Leaf","Quiet Flame","Bright Feather"][i],color:p.color,arch:p.arch,el:p.el||"air",sign:p.sign||"",
-       pos:0,energy:3,pearls:0,gems:[],keys:[],animals:[],tokens:0,choices:[],insight:"",rerolls:p.arch==="creator"?3:0,standLeft:p.arch==="guardian"?3:0,skip:false,done:false}))};
+       pos:0,energy:3,pearls:0,gems:[],keys:[],animals:[],tokens:0,choices:[],insight:"",rerolls:p.arch==="creator"?3:0,standLeft:p.arch==="guardian"?3:0,magicLeft:p.arch==="magician"?3:0,skip:false,done:false}))};
   S.seed=1+(Math.random()*2147483000|0);S.map=buildMap(setObj(),S.seed);
   {const cand=[];for(let i=4;i<=38;i++)if(!GATE_POS.includes(i))cand.push(i);S.players.forEach(q=>{const c=cand.slice();q.lessons=[];for(let k=0;k<3;k++)q.lessons.push(c.splice(Math.random()*c.length|0,1)[0]);q.lessons.sort((a,b)=>a-b)})}
   placeChambers();log("The journey begins: “"+setObj().name+"”.");save();go("play");
@@ -1513,6 +1566,9 @@ function renderPlay(){
       addX("☾ Silence",()=>{sfx("silence");energy(p,2);p.skip=true;log(p.name+" chooses silence and pauses a round (Loop).");openCard({th:"loops",deck:"Silence",title:"A round in stillness",emb:emblem("sym","☾"),text:"You step into the loop of silence. Breathe, listen, let your soul catch up.<br><br><i>LISTEN and SILENT are made of the same letters.</i><br><i>Two ears form a heart – listen with the ears of your heart.</i>",html:songLine("silence"),reward:"Next turn: +1 pearl",acts:[["I rest in silence",done()]]})});
     }
     if(p.arch==="healer"&&p.pearls>0&&!S.helpedThisTurn.healer&&travellers.length)add("Gift a pearl",()=>pick("Who receives your pearl?",travellers,i=>{p.pearls--;S.players[i].pearls++;p.tokens++;S.helpedThisTurn.healer=1;log(p.name+" gifts a pearl to "+S.players[i].name+" (+1 Knowledge Token).");refresh()}),"ghost small");
+    if(p.arch==="teacher"&&DK.teacher&&!S.helpedThisTurn.teach&&travellers.length)add("📖 Share wisdom",()=>teachCircle(p),"ghost small");
+    if(p.arch==="child"&&!S.helpedThisTurn.play)add("🎈 Let's play!",()=>playMoment(p),"ghost small");
+    if(p.arch==="magician"&&(p.magicLeft||0)>0&&!S.helpedThisTurn.magic&&travellers.length)add("🪄 Magic gift ("+p.magicLeft+")",()=>pick("Who needs a little magic?",travellers,i=>magicGift(p,S.players[i])),"ghost small");
     if(p.arch==="lantern"&&!S.helpedThisTurn.lantern&&travellers.length)add("🏮 Light the way",()=>pick("Whose way do you light?",travellers,i=>{S.helpedThisTurn.lantern=1;const q=S.players[i];S.lit=S.lit||{};const nx=[];for(let f=Math.floor(q.pos)+1;f<=Math.min(N,Math.floor(q.pos)+4);f++){S.lit[f]=1;nx.push(f+" "+((T[curMap()[f-1]]||{}).name||""))}energy(q,1);p.tokens++;log(p.name+" lights the way for "+q.name+".");toast("🏮 "+q.name+" sees ahead: "+nx.join(" · "));refresh()}),"ghost small");
     if(p.arch==="guide"&&!S.helpedThisTurn.guide&&travellers.length)add("Guide someone +1",()=>pick("Whom do you guide one field forward?",travellers,i=>{S.helpedThisTurn.guide=1;const q=S.players[i];q.pos=Math.min(N,q.pos+1);p.tokens++;log(p.name+" guides "+q.name+" one field forward (+1 Knowledge Token).");refresh()}),"ghost small");
   }
@@ -1682,6 +1738,11 @@ function drawDeck(deck){
       acts:[["I radiate my light ☼",done(()=>{S.players.forEach(q=>q.pearls++);energy(p,1);p.shine=(p.shine||0)+1;chime("heart");log(p.name+" radiates "+card.quality+" – everyone receives light.")})]].concat(swap)});return}
     if(deck==="numwis"){openCard({...base,th:"numwis",title:esc(card.n+" · "+card.planet),sub:esc(card.keywords),emb:numSVG(card.n,card.planet),text:esc(card.text),prompt:esc(card.prompt),reward:moveText(card.effect),
       acts:[["I understand the number "+card.n+" ✦",()=>{closeCard();log(p.name+" learns the wisdom of "+card.n+" – "+card.planet+".");applyMove(card.effect)}]].concat(swap)});return}
+    if(deck==="riddles"){const rid=card.kind==="riddle";const det=(l,t)=>`<details class="rhint"><summary>${l}</summary><p>${esc(t)}</p></details>`;
+      openCard({...base,th:{gem:"#8a6ad0"},sub:rid?"A locked door · solve it together":"A team challenge · open the door together",title:card.icon+" "+esc(card.title),emb:emblem("sym","🔐"),text:`<span style="font-family:var(--serif);font-size:1.3rem">${esc(card.text)}</span>`,
+        html:rid?det("💡 Hint 1",card.hint1)+det("💡 Hint 2",card.hint2)+det("🗝 Show the answer",card.answer):det("💡 A little tip",card.hint1),timer:rid?120:0,timerLabel:"Two minutes to open the door",
+        reward:"The door opens · everyone +1 pearl",
+        acts:[[rid?"We solved it together 🔑":"We did it together 🔑",done(()=>{S.players.forEach(q=>q.pearls++);energy(p,1);sfx("together");chime("pearl");log("Together the circle opens a riddle door: "+card.title+".")})],[rid?"We peeked – the door still opens ✦":"We tried with love ✦",done(()=>{S.players.forEach(q=>q.pearls++);log("The riddle door opens with a smile: "+card.title+".")}),"ghost"]].concat(swap)});return}
     if(deck==="lightenergy"){openCard({...base,th:{gem:"#e0a82e"},sub:"A question of light",title:card.icon+" "+esc(card.title),emb:emblem("sym","⚡"),text:`<span style="font-family:var(--serif);font-size:1.3rem">${esc(card.text)}</span>`,html:'<p style="font-size:.85rem;opacity:.8">Everything is energy – even you. Light you cannot see is still light.</p>',reward:"+1 energy",
       acts:[["Shared ⚡",done(()=>{energy(p,1);sfx("pearl");log(p.name+" shares a light question: "+card.title+".")})]].concat(swap)});return}
     if(deck==="recharge"){openCard({...base,th:"recharge",sub:"Recharge Station",emb:HSUN.replace('class="hsun"','class="emb hsunbig"'),text:esc(card.text),prompt:"How do I charge my own battery in this moment? What do I need to re-charge or re-balance?",reward:"+2 energy",
@@ -1826,6 +1887,7 @@ function showObstacle(v){const p=cur(),o=DK.obstacles.cards[draw("obstacles")];S
   openCard({sfx:"none",th:{gem:"#6a5a4a"},deck:"An obstacle on the path",title:o.icon+" "+esc(o.title),emb:emblem("sym",o.icon),text:esc(o.text)+"<br><br><i>You rolled "+v+". How do you meet this obstacle?</i>",html:calmBox(),
     acts:[].concat(p.shield?[["🛡 Your Guardian stands beside you – walk on",()=>{p.shield=false;energy(p,1);go(v,p.name+" walks on with the Guardian past “"+o.title+"”.")},"gold"]]:(!p.guardianUsed?[["🛡 Call the Guardian (once per journey)",()=>{p.guardianUsed=true;energy(p,2);go(v,p.name+" calls the Guardian and walks on past “"+o.title+"”.")},"gold"]]:[]))
       .concat(p.arch==="alchemist"&&!p.alchemyUsed?[["⚗ Alchemist: turn it into light (once)",()=>{p.alchemyUsed=true;p.pearls+=2;go(v,p.name+" turns “"+o.title+"” into light (+2 pearls).")},"opt"]]:[])
+      .concat(S.players.map((q,i)=>i).filter(i=>i!==S.turn&&!S.players[i].done&&S.players[i].arch==="magician"&&(S.players[i].magicLeft||0)>0).map(i=>{const q=S.players[i];return ["🪄 "+esc(q.name)+" (Magician) brings a magic gift",()=>{const g=magicObj();q.magicLeft--;q.tokens++;energy(p,2);toast("🪄 "+g);go(v,q.name+" gives "+p.name+" "+g+" – and the way opens past “"+o.title+"”.")},"opt"]}))
       .concat(S.players.map((q,i)=>i).filter(i=>i!==S.turn&&!S.players[i].done&&S.players[i].arch==="guardian"&&(S.players[i].standLeft||0)>0).map(i=>{const q=S.players[i];return ["🛡 "+esc(q.name)+" (Guardian) stands beside you",()=>{q.standLeft--;q.tokens++;energy(q,1);energy(p,1);go(v,q.name+" stands beside "+p.name+" – together past “"+o.title+"”.")},"opt"]}))
       .concat([["🗝 Find the key within",()=>{closeCard();openCard({sfx:"none",th:{gem:"#c9952e"},deck:"The key within",title:"🗝 "+esc(o.title),emb:emblem("sym","🗝"),text:"Every obstacle is also a teacher.",prompt:esc(o.key),reward:"Answer the question – the way opens: walk "+v+" fields · +1 pearl",acts:[["The way opens ✦",()=>{p.pearls++;chime("gate");go(v,p.name+" finds the key within and passes “"+o.title+"”.")}]]})},"opt"]]
       .concat(trav.length?[["🤝 Ask a companion for help",()=>{closeCard();pick("Who helps you over the obstacle?",trav,i=>{const q=S.players[i];q.tokens++;p.pearls++;sfx("together");go(v+1,q.name+" helps "+p.name+" over “"+o.title+"” – together you walk on.")})},"opt"]]:[])
@@ -1967,6 +2029,17 @@ function gratMoment(p){const c=DK.gratitude.cards[draw("gratitude")];
     acts:[["Thank you ♡",()=>{closeCard();p.pearls++;chime("pearl");log(p.name+" feels grateful: "+c.title+".");refresh()}]]})}
 function meTime(p){openCard({th:"pearls",deck:"Me-time",title:"Time just for you",emb:emblem("sym","🕊"),text:"Taking time for yourself is part of the path. Breathe, stretch, have a sip of tea – the others wait with love.",prompt:(D3.upliftVibes?esc(D3.upliftVibes[Math.random()*D3.upliftVibes.length|0]):""),timer:60,reward:"+1 energy",
     acts:[["I took my time ✓",()=>{closeCard();energy(p,1);log(p.name+" takes some me-time.");refresh()}]]})}
+function teachCircle(p){S.helpedThisTurn.teach=1;const c=DK.teacher.cards[draw("teacher")];
+  openCard({th:{gem:"#c8507a"},deck:"The Teacher",corner:"A",title:"📖 "+esc(c.title),emb:"",html:`<div style="width:120px;margin:0 auto">${personSVG("teacher",LIGHT?"story":"light")}</div>`,text:esc(c.text),prompt:esc(c.prompt||""),reward:"Everyone who answers: +1 pearl · +1 Knowledge Token for "+esc(p.name),
+    acts:[["Everyone answered ✦",()=>{closeCard();S.players.forEach(q=>{if(q!==p)q.pearls++});p.tokens++;sfx("together");log(p.name+" (Teacher) shares wisdom – everyone who answers receives a pearl.");refresh()},"gold"],["Not now",()=>{S.helpedThisTurn.teach=0;closeCard()},"ghost"]]})}
+function playMoment(p){S.helpedThisTurn.play=1;const m=(D3.playMoments||["Laugh together for ten seconds!"]);const t=m[Math.floor(Math.random()*m.length)];
+  openCard({th:{gem:"#f0a020"},deck:"The Playful Child",corner:"A",title:"🎈 Let's play!",emb:"",html:`<div style="width:120px;margin:0 auto">${personSVG("child",LIGHT?"story":"light")}</div><div class="lyrics" style="font-size:1.2rem">${esc(t)}</div>`,prompt:"Life is a game – play it with love.",reward:"Everyone +1 energy · +1 Knowledge Token for "+esc(p.name),
+    acts:[["We played! 🎈",()=>{closeCard();S.players.forEach(q=>energy(q,1));p.tokens++;sfx("together");chime("pearl");log(p.name+" (Playful Child) invites everyone to play.");refresh()},"gold"],["Not now",()=>{S.helpedThisTurn.play=0;closeCard()},"ghost"]]})}
+const MAGIC_OBJ=["a silver key – a door opens","a feather – lightness returns","a small mirror – see your own strength","a star stone – your light is still there","a golden thread – you are connected","a little map – the next step becomes clear","a seed – something new can grow","a tiny bell – wake up, you are guided","a crystal – clarity comes","a warm blanket – rest, you are held","a compass – your heart knows the way","a candle – one small light is enough"];
+function magicObj(){return MAGIC_OBJ[Math.floor(Math.random()*MAGIC_OBJ.length)]}
+function magicGift(p,q){const g=magicObj();S.helpedThisTurn.magic=1;p.magicLeft--;p.tokens++;energy(q,2);sfx("together");log(p.name+" (Magician) gives "+q.name+" "+g+".");
+  openCard({th:{gem:"#3a4aa8"},deck:"The Magician",corner:"A",title:"A magic gift",emb:"",html:`<div style="width:130px;margin:0 auto">${personSVG("magician",LIGHT?"story":"light")}</div><div class="lyrics" style="font-size:1.15rem">${esc(q.name)} receives ${esc(g)}.</div>`,prompt:"Even in a crisis, help can come in an unexpected form. What small gift would help you right now?",reward:"+2 "+HSUN+" energy for "+esc(q.name)+" · +1 Knowledge Token",
+    acts:[["Thank you ✦",()=>{closeCard();refresh()},"gold"]]})}
 function guardianCard(p){const st=LIGHT?"story":"light";
   openCard({th:{gem:"#2a8a9a"},deck:"Once per journey",corner:"A",title:"The Guardian",emb:"",html:`<div style="width:150px;margin:0 auto">${personSVG("guardian",st)}</div><div class="lyrics" style="font-size:1.15rem">“You are not alone in this. I stand beside you.”</div>`,
     text:"Call the Guardian whenever times feel hard. You receive +2 energy – and when the next obstacle comes, the Guardian stands beside you and you walk on.",
@@ -1994,9 +2067,9 @@ function finale(){
 let libSel="gates";
 function mini(k,title,t,p,emb,th,cn){const tm=theme(th);const ds=(typeof libSel!=="undefined"&&DK[libSel])?deckSym(libSel):(libSel==="gates"?"⛩":libSel==="dots"?"✦":"");return `<div class="mcard"><div class="in ${tm.light?"light":""} ${tm.rb?"rb":""}" style="${themeStyle(th)}">${cornerHTML(ds,cn)}<div class="k">${k}</div><h4>${title}</h4>${emb.replace('class="emb"','')}<div class="t">${t}</div>${p?`<div class="p">${p}</div>`:""}</div></div>`}
 function renderCards(){
-  const chips=[["onwords"],["living"],["rise"],["laws"],["sun"],["wheel"],["wings2"],["balance"],["crystals"],["magic"],["walk"],["emotions"],["love"],["herenow"],["possibilities"],["canvas"],["breath"],["chalice"],["guides"],["teacher"],["again"],["dots","40 Questions"],["funny"],["journeys"],["obstacles"],["chambers"],["gates","13 Gates"],["core","Core Keys"],["shine"],["gratitude"],["planets"],["wings"],["signs"],["elevator"],["film"],["helping"],["held"],["comm"],["radiate"],["numwis"],["recharge"],["lightenergy"],["moments"],["chests"],["bridge"],["treasures"],["choice"],["insight"],["pearls"],["animals"],["colors"],["prayers"],["together"],["steps"],["loops"]];
+  const chips=[["onwords"],["living"],["rise"],["laws"],["sun"],["wheel"],["wings2"],["balance"],["crystals"],["magic"],["walk"],["emotions"],["love"],["herenow"],["possibilities"],["canvas"],["breath"],["chalice"],["guides"],["teacher"],["again"],["dots","40 Questions"],["funny"],["journeys"],["obstacles"],["chambers"],["gates","13 Gates"],["core","Core Keys"],["shine"],["gratitude"],["planets"],["wings"],["signs"],["elevator"],["film"],["helping"],["held"],["comm"],["radiate"],["numwis"],["recharge"],["lightenergy"],["riddles"],["moments"],["chests"],["bridge"],["treasures"],["choice"],["insight"],["pearls"],["animals"],["colors"],["prayers"],["together"],["steps"],["loops"]];
   const chipsOk=chips.filter(([k])=>k==="gates"||k==="core"||(k==="dots"?D2.dots:DK[k]));
-  const GROUPS=[["✦ The Path",["onwords","living","rise","laws","balance","sun","magic","walk","emotions","herenow","possibilities","canvas","breath","chalice","again","gates","core","dots","choice","insight","pearls","steps","loops","stones"]],["♡ Heart & Soul",["prayers","held","radiate","bridge","numwis","colors","animals","shine","gratitude","recharge","lightenergy"]],["∞ Together",["love","guides","teacher","together","comm","helping","film","moments"]],["✧ Surprises & Riddles",["wheel","wings2","crystals","funny","obstacles","chambers","journeys","chests","wings","signs","elevator","planets","treasures"]]];
+  const GROUPS=[["✦ The Path",["onwords","living","rise","laws","balance","sun","magic","walk","emotions","herenow","possibilities","canvas","breath","chalice","again","gates","core","dots","choice","insight","pearls","steps","loops","stones"]],["♡ Heart & Soul",["prayers","held","radiate","bridge","numwis","colors","animals","shine","gratitude","recharge","lightenergy"]],["∞ Together",["riddles","love","guides","teacher","together","comm","helping","film","moments"]],["✧ Surprises & Riddles",["wheel","wings2","crystals","funny","obstacles","chambers","journeys","chests","wings","signs","elevator","planets","treasures"]]];
   const okSet=new Set(chipsOk.map(c=>c[0])),nm=Object.fromEntries(chipsOk.map(([k,n])=>[k,n]));
   const btn=k=>`<button class="${k===libSel?"on":""}" data-k="${k}">${nm[k]||(DK[k]?DK[k].name:k)} ${k!=="gates"&&k!=="core"&&k!=="dots"?"<span style='opacity:.6'>"+DK[k].cards.length+"</span>":""}</button>`;
   const placed=new Set();
@@ -2042,6 +2115,7 @@ function renderCards(){
     if(libSel==="guides")return mini(d.name+" · "+esc(c.kind),esc(c.title),esc(c.text),esc(c.prompt),emblem("sym","🕊"),{gem:"#9a7ac8"});
     if(libSel==="teacher")return mini(d.name,esc(c.title),esc(c.text),esc(c.prompt),emblem("sym","✎"),{gem:"#c88a3a"});
     if(libSel==="again")return mini(d.name,esc(c.title),esc(c.text),esc(c.prompt),emblem("sym","↻"),{gem:"#5a9a6a"});
+    if(libSel==="riddles")return mini(d.name,c.icon+" "+esc(c.title),esc(c.text),c.kind==="riddle"?"Answer · "+esc(c.answer):"Team challenge",emblem("sym",c.icon),{gem:"#8a6ad0"});
     if(libSel==="lightenergy")return mini(d.name,c.icon+" "+esc(c.title),esc(c.text),"",emblem("sym","⚡"),{gem:"#e0a82e"});
     if(libSel==="herenow")return mini(d.name,esc(c.title),esc(c.text),esc(c.prompt),emblem("sym","◉"),{gem:"#5a9ac8"});
     if(libSel==="possibilities")return mini(d.name,esc(c.title),"<span style='opacity:.7'>Fear: "+esc(c.fear)+"</span><br><b>Open: "+esc(c.open)+"</b>",esc(c.prompt),emblem("sym","✺"),{gem:"#e8b83a"});
